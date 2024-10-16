@@ -779,14 +779,14 @@ class Easy_Accordion_Free_Help {
 							</a>
 							<a target="_blank" href="https://wooproductslider.io/" class="spea-our-plugin-list-box">
 								<i class="spea-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/woo-product-slider/assets/icon-256x256.png" alt="">
+								<img src="https://ps.w.org/woo-product-slider/assets/icon-256x256.png" alt="Product Slider for WooCommerce">
 								<h4>Product Slider for WooCommerce</h4>
 								<p>Boost sales by interactive product Slider, Grid, and Table in your WooCommerce website or store.</p>
 							</a>
 							<a target="_blank" class="spea-our-plugin-list-box" href="https://woogallery.io">
 								<i class="spea-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/gallery-slider-for-woocommerce/assets/icon-256x256.gif" alt="">
-								<h4>Gallery Slider for WooCommerce</h4>
+								<img src="https://ps.w.org/gallery-slider-for-woocommerce/assets/icon-256x256.gif" alt="WooGallery">
+								<h4>WooGallery</h4>
 								<p>Product gallery slider and additional variation images gallery for WooCommerce and boost your sales.</p>
 							</a>
 							<a target="_blank" class="spea-our-plugin-list-box" href="https://getwpteam.com/">
@@ -807,10 +807,10 @@ class Easy_Accordion_Free_Help {
 								<h4>Easy Accordion</h4>
 								<p>Minimize customer support by offering comprehensive FAQs and increasing conversions.</p>
 							</a>
-							<a target="_blank" class="spea-our-plugin-list-box" href="https://shapedplugin.com/plugin/woocommerce-category-slider-pro/">
+							<a target="_blank" class="spea-our-plugin-list-box" href="https://shapedplugin.com/woocategory/">
 								<i class="spea-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/woo-category-slider-grid/assets/icon-256x256.png" alt="">
-								<h4>Category Slider for WooCommerce</h4>
+								<img src="https://ps.w.org/woo-category-slider-grid/assets/icon-256x256.png" alt="WooCategory">
+								<h4>WooCategory</h4>
 								<p>Display by filtering the list of categories aesthetically and boosting sales.</p>
 							</a>
 							<a target="_blank" class="spea-our-plugin-list-box" href="https://wptabs.com/">
@@ -825,10 +825,10 @@ class Easy_Accordion_Free_Help {
 								<h4>Quick View for WooCommerce</h4>
 								<p>Quickly view product information with smooth animation via AJAX in a nice Modal without opening the product page.</p>
 							</a>
-							<a target="_blank" class="spea-our-plugin-list-box" href="https://shapedplugin.com/plugin/smart-brands-for-woocommerce/">
+							<a target="_blank" class="spea-our-plugin-list-box" href="https://shapedplugin.com/smart-brands/">
 								<i class="spea-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/smart-brands-for-woocommerce/assets/icon-256x256.png" alt="">
-								<h4>Smart Brands for WooCommerce</h4>
+								<img src="https://ps.w.org/smart-brands-for-woocommerce/assets/icon-256x256.png" alt="Smart Brands">
+								<h4>Smart Brands</h4>
 								<p>Smart Brands for WooCommerce Pro helps you display product brands in an attractive way on your online store.</p>
 							</a>
 						</div>

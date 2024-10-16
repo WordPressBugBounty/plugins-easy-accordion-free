@@ -213,7 +213,7 @@ SP_EAP::createSection(
 				'title_info' => sprintf(
 					'<div class="ea-info-label">%s</div> <div class="ea-short-content">%s</div>',
 					__( 'Accordion Layout', 'easy-accordion-free' ),
-					__( 'Accordion Layout determines how accordion information is displayed, with choices like vertical, horizontal, or multi column layouts.', 'easy-accordion-free' ),
+					__( 'Accordion Layout determines how accordion information is displayed, with choices like vertical, horizontal, or multi column layouts.', 'easy-accordion-free' )
 				),
 				'desc'       => sprintf(
 					/* translators: 1: start link tag, 2: close tag. */
@@ -222,7 +222,7 @@ SP_EAP::createSection(
 						'easy-accordion-free'
 					),
 					'<a href="https://easyaccordion.io/pricing/" target="_blank"><strong>',
-					'</strong></a>',
+					'</strong></a>'
 				),
 				'default'    => 'vertical',
 			),
@@ -240,7 +240,7 @@ SP_EAP::createSection(
 						'easy-accordion-free'
 					),
 					'<a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"> <b>',
-					'</b></a>',
+					'</b></a>'
 				),
 				'options'    => array(
 					'sp-ea-one'                       => __( 'Default Theme', 'easy-accordion-free' ),
@@ -367,7 +367,7 @@ SP_EAP::createSection(
 					'<div class="ea-info-label">%s</div> <div class="ea-short-content">%s</div><div class="info-button"><a class="ea-open-docs" href="https://docs.shapedplugin.com/docs/easy-accordion-pro/configurations/how-to-enable-accordion-scrolling-to-active-item/" target="_blank">%s</a></div>',
 					__( 'Scroll to Active Item', 'easy-accordion-free' ),
 					__( 'This option allows automatic scrolling to the active accordion item. This provides a smoother and more user-friendly experience when navigating through accordion faqs section.', 'easy-accordion-free' ),
-					__( 'Open Docs', 'easy-accordion-free' ),
+					__( 'Open Docs', 'easy-accordion-free' )
 				),
 			),
 			array(
@@ -385,7 +385,7 @@ SP_EAP::createSection(
 					__( 'Schema Markup', 'easy-accordion-free' ),
 					__( 'Schema Markup', 'easy-accordion-free' ),
 					__( 'adds structured data to your Accordion FAQs, enhancing search engine visibility and improving the display of your Accordion FAQs in search results.', 'easy-accordion-free' ),
-					__( 'Open Docs', 'easy-accordion-free' ),
+					__( 'Open Docs', 'easy-accordion-free' )
 				),
 			),
 			array(
@@ -479,7 +479,7 @@ SP_EAP::createSection(
 						'easy-accordion-free'
 					),
 					'<a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>',
-					'</b></a>',
+					'</b></a>'
 				),
 			),
 			array(
@@ -663,7 +663,7 @@ SP_EAP::createSection(
 						'easy-accordion-free'
 					),
 					'<a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>',
-					'</b></a>',
+					'</b></a>'
 				),
 			),
 			array(
@@ -786,7 +786,7 @@ SP_EAP::createSection(
 						'easy-accordion-free'
 					),
 					'<a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>',
-					'</b></a>',
+					'</b></a>'
 				),
 			),
 			array(
@@ -808,7 +808,7 @@ SP_EAP::createSection(
 					'<div class="ea-info-label">%s</div> <div class="ea-short-content">%s</div><div class="info-button"><a class="ea-open-live-demo" href="https://easyaccordion.io/accordion-animation/" target="_blank">%s</a></div>',
 					__( 'Animation', 'easy-accordion-free' ),
 					__( 'The Animation option allows you to control the accordion animation. Customize the visual experience of accordion transitions according to your preference.', 'easy-accordion-free' ),
-					__( 'Live Demo', 'easy-accordion-free' ),
+					__( 'Live Demo', 'easy-accordion-free' )
 				),
 			),
 			array(
@@ -972,7 +972,7 @@ SP_EAP::createSection(
 					'<a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"> <b>',
 					'</b></a>',
 					'<b>',
-					'</b>',
+					'</b>'
 				),
 			),
 			array(
