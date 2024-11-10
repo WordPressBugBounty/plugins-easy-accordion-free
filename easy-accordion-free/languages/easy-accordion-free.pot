@@ -1,8 +1,7 @@
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Easy Accordion v2.3.7\n"
-"POT-Creation-Date: 2024-09-16 17:07+0600\n"
+"Project-Id-Version: Easy Accordion v2.3.10\n"
+"POT-Creation-Date: 2024-11-07 16:25+0600\n"
 "PO-Revision-Date: 2022-03-09 18:59+0600\n"
 "Last-Translator: \n"
 "Language-Team: ShapedPlugin - support@shapedplugin.com\n"
@@ -123,31 +122,31 @@ msgstr ""
 msgid "Get Help"
 msgstr ""
 
-#: admin/help-page/help-page.php:258
+#: admin/help-page/help-page.php:259
 msgid "Activate"
 msgstr ""
 
-#: admin/help-page/help-page.php:265
+#: admin/help-page/help-page.php:266
 msgid "Install Now"
 msgstr ""
 
-#: admin/help-page/help-page.php:271
+#: admin/help-page/help-page.php:272
 msgid "More Details"
 msgstr ""
 
-#: admin/help-page/help-page.php:303
+#: admin/help-page/help-page.php:304
 msgid "Version:"
 msgstr ""
 
-#: admin/help-page/help-page.php:312
+#: admin/help-page/help-page.php:313
 msgid "+ Active Installations"
 msgstr ""
 
-#: admin/help-page/help-page.php:320
+#: admin/help-page/help-page.php:321
 msgid "Last Updated:"
 msgstr ""
 
-#: admin/help-page/help-page.php:321
+#: admin/help-page/help-page.php:322
 #, php-format
 msgid "%s ago"
 msgstr ""
@@ -1449,19 +1448,19 @@ msgstr ""
 msgid "Upgrade to Pro!"
 msgstr ""
 
-#: admin/views/option-config.php:207
+#: admin/views/option-config.php:208
 msgid "Custom CSS & JS"
 msgstr ""
 
-#: admin/views/option-config.php:213
+#: admin/views/option-config.php:214
 msgid "Custom CSS"
 msgstr ""
 
-#: admin/views/option-config.php:223
+#: admin/views/option-config.php:224
 msgid "Custom JS"
 msgstr ""
 
-#: admin/views/option-config.php:238
+#: admin/views/option-config.php:239
 msgid "License Key"
 msgstr ""
 
