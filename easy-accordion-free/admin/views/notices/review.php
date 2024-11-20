@@ -61,7 +61,7 @@ class Easy_Accordion_Free_Review {
 				<p class="sp-eafree-review-actions">
 					<a href="https://wordpress.org/support/plugin/easy-accordion-free/reviews/?filter=5#new-post" target="_blank" class="button button-primary notice-dismissed rate-easy-accordion">Ok, you deserve ★★★★★</a>
 					<a href="#" class="notice-dismissed remind-me-later"><span class="dashicons dashicons-clock"></span>Nope, maybe later
-</a>
+					</a>
 					<a href="#" class="notice-dismissed never-show-again"><span class="dashicons dashicons-dismiss"></span>Never show again</a>
 				</p>
 			</div>

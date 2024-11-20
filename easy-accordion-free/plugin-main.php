@@ -5,7 +5,7 @@
  * Description: The best Responsive and Touch-friendly drag & drop <strong>Accordion FAQ</strong> builder plugin for WordPress.
  * Author:      ShapedPlugin LLC
  * Author URI:  https://shapedplugin.com/
- * Version:     2.3.11
+ * Version:     2.3.12
  * Text Domain: easy-accordion-free
  * Domain Path: /languages/
  *
@@ -51,7 +51,7 @@ class SP_EASY_ACCORDION_FREE {
 	 *
 	 * @var string
 	 */
-	public $version = '2.3.11';
+	public $version = '2.3.12';
 
 	/**
 	 * The name of the plugin.
@@ -195,6 +195,10 @@ class SP_EASY_ACCORDION_FREE {
 
 		$this->loader->add_action( 'admin_notices', $plugin_review_notice, 'display_admin_notice' );
 		$this->loader->add_action( 'wp_ajax_sp-eafree-never-show-review-notice', $plugin_review_notice, 'dismiss_review_notice' );
+		// Admin offer banner.
+		$plugin_offer_banner = new Easy_Accordion_Free_Offer_Banner( SP_PLUGIN_NAME, SP_EA_VERSION );
+		$this->loader->add_action( 'admin_notices', $plugin_offer_banner, 'display_admin_offer_banner' );
+		$this->loader->add_action( 'wp_ajax_sp_eafree-hide-offer-banner', $plugin_offer_banner, 'dismiss_offer_banner' );
 	}
 
 	/**
@@ -233,6 +237,7 @@ class SP_EASY_ACCORDION_FREE {
 		require_once SP_EA_PATH . '/admin/views/option-config.php';
 		require_once SP_EA_PATH . '/admin/views/tools-config.php';
 		require_once SP_EA_PATH . '/admin/views/notices/review.php';
+		require_once SP_EA_PATH . '/admin/views/notices/offer-banner.php';
 		require_once SP_EA_PATH . '/public/views/class-easy-accordion-free-shortcode.php';
 		require_once SP_EA_PATH . '/includes/class-easy-accordion-import-export.php';
 		require_once SP_EA_PATH . '/admin/preview/class-easy-accordion-free-preview.php';
