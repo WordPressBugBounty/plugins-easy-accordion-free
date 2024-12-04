@@ -14,6 +14,7 @@ if ( true === ( $settings['eap_data_remove'] ) ) {
 	$wpdb->query( 'DELETE FROM wp_term_relationships WHERE object_id NOT IN (SELECT id FROM wp_posts)' );
 
 	// Remove option.
+	delete_option( 'sp_eap_flush_rewrite_rules' );
 	delete_option( 'sp_eap_settings' );
 	delete_option( 'sp_eafree_review_notice_dismiss' );
 	delete_option( '_transient_timeout_sp-eap-framework-transient' );
@@ -28,4 +29,7 @@ if ( true === ( $settings['eap_data_remove'] ) ) {
 	delete_site_option( '_transient_spf-eap-framework-transient' );
 	delete_site_option( '_transient_timeout_eapro-metabox-transient' );
 	delete_site_option( '_transient_eapro-metabox-transient' );
+} else {
+	update_option( 'sp_eap_flush_rewrite_rules', false );
 }
+

@@ -23,20 +23,21 @@ $prefix = 'sp_eap_settings';
 SP_EAP::createOptions(
 	$prefix,
 	array(
-		'menu_title'       => __( 'Settings', 'easy-accordion-free' ),
-		'menu_slug'        => 'eap_settings',
-		'menu_parent'      => 'edit.php?post_type=sp_easy_accordion',
-		'menu_type'        => 'submenu',
-		'ajax_save'        => true,
-		'show_bar_menu'    => false,
-		'save_defaults'    => true,
-		'show_reset_all'   => false,
-		'show_all_options' => false,
-		'show_search'      => false,
-		'show_footer'      => false,
-		'framework_title'  => __( 'Settings', 'easy-accordion-free' ),
-		'framework_class'  => 'sp-eap-options',
-		'theme'            => 'light',
+		'menu_title'              => __( 'Settings', 'easy-accordion-free' ),
+		'menu_slug'               => 'eap_settings',
+		'menu_parent'             => 'edit.php?post_type=sp_easy_accordion',
+		'menu_type'               => 'submenu',
+		'ajax_save'               => true,
+		'show_bar_menu'           => false,
+		'save_defaults'           => true,
+		'show_reset_all'          => false,
+		'show_all_options'        => false,
+		'show_search'             => false,
+		'show_footer'             => false,
+		'framework_title'         => __( 'Settings', 'easy-accordion-free' ),
+		'framework_class'         => 'sp-eap-options',
+		'theme'                   => 'light',
+		'admin_bar_menu_priority' => 50,
 	)
 );
 
@@ -46,7 +47,7 @@ SP_EAP::createOptions(
 SP_EAP::createSection(
 	$prefix,
 	array(
-		'title'  => __( 'Advanced', 'easy-accordion-free' ),
+		'title'  => __( 'Advanced Controls', 'easy-accordion-free' ),
 		'icon'   => 'fa fa-wrench',
 		'fields' => array(
 			array(
@@ -77,11 +78,6 @@ SP_EAP::createSection(
 		'title'  => __( 'WooCommerce FAQs', 'easy-accordion-free' ),
 		'icon'   => 'fa fa-shopping-cart',
 		'fields' => array(
-			// array(
-			// 'type'    => 'submessage',
-			// 'content' => __( 'Note: <a href="https://wordpress.org/plugins/woocommerce/" target="_blank">WooCommerce</a> is required to use this feature.', 'easy-accordion-free' ),
-			// 'style'   => 'warning',
-			// ),
 			array(
 				'id'         => 'eap_woo_faq',
 				'type'       => 'switcher',
@@ -191,7 +187,7 @@ SP_EAP::createSection(
 			),
 			array(
 				'type'       => 'notice', /* translators: 1: start link tag, 2: close tag. */
-				'content'    => sprintf( __( 'Want to add %1$scustom FAQs%2$s tab to your specific products page to increase sales?', 'easy-accordion-free' ), '<a href="https://easyaccordion.io/product/ninja-t-shirt/#product-56" target="_blank"><b>', '</b></a>' ) . ' <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>' . __( 'Upgrade to Pro!', 'easy-accordion-free' ) . '</b></a>',
+				'content'    => sprintf( __( 'Want to add %1$sWooCommerce Product FAQs Tab%2$s product page to Increase Sales & Reduce Returns?', 'easy-accordion-free' ), '<a href="https://easyaccordion.io/product/ninja-t-shirt/#product-56" target="_blank"><b>', '</b></a>' ) . ' <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>' . __( 'Upgrade to Pro!', 'easy-accordion-free' ) . '</b></a>',
 				'dependency' => array( 'eap_woo_faq', '==', 'true' ),
 			),
 		),

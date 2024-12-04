@@ -49,7 +49,7 @@ class Easy_Accordion_Free_Admin {
 	public function enqueue_admin_styles() {
 		$current_screen        = get_current_screen();
 		$the_current_post_type = $current_screen->post_type;
-		if ( 'sp_easy_accordion' === $the_current_post_type ) {
+		if ( 'sp_easy_accordion' === $the_current_post_type || 'sp_accordion_faqs' === $the_current_post_type ) {
 			wp_enqueue_style( 'sp-ea-fontello-icons' );
 			wp_enqueue_style( 'sp-ea-style' );
 
@@ -123,7 +123,7 @@ class Easy_Accordion_Free_Admin {
 	 */
 	public function sp_eap_review_text( $text ) {
 		$screen = get_current_screen();
-		if ( 'sp_easy_accordion' === $screen->post_type ) {
+		if ( 'sp_easy_accordion' === $screen->post_type || 'sp_accordion_faqs' === $screen->post_type ) {
 			$url  = 'https://wordpress.org/support/plugin/easy-accordion-free/reviews/?filter=5';
 			$text = sprintf( wp_kses_post( 'Enjoying <strong>Easy Accordion?</strong> Please rate us <span class="spea-footer-text-star">★★★★★</span> <a href="%s" target="_blank">WordPress.org.</a> Your positive feedback will help us grow more. Thank you! 😊', 'easy-accordion-free' ), $url );
 		}

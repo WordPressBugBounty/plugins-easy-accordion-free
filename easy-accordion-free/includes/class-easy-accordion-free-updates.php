@@ -31,6 +31,7 @@ class Easy_Accordion_Free_Updates {
 		'2.0.7'  => 'updates/update-2.0.7.php',
 		'2.1.14' => 'updates/update-2.1.14.php',
 		'2.3.0'  => 'updates/update-2.3.0.php',
+		'3.0.0'  => 'updates/update-3.0.0.php',
 	);
 
 	/**
@@ -107,8 +108,6 @@ class Easy_Accordion_Free_Updates {
 		}
 
 		update_option( 'easy_accordion_free_version', SP_EA_VERSION );
-
 	}
-
 }
 new Easy_Accordion_Free_Updates();

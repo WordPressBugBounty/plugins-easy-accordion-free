@@ -55,7 +55,6 @@ class Easy_Accordion_Free_Loader {
 		$this->actions    = array();
 		$this->filters    = array();
 		$this->shortcodes = array();
-
 	}
 
 	/**
@@ -126,7 +125,6 @@ class Easy_Accordion_Free_Loader {
 		);
 
 		return $hooks;
-
 	}
 
 	/**
@@ -147,7 +145,5 @@ class Easy_Accordion_Free_Loader {
 		foreach ( $this->shortcodes as $hook ) {
 			add_shortcode( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 		}
-
 	}
-
 }

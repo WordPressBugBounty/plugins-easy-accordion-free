@@ -23,21 +23,22 @@ $prefix = 'sp_eap_tools';
 SP_EAP::createOptions(
 	$prefix,
 	array(
-		'menu_title'       => __( 'Tools', 'easy-accordion-free' ),
-		'menu_slug'        => 'eap_tools',
-		'menu_parent'      => 'edit.php?post_type=sp_easy_accordion',
-		'menu_type'        => 'submenu',
-		'ajax_save'        => false,
-		'show_bar_menu'    => false,
-		'save_defaults'    => false,
-		'show_reset_all'   => false,
-		'show_all_options' => false,
-		'show_search'      => false,
-		'show_footer'      => false,
-		'show_buttons'     => false, // Custom show button option added for hide save button in tools page.
-		'framework_title'  => __( 'Tools', 'easy-accordion-free' ),
-		'framework_class'  => 'sp-eap-options eap_tools',
-		'theme'            => 'light',
+		'menu_title'              => __( 'Tools', 'easy-accordion-free' ),
+		'menu_slug'               => 'eap_tools',
+		'menu_parent'             => 'edit.php?post_type=sp_easy_accordion',
+		'menu_type'               => 'submenu',
+		'ajax_save'               => false,
+		'show_bar_menu'           => false,
+		'save_defaults'           => false,
+		'show_reset_all'          => false,
+		'show_all_options'        => false,
+		'show_search'             => false,
+		'show_footer'             => false,
+		'show_buttons'            => false, // Custom show button option added for hide save button in tools page.
+		'framework_title'         => __( 'Tools', 'easy-accordion-free' ),
+		'framework_class'         => 'sp-eap-options eap_tools',
+		'theme'                   => 'light',
+		'admin_bar_menu_priority' => 65,
 	)
 );
 SP_EAP::createSection(
@@ -53,10 +54,11 @@ SP_EAP::createSection(
 				'title'    => __( 'Choose What To Export', 'easy-accordion-free' ),
 				'multiple' => false,
 				'options'  => array(
+					'all_faqs'            => __( 'All FAQs', 'easy-accordion-free' ),
 					'all_shortcodes'      => __( 'All Accordion Groups', 'easy-accordion-free' ),
 					'selected_shortcodes' => __( 'Selected Accordion Groups', 'easy-accordion-free' ),
 				),
-				'default'  => 'all_shortcodes',
+				'default'  => 'all_faqs',
 			),
 			array(
 				'id'          => 'eap_post',

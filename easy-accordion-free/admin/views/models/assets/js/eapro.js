@@ -2058,6 +2058,40 @@
 
 		});
 	};
+	//
+	// Field: tabbed
+	//
+	$.fn.eapro_field_tabbed = function () {
+		return this.each(function () {
+			var $this = $(this),
+				$links = $this.find('.eapro-tabbed-nav a'),
+				$sections = $this.find('.eapro-tabbed-section');
+
+			$links.on('click', function (e) {
+				e.preventDefault();
+
+				var $link = $(this),
+					index = $link.index(),
+					$section = $sections.eq(index);
+
+				// Store the active tab index in a cookie
+				SP_EAP.helper.set_cookie('activeTabIndex', index);
+
+				$link.addClass('eapro-tabbed-active').siblings().removeClass('eapro-tabbed-active');
+				$section.eapro_reload_script();
+				$section.removeClass('hidden').siblings().addClass('hidden');
+			});
+			// Check if there's a stored active tab index in the cookie
+			var activeTabIndex = SP_EAP.helper.get_cookie('activeTabIndex');
+			// Check if the cookie exists
+			if (activeTabIndex !== null) {
+				$links.eq(activeTabIndex).trigger('click');
+			} else {
+				$links.first().trigger('click');
+			}
+
+		});
+	};
 
 	//
 	// Helper Checkbox Checker
@@ -2123,7 +2157,9 @@
 				$tooltip,
 				$class = '';
 			$this.on({
-				mouseenter: function () {
+				mouseenter: function (e) {
+					e.stopPropagation();
+					$('.eapro-tooltip').remove();
 					// this class add with the support tooltip.
 					if ($this.find('.ea-support').length > 0) {
 						$class = 'support-tooltip';
@@ -2305,6 +2341,7 @@
 				$this.children('.eapro-field-switcher').eapro_field_switcher();
 				$this.children('.eapro-field-typography').eapro_field_typography();
 				$this.children('.eapro-field-wp_editor').eapro_field_wp_editor();
+				$this.children('.eapro-field-tabbed').eapro_field_tabbed();
 
 				// Field colors
 				$this.children('.eapro-field-border').find('.eapro-color').eapro_color();
@@ -2430,42 +2467,65 @@
 	$('.eap_export .eapro--button').on('click', function (event) {
 		event.preventDefault();
 		var $accordion_ids = $('.eap_post_ids select').val();
-		var $accordion_ids_type = 'all_shortcodes' === $export_type ? 'all_shortcodes' : $accordion_ids;
 		var $ex_nonce = $('#eapro_options_noncesp_eap_tools').val();
-		if ('all_shortcodes' === $export_type || 'selected_shortcodes' === $export_type) {
-			var data = {
-				action: 'eap_export_accordions',
-				eap_ids: $accordion_ids_type,
-				nonce: $ex_nonce,
-			}
-			$.post(ajaxurl, data, function (resp) {
-				if (resp) {
-					// Convert JSON Array to string.
-					if (isValidJSONString(resp)) {
-						var json = JSON.stringify(JSON.parse(resp));
-					} else {
-						var json = JSON.stringify(resp);
-					}
-					// Convert JSON string to BLOB.
-					var blob = new Blob([json], { type: 'application/json' });
-					var link = document.createElement('a');
-					var eap_time = $.now();
-					link.href = window.URL.createObjectURL(blob);
-					link.download = "easy-accordion-export-" + eap_time + ".json";
-					link.click();
-					$('.eapro-form-result.eapro-form-success').text('Exported successfully!').show();
-					setTimeout(function () {
-						$('.eapro-form-result.eapro-form-success').hide().text('');
-						$('.eap_post_ids select').val('').trigger('chosen:updated');
-					}, 3000);
-				}
-			});
-		} else {
-			$('.eapro-form-result.eapro-form-success').text('No accordion group selected.').show();
+		var data = {
+			action: 'eap_export_accordions',
+			nonce: $ex_nonce,
+		};
+
+		// Function to show success/error messages
+		function showMessage(message, type = 'success', duration = 3000) {
+			var $result = $('.spf-form-result.spf-form-' + type);
+			$result.text(message).show();
 			setTimeout(function () {
-				$('.eapro-form-result.eapro-form-success').hide().text('');
-			}, 3000);
+				$result.hide().text('');
+			}, duration);
 		}
+
+		// Switch between export types
+		switch ($export_type) {
+			case 'selected_shortcodes':
+				if (!$accordion_ids || $accordion_ids.length === 0) {
+					showMessage('No shortcodes selected.', 'error');
+					break;
+				}
+				data.eap_ids = $accordion_ids;
+				break;
+
+			case 'all_shortcodes':
+				data.eap_ids = 'all_shortcodes';
+				break;
+
+			case 'all_faqs':
+				data.eap_ids = 'all_faqs';
+				break;
+
+			default:
+				showMessage('No group selected.', 'error');
+				return; // Exit early since no valid selection was made
+		}
+		$.post(ajaxurl, data, function (resp) {
+			if (resp) {
+				// Convert JSON Array to string.
+				if (isValidJSONString(resp)) {
+					var json = JSON.stringify(JSON.parse(resp));
+				} else {
+					var json = JSON.stringify(resp);
+				}
+				// Convert JSON string to BLOB.
+				var blob = new Blob([json], { type: 'application/json' });
+				var link = document.createElement('a');
+				var eap_time = $.now();
+				link.href = window.URL.createObjectURL(blob);
+				link.download = "easy-accordion-export-" + eap_time + ".json";
+				link.click();
+				// Show success message and reset form
+				showMessage('Exported successfully!', 'success');
+				setTimeout(function () {
+					$('.eap_post_ids select').val('').trigger('chosen:updated');
+				}, 3000);
+			}
+		});
 	});
 	// Accordion import.
 	$('.eap_import button.import').on('click', function (event) {
@@ -2500,7 +2560,11 @@
 						setTimeout(function () {
 							$('.eapro-form-result.eapro-form-success').hide().text('');
 							$('#import').val('');
-							window.location.replace($('#eap_link_redirect').attr('href'));
+							if (resp.data === 'sp_accordion_faqs') {
+								window.location.replace($('#eap_faqs_link_redirect').attr('href'));
+							} else {
+								window.location.replace($('#eap_link_redirect').attr('href'));
+							}
 						}, 2000);
 					},
 					error: function (error) {
@@ -2535,31 +2599,39 @@
 
 	$(document).on('click', '#sp__eap-show-preview:not(:contains(Hide))', function (e) {
 		e.preventDefault();
-		var _data = $('form#post').serialize();
-		var _this = $(this);
-		var data = {
+		const { collapse, script } = window.eapro_vars.previewJS;
+		const data = {
 			action: 'sp_eap_preview_meta_box',
-			data: _data,
-			ajax_nonce: $('#eapro_metabox_noncesp_eap_live_preview').val()
+			data: $('form#post').serialize(),
+			ajax_nonce: $('#eapro_metabox_noncesp_eap_live_preview').val(),
 		};
+		const $this = $(this);
 		$.ajax({
 			type: "POST",
 			url: ajaxurl,
 			data: data,
-			error: function (response) {
-				console.log(response)
+			error: (response) => {
+				console.error('Error:', response);
+				alert('An error occurred while loading the preview.');
 			},
-			success: function (response) {
+			success: (response) => {
 				preview_display.show();
 				preview_box.html(response);
-				_this.html('<i class="fa fa-eye-slash" aria-hidden="true"></i> Hide Preview');
-				$(document).on('keyup change', function (e) {
-					e.preventDefault();
-					_this.html('<i class="fa fa-refresh" aria-hidden="true"></i> Update Preview');
-				});
-				$("html, body").animate({ scrollTop: preview_display.offset().top - 50 }, "slow");
+				// Load the preview scripts in sequence
+				$.getScript(collapse)
+					.done(() => {
+						return $.getScript(script);
+					})
+					.done(() => {
+						$this.html('<i class="fa fa-eye-slash" aria-hidden="true"></i> Hide Preview');
+						$(document).on('keyup change', () => {
+							$this.html('<i class="fa fa-refresh" aria-hidden="true"></i> Update Preview');
+						});
+						// Scroll smoothly to the preview display
+						$("html, body").animate({ scrollTop: preview_display.offset().top - 50 }, "slow");
+					})
 			}
-		})
+		});
 	});
 
 	$(document).on('keyup change', '.sp-eap-options #eapro-form', function (e) {
@@ -2572,38 +2644,23 @@
 		$(this).css({ "background-color": "#C5C5C6", "pointer-events": "none" }).val('Changes Saved');
 	})
 
-	// Theme preview.
-	function updateThemePreviewImage(selector, regex, type) {
-		var str = "";
-		$(selector + ' option:selected').each(function () {
-			str = $(this).val();
-		});
-		var src = $(selector + ' .eapro-fieldset img').attr('src');
-		var result = src.match(regex);
-		if (result && result[1]) {
-			src = src.replace(result[1], str);
-			$(selector + ' .eapro-fieldset img').attr('src', src);
-		}
-		if (type.includes(str)) {
-			$(selector + ' .eap-pro-notice').hide();
-			$(selector + ' .theme_preview').css('opacity', '1');
-		} else {
-			var noticeText = "This is a <a href='https://easyaccordion.io/pricing/' target='_blank'>Pro Theme!</a>";
-			$(selector + ' .eap-pro-notice').html(noticeText).show();
-			$(selector + ' .theme_preview').css('opacity', '.6');
-		}
-	}
-	if ($('.sp_eap_accordion_theme').length > 0) {
-		updateThemePreviewImage(".sp_eap_accordion_theme", /theme-preview\/(.+)\.svg/, 'sp-ea-one');
-		$('.sp_eap_accordion_theme').on('change', function () {
-			updateThemePreviewImage(".sp_eap_accordion_theme", /theme-preview\/(.+)\.svg/, 'sp-ea-one');
-		});
-	}
+	$(document).on('click', '#sp_eap_shortcode_options .eapro-nav li a', function (event) {
+		event.stopPropagation();
+		$('.eap-display-tabs .eapro-tabbed-nav a:nth-child(1)').trigger('click');
+	})
 
 	// Get the select element
 	var selectElement = $('.only-select-for-pro');
 	// Add 'disabled' attribute to options containing '(Pro)' and set opacity to 0.9
 	selectElement.find('option:contains("(Pro)")').prop({
 		'disabled': true
+	});
+
+	$('.eapro-live-demo-icon').on('click', function (e) {
+		e.stopPropagation();
+	});
+	$('#publishing-action').on('click', '#publish', function (e) {
+		$('input[name="sp_eap_shortcode_options[eap_accordion_theme]"][value="sp-ea-one"]').prop('checked', true);
+		$('input[name="sp_eap_shortcode_options[eap_accordion_layout]"][value="vertical"]').prop('checked', true);
 	});
 })(jQuery, window, document);

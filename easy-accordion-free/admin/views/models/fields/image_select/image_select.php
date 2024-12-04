@@ -77,8 +77,12 @@ if ( ! class_exists( 'SP_EAP_Field_image_select' ) ) {
 					}
 					// phpcs:ignore
 					echo '<input ' . esc_attr( $pro_only ) . ' type="' . esc_attr( $type ) . '" name="' . esc_attr( $this->field_name( $extra ) ) . '" value="' . esc_attr( $key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/>';
-					if ( ! empty( $option['option_name'] ) ) {
-						echo '<p class="eap-image-name">' . esc_html( $option['option_name'] ) . '</p>';
+					if ( isset( $option['option_demo_url'] ) ) {
+						echo '<p class="eap-image-name">' . esc_html( $option['option_name'] ) . '<a href="' . esc_url( $option['option_demo_url'] ) . '" tooltip="Demo" class="eapro-live-demo-icon" target="_blank"><i class="eap-icon-external-link"></i></a></p>';
+					}
+
+					if ( isset( $option['option_name'] ) && ! isset( $option['option_demo_url'] ) ) {
+						echo '<p class="eap-image-name">' . $option['option_name'] . '</p>';//phpcs:ignore
 					}
 
 					echo '</div>';

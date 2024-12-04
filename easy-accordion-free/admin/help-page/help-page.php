@@ -8,7 +8,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-}  // if direct access.
+}
 
 /**
  * The help class for the Easy Accordion Free
@@ -54,12 +54,14 @@ class Easy_Accordion_Free_Help {
 	 *
 	 * @var array
 	 */
-	protected static $not_show_plugin_list = array( 'aitasi-coming-soon', 'latest-posts', 'widget-post-slider', 'easy-lightbox-wp' );
+	protected static $not_show_plugin_list = array( 'aitasi-coming-soon', 'latest-posts', 'widget-post-slider', 'easy-lightbox-wp', 'easy-accordion-free' );
 
 	/**
 	 * Easy_Accordion_Free_Help construct function.
 	 */
 	public function __construct() {
+		add_action( 'admin_menu', array( $this, 'analytics_admin_menu' ), 55 );
+		add_action( 'admin_menu', array( $this, 'faq_form_admin_menu' ), 50 );
 		add_action( 'admin_menu', array( $this, 'help_admin_menu' ), 80 );
 		add_action( 'admin_menu', array( $this, 'lite_to_pro_admin_menu' ), 75 );
 		add_action( 'admin_menu', array( $this, 'recommended_admin_menu' ), 70 );
@@ -146,6 +148,72 @@ class Easy_Accordion_Free_Help {
 				'help_page_callback',
 			)
 		);
+	}
+
+	/**
+	 * Add admin menu analytics sub menu.
+	 *
+	 * @return void
+	 */
+	public function analytics_admin_menu() {
+		add_submenu_page(
+			'edit.php?post_type=sp_easy_accordion',
+			__( 'Easy Accordion Analytics', 'easy-accordion-free' ),
+			__( 'Analytics', 'easy-accordion-free' ) . '<span class="eap-menu-new-indicator" style="color: #f18200;font-size: 9px; padding-left: 3px;">' . __( ' NEW!', 'easy-accordion-free' ) . '</span>',
+			'manage_options',
+			'eap_analytics',
+			array(
+				$this,
+				'analytics_page_callback',
+			)
+		);
+	}
+
+	/**
+	 * The Easy Accordion analytics Callback.
+	 *
+	 * @return void
+	 */
+	public function analytics_page_callback() {
+		?>
+		<div class="sp-eap-indicator-notice">Want to know <a href="https://easyaccordion.io/faq-analytics" target="_blank">valuable insights or analytics</a> into FAQs performance? To track impressions, clicks, and more to optimize engagement, <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>Upgrade to Pro!</b></a></div>
+		<div class="sp-eap-indicator">
+		<img src="<?php echo esc_url( SP_EA_URL . 'admin/help-page/img/analytics.webp' ); ?>" alt="faqs-indicator">
+		</div>
+		<?php
+	}
+
+	/**
+	 * Add admin menu analytics sub menu.
+	 *
+	 * @return void
+	 */
+	public function faq_form_admin_menu() {
+		add_submenu_page(
+			'edit.php?post_type=sp_easy_accordion',
+			__( 'Easy Accordion Form', 'easy-accordion-free' ),
+			__( 'FAQ Forms', 'easy-accordion-free' ) . '<span class="eap-menu-new-indicator" style="color: #f18200;font-size: 9px; padding-left: 3px;">' . __( ' HOT!', 'easy-accordion-free' ) . '</span>',
+			'manage_options',
+			'eap_form',
+			array(
+				$this,
+				'form_page_callback',
+			)
+		);
+	}
+
+	/**
+	 * The Easy Accordion analytics Callback.
+	 *
+	 * @return void
+	 */
+	public function form_page_callback() {
+		?>
+		<div class="sp-eap-indicator-notice">To allow users to submit FAQ suggestions using the FAQs Form, <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>Upgrade to Pro!</b></a></div>
+		<div class="eap-faq-form">
+		<img src="<?php echo esc_url( SP_EA_URL . 'admin/help-page/img/form.webp' ); ?>" alt="forms" class="eap-form-img"/>
+		</div>
+		<?php
 	}
 
 	/**
@@ -319,7 +387,12 @@ class Easy_Accordion_Free_Help {
 						?>
 						<div class="column-compatibility">
 							<strong><?php esc_html_e( 'Last Updated:', 'easy-accordion-free' ); ?></strong>
-							<span><?php printf( esc_html__( '%s ago', 'easy-accordion-free' ), esc_html( human_time_diff( $plugin['last_updated'] ) ) ); ?></span>
+							<span>
+							<?php
+							/* translators: %s: property modify last update time. */
+							printf( esc_html__( '%s ago', 'easy-accordion-free' ), esc_html( human_time_diff( $plugin['last_updated'] ) ) );
+							?>
+							</span>
 						</div>
 									<?php
 					}

@@ -128,7 +128,7 @@ class Easy_Accordion_Free_Offer_Banner {
 					</div>
 				<?php } ?>
 				<div class="sp_eafree-offer-additional-text">
-					<span class="sp_eafree-clock-icon">⏱</span><p><?php esc_html_e( 'Limited Time Offer, Upgrade Now!', 'wp-carousel-free' ); ?></p>
+					<span class="sp_eafree-clock-icon">⏱</span><p><?php esc_html_e( 'Limited Time Offer, Upgrade Now!', 'easy-accordion-free' ); ?></p>
 				</div>
 				<?php if ( ! empty( $action_url ) ) { ?>
 					<div class="sp_eafree-banner-action-button">

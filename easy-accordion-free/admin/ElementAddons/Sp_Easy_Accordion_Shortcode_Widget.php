@@ -46,7 +46,7 @@ class Sp_Easy_Accordion_Shortcode_Widget extends \Elementor\Widget_Base {
 	 * @return string Widget icon.
 	 */
 	public function get_icon() {
-		return 'ea-icon-menu';
+		return 'eap-icon-accordion-menu';
 	}
 
 	/**
@@ -141,7 +141,7 @@ class Sp_Easy_Accordion_Shortcode_Widget extends \Elementor\Widget_Base {
 			$ea_dynamic_css     = SP_EA_Front_Scripts::load_dynamic_style( $post_id, $shortcode_data );
 			echo '<style>' . $ea_dynamic_css['dynamic_css'] . '</style>';
 
-			Easy_Accordion_Free_Shortcode::sp_eap_html_show( $post_id, $upload_data, $shortcode_data, $main_section_title );
+			SP_EAP_FRONTEND::sp_eap_html_show( $post_id, $upload_data, $shortcode_data, $main_section_title );
 			?>
 			<script src="<?php echo esc_url( SP_EA_URL . 'public/assets/js/script.js' ); ?>" ></script>
 			<?php

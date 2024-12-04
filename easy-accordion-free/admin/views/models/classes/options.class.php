@@ -166,7 +166,7 @@ if ( ! class_exists( 'SP_EAP_Options' ) ) {
 			$this->set_options();
 			$this->save_defaults();
 
-			add_action( 'admin_menu', array( &$this, 'add_admin_menu' ) );
+			add_action( 'admin_menu', array( &$this, 'add_admin_menu' ), $this->args['admin_bar_menu_priority'] );
 			add_action( 'admin_bar_menu', array( &$this, 'add_admin_bar_menu' ), $this->args['admin_bar_menu_priority'] );
 			add_action( 'wp_ajax_eapro_' . $this->unique . '_ajax_save', array( &$this, 'ajax_save' ) );
 

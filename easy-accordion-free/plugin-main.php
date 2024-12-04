@@ -5,7 +5,7 @@
  * Description: The best Responsive and Touch-friendly drag & drop <strong>Accordion FAQ</strong> builder plugin for WordPress.
  * Author:      ShapedPlugin LLC
  * Author URI:  https://shapedplugin.com/
- * Version:     2.3.12
+ * Version:     3.0.0
  * Text Domain: easy-accordion-free
  * Domain Path: /languages/
  *
@@ -51,7 +51,7 @@ class SP_EASY_ACCORDION_FREE {
 	 *
 	 * @var string
 	 */
-	public $version = '2.3.12';
+	public $version = '3.0.0';
 
 	/**
 	 * The name of the plugin.
@@ -167,6 +167,16 @@ class SP_EASY_ACCORDION_FREE {
 			require_once SP_EA_PATH . 'admin/class-easy-accordion-free-element-shortcode-addons.php';
 		}
 		add_filter( 'body_class', array( $this, 'sp_easy_accordion_body_class' ) );
+		register_activation_hook( 'easy-accordion-free/easy-accordion-free.php', array( $this, 'eap_post_type_reset_flush_flag' ) );
+	}
+
+	/**
+	 * Reset the flag if needed (e.g., during theme or plugin updates).
+	 *
+	 * @return void
+	 */
+	public function eap_post_type_reset_flush_flag() {
+		delete_option( 'sp_eap_flush_rewrite_rules' );
 	}
 
 	/**
@@ -192,7 +202,8 @@ class SP_EASY_ACCORDION_FREE {
 		$plugin_cpt           = new Easy_Accordion_Free_Post_Type( $this->plugin_name, $this->version );
 		$plugin_review_notice = new Easy_Accordion_Free_Review( SP_PLUGIN_NAME, SP_EA_VERSION );
 		$this->loader->add_action( 'init', $plugin_cpt, 'easy_accordion_post_type', 10 );
-
+		$this->loader->add_action( 'init', $plugin_cpt, 'register_faq_post_type' );
+		$this->loader->add_action( 'admin_menu', $plugin_cpt, 'add_faq_submenu' );
 		$this->loader->add_action( 'admin_notices', $plugin_review_notice, 'display_admin_notice' );
 		$this->loader->add_action( 'wp_ajax_sp-eafree-never-show-review-notice', $plugin_review_notice, 'dismiss_review_notice' );
 		// Admin offer banner.
@@ -228,17 +239,16 @@ class SP_EASY_ACCORDION_FREE {
 		require_once SP_EA_INCLUDES . '/class-easy-accordion-free-loader.php';
 		require_once SP_EA_INCLUDES . '/class-easy-accordion-free-post-types.php';
 		require_once SP_EA_INCLUDES . '/class-easy-accordion-free-product-tab.php';
-		require_once SP_EA_PATH . '/public/views/scripts.php';
 		require_once SP_EA_PATH . '/admin/class-easy-accordion-free-admin.php';
 		require_once SP_EA_PATH . '/admin/help-page/help-page.php';
-		// require_once SP_EA_PATH . '/admin/views/premium.php';
 		require_once SP_EA_PATH . '/admin/views/models/classes/setup.class.php';
 		require_once SP_EA_PATH . '/admin/views/metabox-config.php';
 		require_once SP_EA_PATH . '/admin/views/option-config.php';
 		require_once SP_EA_PATH . '/admin/views/tools-config.php';
 		require_once SP_EA_PATH . '/admin/views/notices/review.php';
+		require_once SP_EA_PATH . '/public/scripts.php';
+		require_once SP_EA_PATH . '/public/eap-frontend.php';
 		require_once SP_EA_PATH . '/admin/views/notices/offer-banner.php';
-		require_once SP_EA_PATH . '/public/views/class-easy-accordion-free-shortcode.php';
 		require_once SP_EA_PATH . '/includes/class-easy-accordion-import-export.php';
 		require_once SP_EA_PATH . '/admin/preview/class-easy-accordion-free-preview.php';
 		require_once SP_EA_PATH . '/admin/class-easy-accordion-free-gutenberg-block.php';

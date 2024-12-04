@@ -139,10 +139,11 @@ if ( ! class_exists( 'SP_EAP_Fields' ) ) {
 		 * Field after.
 		 */
 		public function field_after() {
+			$help = ( ! empty( $this->field['help'] ) ) ? '<span class="eapro-help title-info"><div class="eapro-help-text">' . wp_kses_post( $this->field['help'] ) . '</div><span class="tooltip-icon"><img src="' . esc_url( SP_EA_URL . 'admin/views/models/assets/images/info.svg' ) . '"></span></span>' : '';
 
 			$output  = ( ! empty( $this->field['after'] ) ) ? wp_kses_post( $this->field['after'] ) : '';
 			$output .= ( ! empty( $this->field['desc'] ) ) ? '<div class="clear"></div><div class="eapro-text-desc">' . wp_kses_post( $this->field['desc'] ) . '</div>' : '';
-			$output .= ( ! empty( $this->field['help'] ) ) ? '<div class="eapro-help"><span class="eapro-help-text">' . wp_kses_post( $this->field['help'] ) . '</span><i class="fa fa-question-circle"></i></div>' : '';
+			$output .= $help;
 			$output .= ( ! empty( $this->field['_error'] ) ) ? '<div class="eapro-text-error">' . wp_kses_post( $this->field['_error'] ) . '</div>' : '';
 
 			return $output;

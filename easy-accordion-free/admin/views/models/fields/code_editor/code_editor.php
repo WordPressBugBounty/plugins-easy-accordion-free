@@ -82,12 +82,6 @@ if ( ! class_exists( 'SP_EAP_Field_code_editor' ) ) {
 		 */
 		public function enqueue() {
 
-			$page = ( ! empty( $_GET['page'] ) ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
-
-			// Do not loads CodeMirror in revslider page.
-			if ( in_array( $page, array( 'revslider' ), true ) ) {
-				return; }
-
 			if ( ! wp_script_is( 'eapro-codemirror' ) ) {
 				wp_enqueue_script( 'eapro-codemirror', esc_url( $this->cdn_url . $this->version . '/lib/codemirror.min.js' ), array( 'eapro' ), $this->version, true );
 				wp_enqueue_script( 'eapro-codemirror-loadmode', esc_url( $this->cdn_url . $this->version . '/addon/mode/loadmode.min.js' ), array( 'eapro-codemirror' ), $this->version, true );

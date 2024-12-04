@@ -28,6 +28,5 @@ if ( ! class_exists( 'Easy_Accordion_Free_Gutenberg_Block' ) ) {
 			require_once SP_EA_PATH . '/admin/GutenbergBlock/class-easy-accordion-free-gutenberg-block-init.php';
 			new Easy_Accordion_Free_Gutenberg_Block_Init();
 		}
-
 	}
 }

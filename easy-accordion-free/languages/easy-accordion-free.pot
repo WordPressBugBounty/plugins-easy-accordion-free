@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Easy Accordion v2.3.10\n"
-"POT-Creation-Date: 2024-11-07 16:25+0600\n"
+"Project-Id-Version: Easy Accordion v3.0.0\n"
+"POT-Creation-Date: 2024-11-28 16:41+0600\n"
 "PO-Revision-Date: 2022-03-09 18:59+0600\n"
 "Last-Translator: \n"
 "Language-Team: ShapedPlugin - support@shapedplugin.com\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_x;_ex;_n;_nx;_n_noop;_nx_noop;esc_html__;"
 "esc_html_e;esc_html_x;esc_attr__;esc_attr_e;esc_attr_x;number_format_i18n;"
@@ -21,12 +21,13 @@ msgstr ""
 #: admin/ElementAddons/Sp_Easy_Accordion_Shortcode_Widget.php:37
 #: admin/GutenbergBlock/src/index.js:16 admin/GutenbergBlock/src/index.js:81
 #: admin/GutenbergBlock/src/index.js:113 admin/views/metabox-config.php:86
+#: includes/class-easy-accordion-free-post-types.php:83
 #: includes/class-easy-accordion-free-post-types.php:93
+#: includes/class-easy-accordion-free-post-types.php:135
 msgid "Easy Accordion"
 msgstr ""
 
 #: admin/ElementAddons/Sp_Easy_Accordion_Shortcode_Widget.php:96
-#: admin/views/metabox-config.php:114 admin/views/metabox-config.php:127
 msgid "Content"
 msgstr ""
 
@@ -91,14 +92,15 @@ msgid "Shortcode"
 msgstr ""
 
 #: admin/class-easy-accordion-free-admin.php:94
+#: admin/views/metabox-config.php:204
 msgid "Date"
 msgstr ""
 
 #: admin/class-easy-accordion-free-admin.php:154
-#: admin/views/metabox-config.php:287 admin/views/metabox-config.php:304
-#: admin/views/metabox-config.php:457 admin/views/metabox-config.php:470
-#: admin/views/metabox-config.php:811 admin/views/metabox-config.php:887
-#: admin/views/option-config.php:93
+#: admin/views/metabox-config.php:358 admin/views/metabox-config.php:375
+#: admin/views/metabox-config.php:401 admin/views/metabox-config.php:414
+#: admin/views/metabox-config.php:1050 admin/views/metabox-config.php:1143
+#: admin/views/option-config.php:89
 msgid "Live Demo"
 msgstr ""
 
@@ -106,47 +108,71 @@ msgstr ""
 msgid "Add Accordion"
 msgstr ""
 
-#: admin/help-page/help-page.php:98 admin/help-page/help-page.php:99
+#: admin/help-page/help-page.php:100 admin/help-page/help-page.php:101
 msgid "Recommended"
 msgstr ""
 
-#: admin/help-page/help-page.php:113 admin/help-page/help-page.php:114
+#: admin/help-page/help-page.php:115 admin/help-page/help-page.php:116
 msgid "Lite vs Pro"
 msgstr ""
 
-#: admin/help-page/help-page.php:140
+#: admin/help-page/help-page.php:142
 msgid "Easy Accordion Help"
 msgstr ""
 
-#: admin/help-page/help-page.php:141
+#: admin/help-page/help-page.php:143
 msgid "Get Help"
 msgstr ""
 
-#: admin/help-page/help-page.php:259
+#: admin/help-page/help-page.php:161
+msgid "Easy Accordion Analytics"
+msgstr ""
+
+#: admin/help-page/help-page.php:162
+msgid "Analytics"
+msgstr ""
+
+#: admin/help-page/help-page.php:162
+msgid " NEW!"
+msgstr ""
+
+#: admin/help-page/help-page.php:194
+msgid "Easy Accordion Form"
+msgstr ""
+
+#: admin/help-page/help-page.php:195
+msgid "FAQ Forms"
+msgstr ""
+
+#: admin/help-page/help-page.php:195
+msgid " HOT!"
+msgstr ""
+
+#: admin/help-page/help-page.php:327
 msgid "Activate"
 msgstr ""
 
-#: admin/help-page/help-page.php:266
+#: admin/help-page/help-page.php:334
 msgid "Install Now"
 msgstr ""
 
-#: admin/help-page/help-page.php:272
+#: admin/help-page/help-page.php:340
 msgid "More Details"
 msgstr ""
 
-#: admin/help-page/help-page.php:304
+#: admin/help-page/help-page.php:372
 msgid "Version:"
 msgstr ""
 
-#: admin/help-page/help-page.php:313
+#: admin/help-page/help-page.php:381
 msgid "+ Active Installations"
 msgstr ""
 
-#: admin/help-page/help-page.php:321
+#: admin/help-page/help-page.php:389
 msgid "Last Updated:"
 msgstr ""
 
-#: admin/help-page/help-page.php:322
+#: admin/help-page/help-page.php:393
 #, php-format
 msgid "%s ago"
 msgstr ""
@@ -159,785 +185,985 @@ msgstr ""
 msgid "How To Use"
 msgstr ""
 
-#: admin/views/metabox-config.php:110
-msgid "Accordion Type"
+#: admin/views/metabox-config.php:111
+msgid "Content Type"
 msgstr ""
 
-#: admin/views/metabox-config.php:117
+#: admin/views/metabox-config.php:115
+msgid "Custom"
+msgstr ""
+
+#: admin/views/metabox-config.php:118
 msgid "Post"
 msgstr ""
 
-#: admin/views/metabox-config.php:128
+#: admin/views/metabox-config.php:121
+msgid "Image"
+msgstr ""
+
+#: admin/views/metabox-config.php:131
+msgid "Custom Content"
+msgstr ""
+
+#: admin/views/metabox-config.php:132
 msgid "Add New Item"
 msgstr ""
 
-#: admin/views/metabox-config.php:130
+#: admin/views/metabox-config.php:134
 msgid "Item :"
 msgstr ""
 
-#: admin/views/metabox-config.php:140
+#: admin/views/metabox-config.php:144 admin/views/metabox-config.php:636
 msgid "Title"
 msgstr ""
 
-#: admin/views/metabox-config.php:147
+#: admin/views/metabox-config.php:150
+msgid "custom item"
+msgstr ""
+
+#: admin/views/metabox-config.php:150
+msgid "Custom Icon (Title Icon) (Pro)"
+msgstr ""
+
+#: admin/views/metabox-config.php:152
 msgid "Custom Icon (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:153
+#: admin/views/metabox-config.php:158 admin/views/metabox-config.php:754
 msgid "Description"
 msgstr ""
 
+#: admin/views/metabox-config.php:167
+msgid "Post Type"
+msgstr ""
+
+#: admin/views/metabox-config.php:170
+msgid "Select Post Type"
+msgstr ""
+
+#: admin/views/metabox-config.php:174 admin/views/tools-config.php:57
+#: includes/class-easy-accordion-free-post-types.php:133
+#: includes/class-easy-accordion-free-post-types.php:136
+#: includes/class-easy-accordion-free-post-types.php:186
+msgid "All FAQs"
+msgstr ""
+
 #: admin/views/metabox-config.php:175
-msgid "Shortcode Section"
+msgid "Posts (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:187
-msgid "Accordion Settings"
+#: admin/views/metabox-config.php:176
+msgid "Pages (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:194 admin/views/metabox-config.php:215
-msgid "Accordion Layout"
+#: admin/views/metabox-config.php:177
+msgid "Product (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:195
-msgid "Choose an accordion layout."
+#: admin/views/metabox-config.php:178
+msgid "All Custom Posts (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:200
-msgid "Vertical"
+#: admin/views/metabox-config.php:188
+msgid "Filter Posts"
+msgstr ""
+
+#: admin/views/metabox-config.php:190
+msgid "Latest"
+msgstr ""
+
+#: admin/views/metabox-config.php:191
+msgid "Taxonomy (Pro)"
+msgstr ""
+
+#: admin/views/metabox-config.php:192
+msgid "Specific Posts (Pro)"
+msgstr ""
+
+#: admin/views/metabox-config.php:201
+msgid "Order By"
+msgstr ""
+
+#: admin/views/metabox-config.php:203
+msgid "ID"
 msgstr ""
 
 #: admin/views/metabox-config.php:205
+msgid "Random (Pro)"
+msgstr ""
+
+#: admin/views/metabox-config.php:206
+msgid "Title (Pro)"
+msgstr ""
+
+#: admin/views/metabox-config.php:207
+msgid "Modified (Pro)"
+msgstr ""
+
+#: admin/views/metabox-config.php:208
+msgid "Menu Order (Pro)"
+msgstr ""
+
+#: admin/views/metabox-config.php:209
+msgid "Drag & Drop (Pro)"
+msgstr ""
+
+#: admin/views/metabox-config.php:218
+msgid "Order"
+msgstr ""
+
+#: admin/views/metabox-config.php:220
+msgid "Ascending"
+msgstr ""
+
+#: admin/views/metabox-config.php:221
+msgid "Descending"
+msgstr ""
+
+#: admin/views/metabox-config.php:234
+#, php-format
+msgid ""
+"To show Accordion or FAQ from %3$sPosts%6$s, Pages, %4$sProducts%6$s, Custom "
+"Post Types, and %5$sImage Accordion%6$s, %1$sUpgrade to Pro!%2$s"
+msgstr ""
+
+#: admin/views/metabox-config.php:262
+msgid "Shortcode Section"
+msgstr ""
+
+#: admin/views/metabox-config.php:274
+msgid "Accordion Settings"
+msgstr ""
+
+#: admin/views/metabox-config.php:281
+msgid "Layout Preset"
+msgstr ""
+
+#: admin/views/metabox-config.php:282
+msgid "Choose an accordion layout preset."
+msgstr ""
+
+#: admin/views/metabox-config.php:287
+msgid "Vertical"
+msgstr ""
+
+#: admin/views/metabox-config.php:293
 msgid "Multicolumn"
 msgstr ""
 
-#: admin/views/metabox-config.php:210
+#: admin/views/metabox-config.php:299
 msgid "Horizontal"
 msgstr ""
 
-#: admin/views/metabox-config.php:216
+#: admin/views/metabox-config.php:305
+msgid "Accordion Layout"
+msgstr ""
+
+#: admin/views/metabox-config.php:306
 msgid ""
 "Accordion Layout determines how accordion information is displayed, with "
 "choices like vertical, horizontal, or multi column layouts."
 msgstr ""
 
-#: admin/views/metabox-config.php:221
+#: admin/views/metabox-config.php:311
 #, php-format
 msgid ""
 "To create fantastic Accordion FAQ layouts and access to advanced "
 "customizations, %1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: admin/views/metabox-config.php:232
-msgid "Accordion Theme"
+#: admin/views/metabox-config.php:322
+msgid "Space Between"
 msgstr ""
 
-#: admin/views/metabox-config.php:239
-#, php-format
-msgid ""
-"Select an accordion theme style. To unlock 16+ Premium Ready Accordion "
-"Themes, %1$sUpgrade to Pro!%2$s"
+#: admin/views/metabox-config.php:323
+msgid "Set a margin to make space between accordion items."
 msgstr ""
 
-#: admin/views/metabox-config.php:246
-msgid "Default Theme"
+#: admin/views/metabox-config.php:337
+msgid "Space Between Accordion FAQs"
 msgstr ""
 
-#: admin/views/metabox-config.php:247
-msgid "Theme Two"
-msgstr ""
-
-#: admin/views/metabox-config.php:248
-msgid "Theme Three"
-msgstr ""
-
-#: admin/views/metabox-config.php:249
-msgid "Theme Four"
-msgstr ""
-
-#: admin/views/metabox-config.php:250
-msgid "Theme Five"
-msgstr ""
-
-#: admin/views/metabox-config.php:251
-msgid "Theme Six"
-msgstr ""
-
-#: admin/views/metabox-config.php:252
-msgid "Theme Seven"
-msgstr ""
-
-#: admin/views/metabox-config.php:253
-msgid "Theme Eight"
-msgstr ""
-
-#: admin/views/metabox-config.php:254
-msgid "Theme Nine"
-msgstr ""
-
-#: admin/views/metabox-config.php:255
-msgid "Theme Ten"
-msgstr ""
-
-#: admin/views/metabox-config.php:256
-msgid "Theme Eleven"
-msgstr ""
-
-#: admin/views/metabox-config.php:257
-msgid "Theme Twelve"
-msgstr ""
-
-#: admin/views/metabox-config.php:258
-msgid "Theme Thirteen"
-msgstr ""
-
-#: admin/views/metabox-config.php:259
-msgid "Theme Fourteen"
-msgstr ""
-
-#: admin/views/metabox-config.php:260
-msgid "Theme Fifteen"
-msgstr ""
-
-#: admin/views/metabox-config.php:261
-msgid "Theme Sixteen"
-msgstr ""
-
-#: admin/views/metabox-config.php:262
-msgid "Theme Seventeen"
-msgstr ""
-
-#: admin/views/metabox-config.php:272 admin/views/metabox-config.php:287
+#: admin/views/metabox-config.php:343 admin/views/metabox-config.php:358
 msgid "Activator Event"
 msgstr ""
 
-#: admin/views/metabox-config.php:273
-msgid "Select event click or mouse over to expand accordion."
+#: admin/views/metabox-config.php:344
+msgid "Set an activator event to switch between accordion items."
 msgstr ""
 
-#: admin/views/metabox-config.php:276
+#: admin/views/metabox-config.php:347
 msgid "Click"
 msgstr ""
 
-#: admin/views/metabox-config.php:279
+#: admin/views/metabox-config.php:350
 msgid "Mouse Over"
 msgstr ""
 
-#: admin/views/metabox-config.php:282
+#: admin/views/metabox-config.php:353
 msgid "AutoPlay"
 msgstr ""
 
-#: admin/views/metabox-config.php:287
+#: admin/views/metabox-config.php:358
 #, php-format
 msgid ""
 "The %1$sActivator Event%2$s option allows you to define the user interaction "
 "that triggers accordion transitions, such as clicking, hovering, or autoplay."
 msgstr ""
 
-#: admin/views/metabox-config.php:295 admin/views/metabox-config.php:304
+#: admin/views/metabox-config.php:366 admin/views/metabox-config.php:375
 msgid "Accordion Mode"
 msgstr ""
 
-#: admin/views/metabox-config.php:296
+#: admin/views/metabox-config.php:367
 msgid "Expand or collapse accordion option on page load."
 msgstr ""
 
-#: admin/views/metabox-config.php:298
+#: admin/views/metabox-config.php:369
 msgid "First Open"
 msgstr ""
 
-#: admin/views/metabox-config.php:299
+#: admin/views/metabox-config.php:370
 msgid "All Open"
 msgstr ""
 
-#: admin/views/metabox-config.php:300
+#: admin/views/metabox-config.php:371
 msgid "All Folded"
 msgstr ""
 
-#: admin/views/metabox-config.php:301
+#: admin/views/metabox-config.php:372
 msgid "Custom Open (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:304
+#: admin/views/metabox-config.php:375
 #, php-format
 msgid ""
 "The %1$sAccordion Mode%2$s  option lets you choose whether the accordion "
 "items should be initially expanded or collapsed when the page loads."
 msgstr ""
 
-#: admin/views/metabox-config.php:310
-msgid "Multiple Opening Together"
+#: admin/views/metabox-config.php:381
+msgid "Multiple Active Together"
 msgstr ""
 
-#: admin/views/metabox-config.php:311
+#: admin/views/metabox-config.php:382
 msgid "Don't collapse while expanding another item."
 msgstr ""
 
-#: admin/views/metabox-config.php:312 admin/views/metabox-config.php:361
-#: admin/views/metabox-config.php:378 admin/views/metabox-config.php:397
-#: admin/views/metabox-config.php:749 admin/views/metabox-config.php:802
-#: admin/views/metabox-config.php:881 admin/views/option-config.php:89
+#: admin/views/metabox-config.php:383 admin/views/metabox-config.php:421
+#: admin/views/metabox-config.php:438 admin/views/metabox-config.php:457
+#: admin/views/metabox-config.php:823 admin/views/metabox-config.php:1041
+#: admin/views/metabox-config.php:1137 admin/views/option-config.php:85
 msgid "Enabled"
 msgstr ""
 
-#: admin/views/metabox-config.php:313 admin/views/metabox-config.php:362
-#: admin/views/metabox-config.php:379 admin/views/metabox-config.php:398
-#: admin/views/metabox-config.php:750 admin/views/metabox-config.php:803
-#: admin/views/metabox-config.php:882 admin/views/option-config.php:90
+#: admin/views/metabox-config.php:384 admin/views/metabox-config.php:422
+#: admin/views/metabox-config.php:439 admin/views/metabox-config.php:458
+#: admin/views/metabox-config.php:824 admin/views/metabox-config.php:1042
+#: admin/views/metabox-config.php:1138 admin/views/option-config.php:86
 msgid "Disabled"
 msgstr ""
 
-#: admin/views/metabox-config.php:317
+#: admin/views/metabox-config.php:388
 msgid "Multiple Active or Opening Together"
 msgstr ""
 
-#: admin/views/metabox-config.php:322 admin/views/metabox-config.php:325
-msgid "Fixed Content Height"
+#: admin/views/metabox-config.php:394
+msgid "Display FAQ Search"
 msgstr ""
 
-#: admin/views/metabox-config.php:323
-msgid ""
-"Check to display collapsible accordion content in a limited amount of space."
+#: admin/views/metabox-config.php:395
+msgid "Show/hide accordion FAQ search field."
 msgstr ""
 
-#: admin/views/metabox-config.php:331
-msgid "Maximum Height"
+#: admin/views/metabox-config.php:396 admin/views/metabox-config.php:409
+#: admin/views/metabox-config.php:613 admin/views/metabox-config.php:727
+#: admin/views/metabox-config.php:854
+msgid "Show"
 msgstr ""
 
-#: admin/views/metabox-config.php:332
-msgid "Set fixed accordion content panel height. Default height 200px."
+#: admin/views/metabox-config.php:397 admin/views/metabox-config.php:410
+#: admin/views/metabox-config.php:614 admin/views/metabox-config.php:728
+#: admin/views/metabox-config.php:855
+msgid "Hide"
 msgstr ""
 
-#: admin/views/metabox-config.php:336
-msgid "Height"
+#: admin/views/metabox-config.php:401
+msgid "Accordion FAQ Search"
 msgstr ""
 
-#: admin/views/metabox-config.php:352
-msgid "Add rel=\"nofollow\" to Link"
+#: admin/views/metabox-config.php:407 admin/views/metabox-config.php:414
+msgid "Expand/Collapse All Button"
 msgstr ""
 
-#: admin/views/metabox-config.php:359 admin/views/metabox-config.php:368
+#: admin/views/metabox-config.php:408
+msgid "Show/hide expand/collapse all button."
+msgstr ""
+
+#: admin/views/metabox-config.php:419 admin/views/metabox-config.php:428
 msgid "Scroll to Active Item"
 msgstr ""
 
-#: admin/views/metabox-config.php:360
+#: admin/views/metabox-config.php:420
 msgid "Enable/Disable this option to scroll to  active accordion item."
 msgstr ""
 
-#: admin/views/metabox-config.php:369
+#: admin/views/metabox-config.php:429
 msgid ""
 "This option allows automatic scrolling to the active accordion item. This "
 "provides a smoother and more user-friendly experience when navigating "
 "through accordion faqs section."
 msgstr ""
 
-#: admin/views/metabox-config.php:370 admin/views/metabox-config.php:388
+#: admin/views/metabox-config.php:430 admin/views/metabox-config.php:448
 msgid "Open Docs"
 msgstr ""
 
-#: admin/views/metabox-config.php:376 admin/views/metabox-config.php:385
-#: admin/views/metabox-config.php:386
+#: admin/views/metabox-config.php:436 admin/views/metabox-config.php:445
+#: admin/views/metabox-config.php:446
 msgid "Schema Markup"
 msgstr ""
 
-#: admin/views/metabox-config.php:377
+#: admin/views/metabox-config.php:437
 msgid "Enable/Disable schema markup."
 msgstr ""
 
-#: admin/views/metabox-config.php:387
+#: admin/views/metabox-config.php:447
 msgid ""
 "adds structured data to your Accordion FAQs, enhancing search engine "
 "visibility and improving the display of your Accordion FAQs in search "
 "results."
 msgstr ""
 
-#: admin/views/metabox-config.php:395
+#: admin/views/metabox-config.php:455
 msgid "Preloader"
 msgstr ""
 
-#: admin/views/metabox-config.php:396
+#: admin/views/metabox-config.php:456
 msgid "Accordion will be hidden until page load completed."
 msgstr ""
 
-#: admin/views/metabox-config.php:412
+#: admin/views/metabox-config.php:471
+msgid "Theme Settings"
+msgstr ""
+
+#: admin/views/metabox-config.php:477
+msgid "Select Your Theme"
+msgstr ""
+
+#: admin/views/metabox-config.php:481
+#, php-format
+msgid ""
+"Select a theme style for your accordion FAQs. See %1$sAll the Themes%2$s at "
+"a glance."
+msgstr ""
+
+#: admin/views/metabox-config.php:488
+msgid "Default Theme"
+msgstr ""
+
+#: admin/views/metabox-config.php:493
+msgid "Theme Two"
+msgstr ""
+
+#: admin/views/metabox-config.php:498
+msgid "Theme Three"
+msgstr ""
+
+#: admin/views/metabox-config.php:503
+msgid "Theme Four"
+msgstr ""
+
+#: admin/views/metabox-config.php:508
+msgid "Theme Five"
+msgstr ""
+
+#: admin/views/metabox-config.php:513
+msgid "Theme Six"
+msgstr ""
+
+#: admin/views/metabox-config.php:518
+msgid "Theme Seven"
+msgstr ""
+
+#: admin/views/metabox-config.php:523
+msgid "Theme Eight"
+msgstr ""
+
+#: admin/views/metabox-config.php:528
+msgid "Theme Nine"
+msgstr ""
+
+#: admin/views/metabox-config.php:533
+msgid "Theme Ten"
+msgstr ""
+
+#: admin/views/metabox-config.php:538
+msgid "Theme Eleven"
+msgstr ""
+
+#: admin/views/metabox-config.php:543
+msgid "Theme Twelve"
+msgstr ""
+
+#: admin/views/metabox-config.php:548
+msgid "Theme Thirteen"
+msgstr ""
+
+#: admin/views/metabox-config.php:553
+msgid "Theme Fourteen"
+msgstr ""
+
+#: admin/views/metabox-config.php:558
+msgid "Theme Fifteen"
+msgstr ""
+
+#: admin/views/metabox-config.php:563
+msgid "Theme Sixteen"
+msgstr ""
+
+#: admin/views/metabox-config.php:568
+msgid "Theme Seventeen"
+msgstr ""
+
+#: admin/views/metabox-config.php:581
+#, php-format
+msgid ""
+"To impress your visitors or users with professionally designed FAQ themes/"
+"templates, %1$sUpgrade to Pro!%2$s"
+msgstr ""
+
+#: admin/views/metabox-config.php:597
 msgid "Display Settings"
 msgstr ""
 
-#: admin/views/metabox-config.php:418
+#: admin/views/metabox-config.php:605
+msgid "Title & Description"
+msgstr ""
+
+#: admin/views/metabox-config.php:611
 msgid "Accordion Section Title"
 msgstr ""
 
-#: admin/views/metabox-config.php:419
+#: admin/views/metabox-config.php:612
 msgid "Show/hide the accordion section title."
 msgstr ""
 
-#: admin/views/metabox-config.php:420 admin/views/metabox-config.php:452
-#: admin/views/metabox-config.php:465 admin/views/metabox-config.php:494
-#: admin/views/metabox-config.php:694
-msgid "Show"
+#: admin/views/metabox-config.php:622
+msgid "Item Border"
 msgstr ""
 
-#: admin/views/metabox-config.php:421 admin/views/metabox-config.php:453
-#: admin/views/metabox-config.php:466 admin/views/metabox-config.php:495
-#: admin/views/metabox-config.php:695
-msgid "Hide"
+#: admin/views/metabox-config.php:623
+msgid "Set accordion item border."
 msgstr ""
 
-#: admin/views/metabox-config.php:429
-msgid "Space Between"
+#: admin/views/metabox-config.php:632
+msgid "Accordion Border"
 msgstr ""
 
-#: admin/views/metabox-config.php:430
+#: admin/views/metabox-config.php:641
+msgid "Title HTML Tag"
+msgstr ""
+
+#: admin/views/metabox-config.php:642
+msgid "Select Tag for accordion title."
+msgstr ""
+
+#: admin/views/metabox-config.php:644
+msgid "H1"
+msgstr ""
+
+#: admin/views/metabox-config.php:645
+msgid "H2"
+msgstr ""
+
+#: admin/views/metabox-config.php:646
+msgid "H3"
+msgstr ""
+
+#: admin/views/metabox-config.php:647
+msgid "H4"
+msgstr ""
+
+#: admin/views/metabox-config.php:648
+msgid "H5"
+msgstr ""
+
+#: admin/views/metabox-config.php:649
+msgid "H6"
+msgstr ""
+
+#: admin/views/metabox-config.php:658
+msgid "Title Color"
+msgstr ""
+
+#: admin/views/metabox-config.php:659
+msgid "Set accordion title text color."
+msgstr ""
+
+#: admin/views/metabox-config.php:661 admin/views/metabox-config.php:1186
+msgid "Color"
+msgstr ""
+
+#: admin/views/metabox-config.php:670
+msgid "Title Background Color Type "
+msgstr ""
+
+#: admin/views/metabox-config.php:671
+msgid "Choose a color type for the title background."
+msgstr ""
+
+#: admin/views/metabox-config.php:674
+#: admin/views/models/fields/border/border.php:79
+#: admin/views/models/fields/typography/typography.php:273
+msgid "Solid"
+msgstr ""
+
+#: admin/views/metabox-config.php:677
+msgid "Gradient"
+msgstr ""
+
+#: admin/views/metabox-config.php:688
+msgid "Title Background Color"
+msgstr ""
+
+#: admin/views/metabox-config.php:689
+msgid "Set accordion title background color."
+msgstr ""
+
+#: admin/views/metabox-config.php:696
+msgid "Add rel=\"nofollow\" to Link"
+msgstr ""
+
+#: admin/views/metabox-config.php:705 admin/views/metabox-config.php:715
+msgid "Title Padding"
+msgstr ""
+
+#: admin/views/metabox-config.php:706
+msgid "Set accordion title custom padding."
+msgstr ""
+
+#: admin/views/metabox-config.php:719 admin/views/metabox-config.php:729
+msgid "Title Featured Icon"
+msgstr ""
+
+#: admin/views/metabox-config.php:725
+msgid "Title Icon"
+msgstr ""
+
+#: admin/views/metabox-config.php:726
+msgid "Show title featured icon or custom image before title."
+msgstr ""
+
+#: admin/views/metabox-config.php:739
+msgid "Title Icon Size "
+msgstr ""
+
+#: admin/views/metabox-config.php:740
+msgid "Set title icon size."
+msgstr ""
+
+#: admin/views/metabox-config.php:759
+msgid "Description Color"
+msgstr ""
+
+#: admin/views/metabox-config.php:760
+msgid "Set accordion description text color."
+msgstr ""
+
+#: admin/views/metabox-config.php:767
+msgid "Description Background Color"
+msgstr ""
+
+#: admin/views/metabox-config.php:768
+msgid "Set accordion description background color."
+msgstr ""
+
+#: admin/views/metabox-config.php:777 admin/views/metabox-config.php:786
+msgid "Description Padding"
+msgstr ""
+
+#: admin/views/metabox-config.php:778
+msgid "Set accordion description custom padding."
+msgstr ""
+
+#: admin/views/metabox-config.php:791 admin/views/metabox-config.php:794
+msgid "Fixed Content Height"
+msgstr ""
+
+#: admin/views/metabox-config.php:792
 msgid ""
-"Set a margin to make space between accordion items. Default value is 10px."
+"Check to display collapsible accordion content in a limited amount of space."
 msgstr ""
 
-#: admin/views/metabox-config.php:444
-msgid "Space Between Accordion FAQs"
+#: admin/views/metabox-config.php:800
+msgid "Maximum Height"
 msgstr ""
 
-#: admin/views/metabox-config.php:450 admin/views/metabox-config.php:457
-msgid "Expand/Collapse All Button"
+#: admin/views/metabox-config.php:801
+msgid "Set fixed accordion content panel height. Default height 200px."
 msgstr ""
 
-#: admin/views/metabox-config.php:451
-msgid "Show/hide expand/collapse all button."
+#: admin/views/metabox-config.php:805
+msgid "Height"
 msgstr ""
 
-#: admin/views/metabox-config.php:463 admin/views/metabox-config.php:470
-msgid "Accordion FAQ Search"
+#: admin/views/metabox-config.php:821
+msgid "Line Break"
 msgstr ""
 
-#: admin/views/metabox-config.php:464
-msgid "Show/hide accordion FAQ search field."
+#: admin/views/metabox-config.php:822
+msgid "wpautop/line break with paragraph in description."
 msgstr ""
 
-#: admin/views/metabox-config.php:478
+#: admin/views/metabox-config.php:835
 #, php-format
 msgid ""
 "Want to make your FAQ content searchable and add an Expand/Collapse All "
 "button? %1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: admin/views/metabox-config.php:487
-msgid "Accordion Expand & Collapse Icon"
-msgstr ""
-
-#: admin/views/metabox-config.php:492
+#: admin/views/metabox-config.php:845 admin/views/metabox-config.php:852
 msgid "Expand & Collapse Icon"
 msgstr ""
 
-#: admin/views/metabox-config.php:493
+#: admin/views/metabox-config.php:853
 msgid "Show/hide expand and collapse icon."
 msgstr ""
 
-#: admin/views/metabox-config.php:504
+#: admin/views/metabox-config.php:864
 msgid "Expand & Collapse Icon Style"
 msgstr ""
 
-#: admin/views/metabox-config.php:505
+#: admin/views/metabox-config.php:865
 msgid "Choose a expand and collapse icon style."
 msgstr ""
 
-#: admin/views/metabox-config.php:599
+#: admin/views/metabox-config.php:959
 msgid "Expand & Collapse Icon Size"
 msgstr ""
 
-#: admin/views/metabox-config.php:600
+#: admin/views/metabox-config.php:960
 msgid "Set accordion collapse and expand icon size. Default value is 16px."
 msgstr ""
 
-#: admin/views/metabox-config.php:623
+#: admin/views/metabox-config.php:983
 msgid "Icon Color"
 msgstr ""
 
-#: admin/views/metabox-config.php:624
+#: admin/views/metabox-config.php:984
 msgid "Set icon color."
 msgstr ""
 
-#: admin/views/metabox-config.php:637 admin/views/metabox-config.php:648
+#: admin/views/metabox-config.php:997 admin/views/metabox-config.php:1008
 msgid "Expand & Collapse Icon Position"
 msgstr ""
 
-#: admin/views/metabox-config.php:639
+#: admin/views/metabox-config.php:999
 msgid "Set accordion expand and collapse icon position or alignment."
 msgstr ""
 
-#: admin/views/metabox-config.php:642
+#: admin/views/metabox-config.php:1002
 #: admin/views/models/fields/typography/typography.php:215
 msgid "Left"
 msgstr ""
 
-#: admin/views/metabox-config.php:645
+#: admin/views/metabox-config.php:1005
 #: admin/views/models/fields/typography/typography.php:217
 msgid "Right"
 msgstr ""
 
-#: admin/views/metabox-config.php:662
+#: admin/views/metabox-config.php:1022
 #, php-format
 msgid ""
 "Want to make your Accordion FAQs visually attractive with tons of flexible "
 "options? %1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: admin/views/metabox-config.php:671
-msgid "Accordion Item Title & Description"
+#: admin/views/metabox-config.php:1032
+msgid "Animation Effect"
 msgstr ""
 
-#: admin/views/metabox-config.php:676 admin/views/metabox-config.php:686
-msgid "Accordion Border"
-msgstr ""
-
-#: admin/views/metabox-config.php:677
-msgid "Set accordion item border. Default value is 1px."
-msgstr ""
-
-#: admin/views/metabox-config.php:692
-msgid "Title Icon"
-msgstr ""
-
-#: admin/views/metabox-config.php:693
-msgid "Show/hide title icon. e.g. FontAwesome icon before the accordion title."
-msgstr ""
-
-#: admin/views/metabox-config.php:705
-msgid "Title Icon Size "
-msgstr ""
-
-#: admin/views/metabox-config.php:706
-msgid "Set title icon size."
-msgstr ""
-
-#: admin/views/metabox-config.php:722
-msgid "Title Background Color"
-msgstr ""
-
-#: admin/views/metabox-config.php:723
-msgid "Set accordion title background color."
-msgstr ""
-
-#: admin/views/metabox-config.php:732 admin/views/metabox-config.php:742
-msgid "Title Padding"
-msgstr ""
-
-#: admin/views/metabox-config.php:733
-msgid "Set accordion title custom padding."
-msgstr ""
-
-#: admin/views/metabox-config.php:747
-msgid "Line Break"
-msgstr ""
-
-#: admin/views/metabox-config.php:748
-msgid "wpautop/line break with paragraph in description."
-msgstr ""
-
-#: admin/views/metabox-config.php:758
-msgid "Description Background Color"
-msgstr ""
-
-#: admin/views/metabox-config.php:759
-msgid "Set accordion description background color."
-msgstr ""
-
-#: admin/views/metabox-config.php:768 admin/views/metabox-config.php:777
-msgid "Description Padding"
-msgstr ""
-
-#: admin/views/metabox-config.php:769
-msgid "Set accordion description custom padding."
-msgstr ""
-
-#: admin/views/metabox-config.php:785
-#, php-format
-msgid ""
-"To unlock the full potential of your Accordion FAQs and keep visitors "
-"engaged, %1$sUpgrade to Pro!%2$s"
-msgstr ""
-
-#: admin/views/metabox-config.php:794
-msgid "Accordion Animation"
-msgstr ""
-
-#: admin/views/metabox-config.php:800 admin/views/metabox-config.php:809
+#: admin/views/metabox-config.php:1039 admin/views/metabox-config.php:1048
 msgid "Animation"
 msgstr ""
 
-#: admin/views/metabox-config.php:801
+#: admin/views/metabox-config.php:1040
 msgid "Enable/Disable accordion animation."
 msgstr ""
 
-#: admin/views/metabox-config.php:810
+#: admin/views/metabox-config.php:1049
 msgid ""
 "The Animation option allows you to control the accordion animation. "
 "Customize the visual experience of accordion transitions according to your "
 "preference."
 msgstr ""
 
-#: admin/views/metabox-config.php:818
+#: admin/views/metabox-config.php:1057
 msgid "Animation Style"
 msgstr ""
 
-#: admin/views/metabox-config.php:819
+#: admin/views/metabox-config.php:1058
 msgid "Select an animation style for the description content."
 msgstr ""
 
-#: admin/views/metabox-config.php:822
+#: admin/views/metabox-config.php:1061
 #: admin/views/models/fields/typography/typography.php:235
 msgid "Normal"
 msgstr ""
 
-#: admin/views/metabox-config.php:823
+#: admin/views/metabox-config.php:1062
 msgid "fadeIn (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:824
+#: admin/views/metabox-config.php:1063
 msgid "fadeInLeft (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:825
+#: admin/views/metabox-config.php:1064
 msgid "fadeInUp (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:826
+#: admin/views/metabox-config.php:1065
 msgid "fadeInDownBig (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:827 admin/views/metabox-config.php:832
-#: admin/views/metabox-config.php:846
+#: admin/views/metabox-config.php:1066 admin/views/metabox-config.php:1071
+#: admin/views/metabox-config.php:1085
 msgid "shake (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:828 admin/views/metabox-config.php:844
-#: admin/views/metabox-config.php:847
+#: admin/views/metabox-config.php:1067 admin/views/metabox-config.php:1083
+#: admin/views/metabox-config.php:1086
 msgid "swing (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:829 admin/views/metabox-config.php:848
+#: admin/views/metabox-config.php:1068 admin/views/metabox-config.php:1087
 msgid "rollIn (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:830
+#: admin/views/metabox-config.php:1069
 msgid "bounce (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:831
+#: admin/views/metabox-config.php:1070
 msgid "wobble (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:833
+#: admin/views/metabox-config.php:1072
 msgid "slideInDown (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:834
+#: admin/views/metabox-config.php:1073
 msgid "slideInLeft (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:835
+#: admin/views/metabox-config.php:1074
 msgid "slideInUp (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:836
+#: admin/views/metabox-config.php:1075
 msgid "zoomIn (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:837
+#: admin/views/metabox-config.php:1076
 msgid "zoomInDown (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:838
+#: admin/views/metabox-config.php:1077
 msgid "zoomInUp (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:839
+#: admin/views/metabox-config.php:1078
 msgid "zoomInLeft (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:840
+#: admin/views/metabox-config.php:1079
 msgid "bounceIn (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:841
+#: admin/views/metabox-config.php:1080
 msgid "bounceInDown (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:842
+#: admin/views/metabox-config.php:1081
 msgid "bounceInUp (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:843
+#: admin/views/metabox-config.php:1082
 msgid "jello (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:845
+#: admin/views/metabox-config.php:1084
 msgid "rubberBand (Pro)"
 msgstr ""
 
-#: admin/views/metabox-config.php:855
+#: admin/views/metabox-config.php:1094
 msgid "Transition Time"
 msgstr ""
 
-#: admin/views/metabox-config.php:856
-msgid ""
-"Set accordion expand and collapse transition time. Default value is 500 "
-"milliseconds."
+#: admin/views/metabox-config.php:1095
+msgid "Set accordion expand and collapse transition time."
 msgstr ""
 
-#: admin/views/metabox-config.php:873 admin/views/metabox-config.php:879
-#: admin/views/metabox-config.php:887
+#: admin/views/metabox-config.php:1113 admin/views/metabox-config.php:1135
+#: admin/views/metabox-config.php:1143
 msgid "Ajax Pagination"
 msgstr ""
 
-#: admin/views/metabox-config.php:880
-msgid "Enabled/Disabled accordion item pagination."
+#: admin/views/metabox-config.php:1122
+#, php-format
+msgid ""
+"To enhance your FAQs Page with %1$sLoad More Pagination%2$s. %5$sUpgrade to "
+"Pro!%6$s"
 msgstr ""
 
-#: admin/views/metabox-config.php:892
+#: admin/views/metabox-config.php:1136
+msgid "Enable/Disable accordion item pagination."
+msgstr ""
+
+#: admin/views/metabox-config.php:1148
 msgid "Ajax Pagination Type"
 msgstr ""
 
-#: admin/views/metabox-config.php:893
+#: admin/views/metabox-config.php:1149
 msgid "Choose an accordion item pagination type."
 msgstr ""
 
-#: admin/views/metabox-config.php:896
+#: admin/views/metabox-config.php:1153
 msgid "Ajax Load More"
 msgstr ""
 
-#: admin/views/metabox-config.php:897
+#: admin/views/metabox-config.php:1154
 msgid "Ajax Infinite Scroll"
 msgstr ""
 
-#: admin/views/metabox-config.php:898
+#: admin/views/metabox-config.php:1155
 msgid "Ajax Number"
 msgstr ""
 
-#: admin/views/metabox-config.php:906
+#: admin/views/metabox-config.php:1163
 msgid "Load More Label"
 msgstr ""
 
-#: admin/views/metabox-config.php:907
+#: admin/views/metabox-config.php:1164
 msgid "Load More"
 msgstr ""
 
-#: admin/views/metabox-config.php:908
+#: admin/views/metabox-config.php:1165
 msgid "Change load more label text."
 msgstr ""
 
-#: admin/views/metabox-config.php:917
+#: admin/views/metabox-config.php:1174
 msgid "Accordion Items Per Page"
 msgstr ""
 
-#: admin/views/metabox-config.php:918
+#: admin/views/metabox-config.php:1175
 msgid "Set number of accordion items to show per page/click."
 msgstr ""
 
-#: admin/views/metabox-config.php:928
-msgid "Color"
-msgstr ""
-
-#: admin/views/metabox-config.php:929
+#: admin/views/metabox-config.php:1187
 msgid "Set Pagination color."
 msgstr ""
 
-#: admin/views/metabox-config.php:933
+#: admin/views/metabox-config.php:1191
 msgid "Text Color"
 msgstr ""
 
-#: admin/views/metabox-config.php:934
+#: admin/views/metabox-config.php:1192
 msgid "Text Active Color"
 msgstr ""
 
-#: admin/views/metabox-config.php:935
+#: admin/views/metabox-config.php:1193
 msgid "Border Color"
 msgstr ""
 
-#: admin/views/metabox-config.php:936
+#: admin/views/metabox-config.php:1194
 msgid "Border Active Color"
 msgstr ""
 
-#: admin/views/metabox-config.php:937
+#: admin/views/metabox-config.php:1195
 msgid "Background"
 msgstr ""
 
-#: admin/views/metabox-config.php:938
+#: admin/views/metabox-config.php:1196
 msgid "Active Background"
 msgstr ""
 
-#: admin/views/metabox-config.php:960
+#: admin/views/metabox-config.php:1222
 msgid "Typography"
 msgstr ""
 
-#: admin/views/metabox-config.php:969
+#: admin/views/metabox-config.php:1231
 #, php-format
 msgid ""
 "Want to customize everything (colors and typography) easily? %1$sUpgrade to "
-"Pro!%2$s P.S. Note: The %3$scolor%4$s and %3$smargin%4$s fields work in the "
-"lite version."
+"Pro!%2$s P.S. Note: The section %3$scolor%4$s fields work in the lite "
+"version."
 msgstr ""
 
-#: admin/views/metabox-config.php:981
+#: admin/views/metabox-config.php:1243
 msgid "Load Accordion Section Title Font"
 msgstr ""
 
-#: admin/views/metabox-config.php:982
+#: admin/views/metabox-config.php:1244
 msgid "On/Off google font for the section title."
 msgstr ""
 
-#: admin/views/metabox-config.php:995
+#: admin/views/metabox-config.php:1257
 msgid "Accordion Section Title Font"
 msgstr ""
 
-#: admin/views/metabox-config.php:996
+#: admin/views/metabox-config.php:1258
 msgid "Set Accordion section title font properties."
 msgstr ""
 
-#: admin/views/metabox-config.php:1023
+#: admin/views/metabox-config.php:1285
 msgid "Load Accordion Item Title Font"
 msgstr ""
 
-#: admin/views/metabox-config.php:1024
+#: admin/views/metabox-config.php:1286
 msgid "On/Off google font for the accordion item title."
 msgstr ""
 
-#: admin/views/metabox-config.php:1030
+#: admin/views/metabox-config.php:1292
 msgid "Item Title Font"
 msgstr ""
 
-#: admin/views/metabox-config.php:1031
+#: admin/views/metabox-config.php:1293
 msgid "Set accordion item title font properties."
 msgstr ""
 
-#: admin/views/metabox-config.php:1052
+#: admin/views/metabox-config.php:1314
 msgid "Load Accordion Item Description Font"
 msgstr ""
 
-#: admin/views/metabox-config.php:1053
+#: admin/views/metabox-config.php:1315
 msgid "On/Off google font for the accordion item description."
 msgstr ""
 
-#: admin/views/metabox-config.php:1059
+#: admin/views/metabox-config.php:1321
 msgid "Description Font"
 msgstr ""
 
-#: admin/views/metabox-config.php:1060
+#: admin/views/metabox-config.php:1322
 msgid "Set accordion item description font properties."
 msgstr ""
 
-#: admin/views/models/classes/metabox.class.php:350
+#: admin/views/models/classes/metabox.class.php:352
 #: admin/views/models/classes/options.class.php:797
 msgid "No option provided by developer."
 msgstr ""
 
-#: admin/views/models/classes/metabox.class.php:371
+#: admin/views/models/classes/metabox.class.php:373
 msgid "Restore"
 msgstr ""
 
-#: admin/views/models/classes/metabox.class.php:372
+#: admin/views/models/classes/metabox.class.php:374
 msgid "update post for restore "
 msgstr ""
 
-#: admin/views/models/classes/metabox.class.php:372
+#: admin/views/models/classes/metabox.class.php:374
 msgid "Cancel"
 msgstr ""
 
@@ -993,41 +1219,41 @@ msgstr ""
 msgid "Are you sure to reset all options?"
 msgstr ""
 
-#: admin/views/models/classes/setup.class.php:418
+#: admin/views/models/classes/setup.class.php:422
 msgid "Are you sure?"
 msgstr ""
 
-#: admin/views/models/classes/setup.class.php:419
+#: admin/views/models/classes/setup.class.php:423
 msgid "Restoring options."
 msgstr ""
 
-#: admin/views/models/classes/setup.class.php:420
+#: admin/views/models/classes/setup.class.php:424
 msgid "Importing options."
 msgstr ""
 
-#: admin/views/models/classes/setup.class.php:423
+#: admin/views/models/classes/setup.class.php:427
 #, php-format
 msgid "Please enter %s or more characters"
 msgstr ""
 
-#: admin/views/models/classes/setup.class.php:424
+#: admin/views/models/classes/setup.class.php:428
 msgid "Searching..."
 msgstr ""
 
-#: admin/views/models/classes/setup.class.php:425
+#: admin/views/models/classes/setup.class.php:429
 msgid "No results match"
 msgstr ""
 
-#: admin/views/models/classes/setup.class.php:507
+#: admin/views/models/classes/setup.class.php:512
 #, php-format
 msgid "Ooops! This field type (%s) can not be used here, yet."
 msgstr ""
 
-#: admin/views/models/classes/setup.class.php:578
+#: admin/views/models/classes/setup.class.php:583
 msgid "This field class is not available!"
 msgstr ""
 
-#: admin/views/models/classes/setup.class.php:581
+#: admin/views/models/classes/setup.class.php:586
 msgid "This type is not found!"
 msgstr ""
 
@@ -1054,11 +1280,6 @@ msgstr ""
 #: admin/views/models/fields/border/border.php:56
 #: admin/views/models/fields/spacing/spacing.php:57
 msgid "all"
-msgstr ""
-
-#: admin/views/models/fields/border/border.php:79
-#: admin/views/models/fields/typography/typography.php:273
-msgid "Solid"
 msgstr ""
 
 #: admin/views/models/fields/border/border.php:80
@@ -1107,7 +1328,7 @@ msgid "No data provided for this option type."
 msgstr ""
 
 #: admin/views/models/fields/group/group.php:51
-#: includes/class-easy-accordion-free-post-types.php:84
+#: includes/class-easy-accordion-free-post-types.php:137
 msgid "Add New"
 msgstr ""
 
@@ -1300,8 +1521,8 @@ msgstr ""
 #: admin/views/models/functions/actions.php:30
 #: admin/views/models/functions/actions.php:65
 #: admin/views/models/functions/actions.php:93
-#: includes/class-easy-accordion-import-export.php:74
-#: includes/class-easy-accordion-import-export.php:179
+#: includes/class-easy-accordion-import-export.php:87
+#: includes/class-easy-accordion-import-export.php:262
 msgid "Error: Nonce verification has failed. Please try again."
 msgstr ""
 
@@ -1341,126 +1562,130 @@ msgstr ""
 msgid "Please write a valid url!"
 msgstr ""
 
+#: admin/views/notices/offer-banner.php:131
+msgid "Limited Time Offer, Upgrade Now!"
+msgstr ""
+
 #: admin/views/option-config.php:26 admin/views/option-config.php:37
 msgid "Settings"
 msgstr ""
 
-#: admin/views/option-config.php:49
-msgid "Advanced"
-msgstr ""
-
-#: admin/views/option-config.php:55
-msgid "Clean-up Data on Deletion"
+#: admin/views/option-config.php:50
+msgid "Advanced Controls"
 msgstr ""
 
 #: admin/views/option-config.php:56
+msgid "Clean-up Data on Deletion"
+msgstr ""
+
+#: admin/views/option-config.php:57
 msgid ""
 "Check this box if you would like Easy Accordion to completely remove all of "
 "its data when the plugin is deleted."
 msgstr ""
 
-#: admin/views/option-config.php:63
+#: admin/views/option-config.php:64
 msgid "Focus Style for Accessibility"
 msgstr ""
 
-#: admin/views/option-config.php:64
+#: admin/views/option-config.php:65
 msgid "Check this to enable focus style to improve accessibility."
 msgstr ""
 
-#: admin/views/option-config.php:77
+#: admin/views/option-config.php:78
 msgid "WooCommerce FAQs"
 msgstr ""
 
-#: admin/views/option-config.php:88 admin/views/option-config.php:93
+#: admin/views/option-config.php:84 admin/views/option-config.php:89
 msgid "WooCommerce FAQs Tab"
 msgstr ""
 
-#: admin/views/option-config.php:93
+#: admin/views/option-config.php:89
 msgid ""
 "WooCommerce's FAQs tab gives quick answers to common customer queries about "
 "products and services."
 msgstr ""
 
-#: admin/views/option-config.php:99
+#: admin/views/option-config.php:95
 msgid "FAQs Tab Label"
 msgstr ""
 
-#: admin/views/option-config.php:100
+#: admin/views/option-config.php:96
 msgid "Set custom text for faq tab."
 msgstr ""
 
-#: admin/views/option-config.php:101
+#: admin/views/option-config.php:97
 msgid "FAQs"
 msgstr ""
 
-#: admin/views/option-config.php:108
+#: admin/views/option-config.php:104
 msgid "FAQs Tab Priority"
 msgstr ""
 
-#: admin/views/option-config.php:109
+#: admin/views/option-config.php:105
 msgid "Set WooCommerce FAQs tab priority position. Default value is 50."
 msgstr ""
 
-#: admin/views/option-config.php:122
+#: admin/views/option-config.php:118
 msgid "Display FAQs on"
 msgstr ""
 
-#: admin/views/option-config.php:124
+#: admin/views/option-config.php:120
 msgid "All Products"
 msgstr ""
 
-#: admin/views/option-config.php:125
+#: admin/views/option-config.php:121
 msgid "Category"
 msgstr ""
 
-#: admin/views/option-config.php:126
+#: admin/views/option-config.php:122
 msgid "Specific Products"
 msgstr ""
 
-#: admin/views/option-config.php:135
+#: admin/views/option-config.php:131
 msgid "Specific Product(s)"
 msgstr ""
 
-#: admin/views/option-config.php:149
+#: admin/views/option-config.php:145
 msgid "Choose Product"
 msgstr ""
 
-#: admin/views/option-config.php:156
+#: admin/views/option-config.php:152
 msgid "Category Term(s)"
 msgstr ""
 
-#: admin/views/option-config.php:165
+#: admin/views/option-config.php:161
 msgid "Choose term(s)"
 msgstr ""
 
-#: admin/views/option-config.php:174
+#: admin/views/option-config.php:170
 msgid "Select FAQs Group(s)"
 msgstr ""
 
-#: admin/views/option-config.php:194
+#: admin/views/option-config.php:190
 #, php-format
 msgid ""
-"Want to add %1$scustom FAQs%2$s tab to your specific products page to "
-"increase sales?"
+"Want to add %1$sWooCommerce Product FAQs Tab%2$s product page to Increase "
+"Sales & Reduce Returns?"
 msgstr ""
 
-#: admin/views/option-config.php:194
+#: admin/views/option-config.php:190
 msgid "Upgrade to Pro!"
 msgstr ""
 
-#: admin/views/option-config.php:208
+#: admin/views/option-config.php:204
 msgid "Custom CSS & JS"
 msgstr ""
 
-#: admin/views/option-config.php:214
+#: admin/views/option-config.php:210
 msgid "Custom CSS"
 msgstr ""
 
-#: admin/views/option-config.php:224
+#: admin/views/option-config.php:220
 msgid "Custom JS"
 msgstr ""
 
-#: admin/views/option-config.php:239
+#: admin/views/option-config.php:235
 msgid "License Key"
 msgstr ""
 
@@ -1468,97 +1693,135 @@ msgstr ""
 msgid "Tools"
 msgstr ""
 
-#: admin/views/tools-config.php:46 admin/views/tools-config.php:83
+#: admin/views/tools-config.php:47 admin/views/tools-config.php:85
 msgid "Export"
 msgstr ""
 
-#: admin/views/tools-config.php:53
+#: admin/views/tools-config.php:54
 msgid "Choose What To Export"
 msgstr ""
 
-#: admin/views/tools-config.php:56
+#: admin/views/tools-config.php:58
 msgid "All Accordion Groups"
 msgstr ""
 
-#: admin/views/tools-config.php:57
+#: admin/views/tools-config.php:59
 msgid "Selected Accordion Groups"
 msgstr ""
 
-#: admin/views/tools-config.php:70
+#: admin/views/tools-config.php:72
 msgid "Choose group(s)"
 msgstr ""
 
-#: admin/views/tools-config.php:93
+#: admin/views/tools-config.php:95
 msgid "Import"
 msgstr ""
 
-#: admin/views/tools-config.php:99
+#: admin/views/tools-config.php:101
 msgid "Allow Iframe/Script Tags"
 msgstr ""
 
-#: admin/views/tools-config.php:100
+#: admin/views/tools-config.php:102
 msgid ""
 "Enabling this option, you are allowing to import the accordion which "
 "contains iframe, script or embed tags"
 msgstr ""
 
-#: admin/views/tools-config.php:106
+#: admin/views/tools-config.php:108
 msgid "Import JSON File To Upload"
 msgstr ""
 
 #: includes/class-easy-accordion-free-post-types.php:82
 #: includes/class-easy-accordion-free-post-types.php:94
-msgid "Accordion Groups"
+msgid "Manage FAQ Groups"
 msgstr ""
 
-#: includes/class-easy-accordion-free-post-types.php:83
-msgid "Accordion"
-msgstr ""
-
+#: includes/class-easy-accordion-free-post-types.php:84
 #: includes/class-easy-accordion-free-post-types.php:85
-msgid "Add Accordion Group"
+msgid "New FAQ Group"
 msgstr ""
 
 #: includes/class-easy-accordion-free-post-types.php:86
-msgid "Edit Accordion Group"
+msgid "Edit FAQ Group"
 msgstr ""
 
 #: includes/class-easy-accordion-free-post-types.php:87
-msgid "New Accordion"
+msgid "New New FAQ"
 msgstr ""
 
 #: includes/class-easy-accordion-free-post-types.php:88
-msgid "View Accordion"
+msgid "View New FAQ"
 msgstr ""
 
 #: includes/class-easy-accordion-free-post-types.php:89
-msgid "Search Accordion Group"
+msgid "Search FAQ Group"
 msgstr ""
 
 #: includes/class-easy-accordion-free-post-types.php:90
-msgid "No WP Accordion found."
+msgid "No WP FAQ found."
 msgstr ""
 
 #: includes/class-easy-accordion-free-post-types.php:91
-msgid "No WP Accordion found in trash."
+msgid "No WP FAQ found in trash."
 msgstr ""
 
 #: includes/class-easy-accordion-free-post-types.php:92
-msgid "Parent Item:"
+msgid "Parent FAQ:"
 msgstr ""
 
-#: includes/class-easy-accordion-import-export.php:170
+#: includes/class-easy-accordion-free-post-types.php:134
+msgid "FAQ"
+msgstr ""
+
+#: includes/class-easy-accordion-free-post-types.php:138
+msgid "Add New FAQ"
+msgstr ""
+
+#: includes/class-easy-accordion-free-post-types.php:139
+#: includes/class-easy-accordion-free-post-types.php:140
+msgid "Edit FAQ"
+msgstr ""
+
+#: includes/class-easy-accordion-free-post-types.php:141
+msgid "FAQ updated"
+msgstr ""
+
+#: includes/class-easy-accordion-free-post-types.php:142
+msgid "New FAQ"
+msgstr ""
+
+#: includes/class-easy-accordion-free-post-types.php:143
+msgid "Search FAQ"
+msgstr ""
+
+#: includes/class-easy-accordion-free-post-types.php:144
+msgid "No FAQ found"
+msgstr ""
+
+#: includes/class-easy-accordion-free-post-types.php:145
+msgid "No FAQ found in Trash"
+msgstr ""
+
+#: includes/class-easy-accordion-free-post-types.php:146
+msgid "Parent FAQ"
+msgstr ""
+
+#: includes/class-easy-accordion-free-post-types.php:187
+msgid "Add FAQ"
+msgstr ""
+
+#: includes/class-easy-accordion-import-export.php:253
 msgid "Error: Permission denied."
 msgstr ""
 
-#: includes/class-easy-accordion-import-export.php:195
+#: includes/class-easy-accordion-import-export.php:278
 msgid "Nothing to import."
 msgstr ""
 
-#: public/views/templates/default-accordion.php:24
+#: public/templates/templates-parts/preloader.php:12
 msgid "Loader image"
 msgstr ""
 
-#: public/views/templates/default-accordion.php:86
+#: public/templates/templates-parts/single-item.php:40
 msgid "No Content"
 msgstr ""
