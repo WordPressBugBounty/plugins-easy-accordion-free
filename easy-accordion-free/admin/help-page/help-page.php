@@ -209,7 +209,7 @@ class Easy_Accordion_Free_Help {
 	 */
 	public function form_page_callback() {
 		?>
-		<div class="sp-eap-indicator-notice">To allow users to submit FAQ suggestions using the FAQs Form, <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>Upgrade to Pro!</b></a></div>
+		<div class="sp-eap-indicator-notice">To allow users to submit FAQ suggestions using the <a href="https://easyaccordion.io/faq-forms/" target="_blank"><b>FAQs Form</b></a>, <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>Upgrade to Pro!</b></a></div>
 		<div class="eap-faq-form">
 		<img src="<?php echo esc_url( SP_EA_URL . 'admin/help-page/img/form.webp' ); ?>" alt="forms" class="eap-form-img"/>
 		</div>

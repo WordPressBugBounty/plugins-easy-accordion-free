@@ -239,7 +239,7 @@ SP_EAP::createSection(
 					'<a href="https://easyaccordion.io/faqs-from-posts-pages-custom-post-types-taxonomies/" target="_blank"><b>',
 					'<a href="https://easyaccordion.io/woocommerce-product-accordion/" target="_blank"><b>',
 					'<a href="https://easyaccordion.io/image-accordion/" target="_blank"><b>',
-					'</a></b>',
+					'</a></b>'
 				),
 			),
 
@@ -303,16 +303,18 @@ SP_EAP::createSection(
 				'title_info' => sprintf(
 					'<div class="ea-info-label">%s</div> <div class="ea-short-content">%s</div>',
 					__( 'Accordion Layout', 'easy-accordion-free' ),
-					__( 'Accordion Layout determines how accordion information is displayed, with choices like vertical, horizontal, or multi column layouts.', 'easy-accordion-free' ),
+					__( 'Accordion Layout determines how accordion information is displayed, with choices like vertical, horizontal, or multi column layouts.', 'easy-accordion-free' )
 				),
 				'desc'       => sprintf(
-					/* translators: 1: start link tag, 2: close tag. */
+					/* translators: 1: start link tag, 2: close tag,3: start link tag, 4: close tag. */
 					__(
-						'To create fantastic Accordion FAQ layouts and access to advanced customizations, %1$sUpgrade to Pro!%2$s',
+						'To create fantastic Accordion %3$sFAQ layouts%4$s and access to advanced customizations, %1$sUpgrade to Pro!%2$s',
 						'easy-accordion-free'
 					),
 					'<a href="https://easyaccordion.io/pricing/" target="_blank"><strong>',
 					'</strong></a>',
+					'<a href="https://easyaccordion.io/vertical-accordion/" target="_blank"><strong>',
+					'</strong></a>'
 				),
 				'default'    => 'vertical',
 			),
@@ -427,7 +429,7 @@ SP_EAP::createSection(
 					'<div class="ea-info-label">%s</div> <div class="ea-short-content">%s</div><div class="info-button"><a class="ea-open-docs" href="https://docs.shapedplugin.com/docs/easy-accordion-free/configurations/how-to-enable-accordion-scrolling-to-active-item/" target="_blank">%s</a></div>',
 					__( 'Scroll to Active Item', 'easy-accordion-free' ),
 					__( 'This option allows automatic scrolling to the active accordion item. This provides a smoother and more user-friendly experience when navigating through accordion faqs section.', 'easy-accordion-free' ),
-					__( 'Open Docs', 'easy-accordion-free' ),
+					__( 'Open Docs', 'easy-accordion-free' )
 				),
 			),
 			array(
@@ -445,7 +447,7 @@ SP_EAP::createSection(
 					__( 'Schema Markup', 'easy-accordion-free' ),
 					__( 'Schema Markup', 'easy-accordion-free' ),
 					__( 'adds structured data to your Accordion FAQs, enhancing search engine visibility and improving the display of your Accordion FAQs in search results.', 'easy-accordion-free' ),
-					__( 'Open Docs', 'easy-accordion-free' ),
+					__( 'Open Docs', 'easy-accordion-free' )
 				),
 			),
 			array(
@@ -458,6 +460,23 @@ SP_EAP::createSection(
 				'text_off'   => __( 'Disabled', 'easy-accordion-free' ),
 				'text_width' => 100,
 				'default'    => false,
+			),
+			array(
+				'type'    => 'notice',
+				'class'   => 'only_pro_notice',
+				'content' => sprintf(
+					/* translators: 1: start link tag, 2: close tag,3: start link tag, 4: close tag,5: start link tag, 6: close tag; */
+					__(
+						'Want to make your %3$sFAQ Content Searchable%4$s and add an %5$sExpand/Collapse All%6$s button? %1$sUpgrade to Pro!%2$s',
+						'easy-accordion-free'
+					),
+					'<a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>',
+					'</b></a>',
+					'<a href="https://easyaccordion.io/faqs-search-option/" target="_blank"><b>',
+					'</b></a>',
+					'<a href="https://easyaccordion.io/expand-collapse-all/" target="_blank"><b>',
+					'</b></a>'
+				),
 			),
 		), // Fields array end.
 	)
@@ -582,7 +601,7 @@ SP_EAP::createSection(
 						'easy-accordion-free'
 					),
 					'<a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>',
-					'</b></a>',
+					'</b></a>'
 				),
 			),
 		),
@@ -830,13 +849,13 @@ SP_EAP::createSection(
 									'type'    => 'notice',
 									'class'   => 'only_pro_notice',
 									'content' => sprintf(
-										/* translators: 1: start link tag, 2: close tag; */
+									/* translators: 1: start link tag, 2: close tag. */
 										__(
-											'Want to make your FAQ content searchable and add an Expand/Collapse All button? %1$sUpgrade to Pro!%2$s',
+											'Want to make your Accordion FAQs visually attractive with tons of flexible options? %1$sUpgrade to Pro!%2$s',
 											'easy-accordion-free'
 										),
 										'<a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>',
-										'</b></a>',
+										'</b></a>'
 									),
 								),
 							),
@@ -990,7 +1009,6 @@ SP_EAP::createSection(
 										'true',
 									),
 								),
-
 								array(
 									'id'         => 'eap_icon_position',
 									'type'       => 'button_set',
@@ -1023,7 +1041,7 @@ SP_EAP::createSection(
 											'easy-accordion-free'
 										),
 										'<a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>',
-										'</b></a>',
+										'</b></a>'
 									),
 								),
 							),
@@ -1047,7 +1065,7 @@ SP_EAP::createSection(
 										'<div class="ea-info-label">%s</div> <div class="ea-short-content">%s</div><div class="info-button"><a class="ea-open-live-demo" href="https://easyaccordion.io/accordion-animation/" target="_blank">%s</a></div>',
 										__( 'Animation', 'easy-accordion-free' ),
 										__( 'The Animation option allows you to control the accordion animation. Customize the visual experience of accordion transitions according to your preference.', 'easy-accordion-free' ),
-										__( 'Live Demo', 'easy-accordion-free' ),
+										__( 'Live Demo', 'easy-accordion-free' )
 									),
 								),
 								array(
@@ -1118,14 +1136,14 @@ SP_EAP::createSection(
 									'type'    => 'notice',
 									'style'   => 'normal',
 									'content' => sprintf(
-										/* translators: %1$s: strong and link tags start, %2$s: link and strong tags end, %3$s: strong tag starts %4$s: strong tag ends %5$s: another link tag start %6$s: link tag ends To enhance your FAQs Page with pagination, upgrade to Pro!*/
-										__( 'To enhance your FAQs Page with %1$sLoad More Pagination%2$s. %5$sUpgrade to Pro!%6$s', 'easy-accordion-free' ),
+										/* translators: %1$s: strong and link tags start, %2$s: link and strong tags end, %3$s: strong tag starts %4$s: strong tag ends %5$s: another link tag start %6$s: link tag ends */
+										__( 'To enhance your FAQs Page with %1$sLoad More Pagination%2$s, %5$sUpgrade to Pro!%6$s', 'easy-accordion-free' ),
 										'<strong><a href="https://easyaccordion.io/ajax-paginations/" target="_blank">',
 										'</a></strong>',
 										'<strong class="eap-pro-text">',
 										'</strong>',
 										'<a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>',
-										'</b></a>',
+										'</b></a>'
 									),
 								),
 								array(
@@ -1234,7 +1252,7 @@ SP_EAP::createSection(
 						'<a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"> <b>',
 						'</b></a>',
 						'<b>',
-						'</b>',
+						'</b>'
 					),
 				),
 				array(

@@ -3,7 +3,7 @@ Contributors: shapedplugin, khalilu, rubel_miah, shamimmiashuhagh
 Tags: nested accordion, faq, expand collapse, horizontal accordion, product faq
 Requires at least: 4.7
 Tested up to: 6.7.1
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -262,6 +262,11 @@ Thank you!
 
 
 == Changelog ==
+
+= Version 3.0.1 - Dec 10, 2024 =
+* Fix: The warnings found with PHP 7.2 or older versions.
+* Fix: The Schema markup warnings found in the plugin version 3.0.0
+* Updated: The language file.
 
 = Version 3.0.0 - Dec 04, 2024 =
 * New: The FAQ Custom Post Type feature.

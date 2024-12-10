@@ -13,12 +13,36 @@ if ( ! function_exists( 'sp_clean_schema' ) ) {
 	 * @return statement
 	 */
 	function sp_clean_schema( $string ) {
+		$allowed_tags = array(
+			'h1'     => array(),
+			'h2'     => array(),
+			'h3'     => array(),
+			'h4'     => array(),
+			'h5'     => array(),
+			'h6'     => array(),
+			'br'     => array(),
+			'ol'     => array(),
+			'ul'     => array(),
+			'li'     => array(),
+			'a'      => array(
+				'href'  => array(),
+				'title' => array(),
+			),
+			'p'      => array(),
+			'div'    => array(),
+			'b'      => array(),
+			'strong' => array(),
+			'i'      => array(),
+			'em'     => array(),
+		);
+
 		$string = strip_shortcodes( $string );
-		$string = strip_tags( $string, '<p><b><i><strong><em>' );
-		$string = preg_replace( '/<p>\s*<\/p>|<b>\s*<\/b>|<i>\s*<\/i>|<strong>\s*<\/strong>|<em>\s*<\/em>/', '', $string );
+		$string = wp_kses( $string, $allowed_tags );
+		// Remove commented codes.
+		$string = preg_replace( '/<!--.*?-->/', '', $string );
 		$string = preg_replace( '/\s+/', ' ', $string );
 		$string = trim( $string );
-		$string = str_replace( '"', '\"', $string );
+		$string = str_replace( '"', "'", $string );
 
 		return $string;
 	}
@@ -33,14 +57,15 @@ if ( ! function_exists( 'schema_markup' ) ) {
 	 * @return statement
 	 */
 	function schema_markup( $title = null, $content = null ) {
-		$title   = sp_clean_schema( $title );
-		$content = sp_clean_schema( $content );
+		$title   = $title ? esc_html( $title ) : '-';
+		$content = $content ? sp_clean_schema( $content ) : '';
+		$content = $content ? $content : '-';
 		$markup  = '{
 			"@type": "Question",
-			"name": "' . esc_html( $title ) . '",
+			"name": "' . $title . '",
 			"acceptedAnswer": {
 				"@type": "Answer",
-				"text": "' . esc_html( $content ) . '"
+				"text": "' . $content . '"
 			}
 		}';
 		return $markup;
@@ -63,40 +88,44 @@ if ( ! function_exists( 'minify_markup' ) ) {
 
 if ( $eap_schema_markup ) {
 	$markup = '<script type="application/ld+json">
-	{
-		"@context": "https://schema.org",
-		"@type": "FAQPage",
-		"mainEntity": [';
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [';
+
 	if ( 'content-accordion' === $accordion_type && is_array( $content_sources ) ) {
+		$content_count = count( $content_sources );
 		foreach ( $content_sources as $keys => $content_source ) {
-			$accordion_title     = $content_source['accordion_content_title'];
-			$content_description = $content_source['accordion_content_description'];
-			$markup             .= schema_markup( $accordion_title, $content_description );
-			$keys++;
-			if ( $keys !== $key ) {
+			$accordion_title     = $content_source['accordion_content_title'] ? $content_source['accordion_content_title'] : '';
+			$content_description = $content_source['accordion_content_description'] ? $content_source['accordion_content_description'] : '';
+
+			$markup .= schema_markup( $accordion_title, $content_description );
+			if ( $keys + 1 !== $content_count ) {
 				$markup .= ',';
 			}
 		}
 	} elseif ( 'post-accordion' === $accordion_type ) {
-		$post_schema_query = $post_query;
-		$accordion_count   = 0;
-		if ( $post_schema_query->have_posts() ) {
-			while ( $post_schema_query->have_posts() ) {
-				$post_schema_query->the_post();
-				$key             = get_the_ID();
-				$accordion_title = get_the_title( $key );
+		if ( $post_query->have_posts() ) {
+			$post_count = 0;
+			while ( $post_query->have_posts() ) {
+				$post_query->the_post();
+
+				$accordion_title = get_the_title();
 				$content_main    = get_the_content();
-				$markup         .= schema_markup( $accordion_title, $content_main );
-				++$accordion_count;
-				if ( $count_total_post !== $accordion_count ) {
+
+				$markup .= schema_markup( $accordion_title, $content_main );
+
+				$post_count++;
+				if ( $post_count < $post_query->found_posts ) {
 					$markup .= ',';
 				}
 			}
 			wp_reset_postdata();
 		}
 	}
+
 	$markup .= ']
-	}
-	</script>';
+    }
+    </script>';
 	echo minify_markup( $markup );
 }
