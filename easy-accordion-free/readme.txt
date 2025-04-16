@@ -2,8 +2,8 @@
 Contributors: shapedplugin, khalilu, rubel_miah, shamimmiashuhagh
 Tags: nested accordion, faq, expand collapse, horizontal accordion, product faq
 Requires at least: 4.7
-Tested up to: 6.7.1
-Stable tag: 3.0.1
+Tested up to: 6.8
+Stable tag: 3.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -262,6 +262,11 @@ Thank you!
 
 
 == Changelog ==
+
+= Version 3.0.2 - Apr 16, 2025 =
+* New: A hook sp_eap_schema_allowed_tags added.
+* Fix: The translation-related warning was found with WP 6.8.
+* Tested: WordPress 6.8 compatibility.
 
 = Version 3.0.1 - Dec 10, 2024 =
 * Fix: The warnings found with PHP 7.2 or older versions.

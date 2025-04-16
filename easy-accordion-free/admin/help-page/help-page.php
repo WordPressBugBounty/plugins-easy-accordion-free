@@ -63,8 +63,6 @@ class Easy_Accordion_Free_Help {
 		add_action( 'admin_menu', array( $this, 'analytics_admin_menu' ), 55 );
 		add_action( 'admin_menu', array( $this, 'faq_form_admin_menu' ), 50 );
 		add_action( 'admin_menu', array( $this, 'help_admin_menu' ), 80 );
-		add_action( 'admin_menu', array( $this, 'lite_to_pro_admin_menu' ), 75 );
-		add_action( 'admin_menu', array( $this, 'recommended_admin_menu' ), 70 );
 
         $page   = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';// @codingStandardsIgnoreLine
 		if ( 'eap_help' !== $page ) {
@@ -90,36 +88,6 @@ class Easy_Accordion_Free_Help {
 	}
 
 	/**
-	 * Add sub menu.
-	 *
-	 * @return void
-	 */
-	public function recommended_admin_menu() {
-		add_submenu_page(
-			'edit.php?post_type=sp_easy_accordion',
-			__( 'Recommended', 'easy-accordion-free' ),
-			__( 'Recommended', 'easy-accordion-free' ),
-			'manage_options',
-			'edit.php?post_type=sp_easy_accordion&page=eap_help#recommended'
-		);
-	}
-
-	/**
-	 * Add sub menu.
-	 *
-	 * @return void
-	 */
-	public function lite_to_pro_admin_menu() {
-		add_submenu_page(
-			'edit.php?post_type=sp_easy_accordion',
-			__( 'Lite vs Pro', 'easy-accordion-free' ),
-			__( 'Lite vs Pro', 'easy-accordion-free' ),
-			'manage_options',
-			'edit.php?post_type=sp_easy_accordion&page=eap_help#lite-to-pro'
-		);
-	}
-
-	/**
 	 * Help_page_enqueue_scripts function.
 	 *
 	 * @return void
@@ -137,6 +105,20 @@ class Easy_Accordion_Free_Help {
 	 * @return void
 	 */
 	public function help_admin_menu() {
+		add_submenu_page(
+			'edit.php?post_type=sp_easy_accordion',
+			__( 'Easy Accordion', 'easy-accordion-free' ),
+			__( 'Recommended', 'easy-accordion-free' ),
+			'manage_options',
+			'edit.php?post_type=sp_easy_accordion&page=eap_help#recommended',
+		);
+		add_submenu_page(
+			'edit.php?post_type=sp_easy_accordion',
+			__( 'Easy Accordion', 'easy-accordion-free' ),
+			__( 'Lite vs Pro', 'easy-accordion-free' ),
+			'manage_options',
+			'edit.php?post_type=sp_easy_accordion&page=eap_help#lite-to-pro',
+		);
 		add_submenu_page(
 			'edit.php?post_type=sp_easy_accordion',
 			__( 'Easy Accordion Help', 'easy-accordion-free' ),
@@ -222,8 +204,8 @@ class Easy_Accordion_Free_Help {
 	 * @return void
 	 */
 	public function spea_plugins_info_api_help_page() {
-		$plugins_arr = get_transient( 'spea_plugins' );
-		if ( false === $plugins_arr ) {
+		$plugins_arr = get_transient( 'spea_plugins_data' );
+		if ( ! $plugins_arr ) {
 			$args    = (object) array(
 				'author'   => 'shapedplugin',
 				'per_page' => '120',
@@ -239,6 +221,7 @@ class Easy_Accordion_Free_Help {
 					'num_ratings',
 					'short_description',
 					'author',
+					'icons',
 				),
 			);
 			$request = array(
@@ -268,12 +251,13 @@ class Easy_Accordion_Free_Help {
 								'rating'            => $pl->rating,
 								'num_ratings'       => $pl->num_ratings,
 								'short_description' => $pl->short_description,
+								'icons'             => $pl->icons['2x'],
 							);
 						}
 					}
 				}
 
-				set_transient( 'spea_plugins', $plugins_arr, 24 * HOUR_IN_SECONDS );
+				set_transient( 'spea_plugins_data', $plugins_arr, 24 * HOUR_IN_SECONDS );
 			}
 		}
 
@@ -282,6 +266,7 @@ class Easy_Accordion_Free_Help {
 
 			foreach ( $plugins_arr as $plugin ) {
 				$plugin_slug = $plugin['slug'];
+				$plugin_icon = ! empty( $plugin['icons'] ) ? $plugin['icons'] : '';
 				$image_type  = 'png';
 				if ( isset( self::$plugins[ $plugin_slug ] ) ) {
 					$plugin_file = self::$plugins[ $plugin_slug ];
@@ -307,8 +292,8 @@ class Easy_Accordion_Free_Help {
 						<div class="name column-name">
 							<h3>
 								<a class="thickbox" title="<?php echo esc_attr( $plugin['name'] ); ?>" href="<?php echo esc_url( $details_link ); ?>">
-						<?php echo esc_html( $plugin['name'] ); ?>
-									<img src="<?php echo esc_url( 'https://ps.w.org/' . $plugin_slug . '/assets/icon-256x256.' . $image_type ); ?>" class="plugin-icon"/>
+									<?php echo esc_html( $plugin['name'] ); ?>
+									<img src="<?php echo esc_url( $plugin_icon ); ?>" class="plugin-icon"/>
 								</a>
 							</h3>
 						</div>
@@ -336,7 +321,7 @@ class Easy_Accordion_Free_Help {
 								<?php } ?>
 								</li>
 								<li>
-									<a href="<?php echo esc_url( $details_link ); ?>" class="thickbox open-plugin-details-modal" aria-label="<?php echo esc_attr( sprintf( 'More information about %s', $plugin['name'] ) ); ?>" title="<?php echo esc_attr( $plugin['name'] ); ?>">
+									<a href="<?php echo esc_url( $details_link ); ?>" class="thickbox open-plugin-details-modal" aria-label="<?php echo esc_attr( 'More information about ' . $plugin['name'] ); ?>" title="<?php echo esc_attr( $plugin['name'] ); ?>">
 								<?php esc_html_e( 'More Details', 'easy-accordion-free' ); ?>
 									</a>
 								</li>
@@ -378,7 +363,7 @@ class Easy_Accordion_Free_Help {
 					if ( isset( $plugin['active_installs'] ) ) {
 						?>
 						<div class="column-downloaded">
-						<?php echo number_format_i18n( $plugin['active_installs'] ) . esc_html__( '+ Active Installations', 'easy-accordion-free' ); ?>
+						<?php echo esc_html( number_format_i18n( $plugin['active_installs'] ) ) . esc_html__( '+ Active Installations', 'easy-accordion-free' ); ?>
 						</div>
 									<?php
 					}
@@ -829,82 +814,93 @@ class Easy_Accordion_Free_Help {
 							<span>Team ShapedPlugin LLC at WordCamp Sylhet</span>
 						</div>
 					</div>
+					<?php
+					$plugins_arr = get_transient( 'spea_plugins_data' );
+					$plugin_icon = array();
+					if ( is_array( $plugins_arr ) && ( count( $plugins_arr ) > 0 ) ) {
+						foreach ( $plugins_arr as $plugin ) {
+							$plugin_icon[ $plugin['slug'] ] = $plugin['icons'];
+						}
+					}
+					?>
 					<div class="spea-our-plugin-list">
 						<h3 class="spea-section-title">Upgrade your Website with our High-quality Plugins!</h3>
+						<?php if ( ! empty( $plugin_icon['wp-carousel-free'] ) ) : ?>
 						<div class="spea-our-plugin-list-wrap">
-							<a target="_blank" class="spea-our-plugin-list-box" href="https://wpcarousel.io/">
+							<a target="_blank" class="spea-our-plugin-list-box" href="https://wpcarousel.io/?ref=1">
 								<i class="spea-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/wp-carousel-free/assets/icon-256x256.png" alt="">
+								<img src="<?php echo esc_url( $plugin_icon['wp-carousel-free'] ); ?>" alt="WP Carousel">
 								<h4>WP Carousel</h4>
 								<p>The most powerful and user-friendly multi-purpose carousel, slider, & gallery plugin for WordPress.</p>
 							</a>
 							<a target="_blank" class="spea-our-plugin-list-box" href="https://realtestimonials.io/">
 								<i class="spea-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/testimonial-free/assets/icon-256x256.gif" alt="">
+								<img src="<?php echo esc_url( $plugin_icon['testimonial-free'] ); ?>" alt="Real Testimonials">
 								<h4>Real Testimonials</h4>
 								<p>Simply collect, manage, and display Testimonials on your website and boost conversions.</p>
 							</a>
 							<a target="_blank" class="spea-our-plugin-list-box" href="https://smartpostshow.com/">
 								<i class="spea-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/post-carousel/assets/icon-256x256.png" alt="">
+								<img src="<?php echo esc_url( $plugin_icon['post-carousel'] ); ?>" alt="Smart Post Show">
 								<h4>Smart Post Show</h4>
 								<p>Filter and display posts (any post types), pages, taxonomy, custom taxonomy, and custom field, in beautiful layouts.</p>
 							</a>
 							<a target="_blank" href="https://wooproductslider.io/" class="spea-our-plugin-list-box">
 								<i class="spea-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/woo-product-slider/assets/icon-256x256.png" alt="Product Slider for WooCommerce">
+								<img src="<?php echo esc_url( $plugin_icon['woo-product-slider'] ); ?>" alt="Product Slider for WooCommerce">
 								<h4>Product Slider for WooCommerce</h4>
 								<p>Boost sales by interactive product Slider, Grid, and Table in your WooCommerce website or store.</p>
 							</a>
 							<a target="_blank" class="spea-our-plugin-list-box" href="https://woogallery.io">
 								<i class="spea-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/gallery-slider-for-woocommerce/assets/icon-256x256.gif" alt="WooGallery">
+								<img src="<?php echo esc_url( $plugin_icon['gallery-slider-for-woocommerce'] ); ?>" alt="WooGallery">
 								<h4>WooGallery</h4>
 								<p>Product gallery slider and additional variation images gallery for WooCommerce and boost your sales.</p>
 							</a>
 							<a target="_blank" class="spea-our-plugin-list-box" href="https://getwpteam.com/">
 								<i class="spea-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/team-free/assets/icon-256x256.png" alt="">
+								<img src="<?php echo esc_url( $plugin_icon['team-free'] ); ?>" alt="WP Team">
 								<h4>WP Team</h4>
 								<p>Display your team members smartly who are at the heart of your company or organization!</p>
 							</a>
 							<a target="_blank" class="spea-our-plugin-list-box" href="https://logocarousel.com/">
 								<i class="spea-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/logo-carousel-free/assets/icon-256x256.png" alt="">
+								<img src="<?php echo esc_url( $plugin_icon['logo-carousel-free'] ); ?>" alt="Logo Carousel">
 								<h4>Logo Carousel</h4>
 								<p>Showcase a group of logo images with Title, Description, Tooltips, Links, and Popup as a grid or in a carousel.</p>
 							</a>
-							<a target="_blank" class="spea-our-plugin-list-box" href="https://easyaccordion.io/">
+							<a target="_blank" class="spea-our-plugin-list-box" href="https://shapedplugin.com/smart-swatches-for-woocommerce/?ref=1">
 								<i class="spea-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/easy-accordion-free/assets/icon-256x256.png" alt="">
-								<h4>Easy Accordion</h4>
-								<p>Minimize customer support by offering comprehensive FAQs and increasing conversions.</p>
+								<img src="<?php echo esc_url( $plugin_icon['smart-swatches'] ); ?>" alt="Smart Swatches for WooCommerce">
+								<h4>Smart Swatches for WooCommerce</h4>
+								<p>Appealing color, image, and button variation swatches on your WooCommerce Shop and Product pages in minutes to increase sales.</p>
 							</a>
 							<a target="_blank" class="spea-our-plugin-list-box" href="https://shapedplugin.com/woocategory/">
 								<i class="spea-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/woo-category-slider-grid/assets/icon-256x256.png" alt="WooCategory">
+								<img src="<?php echo esc_url( $plugin_icon['woo-category-slider-grid'] ); ?>" alt="WooCategory">
 								<h4>WooCategory</h4>
 								<p>Display by filtering the list of categories aesthetically and boosting sales.</p>
 							</a>
 							<a target="_blank" class="spea-our-plugin-list-box" href="https://wptabs.com/">
 								<i class="spea-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/wp-expand-tabs-free/assets/icon-256x256.png" alt="">
+								<img src="<?php echo esc_url( $plugin_icon['wp-expand-tabs-free'] ); ?>" alt="WP Tabs">
 								<h4>WP Tabs</h4>
 								<p>Display tabbed content smartly & quickly on your WordPress site without coding skills.</p>
 							</a>
 							<a target="_blank" class="spea-our-plugin-list-box" href="https://shapedplugin.com/plugin/woocommerce-quick-view-pro/">
 								<i class="spea-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/woo-quickview/assets/icon-256x256.png" alt="">
+								<img src="<?php echo esc_url( $plugin_icon['woo-quickview'] ); ?>" alt="Quick View for WooCommerce">
 								<h4>Quick View for WooCommerce</h4>
 								<p>Quickly view product information with smooth animation via AJAX in a nice Modal without opening the product page.</p>
 							</a>
 							<a target="_blank" class="spea-our-plugin-list-box" href="https://shapedplugin.com/smart-brands/">
 								<i class="spea-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/smart-brands-for-woocommerce/assets/icon-256x256.png" alt="Smart Brands">
+								<img src="<?php echo esc_url( $plugin_icon['smart-brands-for-woocommerce'] ); ?>" alt="Smart Brands">
 								<h4>Smart Brands</h4>
 								<p>Smart Brands for WooCommerce Pro helps you display product brands in an attractive way on your online store.</p>
 							</a>
 						</div>
+						<?php endif; ?>
 					</div>
 				</div>
 			</section>
@@ -925,7 +921,6 @@ class Easy_Accordion_Free_Help {
 		</div>
 		<?php
 	}
-
 }
 
 Easy_Accordion_Free_Help::instance();

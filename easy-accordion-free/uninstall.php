@@ -21,6 +21,8 @@ if ( true === ( $settings['eap_data_remove'] ) ) {
 	delete_option( '_transient_sp-eap-framework-transient' );
 	delete_option( '_transient_timeout_eapro-metabox-transient' );
 	delete_option( '_transient_eapro-metabox-transient' );
+	delete_transient( 'spea_plugins' );
+	delete_transient( 'spea_plugins_data' );
 
 	// Remove options in Multisite.
 	delete_site_option( 'sp_eap_settings' );
@@ -32,4 +34,3 @@ if ( true === ( $settings['eap_data_remove'] ) ) {
 } else {
 	update_option( 'sp_eap_flush_rewrite_rules', false );
 }
-

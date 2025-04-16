@@ -24,10 +24,10 @@ if ( ! function_exists( 'sp_clean_schema' ) ) {
 			'ol'     => array(),
 			'ul'     => array(),
 			'li'     => array(),
-			'a'      => array(
-				'href'  => array(),
-				'title' => array(),
-			),
+			// 'a'      => array(
+			// 	'href'  => array(),
+			// 	'title' => array(),
+			// ),
 			'p'      => array(),
 			'div'    => array(),
 			'b'      => array(),
@@ -35,6 +35,8 @@ if ( ! function_exists( 'sp_clean_schema' ) ) {
 			'i'      => array(),
 			'em'     => array(),
 		);
+		// Allow custom tags.
+		$allowed_tags = apply_filters( 'sp_eap_schema_allowed_tags', $allowed_tags );
 
 		$string = strip_shortcodes( $string );
 		$string = wp_kses( $string, $allowed_tags );
