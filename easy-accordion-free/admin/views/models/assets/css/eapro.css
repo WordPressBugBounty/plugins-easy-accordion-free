@@ -79,6 +79,7 @@
 
 #sp_eap_upload_options .postbox-header,
 #sp_eap_shortcode_options .postbox-header,
+#eap_builder_option .handle-actions,
 #sp_eap_display_shortcode_sidebar .handlediv,
 #sp_eap_display_shortcode_sidebar .postbox-header .handle-actions .handle-order-higher,
 #sp_eap_display_shortcode_sidebar .postbox-header .handle-actions .handle-order-lower,
@@ -87,6 +88,10 @@
 #sp_eap_upload_options .handlediv,
 #sp_eap_upload_options .hndle {
 	display: none;
+}
+
+#eap_builder_option .hndle {
+	pointer-events: none;
 }
 
 #eapro-section-sp_eap_upload_options_1 .eap-admin-header {
@@ -4525,7 +4530,9 @@ span.eap-shortcode-selectable::after {
 .eapro-field-image_select.eap_expand_collapse_icon .eapro--image img {
 	border-radius: 2px;
 }
-
+.eapro-field-image_select.eap_expand_collapse_icon .disabled.eapro--image img {
+	opacity: 0.5;
+}
 .eapro-tabbed-section .eapro-field .eapro-title {
 	width: 25%;
 }
@@ -4646,4 +4653,120 @@ span.eap-shortcode-selectable::after {
 .sp_eap_accordion_theme.eapro-field .eapro-title {
 	width: 100%;
 	margin-bottom: 10px;
+}
+
+/* Update to pro promotional notice */
+.eap-pro-notice-wrapper {
+	border-width: 1px;
+	border-radius: 5px;
+	padding-top: 8px;
+	padding-bottom: 10px;
+}
+#eap_pro_notice .postbox-header {
+	display: none;
+}
+#sp_eap_display_shortcode_sidebar .postbox-header{
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+div:is(#eap_pro_notice, #eap_builder_option, #sp_eap_display_shortcode_sidebar) .eapro-content,
+div:is(#eap_pro_notice,#eap_builder_option,#sp_eap_display_shortcode_sidebar).postbox {
+	border-radius: 4px;
+}
+
+.eap-pro-notice-wrapper {
+	border-width: 1px;
+	border-radius: 5px;
+}
+
+.eap-pro-notice-heading {
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 20px;
+	color: rgba(0, 0, 0, 1);
+}
+
+.eap-pro-notice-heading span {
+	color: #0C6E63;
+}
+
+.eap-pro-notice-desc {
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 20px;
+	color: rgba(101, 105, 118, 1);
+	margin-bottom: 20px;
+	margin-top: 10px;
+}
+
+.eap-pro-notice-wrapper ul li {
+	font-weight: 500;
+	font-size: 13px;
+	line-height: 20px;
+	color: rgba(0, 0, 0, 1);
+	display: inline-flex;
+	gap: 10px;
+}
+
+.eap-pro-notice-wrapper .eap-pro-notice-button {
+	position: relative;
+	font-size: 16px;
+	border-radius: 5px;
+	color: #ffffff;
+	border: 1px solid transparent;
+	margin-top: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	overflow: hidden;
+	z-index: 0;
+	transition: border-color 0.5s ease;
+}
+
+.eap-pro-notice-wrapper .eap-pro-notice-button::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image: -webkit-linear-gradient(-45deg, #ff4751 0%, #ff910a 100%);
+	z-index: -1;
+	transition: opacity 0.6s ease;
+	opacity: 1;
+}
+
+.eap-pro-notice-wrapper .eap-pro-notice-button::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(90deg, #ff910a 0%, #ff4751 100%);
+	z-index: -1;
+	opacity: 0;
+	transition: opacity 0.6s ease;
+}
+
+.eap-pro-notice-wrapper .eap-pro-notice-button:hover::before,
+.eap-pro-notice-wrapper .eap-pro-notice-button:hover::after {
+	opacity: 1;
+}
+
+.eap-pro-notice-wrapper .eap-pro-notice-button a {
+	color: #ffffff;
+	text-decoration: none;
+	padding: 14px 30px 14px 30px;
+	position: relative;
+	z-index: 1;
+}
+
+.eap-pro-notice-wrapper .eap-pro-notice-button a:focus {
+	box-shadow: none;
+	outline: none;
+}
+
+.eap-pro-notice-button i {
+	font-size: 16px;
+}
+
+.eap-pro-notice-wrapper ul li i {
+	color: rgba(74, 184, 102, 1);
+	font-size: 11px;
 }

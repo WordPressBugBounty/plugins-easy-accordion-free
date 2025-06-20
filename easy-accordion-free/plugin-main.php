@@ -5,7 +5,9 @@
  * Description: The best Responsive and Touch-friendly drag & drop <strong>Accordion FAQ</strong> builder plugin for WordPress.
  * Author:      ShapedPlugin LLC
  * Author URI:  https://shapedplugin.com/
- * Version:     3.0.2
+ * License:     GPL-2.0+
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
+ * Version:     3.0.3
  * Text Domain: easy-accordion-free
  * Domain Path: /languages/
  *
@@ -51,7 +53,7 @@ class SP_EASY_ACCORDION_FREE {
 	 *
 	 * @var string
 	 */
-	public $version = '3.0.2';
+	public $version = '3.0.3';
 
 	/**
 	 * The name of the plugin.
@@ -142,7 +144,6 @@ class SP_EASY_ACCORDION_FREE {
 	private function define_admin_hooks() {
 		$plugin_admin = new Easy_Accordion_Free_Admin( SP_PLUGIN_NAME, SP_EA_VERSION );
 
-		$this->loader->add_action( 'after_setup_theme', $this, 'eap_framework_config' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_admin_styles' );
 		$this->loader->add_filter( 'post_updated_messages', $plugin_admin, 'eap_updated_messages', 10, 2 );
 		$this->loader->add_filter( 'manage_sp_easy_accordion_posts_columns', $plugin_admin, 'filter_accordion_admin_column' );
@@ -241,6 +242,7 @@ class SP_EASY_ACCORDION_FREE {
 		require_once SP_EA_INCLUDES . '/class-easy-accordion-free-post-types.php';
 		require_once SP_EA_INCLUDES . '/class-easy-accordion-free-product-tab.php';
 		require_once SP_EA_PATH . '/admin/class-easy-accordion-free-admin.php';
+		require_once SP_EA_PATH . '/admin/views/models/classes/setup.class.php';
 		require_once SP_EA_PATH . '/admin/help-page/help-page.php';
 		require_once SP_EA_PATH . '/admin/views/notices/review.php';
 		require_once SP_EA_PATH . '/public/scripts.php';
@@ -249,25 +251,6 @@ class SP_EASY_ACCORDION_FREE {
 		require_once SP_EA_PATH . '/includes/class-easy-accordion-import-export.php';
 		require_once SP_EA_PATH . '/admin/preview/class-easy-accordion-free-preview.php';
 		require_once SP_EA_PATH . '/admin/class-easy-accordion-free-gutenberg-block.php';
-	}
-
-	/**
-	 * Loads the framework for the plugin.
-	 *
-	 * Includes the following files:
-	 * 1. Setup class - contains the plugin setup data.
-	 * 2. Metabox config - contains the metabox configuration.
-	 * 3. Option config - contains the option configuration.
-	 * 4. Tools config - contains the tools configuration.
-	 *
-	 * @since 2.0.0
-	 * @access public
-	 */
-	public function eap_framework_config() {
-		require_once SP_EA_PATH . '/admin/views/models/classes/setup.class.php';
-		require_once SP_EA_PATH . '/admin/views/metabox-config.php';
-		require_once SP_EA_PATH . '/admin/views/option-config.php';
-		require_once SP_EA_PATH . '/admin/views/tools-config.php';
 	}
 
 	/**

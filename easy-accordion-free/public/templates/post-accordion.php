@@ -37,7 +37,7 @@ if ( $post_query->have_posts() ) {
 
 		// Generate accordion mode and icon markup.
 		$accordion_mode      = self::accordion_mode( $eap_accordion_mode, $ea_key, $eap_expand_icon, $eap_collapse_icon );
-		$eap_exp_icon_markup = ( $eap_icon ) ? '<i aria-hidden="true" role="presentation" class="ea-expand-icon eap-icon-ea-expand-' . $accordion_mode['expand_icon_first'] . '"></i> ' : '';
+		$eap_exp_icon_markup = $eap_icon ? '<i aria-hidden="true" role="presentation" class="ea-expand-icon eap-icon-ea-expand-' . $accordion_mode['expand_icon_first'] . '"></i> ' : '';
 		$data_sptarget       = '#collapse' . $post_id . $key;
 		$eap_icon_markup     = $eap_exp_icon_markup;
 		$eap_single_collapse = ! $eap_mutliple_collapse ? 'data-parent="#sp-ea-' . esc_attr( $post_id ) . '"' : '';
@@ -48,8 +48,12 @@ if ( $post_query->have_posts() ) {
 
 		// Replace invalid characters and process block content if function exists.
 		$content = str_replace( ']]>', ']]&gt;', $content );
-		if ( function_exists( 'do_blocks' ) ) {
+		if ( function_exists( 'do_blocks' ) && has_blocks( $content ) ) {
 			$content = do_blocks( $content );
+		}
+		// Process Elementor content.
+		if ( class_exists( '\Elementor\Plugin' ) && \Elementor\Plugin::instance()->documents->get( $key )->is_built_with_elementor() ) {
+			$content = \Elementor\Plugin::$instance->frontend->get_builder_content( $key, true );
 		}
 
 		// Include single item template.

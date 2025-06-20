@@ -2,8 +2,8 @@
 Contributors: shapedplugin, khalilu, rubel_miah, shamimmiashuhagh
 Tags: nested accordion, faq, expand collapse, horizontal accordion, product faq
 Requires at least: 4.7
-Tested up to: 6.8
-Stable tag: 3.0.2
+Tested up to: 6.8.1
+Stable tag: 3.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -262,6 +262,16 @@ Thank you!
 
 
 == Changelog ==
+
+= Version 3.0.3 - Jun 20, 2025 =
+* Improved: The plugin security for the import accordion feature.
+* Fix: The empty p tag issue if the shortcode is placed inside the wpautop function.
+* Fix: The FAQ content style built with the Elementor builder did not show on the Accordion view.
+* Fix: The multiple FAQ schema issue if all the shortcode schemas were enabled.
+* Fix: The plugin settings, tools page style issue was found when testing the plugin with WordPress Playground.
+* Fix: The PHP 7.2 compatibility issue.
+* Updated: The language(.pot) file.
+* Tested: WordPress 6.8.1 compatibility.
 
 = Version 3.0.2 - Apr 16, 2025 =
 * New: A hook sp_eap_schema_allowed_tags added.

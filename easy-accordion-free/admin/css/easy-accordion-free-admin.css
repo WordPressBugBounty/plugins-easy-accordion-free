@@ -62,6 +62,16 @@
 #sp-eafree-review-notice .sp-eafree-notice-text .sp-eafree-review-actions a.button {
 	color: #fff;
 }
+.acf-admin-page #sp-eafree-review-notice .sp-eafree-notice-text .sp-eafree-review-actions a.button {
+	height: auto;
+	padding-right: 16px;
+	padding-left: 16px;
+	background-color: #2271b1;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #0783be;
+	border-radius: 4px;
+}
 
 .rtl #sp-eafree-review-notice {
 	margin: 20px 0 0 20px;

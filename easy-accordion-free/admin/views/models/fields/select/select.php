@@ -141,7 +141,7 @@ if ( ! class_exists( 'SP_EAP_Field_select' ) ) {
 
 					echo '</select>';
 					if ( isset( $args['preview'] ) && $args['preview'] ) {
-						echo '<img src="' . SP_EAP::include_plugin_url( 'assets/images/theme-preview/' . $selected_value . '.svg' ) . '" class="theme_preview">';
+						echo '<img src="' . esc_url( SP_EAP::include_plugin_url( 'assets/images/theme-preview/' . esc_attr( $selected_value ) . '.svg' ) ) . '" class="theme_preview">';
 						echo '<div class="eap-pro-notice"></div>';
 					}
 				} else {
@@ -165,8 +165,6 @@ if ( ! class_exists( 'SP_EAP_Field_select' ) ) {
 			if ( ! wp_script_is( 'jquery-ui-sortable' ) ) {
 				wp_enqueue_script( 'jquery-ui-sortable' );
 			}
-
 		}
-
 	}
 }

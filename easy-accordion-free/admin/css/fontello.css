@@ -1,13 +1,13 @@
 @font-face {
 	font-family: 'eap-fontello';
-	src: url('../font/fontello.eot?83449824');
-		src: url('../font/fontello.eot?83449824#iefix') format('embedded-opentype'),
-			url('../font/fontello.woff2?83449824') format('woff2'),
-			url('../font/fontello.woff?83449824') format('woff'),
-			url('../font/fontello.ttf?83449824') format('truetype'),
-			url('../font/fontello.svg?83449824#fontello') format('svg');
-		font-weight: normal;
-		font-style: normal;
+	src: url('../font/fontello.eot?55640992');
+	src: url('../font/fontello.eot?55640992#iefix') format('embedded-opentype'),
+		url('../font/fontello.woff2?55640992') format('woff2'),
+		url('../font/fontello.woff?55640992') format('woff'),
+		url('../font/fontello.ttf?55640992') format('truetype'),
+		url('../font/fontello.svg?55640992#fontello') format('svg');
+	font-weight: normal;
+	font-style: normal;
 }
 
 /* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
@@ -130,3 +130,33 @@
 }
 
 /* '' */
+.eap-icon-api-sett:before {
+	content: '\e884';
+}
+
+/* '' */
+.eap-icon-code:before {
+	content: '\e885';
+}
+
+/* '' */
+.eap-icon-advanced:before {
+	content: '\e886';
+}
+
+/* '' */
+.eap-icon-key-01:before {
+	content: '\e887';
+}
+
+/* '' */
+.eap-icon-shuttle_2285485-1:before {
+	content: '\e8bd';
+}
+
+/* '' */
+.eap-icon-check-icon:before {
+	content: '\e8be';
+}
+
+/* '' */

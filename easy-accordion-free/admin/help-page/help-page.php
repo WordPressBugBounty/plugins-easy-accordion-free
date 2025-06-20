@@ -110,14 +110,14 @@ class Easy_Accordion_Free_Help {
 			__( 'Easy Accordion', 'easy-accordion-free' ),
 			__( 'Recommended', 'easy-accordion-free' ),
 			'manage_options',
-			'edit.php?post_type=sp_easy_accordion&page=eap_help#recommended',
+			'edit.php?post_type=sp_easy_accordion&page=eap_help#recommended'
 		);
 		add_submenu_page(
 			'edit.php?post_type=sp_easy_accordion',
 			__( 'Easy Accordion', 'easy-accordion-free' ),
 			__( 'Lite vs Pro', 'easy-accordion-free' ),
 			'manage_options',
-			'edit.php?post_type=sp_easy_accordion&page=eap_help#lite-to-pro',
+			'edit.php?post_type=sp_easy_accordion&page=eap_help#lite-to-pro'
 		);
 		add_submenu_page(
 			'edit.php?post_type=sp_easy_accordion',
@@ -281,6 +281,7 @@ class Easy_Accordion_Free_Help {
 					case 'location-weather':
 					case 'gallery-slider-for-woocommerce':
 					case 'testimonial-free':
+					case 'logo-carousel-free':
 						$image_type = 'gif';
 						break;
 				}

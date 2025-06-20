@@ -1,6 +1,9 @@
 .sp-easy-accordion * {
     box-sizing: border-box;
 }
+.sp-easy-accordion p:empty {
+    display: none;
+}
 
 #poststuff .eap_section_title,
 .editor-styles-wrapper h2.eap_section_title,
@@ -66,6 +69,9 @@
     padding: 15px;
     background: #fff;
     border-top: none
+}
+.ea-body p:empty {
+	display: none;
 }
 
 .sp-easy-accordion .sp-ea-single .ea-body p:last-of-type {

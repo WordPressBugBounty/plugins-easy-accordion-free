@@ -210,7 +210,11 @@ class Easy_Accordion_Import_Export {
 
 				if ( isset( $accordion['meta'] ) && is_array( $accordion['meta'] ) ) {
 					foreach ( $accordion['meta'] as $key => $value ) {
-						$data = maybe_unserialize( str_replace( '{#ID#}', $new_accordion_id, $value ) );
+						$data = str_replace( '{#ID#}', $new_accordion_id, $value );
+						if ( is_serialized( $data ) ) {
+							// If the value is serialized, we need to unserialize it.
+							$data = unserialize( $data, array( 'allowed_classes' => false ) );
+						}
 						update_post_meta(
 							$new_accordion_id,
 							$key,

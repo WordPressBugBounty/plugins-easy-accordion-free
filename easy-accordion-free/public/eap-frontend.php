@@ -137,14 +137,14 @@ class SP_EAP_FRONTEND {
 		$eap_scroll_to_active_item = isset( $shortcode_data['eap_scroll_to_active_item'] ) ? $shortcode_data['eap_scroll_to_active_item'] : false;
 		$eap_offset_to_scroll      = apply_filters( 'eap_offset_to_scroll', 0 );
 
-		$eap_accordion_fillspace_height = isset( $shortcode_data['eap_accordion_fillspace_height']['all'] ) ? $shortcode_data['eap_accordion_fillspace_height']['all'] : $shortcode_data['eap_accordion_fillspace_height'];
+		$eap_accordion_fillspace_height = isset( $shortcode_data['eap_accordion_fillspace_height']['all'] ) ? $shortcode_data['eap_accordion_fillspace_height']['all'] : '200';
 		$eap_title_tag                  = isset( $shortcode_data['ea_title_heading_tag'] ) ? 'h' . $shortcode_data['ea_title_heading_tag'] : 'h3';
 		$acc_section_title              = isset( $shortcode_data['section_title'] ) ? $shortcode_data['section_title'] : '';
 
 		// Expand / Collapse Icon.
 		$eap_icon             = isset( $shortcode_data['eap_expand_close_icon'] ) ? $shortcode_data['eap_expand_close_icon'] : '';
 		$eap_ex_icon_position = isset( $shortcode_data['eap_icon_position'] ) ? $shortcode_data['eap_icon_position'] : '';
-		$eap_icon_size        = isset( $shortcode_data['eap_icon_size']['all'] ) ? $shortcode_data['eap_icon_size']['all'] : $shortcode_data['eap_icon_size'];
+		$eap_icon_size        = isset( $shortcode_data['eap_icon_size']['all'] ) ? $shortcode_data['eap_icon_size']['all'] : '16';
 		$eap_icon_color       = isset( $shortcode_data['eap_icon_color_set'] ) ? $shortcode_data['eap_icon_color_set'] : '';
 		$eap_collapse_icon    = 'plus';
 		$eap_expand_icon      = 'minus';
@@ -163,7 +163,23 @@ class SP_EAP_FRONTEND {
 				break;
 		}
 		$html = ob_get_clean();
+		$html = self::minify_output( $html );
 		echo apply_filters( 'sp_easy_accordion', $html, $post_id ); // phpcs:ignore
+	}
+
+	/**
+	 * Minify output
+	 *
+	 * @param  string $html output.
+	 * @return string
+	 */
+	public static function minify_output( $html ) {
+		$html = preg_replace( '/<!--(?!s*(?:[if [^]]+]|!|>))(?:(?!-->).)*-->/s', '', $html );
+		$html = str_replace( array( "\r\n", "\r", "\n", "\t" ), '', $html );
+		while ( stristr( $html, '  ' ) ) {
+			$html = str_replace( '  ', ' ', $html );
+		}
+		return $html;
 	}
 
 	/**
@@ -193,7 +209,7 @@ class SP_EAP_FRONTEND {
 			wp_enqueue_style( 'sp-ea-fontello-icons' );
 			wp_enqueue_style( 'sp-ea-style' );
 			$ea_dynamic_css = SP_EA_Front_Scripts::load_dynamic_style( $post_id, $shortcode_data );
-			echo '<style>' . wp_strip_all_tags( $ea_dynamic_css['dynamic_css'] ) . '</style>';
+			echo '<style>' . wp_strip_all_tags( $ea_dynamic_css['dynamic_css'] ) . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 		// Update options if the existing shortcode id option not found.
 		SP_EA_Front_Scripts::easy_accordion_update_options( $post_id, $get_page_data );

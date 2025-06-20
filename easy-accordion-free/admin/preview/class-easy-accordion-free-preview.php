@@ -57,7 +57,7 @@ class Easy_Accordion_Free_Preview {
 		$main_section_title = $setting['post_title'];
 
 		$ea_dynamic_css = SP_EA_Front_Scripts::load_dynamic_style( $post_id, $shortcode_data );
-		echo '<style>' . $ea_dynamic_css['dynamic_css'] . '</style>';
+		echo '<style>' . $ea_dynamic_css['dynamic_css'] . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		SP_EAP_FRONTEND::sp_eap_html_show( $post_id, $upload_data, $shortcode_data, $main_section_title );
 		die();

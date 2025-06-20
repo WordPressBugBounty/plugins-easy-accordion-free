@@ -25,8 +25,8 @@ if ( ! function_exists( 'sp_clean_schema' ) ) {
 			'ul'     => array(),
 			'li'     => array(),
 			// 'a'      => array(
-			// 	'href'  => array(),
-			// 	'title' => array(),
+			// 'href'  => array(),
+			// 'title' => array(),
 			// ),
 			'p'      => array(),
 			'div'    => array(),
@@ -35,6 +35,7 @@ if ( ! function_exists( 'sp_clean_schema' ) ) {
 			'i'      => array(),
 			'em'     => array(),
 		);
+
 		// Allow custom tags.
 		$allowed_tags = apply_filters( 'sp_eap_schema_allowed_tags', $allowed_tags );
 
@@ -89,10 +90,13 @@ if ( ! function_exists( 'minify_markup' ) ) {
 }
 
 if ( $eap_schema_markup ) {
+	$unique_id = 'sp-ea-schema-' . $post_id . '-' . uniqid();
+
 	$markup = '<script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "FAQPage",
+		"@id": "' . esc_attr( $unique_id ) . '",
         "mainEntity": [';
 
 	if ( 'content-accordion' === $accordion_type && is_array( $content_sources ) ) {
@@ -117,7 +121,7 @@ if ( $eap_schema_markup ) {
 
 				$markup .= schema_markup( $accordion_title, $content_main );
 
-				$post_count++;
+				++$post_count;
 				if ( $post_count < $post_query->found_posts ) {
 					$markup .= ',';
 				}
@@ -129,5 +133,9 @@ if ( $eap_schema_markup ) {
 	$markup .= ']
     }
     </script>';
-	echo minify_markup( $markup );
+	// Output the minified markup, ensuring only one instance is printed.
+	if ( ! isset( $GLOBALS['faq_schema_outputted'] ) ) {
+		echo minify_markup( $markup );
+		$GLOBALS['faq_schema_outputted'] = true;
+	}
 }

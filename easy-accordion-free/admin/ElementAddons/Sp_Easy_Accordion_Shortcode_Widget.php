@@ -110,7 +110,6 @@ class Sp_Easy_Accordion_Shortcode_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -139,7 +138,7 @@ class Sp_Easy_Accordion_Shortcode_Widget extends \Elementor\Widget_Base {
 			$shortcode_data     = get_post_meta( $post_id, 'sp_eap_shortcode_options', true );
 			$main_section_title = get_the_title( $post_id );
 			$ea_dynamic_css     = SP_EA_Front_Scripts::load_dynamic_style( $post_id, $shortcode_data );
-			echo '<style>' . $ea_dynamic_css['dynamic_css'] . '</style>';
+			echo '<style>' . $ea_dynamic_css['dynamic_css'] . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			SP_EAP_FRONTEND::sp_eap_html_show( $post_id, $upload_data, $shortcode_data, $main_section_title );
 			?>
@@ -148,7 +147,5 @@ class Sp_Easy_Accordion_Shortcode_Widget extends \Elementor\Widget_Base {
 		} else {
 			echo do_shortcode( '[sp_easyaccordion id="' . $generator_id . '"]' );
 		}
-
 	}
-
 }

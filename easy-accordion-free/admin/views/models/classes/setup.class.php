@@ -89,7 +89,7 @@ if ( ! class_exists( 'SP_EAP' ) ) {
 			self::constants();
 
 			// translate.
-			add_action( 'init', array( 'SP_EAP', 'set_locale' ) );
+			self::set_locale();
 
 			// include files.
 			self::includes();
@@ -99,7 +99,6 @@ if ( ! class_exists( 'SP_EAP' ) ) {
 			add_action( 'switch_theme', array( 'SP_EAP', 'setup' ) );
 			add_action( 'admin_enqueue_scripts', array( 'SP_EAP', 'add_admin_enqueue_scripts' ), 20 );
 			add_action( 'admin_head', array( 'SP_EAP', 'add_admin_head_css' ), 99 );
-
 		}
 
 		/**
@@ -108,6 +107,10 @@ if ( ! class_exists( 'SP_EAP' ) ) {
 		 * @return void
 		 */
 		public static function setup() {
+			// Include plugin meta field config file.
+			self::include_plugin_file( 'configs/option-config.php' );
+			self::include_plugin_file( 'configs/metabox-config.php' );
+			self::include_plugin_file( 'configs/tools-config.php' );
 
 			// setup options.
 			$params = array();
@@ -140,15 +143,12 @@ if ( ! class_exists( 'SP_EAP' ) ) {
 						$params['args']       = $value;
 						$params['sections']   = self::$args['sections'][ $key ];
 						self::$inited[ $key ] = true;
-
 						SP_EAP_Metabox::instance( $key, $params );
-
 					}
 				}
 			}
 
 			do_action( 'eapro_loaded' );
-
 		}
 
 		/**
@@ -211,7 +211,7 @@ if ( ! class_exists( 'SP_EAP' ) ) {
 		public static function constants() {
 
 			// we need this path-finder code for set URL of framework.
-			$dirname        = wp_normalize_path( dirname( dirname( __FILE__ ) ) );
+			$dirname        = wp_normalize_path( dirname( __DIR__ ) );
 			$theme_dir      = wp_normalize_path( get_parent_theme_file_path() );
 			$plugin_dir     = wp_normalize_path( WP_PLUGIN_DIR );
 			$located_plugin = ( preg_match( '#' . self::sanitize_dirname( $plugin_dir ) . '#', self::sanitize_dirname( $dirname ) ) ) ? true : false;
@@ -223,7 +223,6 @@ if ( ! class_exists( 'SP_EAP' ) ) {
 
 			self::$dir = $dirname;
 			self::$url = $directory_uri . $foldername;
-
 		}
 
 		/**
@@ -268,7 +267,6 @@ if ( ! class_exists( 'SP_EAP' ) ) {
 				return self::$dir . '/' . $file;
 
 			}
-
 		}
 
 		/**
@@ -318,7 +316,6 @@ if ( ! class_exists( 'SP_EAP' ) ) {
 			self::include_plugin_file( 'classes/fields.class.php' );
 			self::include_plugin_file( 'classes/options.class.php' );
 			self::include_plugin_file( 'classes/metabox.class.php' );
-
 		}
 
 		/**
@@ -362,7 +359,6 @@ if ( ! class_exists( 'SP_EAP' ) ) {
 					}
 				}
 			}
-
 		}
 
 		/**
@@ -375,7 +371,7 @@ if ( ! class_exists( 'SP_EAP' ) ) {
 
 			$current_screen        = get_current_screen();
 			$the_current_post_type = $current_screen->post_type;
-			if ( 'sp_easy_accordion' === $the_current_post_type ) {
+			if ( 'sp_easy_accordion' === $the_current_post_type || in_array( $hook, array( 'sp_easy_accordion_page_eap_form', 'sp_easy_accordion_page_eap_tools', 'sp_easy_accordion_page_eap_settings', 'sp_easy_accordion_page_eap_analytics' ), true ) ) {
 
 				// check for developer mode.
 				$min = ( apply_filters( 'eapro_dev_mode', false ) || WP_DEBUG ) ? '' : '.min';
@@ -452,7 +448,6 @@ if ( ! class_exists( 'SP_EAP' ) ) {
 
 				do_action( 'eapro_enqueue' );
 			}
-
 		}
 
 		/**
@@ -487,7 +482,6 @@ if ( ! class_exists( 'SP_EAP' ) ) {
         </style>';
 
 			}
-
 		}
 
 		/**
