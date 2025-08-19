@@ -160,7 +160,23 @@ class Easy_Accordion_Free_Help {
 		?>
 		<div class="sp-eap-indicator-notice">Want to know <a href="https://easyaccordion.io/faq-analytics" target="_blank">valuable insights or analytics</a> into FAQs performance? To track impressions, clicks, and more to optimize engagement, <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>Upgrade to Pro!</b></a></div>
 		<div class="sp-eap-indicator">
+		<?php echo esc_html( $this->sp_eap_upgrade_to_pro_btn() ); ?>
 		<img src="<?php echo esc_url( SP_EA_URL . 'admin/help-page/img/analytics.webp' ); ?>" alt="faqs-indicator">
+		</div>
+		<?php
+	}
+
+	/**
+	 * Display the upgrade to pro button.
+	 *
+	 * @return void
+	 */
+	public function sp_eap_upgrade_to_pro_btn() {
+		?>
+		<div class="sp-eap-upgrade-to-pro-button">
+			<a href="https://easyaccordion.io/pricing/?ref=1" target="_blank">
+				Upgrade to Pro!
+			</a>
 		</div>
 		<?php
 	}
@@ -193,6 +209,7 @@ class Easy_Accordion_Free_Help {
 		?>
 		<div class="sp-eap-indicator-notice">To allow users to submit FAQ suggestions using the <a href="https://easyaccordion.io/faq-forms/" target="_blank"><b>FAQs Form</b></a>, <a href="https://easyaccordion.io/pricing/?ref=1" target="_blank"><b>Upgrade to Pro!</b></a></div>
 		<div class="eap-faq-form">
+		<?php echo esc_html( $this->sp_eap_upgrade_to_pro_btn() ); ?>
 		<img src="<?php echo esc_url( SP_EA_URL . 'admin/help-page/img/form.webp' ); ?>" alt="forms" class="eap-form-img"/>
 		</div>
 		<?php

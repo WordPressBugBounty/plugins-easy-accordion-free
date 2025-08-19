@@ -175,6 +175,14 @@ class SP_EAP_FRONTEND {
 	 */
 	public static function minify_output( $html ) {
 		$html = preg_replace( '/<!--(?!s*(?:[if [^]]+]|!|>))(?:(?!-->).)*-->/s', '', $html );
+		// Fix the tag break issue: normalize whitespace in HTML tags.
+		$html = preg_replace_callback(
+			'/<[^>]+>/',
+			function ( $matches ) {
+				return preg_replace( '/\s+/', ' ', trim( $matches[0] ) );
+			},
+			$html
+		);
 		$html = str_replace( array( "\r\n", "\r", "\n", "\t" ), '', $html );
 		while ( stristr( $html, '  ' ) ) {
 			$html = str_replace( '  ', ' ', $html );

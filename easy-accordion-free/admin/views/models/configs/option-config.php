@@ -228,18 +228,3 @@ SP_EAP::createSection(
 		),
 	)
 );
-
-// Custom CSS.
-SP_EAP::createSection(
-	$prefix,
-	array(
-		'title'  => __( 'License Key', 'easy-accordion-free' ),
-		'icon'   => 'eap-icon-key-01',
-		'fields' => array(
-			array(
-				'id'   => 'license_key',
-				'type' => 'license',
-			),
-		),
-	)
-);

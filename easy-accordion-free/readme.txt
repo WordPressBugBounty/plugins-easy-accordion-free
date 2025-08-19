@@ -2,8 +2,8 @@
 Contributors: shapedplugin, khalilu, rubel_miah, shamimmiashuhagh
 Tags: nested accordion, faq, expand collapse, horizontal accordion, product faq
 Requires at least: 4.7
-Tested up to: 6.8.1
-Stable tag: 3.0.3
+Tested up to: 6.8.2
+Stable tag: 3.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -262,6 +262,11 @@ Thank you!
 
 
 == Changelog ==
+
+= Version 3.0.4 - Aug 19, 2025 =
+* Fix: The accordion layout breaking issue was found rarely.
+* Fix: The default padding bottom was added to p tags inside the accordion content.
+* Updated: The language (.pot) file.
 
 = Version 3.0.3 - Jun 20, 2025 =
 * Improved: The plugin security for the import accordion feature.

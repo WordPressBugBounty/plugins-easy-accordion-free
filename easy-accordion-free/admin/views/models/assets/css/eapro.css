@@ -1046,8 +1046,8 @@
 	pointer-events: none;
 }
 
-.eapro-field-button_set .disabled.eapro--button {
-	opacity: 0.9;
+.eapro-field-button_set .disabled.eapro--button>span {
+	opacity: 0.4;
 }
 
 .eapro-field-button_set .disabled.eapro--button:hover {
@@ -1356,9 +1356,10 @@
 	-webkit-transition: all 0.2s;
 	transition: all 0.2s;
 }
+
 .eap_accordion_layout.eapro-field-image_select .eapro--image:nth-child(1)::before,
 .sp_eap_accordion_theme .eapro--image:nth-child(1):before,
-.eapro-field-image_select:not(.eap_expand_collapse_icon,.sp_eap_accordion_theme) .eapro--image:nth-child(1).eapro--active:before {
+.eapro-field-image_select:not(.eap_expand_collapse_icon, .sp_eap_accordion_theme) .eapro--image:nth-child(1).eapro--active:before {
 	position: absolute;
 	top: 5px;
 	right: 5px;
@@ -1377,6 +1378,7 @@
 	transition: opacity 0.2s;
 	border-radius: 50%;
 }
+
 .eap_accordion_layout.eapro-field-image_select .eapro--image:nth-child(1) img,
 .eapro-field-image_select .eapro--active:not(.disabled) img {
 	opacity: 1;
@@ -1398,7 +1400,7 @@
 }
 
 .eapro-field-image_select .disabled.eapro--image img {
-	opacity: 0.8;
+	opacity: 0.4;
 }
 
 .eapro-field-image_select .disabled.eapro--image {
@@ -1408,17 +1410,18 @@
 .eapro-field-image_select.eap_expand_collapse_icon .eapro--image:is(:last-child):after,
 .eapro-field-image_select:not(.eap_expand_collapse_icon) .eapro--image:not(:nth-child(1)):after {
 	position: absolute;
-	top: 1px;
-	right: 1px;
-	color: #5E6E7D;
-	background-color: #cbd6df;
+	top: 0;
+	right: 0;
+	color: #fff;
+	background-color: #12a10d;
 	font-weight: 600;
 	padding: 0 4px;
-	content: "PRO";
+	content: 'PRO';
 	text-align: center;
-	font-size: 8px;
-	line-height: 11px;
-	opacity: 1;
+	font-size: 9px;
+	cursor: default;
+	border-top-right-radius: 2px;
+	line-height: 14px;
 	border-radius: 0 2px 0 2px;
 }
 
@@ -1730,6 +1733,16 @@
 
 .eapro-tabbed-nav a:nth-last-child(1) span svg {
 	vertical-align: middle;
+}
+
+.eapro-field-tabbed .eapro-tabbed-nav a:last-child {
+	position: relative;
+}
+
+.eapro-field-tabbed .eapro-tabbed-nav a:last-child::after {
+	position: absolute;
+	right: 40px;
+	top: 6px;
 }
 
 /**
@@ -3785,19 +3798,20 @@
 } */
 
 .eapro-field-button_set .eapro--sibling.disabled.eapro--button:after {
+	border-radius: 0 2px 0 2px;
 	position: absolute;
 	top: 0;
 	right: 0;
-	color: #5E6E7D;
-	background-color: #cbd6df;
+	color: #fff;
+	background-color: #12a10d;
 	font-weight: 600;
 	padding: 0 4px;
-	content: "PRO";
+	content: 'PRO';
 	text-align: center;
-	font-size: 8px;
-	line-height: 11px;
-	opacity: 1;
-	border-radius: 0 2px 0 2px;
+	font-size: 9px;
+	cursor: default;
+	border-top-right-radius: 2px;
+	line-height: 14px;
 }
 
 .only-for-pro-switcher .eapro--switcher {
@@ -3822,22 +3836,21 @@
 .only-for-pro .eapro-title {
 	opacity: .7;
 } */
-.only-for-pro.eapro-field-radio .eapro-fieldset,
-.only-for-pro .eapro-fieldset .eapro-field-color,
-.only-for-pro .eapro-fieldset .eapro--icon,
-.only-for-pro .eapro-fieldset .eapro--unit,
-.only-for-pro .eapro-fieldset input {
-	pointer-events: none;
-	opacity: 0.7;
+.eapro-field.only-for-pro-switcher,
+.eapro-field.only-for-pro.eapro-field-radio,
+.eapro-field.only-for-pro {
+	/* pointer-events: none; */
+	opacity: 0.4;
 }
 
+.eapro-field-tabbed .eapro-tabbed-nav a:last-child::after,
 .eapro-field.eapro-field-select.only-for-pro .eapro-fieldset::after,
 .only-for-pro .eapro-fieldset .eapro--inputs::after {
 	content: "PRO";
-	color: #5E6E7D;
-	background-color: #cbd6df;
+	color: #fff;
+	background-color: #12a10d;
 	padding: 2px 4px;
-	font-size: 8px;
+	font-size: 9px;
 	border-radius: 2px;
 	height: 11px;
 	margin-top: 8px;
@@ -3856,7 +3869,7 @@
 
 .eapro-field.eapro-field-icon.pro_only_field .eapro-icon-select {
 	pointer-events: none;
-	opacity: 0.7;
+	opacity: .4;
 }
 
 /* Import export css */
@@ -4382,62 +4395,6 @@ span.eap-shortcode-selectable::after {
 	font-weight: 600;
 }
 
-/* License activation */
-
-.sp-easy-accordion-license {
-	padding: 80px 0;
-}
-
-.sp-easy-accordion-license .sp-easy-accordion-license-area {
-	display: inline-block;
-}
-
-.sp-easy-accordion-license h3 {
-	font-size: 24px;
-	font-weight: 500;
-	margin-top: 0;
-	margin-bottom: 10px;
-}
-
-.sp-easy-accordion-license p {
-	font-size: 16px;
-	margin-top: 0;
-	margin-bottom: 24px;
-	color: #666;
-}
-
-.sp-easy-accordion-license .sp-easy-accordion-license-key {
-	display: inline-block;
-	position: relative;
-	margin-right: 5px;
-}
-
-
-.sp-easy-accordion-license .sp-easy-accordion-license-key-input {
-	padding: 6px 14px;
-	min-width: 400px;
-}
-
-.sp-easy-accordion-license .button-secondary {
-	min-height: 42px;
-	text-transform: uppercase;
-	padding: 6px 16px;
-}
-
-.sp-easy-accordion-license .button-secondary:focus,
-.sp-easy-accordion-license .sp-easy-accordion-license-key-input:focus {
-	outline: none;
-	box-shadow: 0 0 0;
-}
-
-.sp-easy-accordion-license .btn-license-save-activate {
-	color: #fff;
-	border-color: #1689de;
-	background: #1689de;
-	pointer-events: none;
-}
-
-
 .eapro-field.eapro-field-notice.only_pro_notice .eapro-notice {
 	padding: 0;
 	font-size: 14px;
@@ -4481,26 +4438,6 @@ span.eap-shortcode-selectable::after {
 	border: 1px solid #DDD;
 }
 
-.eap-upgrade-button {
-	padding: 14px 18px;
-	background: #2271b1;
-	color: #fff;
-	border-radius: 5px;
-	transition: ease .2s;
-	cursor: pointer;
-}
-
-.eap-upgrade-button:hover {
-	background: #1b518e;
-}
-
-.eap-upgrade-button a {
-	color: #fff;
-	font-size: 14px;
-	font-weight: 500;
-	text-decoration: none;
-}
-
 [data-slug="eap_settings"] span.tooltip-icon {
 	position: absolute;
 }
@@ -4530,9 +4467,11 @@ span.eap-shortcode-selectable::after {
 .eapro-field-image_select.eap_expand_collapse_icon .eapro--image img {
 	border-radius: 2px;
 }
+
 .eapro-field-image_select.eap_expand_collapse_icon .disabled.eapro--image img {
 	opacity: 0.5;
 }
+
 .eapro-tabbed-section .eapro-field .eapro-title {
 	width: 25%;
 }
@@ -4544,12 +4483,14 @@ span.eap-shortcode-selectable::after {
 
 .eap-faq-form {
 	padding: 30px 15px 30px 0;
-	pointer-events: none;
 	opacity: 1;
+	position: relative;
 }
 
 .eap-faq-form img {
 	width: 100%;
+	opacity: .4;
+	pointer-events: none;
 }
 
 .eapro-live-demo-icon {
@@ -4592,11 +4533,13 @@ span.eap-shortcode-selectable::after {
 	font-size: inherit;
 	transform: translateX(-50%);
 }
+
 .eapro--sibling.eapro--image .eap-image-name a {
 	opacity: 0;
 	margin-left: 5px;
 	transition: all .2s linear;
 }
+
 .sp_eap_accordion_theme.eapro-field-image_select .eapro--image:nth-child(1) .eap-image-name a,
 .eap_accordion_layout.eapro-field-image_select .eapro--image:nth-child(1) .eap-image-name a,
 .eapro--sibling.eapro--image.eapro--active:not(.disabled) .eap-image-name a,
@@ -4611,7 +4554,7 @@ span.eap-shortcode-selectable::after {
 }
 
 .sp_eap_accordion_theme .eapro--image:not(:nth-child(1)) img {
-	opacity: .9;
+	opacity: .4;
 	cursor: auto;
 	outline-color: transparent;
 }
@@ -4619,7 +4562,7 @@ span.eap-shortcode-selectable::after {
 .sp-eap-indicator img {
 	width: 100%;
 	pointer-events: none;
-	opacity: .9;
+	opacity: .4;
 }
 
 .sp-eap-indicator-notice {
@@ -4630,6 +4573,47 @@ span.eap-shortcode-selectable::after {
 
 .sp-eap-indicator {
 	padding-right: 20px;
+	position: relative;
+}
+
+.eap-faq-form .sp-eap-upgrade-to-pro-button,
+.sp-eap-indicator .sp-eap-upgrade-to-pro-button {
+    box-sizing: border-box;
+    background-color: #12a10d;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    z-index: 99;
+	width: 180px;
+    height: 50px;
+    border-radius: 8px;
+    transition: .2s ease-in-out;
+	position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+	transform: translateY(-50%);
+	display: flex;
+    align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.eap-faq-form .sp-eap-upgrade-to-pro-button a,
+.eap-faq-form .sp-eap-upgrade-to-pro-button a:focus,
+.sp-eap-indicator .sp-eap-upgrade-to-pro-button a,
+.sp-eap-indicator .sp-eap-upgrade-to-pro-button a:focus {
+	color: #fff;
+	outline: none;
+	box-shadow: none;
+	padding: 16px 30px;
+	text-decoration: none;
+}
+
+.eap-faq-form .sp-eap-upgrade-to-pro-button:hover,
+.sp-eap-indicator .sp-eap-upgrade-to-pro-button:hover {
+    background-color: #008f00;
 }
 
 .eapro-theme-light.sp-eap-options .eapro-nav ul li.eapro-tab-active a {
@@ -4639,6 +4623,7 @@ span.eap-shortcode-selectable::after {
 .eapro-field-image_select.eap_accordion_layout .disabled.eapro--image {
 	pointer-events: painted;
 }
+
 .accordion_content_icon span.eapro-help.title-info {
 	position: absolute;
 	right: -20px;
@@ -4647,9 +4632,11 @@ span.eap-shortcode-selectable::after {
 .sp_eap_accordion_theme.eapro-field-image_select .eapro--image img {
 	width: 226px;
 }
+
 .sp_eap_accordion_theme.eapro-field .eapro-fieldset {
 	width: 100%;
 }
+
 .sp_eap_accordion_theme.eapro-field .eapro-title {
 	width: 100%;
 	margin-bottom: 10px;
@@ -4662,15 +4649,18 @@ span.eap-shortcode-selectable::after {
 	padding-top: 8px;
 	padding-bottom: 10px;
 }
+
 #eap_pro_notice .postbox-header {
 	display: none;
 }
-#sp_eap_display_shortcode_sidebar .postbox-header{
+
+#sp_eap_display_shortcode_sidebar .postbox-header {
 	border-top-left-radius: 4px;
 	border-top-right-radius: 4px;
 }
+
 div:is(#eap_pro_notice, #eap_builder_option, #sp_eap_display_shortcode_sidebar) .eapro-content,
-div:is(#eap_pro_notice,#eap_builder_option,#sp_eap_display_shortcode_sidebar).postbox {
+div:is(#eap_pro_notice, #eap_builder_option, #sp_eap_display_shortcode_sidebar).postbox {
 	border-radius: 4px;
 }
 

@@ -157,3 +157,7 @@
 .sp-easy-accordion audio {
     width: 100%;
 }
+
+.sp-easy-accordion>.sp-ea-single>.sp-collapse>.ea-body p {
+	margin-bottom: 12px;
+}

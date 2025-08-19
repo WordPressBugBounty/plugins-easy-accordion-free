@@ -76,7 +76,8 @@ if ( ! class_exists( 'SP_EAP_Field_button_set' ) ) {
 						echo '<div class="eapro--sibling ' . esc_attr( $pro_only ) . ' eapro--button' . esc_attr( $active ) . '">';
 						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						echo '<input type="' . esc_attr( $type ) . '" ' . $pro_only . ' name="' . esc_attr( $this->field_name( $extra ) ) . '" value="' . esc_attr( $key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/>';
-						echo wp_kses_post( $option['text'] );
+
+						echo '<span>' . wp_kses_post( $option['text'] ) . '</span>';
 						echo '</div>';
 
 					}
@@ -92,8 +93,6 @@ if ( ! class_exists( 'SP_EAP_Field_button_set' ) ) {
 
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $this->field_after();
-
 		}
-
 	}
 }
