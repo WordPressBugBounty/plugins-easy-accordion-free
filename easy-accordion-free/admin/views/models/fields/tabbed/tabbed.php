@@ -55,7 +55,6 @@ if ( ! class_exists( 'SP_EAP_Field_tabbed' ) ) {
 				$tabbed_class  = ( ! empty( $tab['class'] ) ) ? $tab['class'] : '';
 
 				echo '<a href="#" class="' . esc_attr( $tabbed_class . $tabbed_active ) . '">' . wp_kses_post( $tabbed_icon . $tab['title'] ) . '</a>';
-
 			}
 			echo '</div>';
 
@@ -79,7 +78,6 @@ if ( ! class_exists( 'SP_EAP_Field_tabbed' ) ) {
 				}
 
 				echo '</div>';
-
 			}
 			echo '</div>';
 

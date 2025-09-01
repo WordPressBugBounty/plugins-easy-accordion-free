@@ -5,6 +5,10 @@
  * @package easy_accordion_free
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+} // Cannot access directly.
+
 if ( ! function_exists( 'sp_clean_schema' ) ) {
 	/**
 	 * Sp_clean_schema clean schema function.
@@ -105,7 +109,7 @@ if ( $eap_schema_markup ) {
 			$accordion_title     = $content_source['accordion_content_title'] ? $content_source['accordion_content_title'] : '';
 			$content_description = $content_source['accordion_content_description'] ? $content_source['accordion_content_description'] : '';
 
-			$markup .= schema_markup( $accordion_title, $content_description );
+			$markup .= schema_markup( $accordion_title, $content_description ); // Escaped inside the function.
 			if ( $keys + 1 !== $content_count ) {
 				$markup .= ',';
 			}
@@ -119,7 +123,7 @@ if ( $eap_schema_markup ) {
 				$accordion_title = get_the_title();
 				$content_main    = get_the_content();
 
-				$markup .= schema_markup( $accordion_title, $content_main );
+				$markup .= schema_markup( $accordion_title, $content_main ); // Escaped inside the function.
 
 				++$post_count;
 				if ( $post_count < $post_query->found_posts ) {
@@ -135,7 +139,7 @@ if ( $eap_schema_markup ) {
     </script>';
 	// Output the minified markup, ensuring only one instance is printed.
 	if ( ! isset( $GLOBALS['faq_schema_outputted'] ) ) {
-		echo minify_markup( $markup );
+		echo minify_markup( $markup ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output is safe, as $markup is fully escaped in schema_markup().
 		$GLOBALS['faq_schema_outputted'] = true;
 	}
 }

@@ -52,7 +52,7 @@ if ( ! class_exists( 'SP_EAP_Field_radio' ) ) {
 
 			$inline_class = ( $args['inline'] ) ? ' class="eapro--inline-list"' : '';
 
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_before() returns safely escaped HTML markup.
 			echo $this->field_before();
 
 			if ( isset( $this->field['options'] ) ) {
@@ -99,10 +99,8 @@ if ( ! class_exists( 'SP_EAP_Field_radio' ) ) {
 				echo '<label><input type="radio" name="' . esc_attr( $this->field_name() ) . '" value="1"' . $this->field_attributes() . esc_attr( checked( $this->value, 1, false ) ) . '/> ' . esc_attr( $label ) . '</label>';
 			}
 
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_after()) returns safely escaped HTML markup.
 			echo $this->field_after();
-
 		}
-
 	}
 }

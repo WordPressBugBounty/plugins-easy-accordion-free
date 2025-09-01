@@ -52,13 +52,12 @@ if ( ! class_exists( 'SP_EAP_Field_spinner' ) ) {
 				)
 			);
 
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_before() returns safely escaped HTML markup.
 			echo $this->field_before();
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '<div class="eapro--spin"><input type="number" name="' . esc_attr( $this->field_name() ) . '" value="' . esc_attr( $this->value ) . '"' . $this->field_attributes( array( 'class' => 'eapro-input-number' ) ) . ' data-max="' . esc_attr( $args['max'] ) . '" data-min="' . esc_attr( $args['min'] ) . '" data-step="' . esc_attr( $args['step'] ) . '" data-unit="' . esc_attr( $args['unit'] ) . '"/></div>';
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped  -- $this->field_after() returns safely escaped HTML markup.
 			echo $this->field_after();
-
 		}
 
 		/**
@@ -71,40 +70,6 @@ if ( ! class_exists( 'SP_EAP_Field_spinner' ) ) {
 			if ( ! wp_script_is( 'jquery-ui-spinner' ) ) {
 				wp_enqueue_script( 'jquery-ui-spinner' );
 			}
-
 		}
-
-		/**
-		 * Field output
-		 *
-		 * @return statement
-		 */
-		public function output() {
-
-			$output    = '';
-			$elements  = ( is_array( $this->field['output'] ) ) ? $this->field['output'] : array_filter( (array) $this->field['output'] );
-			$important = ( ! empty( $this->field['output_important'] ) ) ? '!important' : '';
-			$mode      = ( ! empty( $this->field['output_mode'] ) ) ? $this->field['output_mode'] : 'width';
-			$unit      = ( ! empty( $this->field['unit'] ) ) ? $this->field['unit'] : 'px';
-
-			if ( ! empty( $elements ) && isset( $this->value ) && '' !== $this->value ) {
-				foreach ( $elements as $key_property => $element ) {
-					if ( is_numeric( $key_property ) ) {
-						if ( $mode ) {
-							$output = implode( ',', $elements ) . '{' . $mode . ':' . $this->value . $unit . $important . ';}';
-						}
-						break;
-					} else {
-						$output .= $element . '{' . $key_property . ':' . $this->value . $unit . $important . '}';
-					}
-				}
-			}
-
-			$this->parent->output_css .= $output;
-
-			return $output;
-
-		}
-
 	}
 }

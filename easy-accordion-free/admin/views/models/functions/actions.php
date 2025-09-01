@@ -42,7 +42,6 @@ if ( ! function_exists( 'eapro_import_ajax' ) ) {
 		update_option( $unique, $data );
 
 		wp_send_json_success();
-
 	}
 	add_action( 'wp_ajax_eapro-import', 'eapro_import_ajax' );
 }
@@ -69,7 +68,6 @@ if ( ! function_exists( 'eapro_reset_ajax' ) ) {
 		delete_option( $unique );
 
 		wp_send_json_success();
-
 	}
 	add_action( 'wp_ajax_eapro-reset', 'eapro_reset_ajax' );
 }
@@ -107,7 +105,6 @@ if ( ! function_exists( 'eapro_chosen_ajax' ) ) {
 		$options = SP_EAP_Fields::field_data( $type, $term, $query );
 
 		wp_send_json_success( $options );
-
 	}
 	add_action( 'wp_ajax_eapro-chosen', 'eapro_chosen_ajax' );
 }

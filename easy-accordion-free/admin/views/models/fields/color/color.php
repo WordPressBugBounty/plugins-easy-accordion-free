@@ -44,11 +44,11 @@ if ( ! class_exists( 'SP_EAP_Field_color' ) ) {
 
 			$default_attr = ( ! empty( $this->field['default'] ) ) ? ' data-default-color="' . esc_attr( $this->field['default'] ) . '"' : '';
 			$this->value  = is_string( $this->value ) ? $this->value : '';
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_before() returns safely escaped HTML markup.
 			echo $this->field_before();
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '<input type="text" name="' . esc_attr( $this->field_name() ) . '" value="' . esc_attr( $this->value ) . '" class="eapro-color"' . $default_attr . $this->field_attributes() . '/>';
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_after() returns safely escaped HTML markup.
 			echo $this->field_after();
 		}
 	}

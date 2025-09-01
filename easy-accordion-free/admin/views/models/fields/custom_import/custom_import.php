@@ -40,15 +40,15 @@ if ( ! class_exists( 'SP_EAP_Field_custom_import' ) ) {
 		 * @return void
 		 */
 		public function render() {
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_before() returns safely escaped HTML markup.
 			echo $this->field_before();
 			$eap_faqs_link = admin_url( 'edit.php?post_type=sp_accordion_faqs' );
-			$eap_link = admin_url( 'edit.php?post_type=sp_easy_accordion' );
+			$eap_link      = admin_url( 'edit.php?post_type=sp_easy_accordion' );
 				echo '<p><input type="file" id="import" accept=".json"></p>';
 				echo '<p><button type="button" class="import">Import</button></p>';
 				echo '<a id="eap_link_redirect" href="' . esc_url( $eap_link ) . '"></a>';
 				echo '<a id="eap_faqs_link_redirect" href="' . esc_url( $eap_faqs_link ) . '"></a>';
-				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_after() returns safely escaped HTML markup.
 			echo $this->field_after();
 		}
 	}

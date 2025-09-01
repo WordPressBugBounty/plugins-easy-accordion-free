@@ -79,7 +79,7 @@ if ( ! class_exists( 'SP_EAP_Field_spacing' ) ) {
 			$unit    = ( count( $args['units'] ) === 1 && ! empty( $args['unit'] ) ) ? $args['units'][0] : '';
 			$is_unit = ( ! empty( $unit ) ) ? ' eapro--is-unit' : '';
 
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_before() returns safely escaped HTML markup.
 			echo $this->field_before();
 
 			echo '<div class="eapro--inputs">';
@@ -134,9 +134,8 @@ if ( ! class_exists( 'SP_EAP_Field_spacing' ) ) {
 
 			echo '</div>';
 
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_after() returns safely escaped HTML markup.
 			echo $this->field_after();
-
 		}
 
 		/**
@@ -179,8 +178,6 @@ if ( ! class_exists( 'SP_EAP_Field_spacing' ) ) {
 			$this->parent->output_css .= $output;
 
 			return $output;
-
 		}
-
 	}
 }

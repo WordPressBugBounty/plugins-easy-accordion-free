@@ -9,6 +9,10 @@
  * @subpackage Easy_Accordion_Free/admin
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+} // Cannot access directly.
+
 /**
  * The admin preview.
  */
@@ -30,7 +34,6 @@ class Easy_Accordion_Free_Preview {
 	private function easy_accordion_preview_action() {
 		// admin Preview.
 		add_action( 'wp_ajax_sp_eap_preview_meta_box', array( $this, 'sp_eap_backend_preview' ) );
-
 	}
 
 	/**
@@ -62,6 +65,5 @@ class Easy_Accordion_Free_Preview {
 		SP_EAP_FRONTEND::sp_eap_html_show( $post_id, $upload_data, $shortcode_data, $main_section_title );
 		die();
 	}
-
 }
 new Easy_Accordion_Free_Preview();

@@ -7,6 +7,10 @@
  * @subpackage  easy-accordion-free/admin
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+} // Cannot access directly.
+
 /**
  * Easy_Accordion_Free_Element_Shortcode_Addons
  */

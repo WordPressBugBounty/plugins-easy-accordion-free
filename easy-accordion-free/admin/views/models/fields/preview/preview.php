@@ -43,6 +43,5 @@ if ( ! class_exists( 'SP_EAP_Field_preview' ) ) {
 		public function render() {
 			echo '<div class="sp_eap-preview-box"><div id="sp_eap-preview-box"></div></div>';
 		}
-
 	}
 }

@@ -52,9 +52,7 @@ if ( ! class_exists( 'SP_EAP_Field_button_set' ) ) {
 			);
 
 			$value = ( is_array( $this->value ) ) ? $this->value : array_filter( (array) $this->value );
-
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo $this->field_before();
+			echo wp_kses_post( $this->field_before() );
 
 			if ( isset( $this->field['options'] ) ) {
 
@@ -74,8 +72,7 @@ if ( ! class_exists( 'SP_EAP_Field_button_set' ) ) {
 						$pro_only = isset( $option['pro_only'] ) ? ' disabled' : '';
 
 						echo '<div class="eapro--sibling ' . esc_attr( $pro_only ) . ' eapro--button' . esc_attr( $active ) . '">';
-						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-						echo '<input type="' . esc_attr( $type ) . '" ' . $pro_only . ' name="' . esc_attr( $this->field_name( $extra ) ) . '" value="' . esc_attr( $key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/>';
+						echo '<input type="' . esc_attr( $type ) . '" ' . esc_attr( $pro_only ) . ' name="' . esc_attr( $this->field_name( $extra ) ) . '" value="' . esc_attr( $key ) . '"' . wp_kses_post( $this->field_attributes() ) . esc_attr( $checked ) . '/>';
 
 						echo '<span>' . wp_kses_post( $option['text'] ) . '</span>';
 						echo '</div>';
@@ -85,14 +82,10 @@ if ( ! class_exists( 'SP_EAP_Field_button_set' ) ) {
 					echo '</div>';
 
 				} else {
-					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					echo ( ! empty( $this->field['empty_message'] ) ) ? esc_attr( $this->field['empty_message'] ) : esc_html__( 'No data provided for this option type.', 'easy-accordion-free' );
-
 				}
 			}
-
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo $this->field_after();
+			echo wp_kses_post( $this->field_after() );
 		}
 	}
 }

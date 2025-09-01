@@ -43,23 +43,21 @@ if ( ! class_exists( 'SP_EAP_Field_switcherf' ) ) {
 		public function render() {
 			$text_off   = ( ! empty( $this->field['text_off'] ) ) ? $this->field['text_off'] : esc_html__( 'Off', 'easy-accordion-free' );
 			$text_width = ( ! empty( $this->field['text_width'] ) ) ? ' style="width: ' . esc_attr( $this->field['text_width'] ) . 'px;"' : '';
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_before() returns safely escaped HTML markup.
 			echo $this->field_before();
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- already escaped above.
 			echo '<div class="eapro--switcher"' . $text_width . '>';
 			echo '<span class="eapro--off">' . esc_html( $text_off ) . '</span>';
 			echo '<span class="eapro--ball"></span>';
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped  -- $this->field_attributes() returns safely escaped attributes.
 			echo '<input type="text" name="' . esc_attr( $this->field_name() ) . '" value="' . esc_attr( $this->value ) . '"' . $this->field_attributes() . ' />';
 			echo '</div>';
 
 			echo ( ! empty( $this->field['label'] ) ) ? '<span class="eapro--label">' . esc_html( $this->field['label'] ) . '</span>' : '';
 
 			echo '<div class="clear"></div>';
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_after() returns safely escaped HTML markup.
 			echo $this->field_after();
-
 		}
-
 	}
 }

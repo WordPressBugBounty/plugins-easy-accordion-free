@@ -37,7 +37,6 @@ if ( ! function_exists( 'eapro_array_search' ) ) {
 		}
 
 		return $results;
-
 	}
 }
 

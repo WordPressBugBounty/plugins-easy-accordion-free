@@ -207,7 +207,7 @@ if ( ! class_exists( 'SP_EAP_Options' ) ) {
 					$parents[ $section['parent'] ][] = $section;
 					unset( $sections[ $key ] );
 				}
-				$count++;
+				++$count;
 			}
 
 			foreach ( $sections as $key => $section ) {
@@ -216,7 +216,7 @@ if ( ! class_exists( 'SP_EAP_Options' ) ) {
 					$section['subs'] = wp_list_sort( $parents[ $section['id'] ], array( 'priority' => 'ASC' ), 'ASC', true );
 				}
 				$result[] = $section;
-				$count++;
+				++$count;
 			}
 
 			return wp_list_sort( $result, array( 'priority' => 'ASC' ), 'ASC', true );
@@ -349,7 +349,6 @@ if ( ! class_exists( 'SP_EAP_Options' ) ) {
 			$default = ( isset( $this->args['defaults'][ $field['id'] ] ) ) ? $this->args['defaults'][ $field['id'] ] : $default;
 
 			return $default;
-
 		}
 
 		/**
@@ -373,125 +372,235 @@ if ( ! class_exists( 'SP_EAP_Options' ) ) {
 		}
 
 		/**
+		 * Sanitize Easy Accordion plugin options.
+		 *
+		 * @param array $options Raw options array.
+		 * @return array Sanitized options array.
+		 */
+		public function sanitize_options( $options ) {
+			if ( ! is_array( $options ) ) {
+				return array();
+			}
+
+			$sanitized = array();
+
+			foreach ( $options as $key => $value ) {
+				switch ( $key ) {
+					// --- eapro_transient ---
+					case 'eapro_transient':
+						$sanitized['eapro_transient'] = array();
+						if ( is_array( $value ) ) {
+							foreach ( $value as $sub_key => $sub_val ) {
+								switch ( $sub_key ) {
+									case 'section':
+										$sanitized['eapro_transient']['section'] = sanitize_text_field( $sub_val );
+										break;
+									default:
+										$sanitized['eapro_transient'][ $sub_key ] = sanitize_text_field( $sub_val );
+										break;
+								}
+							}
+						}
+						break;
+
+					// --- Nonce & Referer ---
+					case 'eapro_options_noncesp_eap_settings':
+					case '_wp_http_referer':
+						$sanitized[ $key ] = sanitize_text_field( $value );
+						break;
+
+					// --- sp_eap_settings ---
+					case 'sp_eap_settings':
+						$sanitized['sp_eap_settings'] = array();
+						if ( is_array( $value ) ) {
+							foreach ( $value as $sub_key => $sub_val ) {
+								switch ( $sub_key ) {
+									// Boolean-like values.
+									case 'eap_data_remove':
+									case 'eap_focus_style':
+									case 'eap_woo_faq':
+										$sanitized['sp_eap_settings'][ $sub_key ] = (int) $sub_val;
+										break;
+
+									// Text fields.
+									case 'eap_woo_faq_label':
+										$sanitized['sp_eap_settings'][ $sub_key ] = sanitize_text_field( $sub_val );
+										break;
+
+									// Numeric fields.
+									case 'eap_woo_faq_label_priority':
+										$sanitized['sp_eap_settings'][ $sub_key ] = absint( $sub_val );
+										break;
+
+									// Nested array: eap_woo_set_tab.
+									case 'eap_woo_set_tab':
+										$sanitized['sp_eap_settings']['eap_woo_set_tab'] = array();
+										if ( is_array( $sub_val ) ) {
+											foreach ( $sub_val as $tab ) {
+												$tab_sanitized = array();
+												if ( isset( $tab['eap_display_tab_for'] ) ) {
+													$tab_sanitized['eap_display_tab_for'] = sanitize_text_field( $tab['eap_display_tab_for'] );
+												}
+												if ( isset( $tab['eap_woo_tab_shortcode'] ) && is_array( $tab['eap_woo_tab_shortcode'] ) ) {
+													$tab_sanitized['eap_woo_tab_shortcode'] = array_map( 'absint', $tab['eap_woo_tab_shortcode'] );
+												}
+												$sanitized['sp_eap_settings']['eap_woo_set_tab'][] = $tab_sanitized;
+											}
+										}
+										break;
+
+									// Custom CSS.
+									case 'ea_custom_css':
+										$sanitized['sp_eap_settings'][ $sub_key ] = wp_strip_all_tags( $sub_val );
+										break;
+
+									// Custom JS.
+									case 'custom_js':
+										$sanitized['sp_eap_settings'][ $sub_key ] = wp_kses_post( $sub_val );
+										break;
+
+									default:
+										$sanitized['sp_eap_settings'][ $sub_key ] = sanitize_text_field( $sub_val );
+										break;
+								}
+							}
+						}
+						break;
+
+					default:
+						// Fallback sanitization for unexpected fields.
+						$sanitized[ $key ] = is_scalar( $value ) ? sanitize_text_field( $value ) : '';
+						break;
+				}
+			}
+
+			return $sanitized;
+		}
+
+
+		/**
 		 * Set options.
 		 *
 		 * @param boolean $ajax ajax option.
 		 * @return bool
 		 */
 		public function set_options( $ajax = false ) {
+
+			// Retrieve nonce.
+			$nonce = '';
+			if ( $ajax && ! empty( $_POST['nonce'] ) ) {
+				// Nonce sent via AJAX request.
+				$nonce = sanitize_text_field( wp_unslash( $_POST['nonce'] ) );
+			} elseif ( ! empty( $_POST[ 'eapro_options_nonce' . $this->unique ] ) ) {
+				// Nonce sent via standard form (with unique field key).
+				$nonce = sanitize_text_field( wp_unslash( $_POST[ 'eapro_options_nonce' . $this->unique ] ) );
+			}
+
+			if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'eapro_options_nonce' ) ) {
+				return false;
+			}
+
 			// XSS ok.
 			// No worries, This "POST" requests is sanitizing in the below foreach. see #L337 - #L341.
-			$response = ( $ajax && ! empty( $_POST['data'] ) ) ? json_decode( wp_unslash( trim( $_POST['data'] ) ), true ) : $_POST; // phpcs:ignore
+			$response = ( $ajax && ! empty( $_POST['data'] ) ) ? json_decode( wp_unslash( trim( $_POST['data'] ) ), true ) : wp_unslash( $_POST ); // phpcs:ignore
+			$response = $this->sanitize_options( $response );
 
 			// Set variables.
-			$data      = array();
-			$noncekey  = 'eapro_options_nonce' . $this->unique;
-			$nonce     = ( ! empty( $response[ $noncekey ] ) ) ? $response[ $noncekey ] : '';
-			$options   = ( ! empty( $response[ $this->unique ] ) ) ? $response[ $this->unique ] : array();
-			$transient = ( ! empty( $response['eapro_transient'] ) ) ? $response['eapro_transient'] : array();
+			$data       = array();
+			$importing  = false;
+			$noncekey   = 'eapro_options_nonce' . $this->unique;
+			$transient  = ( ! empty( $response['eapro_transient'] ) ) ? $response['eapro_transient'] : array();
+			$section_id = ( ! empty( $transient['section'] ) ) ? $transient['section'] : '';
+			$options    = ( ! empty( $response[ $this->unique ] ) ) ? $response[ $this->unique ] : array();
 
-			if ( wp_verify_nonce( $nonce, 'eapro_options_nonce' ) ) {
+			if ( ! $ajax && ! empty( $response['eapro_import_data'] ) ) {
 
-				$importing  = false;
-				$section_id = ( ! empty( $transient['section'] ) ) ? $transient['section'] : '';
+				// XSS ok.
+				// No worries, This "POST" requests is sanitizing in the below foreach. see #L337 - #L341.
+				$import_data  = json_decode( wp_unslash( trim( $response['eapro_import_data'] ) ), true );
+				$options      = ( is_array( $import_data ) && ! empty( $import_data ) ) ? $import_data : array();
+				$importing    = true;
+				$this->notice = esc_html__( 'Success. Imported backup options.', 'easy-accordion-free' );
+			}
 
-				if ( ! $ajax && ! empty( $response['eapro_import_data'] ) ) {
+			if ( ! empty( $transient['reset'] ) ) {
 
-					// XSS ok.
-					// No worries, This "POST" requests is sanitizing in the below foreach. see #L337 - #L341.
-					$import_data  = json_decode( wp_unslash( trim( $response['eapro_import_data'] ) ), true );
-					$options      = ( is_array( $import_data ) && ! empty( $import_data ) ) ? $import_data : array();
-					$importing    = true;
-					$this->notice = esc_html__( 'Success. Imported backup options.', 'easy-accordion-free' );
-
+				foreach ( $this->pre_fields as $field ) {
+					if ( ! empty( $field['id'] ) ) {
+						$data[ $field['id'] ] = $this->get_default( $field );
+					}
 				}
 
-				if ( ! empty( $transient['reset'] ) ) {
+				$this->notice = esc_html__( 'Default options restored.', 'easy-accordion-free' );
 
-					foreach ( $this->pre_fields as $field ) {
+			} elseif ( ! empty( $transient['reset_section'] ) && ! empty( $section_id ) ) {
+				if ( ! empty( $this->pre_sections[ $section_id - 1 ]['fields'] ) ) {
+
+					foreach ( $this->pre_sections[ $section_id - 1 ]['fields'] as $field ) {
 						if ( ! empty( $field['id'] ) ) {
 							$data[ $field['id'] ] = $this->get_default( $field );
 						}
 					}
+				}
 
-					$this->notice = esc_html__( 'Default options restored.', 'easy-accordion-free' );
+				$data         = wp_parse_args( $data, $this->options );
+				$this->notice = esc_html__( 'Default options restored for only this section.', 'easy-accordion-free' );
+			} else {
 
-				} elseif ( ! empty( $transient['reset_section'] ) && ! empty( $section_id ) ) {
+				// sanitize and validate.
+				foreach ( $this->pre_fields as $field ) {
 
-					if ( ! empty( $this->pre_sections[ $section_id - 1 ]['fields'] ) ) {
-
-						foreach ( $this->pre_sections[ $section_id - 1 ]['fields'] as $field ) {
-							if ( ! empty( $field['id'] ) ) {
-								$data[ $field['id'] ] = $this->get_default( $field );
-							}
+					if ( ! empty( $field['id'] ) ) {
+						$field_id    = $field['id'];
+						$field_value = isset( $options[ $field_id ] ) ? $options[ $field_id ] : '';
+						// Ajax and Importing doing wp_unslash already.
+						if ( ! $ajax && ! $importing ) {
+							$field_value = wp_unslash( $field_value );
 						}
-					}
-
-					$data = wp_parse_args( $data, $this->options );
-
-					$this->notice = esc_html__( 'Default options restored for only this section.', 'easy-accordion-free' );
-
-				} else {
-
-					// sanitize and validate.
-					foreach ( $this->pre_fields as $field ) {
-
-						if ( ! empty( $field['id'] ) ) {
-							$field_id    = $field['id'];
-							$field_value = isset( $options[ $field_id ] ) ? $options[ $field_id ] : '';
-							// Ajax and Importing doing wp_unslash already.
-							if ( ! $ajax && ! $importing ) {
-								$field_value = wp_unslash( $field_value );
-							}
-							// Sanitize "post" request of field.
-							if ( ! isset( $field['sanitize'] ) ) {
-								if ( is_array( $field_value ) ) {
-									$data[ $field_id ] = wp_kses_post_deep( $field_value );
-								} else {
-									$data[ $field_id ] = wp_kses_post( $field_value );
-								}
-							} elseif ( isset( $field['sanitize'] ) && function_exists( $field['sanitize'] ) ) {
-
-									$data[ $field_id ] = call_user_func( $field['sanitize'], $field_value );
-
+						// Sanitize "post" request of field.
+						if ( ! isset( $field['sanitize'] ) ) {
+							if ( is_array( $field_value ) ) {
+								$data[ $field_id ] = wp_kses_post_deep( $field_value );
 							} else {
-
-								$data[ $field_id ] = $field_value;
-
+								$data[ $field_id ] = wp_kses_post( $field_value );
 							}
+						} elseif ( isset( $field['sanitize'] ) && function_exists( $field['sanitize'] ) ) {
 
-							// Validate "post" request of field.
-							if ( isset( $field['validate'] ) && function_exists( $field['validate'] ) ) {
+							$data[ $field_id ] = call_user_func( $field['sanitize'], $field_value );
+						} else {
 
-								$has_validated = call_user_func( $field['validate'], $field_value );
+							$data[ $field_id ] = $field_value;
+						}
 
-								if ( ! empty( $has_validated ) ) {
+						// Validate "post" request of field.
+						if ( isset( $field['validate'] ) && function_exists( $field['validate'] ) ) {
 
-									$data[ $field_id ]         = ( isset( $this->options[ $field_id ] ) ) ? $this->options[ $field_id ] : '';
-									$this->errors[ $field_id ] = $has_validated;
+							$has_validated = call_user_func( $field['validate'], $field_value );
 
-								}
+							if ( ! empty( $has_validated ) ) {
+
+								$data[ $field_id ]         = ( isset( $this->options[ $field_id ] ) ) ? $this->options[ $field_id ] : '';
+								$this->errors[ $field_id ] = $has_validated;
 							}
 						}
 					}
 				}
-
-				$data = apply_filters( "eapro_{$this->unique}_save", $data, $this );
-
-				do_action( "eapro_{$this->unique}_save_before", $data, $this );
-
-				$this->options = $data;
-
-				$this->save_options( $data );
-
-				do_action( "eapro_{$this->unique}_save_after", $data, $this );
-
-				if ( empty( $this->notice ) ) {
-					$this->notice = esc_html__( 'Settings saved.', 'easy-accordion-free' );
-				}
-				return true;
 			}
-			return false;
+			$data = apply_filters( "eapro_{$this->unique}_save", $data, $this );
+
+			do_action( "eapro_{$this->unique}_save_before", $data, $this );
+
+			$this->options = $data;
+
+			$this->save_options( $data );
+
+			do_action( "eapro_{$this->unique}_save_after", $data, $this );
+
+			if ( empty( $this->notice ) ) {
+				$this->notice = esc_html__( 'Settings saved.', 'easy-accordion-free' );
+			}
+
+			return true;
 		}
 
 		/**
@@ -513,7 +622,6 @@ if ( ! class_exists( 'SP_EAP_Options' ) ) {
 			}
 
 			do_action( "eapro_{$this->unique}_saved", $data, $this );
-
 		}
 
 		/**
@@ -544,8 +652,17 @@ if ( ! class_exists( 'SP_EAP_Options' ) ) {
 		 * WP api – admin menu.
 		 */
 		public function add_admin_menu() {
-			// @codingStandardsIgnoreLine
-			extract( $this->args );
+			$args = $this->args;
+
+			$menu_type       = $args['menu_type'] ?? '';
+			$menu_parent     = $args['menu_parent'] ?? '';
+			$menu_title      = $args['menu_title'] ?? '';
+			$menu_capability = $args['menu_capability'] ?? 'manage_options';
+			$menu_slug       = $args['menu_slug'] ?? '';
+			$menu_icon       = $args['menu_icon'] ?? '';
+			$menu_position   = $args['menu_position'] ?? null;
+			$sub_menu_title  = $args['sub_menu_title'] ?? '';
+			$menu_hidden     = $args['menu_hidden'] ?? false;
 
 			if ( 'submenu' === $menu_type ) {
 
@@ -571,7 +688,7 @@ if ( ! class_exists( 'SP_EAP_Options' ) ) {
 							$tab_key += ( count( $section['subs'] ) - 1 );
 						}
 
-						$tab_key++;
+						++$tab_key;
 
 					}
 
@@ -735,27 +852,20 @@ if ( ! class_exists( 'SP_EAP_Options' ) ) {
 
 							echo '<li class="eapro-tab-depth-1"><a id="eapro-tab-link-' . esc_attr( $tab_key ) . '" href="#tab=' . esc_attr( $tab_key ) . '">' . wp_kses_post( $sub_icon . $sub['title'] . $sub_error ) . '</a></li>';
 
-							$tab_key++;
-
+							++$tab_key;
 						}
-
 						echo '</ul>';
 
 						echo '</li>';
-
 					} else {
-
 						echo '<li class="eapro-tab-depth-0"><a id="eapro-tab-link-' . esc_attr( $tab_key ) . '" href="#tab=' . esc_attr( $tab_key ) . '">' . wp_kses_post( $tab_icon . $tab['title'] . $tab_error ) . '</a></li>';
 
-						$tab_key++;
-
+						++$tab_key;
 					}
 				}
 
 				echo '</ul>';
-
 				echo '</div>';
-
 			}
 
 			echo '<div class="eapro-content">';
@@ -763,7 +873,6 @@ if ( ! class_exists( 'SP_EAP_Options' ) ) {
 			echo '<div class="eapro-sections">';
 
 			$section_key = 1;
-
 			foreach ( $this->pre_sections as $section ) {
 
 				$onload       = ( ! $has_nav ) ? ' eapro-onload' : '';
@@ -793,15 +902,12 @@ if ( ! class_exists( 'SP_EAP_Options' ) ) {
 
 					}
 				} else {
-
-								echo '<div class="eapro-no-option eapro-text-muted">' . esc_html__( 'No option provided by developer.', 'easy-accordion-free' ) . '</div>';
-
+					echo '<div class="eapro-no-option eapro-text-muted">' . esc_html__( 'No option provided by developer.', 'easy-accordion-free' ) . '</div>';
 				}
 
 				echo '</div>';
 
-				$section_key++;
-
+				++$section_key;
 			}
 
 			echo '</div>';
@@ -823,7 +929,6 @@ if ( ! class_exists( 'SP_EAP_Options' ) ) {
 			echo ( ! empty( $this->args['footer_after'] ) ) ? wp_kses_post( $this->args['footer_after'] ) : '';
 
 			echo '</div>';
-
 			do_action( 'eapro_options_after' );
 		}
 	}

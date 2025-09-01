@@ -119,7 +119,6 @@ if ( ! class_exists( 'SP_EAP_Metabox' ) ) {
 			 * Wp enqeueu for typography and output css.
 			 */
 			parent::__construct();
-
 		}
 
 		/**
@@ -208,7 +207,6 @@ if ( ! class_exists( 'SP_EAP_Metabox' ) ) {
 			}
 
 			return $classes;
-
 		}
 
 		/**
@@ -221,7 +219,6 @@ if ( ! class_exists( 'SP_EAP_Metabox' ) ) {
 			if ( ! in_array( $post_type, $this->args['exclude_post_types'], true ) ) {
 				add_meta_box( $this->unique, wp_kses_post( $this->args['title'] ), array( &$this, 'add_meta_box_content' ), $this->post_type, $this->args['context'], $this->args['priority'], $this->args );
 			}
-
 		}
 
 		/**
@@ -235,7 +232,6 @@ if ( ! class_exists( 'SP_EAP_Metabox' ) ) {
 			$default = ( isset( $this->args['defaults'][ $field['id'] ] ) ) ? $this->args['defaults'][ $field['id'] ] : $default;
 
 			return $default;
-
 		}
 
 		/**
@@ -266,7 +262,6 @@ if ( ! class_exists( 'SP_EAP_Metabox' ) ) {
 			$value   = ( isset( $value ) ) ? $value : $default;
 
 			return $value;
-
 		}
 
 		/**
@@ -307,7 +302,7 @@ if ( ! class_exists( 'SP_EAP_Metabox' ) ) {
 
 					echo '<li><a href="#" data-section="' . esc_attr( $this->unique . '_' . $tab_key ) . '">' . wp_kses_post( $tab_icon . $section['title'] . $tab_error ) . '</a></li>';
 
-					$tab_key++;
+					++$tab_key;
 				}
 				echo '</ul>';
 
@@ -355,18 +350,16 @@ if ( ! class_exists( 'SP_EAP_Metabox' ) ) {
 
 				echo '</div>';
 
-				$count++;
+				++$count;
 
 			}
 
 			echo '</div>';
 
 			echo '<a class="btn btn-success" id="sp__eap-show-preview" data-id="' . esc_attr( $post->ID ) . '"href=""> <i class="fa fa-eye" aria-hidden="true"></i> Show Preview</a>';
-
 			echo '<div class="clear"></div>';
 
 			if ( ! empty( $this->args['show_restore'] ) ) {
-
 				echo '<div class="eapro-restore-wrapper">';
 				echo '<label>';
 				echo '<input type="checkbox" name="' . esc_attr( $this->unique ) . '[_restore]" />';
@@ -374,19 +367,15 @@ if ( ! class_exists( 'SP_EAP_Metabox' ) ) {
 				echo '<span class="button eapro-button-cancel">' . sprintf( '<small>( %s )</small> %s', esc_html__( 'update post for restore ', 'easy-accordion-free' ), esc_html__( 'Cancel', 'easy-accordion-free' ) ) . '</span>';
 				echo '</label>';
 				echo '</div>';
-
 			}
 
 			echo '</div>';
-
 			echo ( $has_nav ) ? '<div class="eapro-nav-background"></div>' : '';
-
 			echo '<div class="clear"></div>';
 
 			echo '</div>';
 
 			echo '</div>';
-
 		}
 
 		/**
@@ -418,7 +407,7 @@ if ( ! class_exists( 'SP_EAP_Metabox' ) ) {
 							$this->process_field( $field, $request, $count, $data, $errors );
 						}
 					}
-					$count++;
+					++$count;
 				}
 			}
 			$data = apply_filters( "eapro_{$this->unique}_save", $data, $post_id, $this );
@@ -450,7 +439,6 @@ if ( ! class_exists( 'SP_EAP_Metabox' ) ) {
 			do_action( "eapro_{$this->unique}_saved", $data, $post_id, $this );
 
 			do_action( "eapro_{$this->unique}_save_after", $data, $post_id, $this );
-
 		}
 
 		/**

@@ -9,6 +9,10 @@
  * @subpackage Easy_Accordion_Free/includes
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+} // Cannot access directly.
+
 /**
  * Register all actions and filters for the plugin.
  *

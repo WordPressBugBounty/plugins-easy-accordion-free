@@ -7,6 +7,10 @@
  * @package easy_accordion_free
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+} // Cannot access directly.
+
 ?>
 <!-- Start accordion card div. -->
 <div class="ea-card <?php echo esc_attr( $accordion_mode['expand_class'] . ' ' . $accordion_item_class ); ?>">

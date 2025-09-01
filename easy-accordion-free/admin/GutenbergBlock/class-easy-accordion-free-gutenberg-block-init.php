@@ -42,7 +42,7 @@ if ( ! class_exists( 'Easy_Accordion_Free_Gutenberg_Block_Init' ) ) {
 		public function sp_easy_accordion_free_block_editor_assets() {
 			wp_enqueue_script(
 				'sp-easy-accordion-free-shortcode-block',
-				plugins_url( '/GutenbergBlock/build/index.js', dirname( __FILE__ ) ),
+				plugins_url( '/GutenbergBlock/build/index.js', __DIR__ ),
 				array( 'jquery' ),
 				SP_EA_VERSION,
 				true

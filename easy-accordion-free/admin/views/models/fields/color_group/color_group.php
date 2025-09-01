@@ -44,7 +44,7 @@ if ( ! class_exists( 'SP_EAP_Field_color_group' ) ) {
 
 			$options = ( ! empty( $this->field['options'] ) ) ? $this->field['options'] : array();
 
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_before() returns safely escaped HTML markup.
 			echo $this->field_before();
 
 			if ( ! empty( $options ) ) {
@@ -58,13 +58,10 @@ if ( ! class_exists( 'SP_EAP_Field_color_group' ) ) {
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					echo '<input type="text" name="' . esc_attr( $this->field_name( '[' . $key . ']' ) ) . '" value="' . esc_attr( $color_value ) . '" class="eapro-color"' . $default_attr . $this->field_attributes() . '/>';
 					echo '</div>';
-
 				}
 			}
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped  -- $this->field_after() returns safely escaped HTML markup.
 			echo $this->field_after();
-
 		}
-
 	}
 }

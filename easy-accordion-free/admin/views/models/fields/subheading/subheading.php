@@ -33,7 +33,6 @@ if ( ! class_exists( 'SP_EAP_Field_subheading' ) ) {
 		 * @param string $parent The parent args.
 		 */
 		public function __construct( $field, $value = '', $unique = '', $where = '', $parent = '' ) {
-
 			parent::__construct( $field, $value, $unique, $where, $parent );
 		}
 
@@ -43,10 +42,7 @@ if ( ! class_exists( 'SP_EAP_Field_subheading' ) ) {
 		 * @return void
 		 */
 		public function render() {
-
 			echo ( ! empty( $this->field['content'] ) ) ? wp_kses_post( $this->field['content'] ) : '';
 		}
-
 	}
 }
-

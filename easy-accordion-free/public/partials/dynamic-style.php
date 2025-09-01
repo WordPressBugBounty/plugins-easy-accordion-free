@@ -9,6 +9,10 @@
  * @subpackage easy-accordion-free/public
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+} // Cannot access directly.
+
 $eap_preloader         = isset( $shortcode_data['eap_preloader'] ) ? $shortcode_data['eap_preloader'] : false;
 $eap_animation_time    = isset( $shortcode_data['eap_animation_time'] ) ? $shortcode_data['eap_animation_time'] : '';
 $accordion_layout      = isset( $shortcode_data['eap_accordion_layout'] ) ? $shortcode_data['eap_accordion_layout'] : 'vertical';

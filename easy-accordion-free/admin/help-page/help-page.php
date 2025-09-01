@@ -828,7 +828,7 @@ class Easy_Accordion_Free_Help {
 							</div>
 						</div>
 						<div class="spea-about-img">
-							<img src="https://shapedplugin.com/wp-content/uploads/2024/01/shapedplugin-team.jpg" alt="">
+							<img src="<?php echo esc_url( SP_EA_URL . 'admin/help-page/img/shapedplugin-team.jpg' ); ?>" alt="ShapedPlugin Team">
 							<span>Team ShapedPlugin LLC at WordCamp Sylhet</span>
 						</div>
 					</div>

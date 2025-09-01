@@ -9,6 +9,10 @@
  * @subpackage Easy_Accordion_Free/admin
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+} // Cannot access directly.
+
 /**
  * The class for the admin-specific functionality of the plugin.
  */
@@ -66,13 +70,16 @@ class Easy_Accordion_Free_Admin {
 	 */
 	public function eap_updated_messages( $messages ) {
 		global $post, $post_ID;
+
+		$revision_id = isset( $_GET['revision'] ) ? absint( $_GET['revision'] ) : false; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Safe read-only access
+
 		$messages['sp_easy_accordion'] = array(
 			0  => '', // Unused. Messages start at index 1.
 			1  => sprintf( __( 'Accordion updated.', 'easy-accordion-free' ) ),
 			2  => '',
 			3  => '',
 			4  => __( ' updated.', 'easy-accordion-free' ),
-			5  => isset( $_GET['revision'] ) ? sprintf( wp_kses_post( 'Accordion restored to revision from %s', 'easy-accordion-free' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			5  => $revision_id ? sprintf( wp_kses_post( 'Accordion restored to revision from %s', 'easy-accordion-free' ), wp_post_revision_title( $revision_id, false ) ) : false,
 			6  => sprintf( __( 'Accordion published.', 'easy-accordion-free' ) ),
 			7  => __( 'Accordion saved.', 'easy-accordion-free' ),
 			8  => sprintf( __( 'Accordion submitted.', 'easy-accordion-free' ) ),
@@ -124,7 +131,7 @@ class Easy_Accordion_Free_Admin {
 	public function sp_eap_review_text( $text ) {
 		$screen = get_current_screen();
 		if ( 'sp_easy_accordion' === $screen->post_type || 'sp_accordion_faqs' === $screen->post_type ) {
-			$url  = 'https://wordpress.org/support/plugin/easy-accordion-free/reviews/?filter=5';
+			$url  = 'https://wordpress.org/support/plugin/easy-accordion-free/reviews/';
 			$text = sprintf( wp_kses_post( 'Enjoying <strong>Easy Accordion?</strong> Please rate us <span class="spea-footer-text-star">★★★★★</span> <a href="%s" target="_blank">WordPress.org.</a> Your positive feedback will help us grow more. Thank you! 😊', 'easy-accordion-free' ), $url );
 		}
 		return $text;

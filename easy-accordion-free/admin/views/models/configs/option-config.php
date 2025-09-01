@@ -212,7 +212,7 @@ SP_EAP::createSection(
 				'sanitize' => 'wp_strip_all_tags',
 				'settings' => array(
 					'mode'  => 'css',
-					'theme' => 'monokai',
+					'theme' => 'default',
 				),
 			),
 			array(
@@ -221,7 +221,7 @@ SP_EAP::createSection(
 				'title'    => __( 'Custom JS', 'easy-accordion-free' ),
 				'sanitize' => 'wp_strip_all_tags',
 				'settings' => array(
-					'theme' => 'monokai',
+					'theme' => 'default',
 					'mode'  => 'javascript',
 				),
 			),

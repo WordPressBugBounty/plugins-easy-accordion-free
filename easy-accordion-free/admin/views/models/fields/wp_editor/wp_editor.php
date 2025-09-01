@@ -71,16 +71,15 @@ if ( ! class_exists( 'SP_EAP_Field_wp_editor' ) ) {
 			$allowed_tags = eapro_allowed_description_tags();
 			$this->value  = wp_kses( $this->value, $allowed_tags );
 			$this->value  = format_for_editor( $this->value );
-     		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+     		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_before() returns safely escaped HTML markup.
 			echo $this->field_before();
 			echo ( eapro_wp_editor_api() ) ? '<div class="eapro-wp-editor" data-editor-settings="' . esc_attr( wp_json_encode( $editor_settings ) ) . '">' : '';
     		// phpcs:ignore
 			echo '<textarea name="' . esc_attr( $this->field_name() ) . '"' . $this->field_attributes( $attributes ) . $editor_height . '>' . $this->value . '</textarea>';
 
 			echo ( eapro_wp_editor_api() ) ? '</div>' : '';
-      		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+      		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_after() returns safely escaped HTML markup.
 			echo $this->field_after();
-
 		}
 
 		/**
@@ -99,7 +98,6 @@ if ( ! class_exists( 'SP_EAP_Field_wp_editor' ) ) {
 				add_action( 'print_default_editor_scripts', array( &$this, 'setup_wp_editor_media_buttons' ) );
 
 			}
-
 		}
 
 		/**
@@ -116,7 +114,6 @@ if ( ! class_exists( 'SP_EAP_Field_wp_editor' ) ) {
 			echo '<script type="text/javascript">';
 			echo 'var eapro_media_buttons = ' . wp_json_encode( $media_buttons ) . ';';
 			echo '</script>';
-
 		}
 
 		/**
@@ -140,9 +137,6 @@ if ( ! class_exists( 'SP_EAP_Field_wp_editor' ) ) {
 				_WP_Editors::editor_settings( 'eapro_wp_editor', $setup );
 
 			}
-
 		}
-
 	}
 }
-

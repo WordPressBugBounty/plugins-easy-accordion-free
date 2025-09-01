@@ -49,9 +49,8 @@ if ( ! class_exists( 'SP_EAP_Field_icon' ) ) {
 					'remove_title' => esc_html__( 'Remove Icon', 'easy-accordion-free' ),
 				)
 			);
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_before() returns safely escaped HTML markup.
 			echo $this->field_before();
-
 			$nonce  = wp_create_nonce( 'eapro_icon_nonce' );
 			$hidden = ( empty( $this->value ) ) ? ' hidden' : '';
 
@@ -59,10 +58,8 @@ if ( ! class_exists( 'SP_EAP_Field_icon' ) ) {
 			echo '<span class="eapro-icon-preview' . esc_attr( $hidden ) . '"><i class="' . esc_attr( $this->value ) . '"></i></span>';
 			echo '<a href="#" class="button button-primary eapro-icon-add" data-nonce="' . esc_attr( $nonce ) . '">' . wp_kses_post( $args['button_title'] ) . '</a>';
 			echo '</div>';
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_after() returns safely escaped HTML markup.
 			echo $this->field_after();
-
 		}
-
 	}
 }

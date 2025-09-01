@@ -7,6 +7,10 @@
  * @subpackage  easy-accordion-free/admin
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+} // Cannot access directly.
+
 /**
  * Elementor easy accordion free shortcode Widget.
  *
@@ -142,7 +146,6 @@ class Sp_Easy_Accordion_Shortcode_Widget extends \Elementor\Widget_Base {
 
 			SP_EAP_FRONTEND::sp_eap_html_show( $post_id, $upload_data, $shortcode_data, $main_section_title );
 			?>
-			<script src="<?php echo esc_url( SP_EA_URL . 'public/assets/js/script.js' ); ?>" ></script>
 			<?php
 		} else {
 			echo do_shortcode( '[sp_easyaccordion id="' . $generator_id . '"]' );

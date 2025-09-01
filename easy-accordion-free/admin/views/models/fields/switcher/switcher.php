@@ -47,7 +47,7 @@ if ( ! class_exists( 'SP_EAP_Field_switcher' ) ) {
 			$text_off   = ( ! empty( $this->field['text_off'] ) ) ? $this->field['text_off'] : esc_html__( 'Off', 'easy-accordion-free' );
 			$text_width = ( ! empty( $this->field['text_width'] ) ) ? ' style="width: ' . esc_attr( $this->field['text_width'] ) . 'px;"' : '';
 
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_before() returns safely escaped HTML markup.
 			echo $this->field_before();
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '<div class="eapro--switcher' . esc_attr( $active ) . '"' . $text_width . '>';
@@ -59,10 +59,8 @@ if ( ! class_exists( 'SP_EAP_Field_switcher' ) ) {
 			echo '</div>';
 
 			echo ( ! empty( $this->field['label'] ) ) ? '<span class="eapro--label">' . esc_attr( $this->field['label'] ) . '</span>' : '';
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_after() returns safely escaped HTML markup.
 			echo $this->field_after();
-
 		}
-
 	}
 }

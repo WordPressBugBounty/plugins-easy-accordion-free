@@ -10,6 +10,10 @@
  * @author     ShapedPlugin<support@shapedplugin.com>
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+} // Cannot access directly.
+
 /**
  * Admin review notice class.
  */
@@ -55,11 +59,11 @@ class Easy_Accordion_Free_Review {
 			</div>
 			<div class="sp-eafree-notice-text">
 				<h3>Enjoying <strong>Easy Accordion</strong>?</h3>
-				<p>We hope you had a wonderful experience using <strong>Easy Accordion</strong>. Please take a moment to leave a review on <a href="https://wordpress.org/support/plugin/easy-accordion-free/reviews/?filter=5#new-post" target="_blank"><strong>WordPress.org</strong></a>.
+				<p>We hope you had a wonderful experience using <strong>Easy Accordion</strong>. Please take a moment to leave a review on <a href="https://wordpress.org/support/plugin/easy-accordion-free/reviews/" target="_blank"><strong>WordPress.org</strong></a>.
 				Your positive review will help us improve. Thank you! 😊</p>
 
 				<p class="sp-eafree-review-actions">
-					<a href="https://wordpress.org/support/plugin/easy-accordion-free/reviews/?filter=5#new-post" target="_blank" class="button button-primary notice-dismissed rate-easy-accordion">Ok, you deserve ★★★★★</a>
+					<a href="https://wordpress.org/support/plugin/easy-accordion-free/reviews/" target="_blank" class="button button-primary notice-dismissed rate-easy-accordion">Ok, you deserve ★★★★★</a>
 					<a href="#" class="notice-dismissed remind-me-later"><span class="dashicons dashicons-clock"></span>Nope, maybe later
 					</a>
 					<a href="#" class="notice-dismissed never-show-again"><span class="dashicons dashicons-dismiss"></span>Never show again</a>
@@ -115,7 +119,8 @@ class Easy_Accordion_Free_Review {
 		if ( ! $review ) {
 			$review = array();
 		}
-		switch ( isset( $post_data['notice_dismissed_data'] ) ? $post_data['notice_dismissed_data'] : '' ) {
+		$dismiss_status = isset( $post_data['notice_dismissed_data'] ) ? sanitize_text_field( $post_data['notice_dismissed_data'] ) : '';
+		switch ( $dismiss_status ) {
 			case '1':
 				$review['time']      = time();
 				$review['dismissed'] = true;

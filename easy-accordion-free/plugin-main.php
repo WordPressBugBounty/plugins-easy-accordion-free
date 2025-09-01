@@ -2,12 +2,12 @@
 /**
  * Plugin name: Easy Accordion
  * Plugin URI:  https://easyaccordion.io/?ref=1
- * Description: The best Responsive and Touch-friendly drag & drop <strong>Accordion FAQ</strong> builder plugin for WordPress.
+ * Description: Easy Accordion is a responsive Accordion and FAQ builder plugin for WordPress. Create unlimited accordions, FAQ sections, and WooCommerce Product FAQs with a simple drag-and-drop interface—no coding required.
  * Author:      ShapedPlugin LLC
  * Author URI:  https://shapedplugin.com/
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Version:     3.0.4
+ * Version:     3.0.5
  * Text Domain: easy-accordion-free
  * Domain Path: /languages/
  *
@@ -53,7 +53,7 @@ class SP_EASY_ACCORDION_FREE {
 	 *
 	 * @var string
 	 */
-	public $version = '3.0.4';
+	public $version = '3.0.5';
 
 	/**
 	 * The name of the plugin.
@@ -208,10 +208,6 @@ class SP_EASY_ACCORDION_FREE {
 		$this->loader->add_action( 'admin_menu', $plugin_cpt, 'add_faq_submenu' );
 		$this->loader->add_action( 'admin_notices', $plugin_review_notice, 'display_admin_notice' );
 		$this->loader->add_action( 'wp_ajax_sp-eafree-never-show-review-notice', $plugin_review_notice, 'dismiss_review_notice' );
-		// Admin offer banner.
-		$plugin_offer_banner = new Easy_Accordion_Free_Offer_Banner( SP_PLUGIN_NAME, SP_EA_VERSION );
-		$this->loader->add_action( 'admin_notices', $plugin_offer_banner, 'display_admin_offer_banner' );
-		$this->loader->add_action( 'wp_ajax_sp_eafree-hide-offer-banner', $plugin_offer_banner, 'dismiss_offer_banner' );
 	}
 
 	/**
@@ -247,7 +243,6 @@ class SP_EASY_ACCORDION_FREE {
 		require_once SP_EA_PATH . '/admin/views/notices/review.php';
 		require_once SP_EA_PATH . '/public/scripts.php';
 		require_once SP_EA_PATH . '/public/eap-frontend.php';
-		require_once SP_EA_PATH . '/admin/views/notices/offer-banner.php';
 		require_once SP_EA_PATH . '/includes/class-easy-accordion-import-export.php';
 		require_once SP_EA_PATH . '/admin/preview/class-easy-accordion-free-preview.php';
 		require_once SP_EA_PATH . '/admin/class-easy-accordion-free-gutenberg-block.php';

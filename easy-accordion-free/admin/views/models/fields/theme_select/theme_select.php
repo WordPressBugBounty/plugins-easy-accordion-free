@@ -53,7 +53,7 @@ if ( ! class_exists( 'SP_EAP_Field_theme_select' ) ) {
 
 			$this->value = ( is_array( $this->value ) ) ? $this->value : array_filter( (array) $this->value );
 
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_before() returns safely escaped HTML markup.
 			echo $this->field_before();
 
 			if ( ! empty( $this->field['options'] ) ) {
@@ -87,13 +87,13 @@ if ( ! class_exists( 'SP_EAP_Field_theme_select' ) ) {
 					echo '</select>';
 
 				} else {
-					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_attributes() returns safely escaped attrs.
 					echo ( ! empty( $this->field['empty_message'] ) ) ? esc_html( $this->field['empty_message'] ) : esc_html__( 'No data provided for this option type.', 'easy-accordion-free' );
 
 				}
 			}
 			echo '<img src="" class="theme_preview" alt="">';
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_after() returns safely escaped HTML markup.
 			echo $this->field_after();
 		}
 	}

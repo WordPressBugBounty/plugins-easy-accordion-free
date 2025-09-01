@@ -11,6 +11,10 @@
  * @subpackage easy-accordion-free/includes
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+} // Cannot access directly.
+
 /**
  * The Shortcode class.
  *

@@ -52,7 +52,7 @@ if ( ! class_exists( 'SP_EAP_Field_checkbox' ) ) {
 
 			$inline_class = ( $args['inline'] ) ? ' class="eapro--inline-list"' : '';
 
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_before() returns safely escaped HTML markup.
 			echo $this->field_before();
 
 			if ( isset( $this->field['options'] ) ) {
@@ -80,17 +80,14 @@ if ( ! class_exists( 'SP_EAP_Field_checkbox' ) ) {
 							echo '</li>';
 
 						} else {
-
 							$checked = ( in_array( $option_key, $value, true ) ) ? ' checked' : '';
 							// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 							echo '<li><label><input type="checkbox" name="' . esc_attr( $this->field_name( '[]' ) ) . '" value="' . esc_attr( $option_key ) . '"' . $this->field_attributes() . $checked . '/> ' . esc_attr( $option_value ) . '</label></li>';
-
 						}
 					}
 					echo '</ul>';
 
 				} else {
-					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					echo ( ! empty( $this->field['empty_message'] ) ) ? esc_attr( $this->field['empty_message'] ) : esc_html__( 'No data provided for this option type.', 'easy-accordion-free' );
 
 				}
@@ -104,10 +101,8 @@ if ( ! class_exists( 'SP_EAP_Field_checkbox' ) ) {
 				echo '</label>';
 
 			}
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_after() returns safely escaped HTML markup.
 			echo $this->field_after();
-
 		}
-
 	}
 }

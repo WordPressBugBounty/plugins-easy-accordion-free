@@ -88,9 +88,6 @@ if ( ! class_exists( 'SP_EAP' ) ) {
 			// set constants.
 			self::constants();
 
-			// translate.
-			self::set_locale();
-
 			// include files.
 			self::includes();
 
@@ -149,21 +146,6 @@ if ( ! class_exists( 'SP_EAP' ) ) {
 			}
 
 			do_action( 'eapro_loaded' );
-		}
-
-		/**
-		 * Define the locale for this plugin for internationalization.
-		 *
-		 * Uses the Easy_Accordion_Free_I18n class in order to set the domain and to register the hook
-		 * with WordPress.
-		 *
-		 * @since    2.0.0
-		 * @access   private
-		 */
-		public static function set_locale() {
-			require_once SP_EA_INCLUDES . '/class-easy-accordion-free-i18n.php';
-			$plugin_i18n = new Easy_Accordion_Free_I18n();
-			$plugin_i18n->load_plugin_textdomain();
 		}
 
 		/**
@@ -383,13 +365,7 @@ if ( ! class_exists( 'SP_EAP' ) ) {
 				wp_enqueue_style( 'wp-color-picker' );
 				wp_enqueue_script( 'wp-color-picker' );
 
-				// font awesome 4 and 5.
-				if ( apply_filters( 'eapro_fa4', false ) ) {
-					wp_enqueue_style( 'eapro-fa', SP_EA_URL . 'public/assets/css/font-awesome' . $min . '.css', array(), SP_EA_VERSION, 'all' );
-				} else {
-					wp_enqueue_style( 'eapro-fa5', 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all' . $min . '.css', array(), SP_EA_VERSION, 'all' );
-					wp_enqueue_style( 'eapro-fa5-v4-shims', 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/v4-shims' . $min . '.css', array(), SP_EA_VERSION, 'all' );
-				}
+				wp_enqueue_style( 'eapro-font-awesome-icons', self::include_plugin_url( 'assets/css/font-awesome.min.css' ), array(), self::$version, 'all' );
 
 				// framework core styles.
 				wp_enqueue_style( 'eapro', self::include_plugin_url( 'assets/css/eapro' . $min . '.css' ), array(), SP_EA_VERSION, 'all' );

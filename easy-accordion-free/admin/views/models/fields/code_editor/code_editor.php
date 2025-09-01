@@ -23,19 +23,6 @@ if ( ! class_exists( 'SP_EAP_Field_code_editor' ) ) {
 	class SP_EAP_Field_code_editor extends SP_EAP_Fields {
 
 		/**
-		 * Version
-		 *
-		 * @var string
-		 */
-		public $version = '5.41.0';
-		/**
-		 * Cdn_url
-		 *
-		 * @var string
-		 */
-		public $cdn_url = 'https://cdn.jsdelivr.net/npm/codemirror@';
-
-		/**
 		 * Code_editor field constructor.
 		 *
 		 * @param array  $field The field type.
@@ -59,20 +46,17 @@ if ( ! class_exists( 'SP_EAP_Field_code_editor' ) ) {
 				'tabSize'     => 2,
 				'lineNumbers' => true,
 				'theme'       => 'default',
-				'mode'        => 'htmlmixed',
-				'cdnURL'      => $this->cdn_url . $this->version,
 			);
 
 			$settings = ( ! empty( $this->field['settings'] ) ) ? $this->field['settings'] : array();
 			$settings = wp_parse_args( $settings, $default_settings );
 
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_before() returns safely escaped HTML markup.
 			echo $this->field_before();
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '<textarea name="' . esc_attr( $this->field_name() ) . '"' . $this->field_attributes() . ' data-editor="' . esc_attr( wp_json_encode( $settings ) ) . '">' . $this->value . '</textarea>';
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_after() returns safely escaped HTML markup.
 			echo $this->field_after();
-
 		}
 
 		/**
@@ -81,17 +65,9 @@ if ( ! class_exists( 'SP_EAP_Field_code_editor' ) ) {
 		 * @return void
 		 */
 		public function enqueue() {
-
-			if ( ! wp_script_is( 'eapro-codemirror' ) ) {
-				wp_enqueue_script( 'eapro-codemirror', esc_url( $this->cdn_url . $this->version . '/lib/codemirror.min.js' ), array( 'eapro' ), $this->version, true );
-				wp_enqueue_script( 'eapro-codemirror-loadmode', esc_url( $this->cdn_url . $this->version . '/addon/mode/loadmode.min.js' ), array( 'eapro-codemirror' ), $this->version, true );
-			}
-
-			if ( ! wp_style_is( 'eapro-codemirror' ) ) {
-				wp_enqueue_style( 'eapro-codemirror', esc_url( $this->cdn_url . $this->version . '/lib/codemirror.min.css' ), array(), $this->version );
-			}
-
+			// Enqueue code-mirror.
+			wp_enqueue_script( 'code-editor' );
+			wp_enqueue_style( 'code-editor' );
 		}
-
 	}
 }

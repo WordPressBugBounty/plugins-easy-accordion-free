@@ -1,4 +1,13 @@
 <?php
+/**
+ * Uninstall.php for cleaning plugin database.
+ *
+ * Trigger the file when plugin is deleted.
+ *
+ * @since 1.0.0
+ * @package   easy-accordion-free
+ * @subpackage easy-accordion-free/includes
+ */
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
@@ -8,10 +17,19 @@ require_once 'plugin-main.php';
 $settings = get_option( 'sp_eap_settings' );
 if ( true === ( $settings['eap_data_remove'] ) ) {
 	// Delete Accordions and shortcodes.
-	global $wpdb;
-	$wpdb->query( "DELETE FROM wp_posts WHERE post_type = 'sp_easy_accordion'" );
-	$wpdb->query( 'DELETE FROM wp_postmeta WHERE post_id NOT IN (SELECT id FROM wp_posts)' );
-	$wpdb->query( 'DELETE FROM wp_term_relationships WHERE object_id NOT IN (SELECT id FROM wp_posts)' );
+	$accordions = get_posts(
+		array(
+			'post_type'      => array( 'sp_easy_accordion', 'sp_accordion_faqs' ),
+			'posts_per_page' => -1,
+			'fields'         => 'ids',
+		)
+	);
+
+	if ( ! empty( $accordions ) ) {
+		foreach ( $accordions as $accordion_id ) {
+			wp_delete_post( $accordion_id, true );
+		}
+	}
 
 	// Remove option.
 	delete_option( 'sp_eap_flush_rewrite_rules' );

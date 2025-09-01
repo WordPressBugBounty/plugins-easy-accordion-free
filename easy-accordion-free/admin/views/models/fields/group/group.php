@@ -65,7 +65,7 @@ if ( ! class_exists( 'SP_EAP_Field_group' ) ) {
 
 			} else {
 
-				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_before() returns safely escaped HTML markup.
 				echo $this->field_before();
 
 				echo '<div class="eapro-cloneable-item eapro-cloneable-hidden">';
@@ -141,7 +141,7 @@ if ( ! class_exists( 'SP_EAP_Field_group' ) ) {
 
 						echo '</div>';
 
-						$num++;
+						++$num;
 
 					}
 				}
@@ -152,12 +152,9 @@ if ( ! class_exists( 'SP_EAP_Field_group' ) ) {
 				echo '<div class="eapro-cloneable-alert eapro-cloneable-min">' . esc_html__( 'You can not remove less than', 'easy-accordion-free' ) . ' ' . esc_attr( $args['min'] ) . '</div>';
 
 				echo '<a href="#" class="button button-primary eapro-cloneable-add">' . wp_kses_post( $args['button_title'] ) . '</a>';
-
-				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $this->field_after() returns safely escaped HTML markup.
 				echo $this->field_after();
-
 			}
-
 		}
 
 		/**
@@ -174,8 +171,6 @@ if ( ! class_exists( 'SP_EAP_Field_group' ) ) {
 			if ( ! wp_script_is( 'jquery-ui-sortable' ) ) {
 				wp_enqueue_script( 'jquery-ui-sortable' );
 			}
-
 		}
-
 	}
 }
