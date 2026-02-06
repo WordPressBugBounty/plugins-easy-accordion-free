@@ -2,9 +2,9 @@
 Contributors: shapedplugin, khalilu, rubel_miah, shamimmiashuhagh
 Tags: accordion, faq, nested accordion, vertical accordion, product faq
 Requires at least: 5.0
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 3.0.5
+Stable tag: 3.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,9 +76,9 @@ Easily import or export FAQs, with support for multiple file types.
 
 = Easy Accordion Pro =
 
-[__Easy Accordion Pro__](https://easyaccordion.io/?ref=1) is the premium version of the Easy Accordion plugin, adding additional features and functionality. It includes FAQ analytics, user FAQ submission forms, AJAX search, toggle all button, featured title icons, multiple toggle icon sets, accordion animations, and AJAX load more functionality.
+>[__Easy Accordion Pro__](https://easyaccordion.io/?ref=1) is the premium version of the Easy Accordion plugin, adding additional features and functionality. It includes FAQ analytics, user FAQ submission forms, AJAX search, toggle all button, featured title icons, multiple toggle icon sets, accordion animations, and AJAX load more functionality.
 
-The plugin supports horizontal, vertical, and multi-column layouts, offers extended customization and styling options, and includes 17 pre-designed accordion themes. Learn more about [Easy Accordion Features](https://easyaccordion.io/).
+>The plugin supports horizontal, vertical, and multi-column layouts, offers extended customization and styling options, and includes 17 pre-designed accordion themes. Learn more about [Easy Accordion Features](https://easyaccordion.io/).
 
 
 = Multilingual Ready =
@@ -243,6 +243,14 @@ Thank you!
 
 
 == Changelog ==
+
+= Version 3.0.7 - Dec 26, 2025 =
+* Improved: Plugin detection logic optimized for better clarity and reliability.
+* Improved: Code readability optimized by standardizing singleton instance property naming.
+
+= Version 3.0.6 - Nov 25, 2025 =
+* Removed: Redundant code from the plugin.
+* Tested: WordPress 6.9 compatibility.
 
 = Version 3.0.5 - Sep 01, 2025 =
 * Improved: Enhanced plugin security and data validation.

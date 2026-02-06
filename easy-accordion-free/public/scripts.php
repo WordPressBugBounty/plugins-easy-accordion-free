@@ -24,7 +24,7 @@ class SP_EA_Front_Scripts {
 	 * @var null
 	 * @since 1.0
 	 */
-	protected static $_instance = null;
+	protected static $instance = null;
 
 	/**
 	 * This class Instance function.
@@ -33,11 +33,11 @@ class SP_EA_Front_Scripts {
 	 * @since 1.0
 	 */
 	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
 		}
 
-		return self::$_instance;
+		return self::$instance;
 	}
 
 	/**

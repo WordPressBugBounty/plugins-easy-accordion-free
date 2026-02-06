@@ -62,6 +62,7 @@
 #sp-eafree-review-notice .sp-eafree-notice-text .sp-eafree-review-actions a.button {
 	color: #fff;
 }
+
 .acf-admin-page #sp-eafree-review-notice .sp-eafree-notice-text .sp-eafree-review-actions a.button {
 	height: auto;
 	padding-right: 16px;
@@ -181,4 +182,31 @@ a.sp-easyaccordion-block-edit-button {
 
 .spea-footer-text-star {
 	color: #dba617;
+}
+
+/* Admin offer banner */
+#shapedplugin-offer-banner {
+	padding: 0;
+	border: 0;
+	line-height: 0;
+	background: transparent;
+}
+
+#shapedplugin-offer-banner a:focus {
+	outline: 0;
+	box-shadow: none;
+}
+
+#shapedplugin-offer-banner .notice-dismiss:focus {
+	outline: 0;
+	box-shadow: none;
+}
+
+#shapedplugin-offer-banner button.shapedplugin-offer-banner-dismiss:before {
+	color: #fff;
+	font-size: 22px;
+}
+
+#shapedplugin-offer-banner button.shapedplugin-offer-banner-dismiss:hover:before {
+	color: #f30808;
 }

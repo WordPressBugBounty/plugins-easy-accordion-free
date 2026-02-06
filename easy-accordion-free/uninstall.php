@@ -49,6 +49,10 @@ if ( true === ( $settings['eap_data_remove'] ) ) {
 	delete_site_option( '_transient_spf-eap-framework-transient' );
 	delete_site_option( '_transient_timeout_eapro-metabox-transient' );
 	delete_site_option( '_transient_eapro-metabox-transient' );
+
+	// Delete offer banner related option keys.
+	delete_option( 'shapedplugin_offer_banner_dismissed_black_friday_2025' );
+	delete_option( 'shapedplugin_offer_banner_dismissed_new_year_2026' );
 } else {
 	update_option( 'sp_eap_flush_rewrite_rules', false );
 }

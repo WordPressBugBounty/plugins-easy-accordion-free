@@ -508,20 +508,9 @@ if ( ! class_exists( 'SP_EAP_Options' ) ) {
 			// Set variables.
 			$data       = array();
 			$importing  = false;
-			$noncekey   = 'eapro_options_nonce' . $this->unique;
 			$transient  = ( ! empty( $response['eapro_transient'] ) ) ? $response['eapro_transient'] : array();
 			$section_id = ( ! empty( $transient['section'] ) ) ? $transient['section'] : '';
 			$options    = ( ! empty( $response[ $this->unique ] ) ) ? $response[ $this->unique ] : array();
-
-			if ( ! $ajax && ! empty( $response['eapro_import_data'] ) ) {
-
-				// XSS ok.
-				// No worries, This "POST" requests is sanitizing in the below foreach. see #L337 - #L341.
-				$import_data  = json_decode( wp_unslash( trim( $response['eapro_import_data'] ) ), true );
-				$options      = ( is_array( $import_data ) && ! empty( $import_data ) ) ? $import_data : array();
-				$importing    = true;
-				$this->notice = esc_html__( 'Success. Imported backup options.', 'easy-accordion-free' );
-			}
 
 			if ( ! empty( $transient['reset'] ) ) {
 

@@ -7,7 +7,7 @@
  * Author URI:  https://shapedplugin.com/
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Version:     3.0.5
+ * Version:     3.0.7
  * Text Domain: easy-accordion-free
  * Domain Path: /languages/
  *
@@ -24,11 +24,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return boolean
  */
-function is_easy_accordion_pro() {
-	include_once ABSPATH . 'wp-admin/includes/plugin.php';
-	if ( ! ( is_plugin_active( 'easy-accordion-pro/easy-accordion-pro.php' ) || is_plugin_active_for_network( 'easy-accordion-pro/easy-accordion-pro.php' ) ) ) {
+function is_easy_accordion_pro_active() {
+	require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+	if (
+		is_plugin_active( 'easy-accordion-pro/easy-accordion-pro.php' ) ||
+		is_plugin_active_for_network( 'easy-accordion-pro/easy-accordion-pro.php' )
+	) {
 		return true;
 	}
+
+	return false;
 }
 
 /**
@@ -53,7 +59,7 @@ class SP_EASY_ACCORDION_FREE {
 	 *
 	 * @var string
 	 */
-	public $version = '3.0.5';
+	public $version = '3.0.7';
 
 	/**
 	 * The name of the plugin.
@@ -287,8 +293,17 @@ class SP_EASY_ACCORDION_FREE {
 function sp_easy_accordion() {
 	$plugin = SP_EASY_ACCORDION_FREE::init();
 	$plugin->loader->run();
+
+	if ( ! defined( 'SHAPEDPLIUGIN_OFFER_BANNER_LOADED' ) ) {
+		define( 'SHAPEDPLIUGIN_OFFER_BANNER_LOADED', true );
+
+		/**
+		 * The file is responsible for generating admin offer banner.
+		 */
+		include_once plugin_dir_path( __FILE__ ) . 'admin/views/notices/offer-banner.php';
+	}
 }
 
-if ( is_easy_accordion_pro() ) {
+if ( ! is_easy_accordion_pro_active() ) {
 	sp_easy_accordion();
 }
