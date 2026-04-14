@@ -900,6 +900,8 @@
 .eapro-field-spacing .eapro--input select,
 .eapro-field-dimensions .eapro--input select {
 	margin: 0;
+	min-height: 32px;
+	line-height: 2;
 }
 
 .eapro-field-border .eapro--input input,
@@ -912,6 +914,8 @@
 	max-width: 100%;
 	text-align: center;
 	padding: 0;
+	min-height: 30px;
+	line-height: 2;
 }
 
 .only-for-pro.eapro-field-spacing .eapro--input input {
@@ -4759,4 +4763,15 @@ div:is(#eap_pro_notice, #eap_builder_option, #sp_eap_display_shortcode_sidebar).
 .eap-pro-notice-wrapper ul li i {
 	color: rgba(74, 184, 102, 1);
 	font-size: 11px;
+}
+.eapro-field-spinner input,
+.eapro-field-select select, 
+.eapro-field-text input {
+	min-height: 30px;
+	line-height: 2;
+}
+
+.eapro-field input:focus,
+.eapro-field select:focus  {
+	box-shadow: none;
 }

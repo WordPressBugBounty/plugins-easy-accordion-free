@@ -7,7 +7,7 @@
  * Author URI:  https://shapedplugin.com/
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Version:     3.0.7
+ * Version:     3.0.8
  * Text Domain: easy-accordion-free
  * Domain Path: /languages/
  *
@@ -59,7 +59,7 @@ class SP_EASY_ACCORDION_FREE {
 	 *
 	 * @var string
 	 */
-	public $version = '3.0.7';
+	public $version = '3.0.8';
 
 	/**
 	 * The name of the plugin.

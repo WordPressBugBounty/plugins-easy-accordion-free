@@ -558,8 +558,8 @@ class Easy_Accordion_Free_Help {
 								<div class="spea-info-box-title">
 									<h4><i class="spea-icon-team-icon"></i> Join The Community</h4>
 								</div>
-								<span class='spea-normal-paragraph'>Join the official ShapedPlugin Facebook group to share your experiences, thoughts, and ideas.</span>
-								<a target="_blank" class='spea-small-btn' href="https://www.facebook.com/groups/ShapedPlugin/">Join Now</a>
+								<span class='spea-normal-paragraph'>Join the official ShapedPlugin community to share your experiences, thoughts, and ideas.</span>
+								<a target="_blank" class='spea-small-btn' href="https://community.shapedplugin.com/portal/">Join Now</a>
 							</div>
 						</div>
 					</div>

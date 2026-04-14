@@ -2,9 +2,9 @@
 Contributors: shapedplugin, khalilu, rubel_miah, shamimmiashuhagh
 Tags: accordion, faq, nested accordion, vertical accordion, product faq
 Requires at least: 5.0
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 3.0.7
+Stable tag: 3.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -243,6 +243,10 @@ Thank you!
 
 
 == Changelog ==
+
+= Version 3.0.8 - Apr 14, 2026 =
+* Fix: Resolved styling issues in certain options with WordPress 7.0.
+* Tested: WordPress 7.0 compatibility.
 
 = Version 3.0.7 - Dec 26, 2025 =
 * Improved: Plugin detection logic optimized for better clarity and reliability.
