@@ -1,0 +1,158 @@
+/* Empty state */
+.sp-eab-image-accordion-empty {
+	min-height: 380px;
+	padding-bottom: 20px;
+}
+
+.sp-eab-card {
+	background: #fff;
+	width: 652px;
+	height: 392px;
+	opacity: 1;
+	border-bottom-width: 1px;
+	padding: 24px;
+	border: 1px solid #F0F0F1;
+	box-shadow: 0px 8px 15px 0px #0000001A;
+}
+
+.sp-eab-card h3 {
+	color: #2F2F2F;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 28px;
+	letter-spacing: 0;
+	vertical-align: middle;
+	margin: 0;
+}
+
+.sp-eab-card p {
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 20px;
+	letter-spacing: 0;
+	vertical-align: middle;
+	color: #757575;
+	margin: 4px 0 24px 0;
+}
+
+.sp-eab-upload-buttons {
+	gap: 15px;
+}
+
+.sp-eab-upload-buttons .components-form-file-upload button {
+	padding: 0;
+	margin: 0;
+
+	&:focus {
+		outline: none;
+		box-shadow: none;
+	}
+}
+
+.sp-eab-upload {
+	background: var(--eab-primary-color) !important;
+	color: #fff !important;
+	border: none !important;
+
+	svg {
+		fill: transparent;
+	}
+}
+
+.sp-easy-accordion-block {
+
+	.sp-eab-library,
+	.sp-eab-upload {
+		font-weight: 500;
+		font-size: 16px;
+		line-height: 20px;
+		height: 38px;
+		padding: 0 16px;
+		opacity: 1;
+		border-radius: 2px;
+		gap: 8px;
+		letter-spacing: 0;
+		text-align: center;
+	}
+}
+
+.sp-eab-library {
+	border: 1.5px solid var(--eab-primary-color) !important;
+	color: var(--eab-primary-color) !important;
+	background: transparent !important;
+	box-shadow: none !important;
+}
+
+
+/* Image Preview Layout */
+.sp-eab-image-accordion-preview {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 25px;
+}
+
+.sp-eab-images {
+	display: flex;
+	gap: 12px;
+	flex-wrap: nowrap;
+	overflow-x: auto;
+	scrollbar-width: thin;
+	padding: 10px;
+}
+
+.sp-eab-image-item {
+	position: relative;
+	border-radius: 10px;
+	overflow: hidden;
+	flex: 0 0 auto;
+	width: 150px;
+	height: 260px;
+}
+
+.sp-eab-image-item img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 10px;
+}
+
+.sp-eab-remove {
+	position: absolute !important;
+	top: 8px;
+	right: 8px;
+	background: rgba(255, 255, 255, 0.8) !important;
+	color: #111 !important;
+	border-radius: 50%;
+	width: 28px;
+	height: 28px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+
+.sp-eab-image-item:hover .sp-eab-remove {
+	opacity: 1;
+}
+
+// css for overlay in bg image.
+.wp-block-sp-easy-accordion-pro-accordion-slider,
+.wp-block-sp-easy-accordion-pro-image-accordion {
+
+	.sp-eab-image-accordion-container::after {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+	}
+
+	.sp-eab-carousel-wrapper {
+		z-index: 2;
+	}
+
+	.sp-eab-image-accordion-items {
+		position: relative;
+		z-index: 2;
+	}
+}

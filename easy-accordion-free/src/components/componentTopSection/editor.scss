@@ -1,0 +1,26 @@
+.sp-easy-accordion-tabs-panel {
+    .sp-eab-component-header-reset {
+        color: #8c8f94;
+
+        &:focus {
+            box-shadow: none;
+        }
+
+        &:hover svg {
+            color: var(--eab-primary-color);
+        }
+
+        &::after {
+            border: 0;
+        }
+    }
+
+    .sp-eab-select-field.sp-d-flex .sp-eab-component-header {
+        margin-bottom: 0;
+    }
+	.sp-eab-select-field select{
+		min-height: 30px !important;
+		max-height: 30px !important;
+		line-height: 1 !important;
+	}
+}

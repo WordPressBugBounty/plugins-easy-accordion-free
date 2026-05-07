@@ -1,0 +1,265 @@
+.sp-icon-picker {
+    max-width: 1080px;
+    max-height: 760px;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    position: relative;
+
+    .sp-icon-picker-close-btn {
+        position: absolute;
+        top: 0;
+        right: 5px;
+        font-size: 16px;
+        color: var(--eab-primary-color-70);
+
+        &:hover {
+            color: #787878;
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: none;
+        }
+    }
+
+    .components-modal__content {
+        margin-top: 0;
+        overflow: visible;
+        padding: 32px 24px;
+    }
+
+    .components-modal__header {
+        display: none;
+    }
+
+    // LEFT SIDE CSS.
+    // search bar.
+    .sp-icon-picker-search-bar {
+        position: relative;
+        margin-bottom: 28px;
+
+        input {
+            width: 100%;
+            font-size: 13px;
+            height: 32px;
+            border: 1px solid #ddd;
+            padding-left: 40px;
+            border-radius: 6px;
+        }
+
+        svg {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 20px;
+        }
+    }
+
+    .sp-icon-picker-body {
+        gap: 24px;
+    }
+
+    .sp-icon-picker-content {
+        max-width: 850px;
+        width: 100%;
+    }
+
+    .sp-icon-picker-icons {
+        max-height: 570px;
+        overflow-y: auto;
+        padding: 16px 20px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+
+        ul {
+            width: 100%;
+            grid-template-columns: repeat(auto-fill, 80px);
+            gap: 20px;
+            align-content: start;
+            margin: 0;
+        }
+    }
+
+    // single icon styles.
+    .sp-icon-picker-single-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0;
+
+        button {
+            border: 1px solid #ddd;
+            background: transparent;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+
+            &.active {
+                fill: #fff;
+                color: #fff;
+                background-color: var(--eab-primary-color-70);
+            }
+
+            svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            span {
+                font-size: 11px;
+                margin-top: 6px;
+            }
+        }
+    }
+
+    .sp-icon-picker-insert-btn {
+        margin-top: 30px;
+        background: var(--eab-primary-color-70);
+        margin-left: auto;
+        color: #fff;
+
+        &:hover {
+            background: var(--eab-primary-color);
+            color: #fff !important;
+        }
+    }
+
+
+    // RIGHT SIDE SIDEBAR CSS.
+    .sp-icon-picker-sidebar {
+        width: 160px;
+    }
+
+    .sp-icon-picker-title {
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 28px;
+        margin: 0 0 32px 0;
+    }
+
+    .sp-eab-component-separator {
+        height: 1px;
+        width: 100%;
+        background-color: var(--eab-border-color);
+    }
+
+    .sp-category-indicator-label {
+        margin: 10px 0;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 16px;
+        text-transform: uppercase;
+        color: #757575;
+    }
+
+    .sp-icon-picker-cat-list {
+        li {
+            margin: 0;
+
+            input[type="checkbox"]:focus,
+            input[type="checkbox"] {
+                border-color: var(--eab-border-color);
+                box-shadow: none;
+
+                &:checked::before {
+                    content: url(data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M14.83%204.89l1.34.94-5.81%208.38H9.02L5.78%209.67l1.34-1.25%202.57%202.4z%27%20fill%3D%27%23641DD7%27%2F%3E%3C%2Fsvg%3E);
+                }
+            }
+
+            button {
+                padding: 10px 15px;
+                border: none;
+                background: transparent;
+                width: 100%;
+                text-align: left;
+                cursor: pointer;
+                transition: all .3s;
+                border-radius: 4px;
+                color: var(--eab-primary-text-color);
+            }
+
+            &.active button,
+            &:hover button {
+                color: #fff;
+                background-color: var(--eab-primary-color-70);
+            }
+        }
+    }
+
+    .sp-icon-picker-style {
+        li {
+            border-radius: 4px;
+            transition: all .3s;
+            padding: 0px 15px;
+
+            label {
+                padding: 10px 0;
+                width: 100%;
+                cursor: pointer;
+            }
+
+            &.active,
+            &:hover {
+                color: #fff;
+                background-color: var(--eab-primary-color-70);
+            }
+        }
+    }
+}
+
+.sp-icon-picker-selector-container {
+    border: 1px solid #f0f0f0;
+    border-radius: 1px;
+    position: relative;
+    gap: 5px;
+    height: 120px;
+    margin-bottom: 15px;
+    position: relative;
+
+    .sp-icon-picker-default-icon path,
+    .sp-icon-picker-active-icon path {
+        fill: #333;
+
+    }
+
+    .components-button.is-secondary,
+    .components-button.is-secondary:hover {
+        box-shadow: none;
+        background-color: transparent;
+    }
+
+    button:focus {
+        box-shadow: none !important;
+        border: none !important;
+        outline: none !important;
+    }
+
+
+    // icon remove button.
+    .sp-icon-picker-remove-icon {
+        background-color: #dcdcde;
+        color: #787878;
+        font-size: 15px;
+        height: 20px;
+        position: absolute;
+        right: 3px;
+        top: 3px;
+        width: 20px;
+        border: none;
+
+        .sp-icon-picker-remove-icon-svg {
+            width: 15px;
+            height: 15px;
+        }
+    }
+
+    .sp-icon-picker-active-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .sp-icon-picker-active-icon-label {
+        color: #333;
+    }
+}

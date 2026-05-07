@@ -1,0 +1,19 @@
+{
+    "name": "shapedplugin/easy-accordion-free",
+    "description": "Easy Accordion Free WordPress Plugin",
+    "type": "wordpress-plugin",
+    "autoload": {
+        "psr-4": {
+            "ShapedPlugin\\EasyAccordion\\": "./"
+        }
+    },
+    "require": {
+        "php": ">=7.4"
+    },
+    "authors": [
+        {
+            "name": "ShapedPlugin",
+            "email": "support@shapedplugin.com"
+        }
+    ]
+}

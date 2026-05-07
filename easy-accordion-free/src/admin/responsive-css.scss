@@ -1,0 +1,141 @@
+/*
+ * TABLET DEVICE RESPONSIVE CSS.
+ */
+@media only screen and (min-width: 600px) and (max-width: 1023px) {
+
+	// blocks page css.
+	#sp-eab-admin-dashboard-wrapper {
+		.sp-eab-admin-dashboard-wrapper {
+			.sp-eab-video-section-text h3 {
+				margin-bottom: 15px;
+			}
+
+			// page navigation.
+			.sp-eab-admin-dashboard-nav {
+				margin-bottom: 30px;
+				padding-top: 20px;
+			}
+		}
+
+		// getting page css.
+		.sp-eab-getting-start-page {
+			flex-wrap: wrap;
+
+			.sp-eab-video-section {
+				width: 100%;
+				padding: 25px;
+			}
+
+			.sp-eab-sidebar-section {
+				width: 100%;
+				gap: 20px;
+				flex-direction: row;
+				flex-wrap: wrap;
+
+				.sp-eab-sidebar-info-card {
+					width: calc(50% - 10px);
+					padding: 20px;
+				}
+			}
+
+		}
+
+		.sp-eab-admin-dashboard-content,
+		.sp-eab-admin-dashboard-nav ul {
+			padding: 0 30px;
+		}
+
+		.sp-eab-all-block-list {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 20px;
+		}
+
+		// modules page css.
+		.sp-eab-admin-dashboard-content {
+			.sp-eab-integrations-page-items-wrapper {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+	}
+}
+
+/*
+ * MOBILE DEVICE RESPONSIVE CSS.
+ */
+@media only screen and (max-width: 599px) {
+
+	// blocks page.
+	#sp-eab-admin-dashboard-wrapper {
+		.sp-eab-admin-dashboard-header-left {
+			>svg {
+				width: 130px;
+			}
+		}
+
+		// menu page spacing.
+		.sp-eab-admin-dashboard-wrapper {
+			.sp-eab-admin-dashboard-nav {
+				margin-bottom: 30px;
+
+				ul {
+					padding: 0 30px;
+				}
+			}
+		}
+
+		// getting start page.
+		.sp-eab-getting-start-page {
+			flex-wrap: wrap;
+
+			.sp-eab-video-section {
+				width: 100%;
+				padding: 20px;
+			}
+
+			.sp-eab-sidebar-section {
+				width: 100%;
+				gap: 20px;
+				flex-direction: row;
+				flex-wrap: wrap;
+
+				.sp-eab-sidebar-info-card {
+					width: 100%;
+					padding: 20px;
+				}
+			}
+
+			.sp-eab-video-section-btn {
+				ul {
+					flex-wrap: wrap;
+
+					li a {
+						padding: 15px 20px;
+					}
+				}
+			}
+
+		}
+
+		.sp-eab-admin-dashboard-content,
+		.sp-eab-admin-dashboard-nav ul {
+			padding: 0 30px;
+		}
+
+		.sp-eab-all-block-list {
+			grid-template-columns: repeat(1, 1fr);
+			gap: 15px;
+		}
+
+		// modules page css.
+		.sp-eab-admin-dashboard-content {
+			.sp-eab-integrations-page-items-wrapper {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		.eaf-pro-modules {
+			flex-wrap: wrap;
+			gap: 16px
+		}
+	}
+}

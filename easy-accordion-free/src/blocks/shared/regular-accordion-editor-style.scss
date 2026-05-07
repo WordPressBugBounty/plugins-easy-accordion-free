@@ -1,0 +1,243 @@
+$item_selector: '>.block-editor-inner-blocks>.block-editor-block-list__layout>.sp-eab-accordion-item';
+$item_wrapper :'#{$item_selector}>.sp-eab-accordion-item-wrapper';
+
+/* 
+ * ------------------
+ * ACCORDION.SCSS.
+ * ------------------
+ */
+// expand and collapse icon toggle.
+.sp-eab-accordion {
+
+    // normal icon set.
+    #{$item_selector} {
+        >.sp-eab-accordion-item-wrapper {
+            >.sp-eab-accordion-heading {
+                .sp-eab-collapse-icon {
+                    display: none;
+                }
+
+                .eab-icon-animated {
+                    .sp-eab-expand-icon {
+                        display: block;
+                        transition: transform 0.4s ease;
+                        transform: rotate(0deg);
+                    }
+                }
+
+                a {
+                    text-decoration: none;
+                    outline: none;
+                    box-shadow: none;
+                    border: none;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+
+        &.eab-expand {
+            >.sp-eab-accordion-item-wrapper {
+                >.sp-eab-accordion-heading {
+                    .eab-icon-static {
+                        .sp-eab-expand-icon {
+                            display: none;
+                        }
+
+                        .sp-eab-collapse-icon {
+                            display: block;
+                        }
+                    }
+
+                    .eab-icon-animated .sp-eab-expand-icon {
+                        transform: rotate(180deg);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// --------------------------------
+// Vertical Accordion Template Css.
+// --------------------------------
+.sp-eab-mode-vertical {
+
+    #{$item_selector} {
+        width: 100%;
+
+        >.sp-eab-accordion-item-wrapper {
+
+            // vertical accordion heading.
+            >.sp-eab-accordion-heading {
+
+                // title and sub title css.
+                .sp-eab-title-subtitle-wrapper {
+                    gap: 2px;
+                }
+
+                .sp-eab-accordion-header-start,
+                .sp-eab-accordion-header-wrapper {
+                    width: 100%;
+                }
+            }
+
+            /* Accordion Content */
+            >.sp-eab-accordion-content {
+                overflow: hidden;
+
+                >.sp-eab-accordion-content-wrapper {
+                    height: 100%;
+                    position: relative;
+                    overflow-y: auto;
+                }
+            }
+        }
+    }
+
+    #{$item_selector} {
+        .eab-show-on-hover {
+            display: none;
+        }
+
+        &:hover {
+            .eab-show-on-hover {
+                display: block;
+            }
+        }
+    }
+
+}
+
+// -------------------------------------
+// Vertical Accordion Template Two Css.
+// -------------------------------------
+.sp-easy-accordion-block {
+    .sp-eab-vertical-two {
+        #{$item_selector} {
+            border-right: none;
+            border-left: none;
+            border-radius: 0;
+
+            &:not(:last-child) {
+                margin-bottom: 0;
+                border-bottom: none;
+            }
+        }
+    }
+}
+
+
+/* 
+ * ---------------------------
+ * HORIZONTAL ACCORDION.SCSS.
+ * ---------------------------
+ */
+.sp-eab-mode-horizontal {
+    #{$item_wrapper} {
+        display: flex;
+        height: 100%;
+
+        >.sp-eab-accordion-heading {
+            justify-content: start;
+            writing-mode: sideways-lr;
+            border: none;
+
+            .sp-eab-accordion-featured-icon {
+                transform: rotate(-90deg);
+            }
+
+            &,
+            .sp-eab-accordion-header-wrapper,
+            .sp-eab-accordion-header-start {
+                height: 100%;
+            }
+        }
+
+        >.sp-eab-accordion-content {
+            overflow: hidden;
+
+            >.sp-eab-accordion-content-wrapper {
+                overflow-y: auto;
+                height: 100%;
+            }
+        }
+    }
+}
+
+// ------- Horizontal Two Css ---------//
+.sp-eab-horizontal-two {
+    #{$item_wrapper} {
+        >.sp-eab-accordion-heading {
+            .sp-eab-title-number {
+                padding: 14px 8px;
+            }
+        }
+    }
+}
+
+.eab-vertical-on-horizontal-layout {
+    >.sp-eab-wrapper>.sp-eab-accordion {
+        #{$item_wrapper} {
+
+            >.sp-eab-accordion-heading {
+                width: 100% !important;
+
+                .sp-eab-title-number {
+                    padding: 8px 14px;
+                    margin-bottom: 0 !important;
+                    margin-left: 14px;
+                }
+            }
+
+            >.sp-eab-accordion-content>.sp-eab-accordion-content-wrapper {
+                width: 100% !important;
+            }
+        }
+    }
+}
+
+// remove default margin if first and last item will be p tag.
+.wp-block-sp-easy-accordion-pro-accordion-item {
+    .sp-eab-accordion-body>.block-editor-inner-blocks>.block-editor-block-list__layout {
+
+        >*:first-child {
+            margin-top: 0;
+        }
+
+        >*:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.sp-eab-editor-toolbar {
+    position: absolute;
+    z-index: 9999;
+    background: #fff;
+    border: 1px solid #1E1E1E;
+    border-radius: 2px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    height: 48px;
+    top: -52px;
+    padding: 8px;
+    gap: 8px;
+
+    .eab-toolbar-button {
+        cursor: pointer;
+
+        i {
+            font-size: 16px;
+            line-height: 1;
+        }
+    }
+}
+
+.sp-eab-sidebar-tab-accordion-one {
+    .sp-eab-accordion-heading:first-child .sp-eab-editor-toolbar {
+        top: unset;
+        bottom: -52px;
+    }
+}

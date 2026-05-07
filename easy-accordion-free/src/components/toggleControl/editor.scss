@@ -1,0 +1,194 @@
+.sp-easy-accordion-tabs-panel {
+    .sp-eab-toggle {
+        position: relative;
+
+        .components-flex {
+            flex-direction: row-reverse;
+        }
+
+        .components-toggle-control__label {
+            margin-bottom: 0px;
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--eab-primary-text-color);
+        }
+
+        .components-form-toggle {
+            .components-form-toggle__track {
+                background: #BBBBBB;
+                border: none;
+            }
+
+            &.is-checked {
+                .components-form-toggle__track {
+                    background: var(--eab-primary-color);
+                    border-color: var(--eab-primary-color);
+                }
+
+                .components-form-toggle__thumb {
+                    background: #fff;
+                }
+
+                input[type=checkbox]:focus {
+                    border-color: var(--eab-primary-color);
+                    box-shadow: 0 0 0 1px var(--eab-primary-color);
+                }
+            }
+
+            .components-form-toggle__thumb {
+                background: #FFFFFF;
+                border-color: #FFFFFF;
+            }
+
+            .components-form-toggle__input:focus+.components-form-toggle__track {
+                box-shadow: 0 0 0 var(--wp-admin-border-width-focus) #fff,
+                    0 0 0 calc(var(--wp-admin-border-width-focus) * 2) var(--eab-primary-color);
+            }
+        }
+		&.updated-toggle {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 5px 8px;
+		background-color: #fff;
+		border: 1px solid #E0E0E0;
+		border-radius: 4px;
+
+		.sp-eab-toggle-left {
+			display: flex;
+			align-items: center;
+
+			svg {
+				margin-left: -4px;
+			}
+
+			span {
+				margin-left: 7px;
+				margin-bottom: 0px;
+				font-size: 13px;
+				font-weight: 400;
+				line-height: 20px;
+				text-transform: capitalize;
+				color: #1e1e1e;
+				font-family: Inter, sans-serif;
+			}
+		}
+
+		.components-base-control .components-base-control__field {
+			padding: 0;
+		}
+
+		.components-toggle-control {
+			margin: 0;
+		}
+		}
+
+		&.sp-eab-toggle-info-icon {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.components-toggle-control {
+			margin: 0;
+		}
+		}
+
+		.toggle-info-icon {
+		svg {
+			width: 14px;
+		}
+
+		margin-left: 4px;
+		cursor: pointer;
+		padding-top: 21px;
+		transform: translateY(-20px);
+		margin-bottom: -20px;
+
+		svg {
+			fill: #ccc;
+		}
+		}
+
+		.toggle-info {
+		position: absolute;
+		width: 100%;
+		bottom: 40px;
+		z-index: 999;
+		}
+
+		.toggle-info-popup {
+		display: none;
+		background: #fff;
+		box-shadow: 0px 0px 10px 1px #cccccc;
+		border-radius: 4px;
+		width: 100%;
+		padding: 20px;
+
+		h4 {
+			margin: 0;
+			margin-bottom: 6px;
+		}
+		}
+
+		.toggle-info-popup.show {
+		display: block;
+		margin-bottom: -6px;
+		}
+
+		.sp-eab-toggle-left {
+		display: flex;
+		}
+
+		&.eab-only-pro-toggle {
+		display: flex;
+		justify-content: space-between;
+
+		.sp-eab-toggle-left {
+			gap: 5px;
+
+			.eab-pro-title {
+				pointer-events: none;
+				opacity: 0.5;
+			}
+
+			.eab-pro-badge {
+				color: #159E2E;
+				font-size: 13px;
+				font-style: normal;
+				font-weight: 400;
+				line-height: 1;
+				margin-left: 0;
+				text-decoration: none;
+			}
+		}
+
+			.components-toggle-control {
+				margin-bottom: 0;
+				font-size: 13px;
+				font-weight: 400;
+				color: #1e1e1e;
+				pointer-events: none;
+				opacity: 0.5;
+			}
+		}
+    }
+
+    .sp-eab-toggle-info-text-popup {
+        position: absolute;
+        z-index: 10;
+        top: 25px;
+        font-size: 12px;
+        line-height: 1.2;
+        font-weight: 400;
+        color: var(--eab-primary-text-color);
+        background-color: #fff;
+        padding: 10px;
+        width: 100%;
+        box-shadow: 0px 0px 10px 1px #cccccc;
+        border-radius: 4px;
+    }
+}
+
+.sp-eab-panel-pb {
+    padding-bottom: 16px;
+}

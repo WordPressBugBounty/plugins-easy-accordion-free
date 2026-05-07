@@ -1,0 +1,101 @@
+// expand and collapse icon toggle.
+.sp-eab-accordion {
+    margin: 0 auto;
+
+    .sp-eab-accordion-heading {
+        a {
+            text-decoration: none;
+            outline: none;
+            box-shadow: none;
+            border: none;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    // hide overflow of accordion item.
+    // , .sp-eab-horizontal-one, .sp-eab-horizontal-two
+    &:not(.sp-eab-vertical-five) {
+        .sp-eab-accordion-item {
+            overflow: hidden;
+        }
+    }
+}
+
+// end expand and collapse icon toggle.
+.sp-easy-accordion-block {
+
+    .sp-eab-expand-collapse-icon {
+        line-height: 1;
+    }
+
+    // normal icon set.
+    .sp-eab-collapse-icon {
+        display: none;
+    }
+
+    .eab-icon-animated {
+        .sp-eab-expand-icon {
+            display: block;
+            transition: transform 0.4s ease;
+            transform: rotate(0deg);
+        }
+    }
+
+    .eab-expand {
+        .eab-icon-static {
+            .sp-eab-expand-icon {
+                display: none;
+            }
+
+            .sp-eab-collapse-icon {
+                display: block;
+            }
+        }
+
+        .eab-icon-animated .sp-eab-expand-icon {
+            transform: rotate(180deg);
+        }
+
+    }
+}
+
+// accordion heading css.
+.sp-eab-accordion-heading {
+    margin: 0;
+    cursor: pointer;
+    background: var(--eab-primary-bg-color);
+
+    &:hover {
+        background: var(--eab-primary-bg-color);
+    }
+
+    .eab-icon-position-start {
+        flex-direction: row-reverse;
+        justify-content: start;
+    }
+
+    .eab-icon-position-end {
+        justify-content: space-between;
+    }
+
+    .sp-eab-accordion-featured-icon {
+        line-height: 1;
+    }
+}
+
+.sp-eab-accordion-item {
+    display: block;
+    border: 1px solid var(--eab-border-color);
+}
+
+.sp-eab-icon-container {
+
+    img,
+    svg {
+        height: 100%;
+        width: 100%;
+    }
+}

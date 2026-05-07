@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sp-easy-accordion-pro/vertical-accordion",
+  "title": "Vertical Accordion",
+  "category": "sp-easy-accordion-pro",
+  "description": "Display FAQs vertically in an expandable accordion layout for better readability.",
+  "textdomain": "easy-accordion-free",
+  "editorScript": "sp_eab_admin_index_js",
+  "editorStyle": "sp_eab_editor_style",
+  "script": [
+    "sp-eap-accordion",
+    "sp_eab_script_js"
+  ],
+  "style": [
+    "sp_eab_main_css",
+    "sp_eab_google_fonts",
+    "sp_eab_fontello_style",
+    "sp-ea-animation"
+  ],
+  "supports": {
+    "align": [
+      "wide",
+      "full"
+    ],
+    "customClassName": false
+  },
+  "example": {
+    "attributes": {
+      "isPreview": true
+    }
+  }
+}

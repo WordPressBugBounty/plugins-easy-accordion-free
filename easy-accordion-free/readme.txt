@@ -1,111 +1,257 @@
-﻿=== Easy Accordion – Responsive Accordion FAQ Builder and Product FAQ ===
+﻿=== AI-Powered FAQ & Accordion Blocks, Image Accordion & Slider, Product FAQ – Easy Accordion ===
 Contributors: shapedplugin, khalilu, rubel_miah, shamimmiashuhagh
-Tags: accordion, faq, nested accordion, vertical accordion, product faq
+Tags: faq, accordion blocks, image accordion, product faq, category menu accordion
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 3.0.8
+Stable tag: 3.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easily create Accordions, FAQs, and Product FAQ for WooCommerce. Customizable drag & drop WordPress FAQ builder plugin.
+Generate FAQs with AI and Powerful Gutenberg FAQ & Accordion Blocks, Image Accordion, Accordion Slider, WooCommerce Product FAQ – works with Elementor
 
 == Description ==
 
-= Responsive WordPress Accordion, FAQ Builder & Product FAQ Plugin =
+🚀 Explore Powerful [**15+ FAQ & Accordion Blocks**](https://easyaccordion.io/blocks/)  
+📚 Launch Fast with [**100+ Ready Patterns Library**](https://easyaccordion.io/patterns/)
+🌐 Visit the Official Website [**Easy Accordion**](https://easyaccordion.io/)
+❤️ 112+ ⭐⭐⭐⭐⭐ Reviews & 4.8/5 Happiness Rating on [**Trustpilot**](https://www.trustpilot.com/review/shapedplugin.com)
 
-**Easy Accordion** is a responsive Accordion and FAQ builder plugin for WordPress. It allows you to create unlimited accordions, FAQ sections, or pages, as well as WooCommerce Product FAQs, using a simple drag & drop interface. The plugin is lightweight, easy to use, and comes with lot of customization options to match your site’s design.
+Create beautiful, responsive FAQs and stylish accordions in minutes with **Easy Accordion**, the most popular WordPress FAQ & Accordion Builder – in 3 simple steps:  
 
-You can add accordions anywhere on your site using the Gutenberg block editor or shortcodes in the classic editor. This makes it simple to organize and display content such as FAQs, product details, service information, or any collapsible content.
+1. Choose a ready design from the rich library  
+2. Add your content or generate **FAQs** **with AI**   
+3. Customize visually, and publish in minutes 
 
-[youtube https://www.youtube.com/watch?v=jQwLyM0Zb3M&list=PLoUb-7uG-5jPBSfjZalo6KKrc4jniAuix]
+The plugin powers up 100k+ WordPress sites and WooCommerce stores built in **Gutenberg**, **Elementor**, **Classic**, and many popular page builders, and becomes the most popular FAQ & Accordion solution with the highest Reviews and Ratings **(4.9)** ⭐⭐⭐⭐⭐. 
+
+[__Ready Patterns__](https://easyaccordion.io/patterns/) | [__Blocks__](https://easyaccordion.io/blocks) | [__Documentation__](https://easyaccordion.io/docs/) | [__Support__](https://shapedplugin.com/create-new-ticket/) | [__Upgrade to Pro!__](https://easyaccordion.io/pricing/?ref=1)
+
+[youtube https://www.youtube.com/watch?v=u3lRDX0zG9Y&list=PLoUb-7uG-5jPNXkpGII8cTTfB-L4TCaqv]
+
+= Ready FAQ & Accordion Templates = 
+
+Choose from beautifully designed, ready-to-use templates to create engaging FAQs and accordions in minutes– no design skills needed. 
+
+✅ [FAQ Patterns (Vertical Accordion)](https://easyaccordion.io/patterns/#vertical-accordion)  
+✅ [General Text Accordion Patterns (Horizontal Accordion)](https://easyaccordion.io/patterns/#horizontal-accordion)  
+✅ [Image Accordion Patterns](https://easyaccordion.io/patterns/#image-accordion) 🔥  
+✅ [Accordion Slider Patterns](https://easyaccordion.io/patterns/#accordion-slider)  
+✅ [Media Accordion Patterns](https://easyaccordion.io/patterns/#media-accordion)  
+✅ [Post Accordion Patterns](https://easyaccordion.io/patterns/#post-accordion)   
+✅ [WooCommerce Product Accordion Patterns](https://easyaccordion.io/patterns/#product-accordion)  
+✅ [WooCommerce Product FAQ Patterns](https://easyaccordion.io/patterns/#product-accordion-two)   
+✅ [Sidebar Accordion Patterns](https://easyaccordion.io/patterns/#sidebar-tab-accordion)  
+✅ [User FAQ Forms Patterns](https://easyaccordion.io/patterns/#user-faq-form)  
+✅ [Category or Menu Accordion Patterns](https://easyaccordion.io/patterns/#menu-accordion)
+
+= Key Features of Easy Accordion =
+
+* AI-powered visual FAQ & accordion builder  
+* Generate FAQs instantly with AI 🔥  
+* Reusable custom FAQ & accordion templates  
+* FAQ schema markup for better SEO  
+* Multi-level/nested accordions  
+* Manage FAQs with categories  
+* Responsive design with custom breakpoints  
+* Multiple toggle icons with rotation control (left/right, 90°)  
+* Accordion activation (click, hover, autoplay)  
+* Control initial accordion display state  
+* Set HTML tags for titles & descriptions  
+* Advanced query builder for dynamic content  
+* Display latest posts & WooCommerce products  
+* Show post meta (author, category, date)  
+* Import / Export FAQs & accordions  
+* Optimized for speed & performance  
+* Multisite compatible & RTL supported.
+
+### **Easy Accordion Pro Features** 
+
+* Advanced AI-powered FAQ generation 🔥  
+* Auto layout switch on mobile (horizontal → vertical)  
+* Timeline, Q\&A, and numbered accordion layouts  
+* FAQ forms to users feedbacks  
+* Real-time analytics to track performance and popular FAQs  
+* Customizable “Toggle All” button  
+* Ajax pagination  
+* Ajax live search within FAQs & accordions  
+* Elegant accordion slider with hover effects  
+* Customize accordion items individually  
+* Smart image control (flip, focal point)  
+* Advanced image lightbox (15+ icons) & effects  
+* Custom or ready-made icon collections  
+* Scroll the active accordion to the top on toggle  
+* Keep specific accordion items always open  
+* Shareable accordion anchor links  
+* Quick close button for better navigation  
+* Disable or hide specific accordion items  
+* Add prefix & suffix badges to titles  
+* Display icons & titles on collapsed items  
+* Smooth animations & transition effects  
+* Advanced query builder  
+* Customizable featured icons & buttons  
+* Numeric, Roman & alphabetical FAQ numbering  
+* Multiple accordion content positions  
+* Frontend live filters for FAQ categories  
+* Link accordion titles to URLs  
+* Make icon, title, or full header clickable  
+* Show/hide featured images & product attributes  
+* Flexible customization with full control and more.
+
+### FAQ & Accordion Blocks for Gutenberg
+
+Create elegant, interactive FAQs and accordions with 15+ specialized Gutenberg blocks designed for more engagement and a higher conversion rate. 
+
+#### [**Vertical Accordion** **& FAQ**](https://easyaccordion.io/blocks/#demoId15) 
+
+The classic collapsible format that stacks content vertically– perfect for FAQs, step-by-step guides, and any content where users need to browse topics sequentially with an intuitive top-to-bottom flow.
+
+#### [**Horizontal Accordion**](https://easyaccordion.io/blocks/#demoId9) 
+
+Unique side-by-side expansion that reveals content horizontally– ideal for timeline presentations, comparison displays, or creating unique visual experiences that stand out from typical vertical layouts.
+
+#### [**Image Accordion**](https://easyaccordion.io/blocks/#demoId11) 🔥
+
+Stunning visual accordions where images expand on hover or click– perfect for portfolios, before/after comparisons, product showcases, or any content where imagery tells the story better than text alone. 
+
+#### [**Accordion Slider**](https://easyaccordion.io/blocks/#demoId13) **(Pro)**
+
+Combines accordion functionality with slider navigation– letting users both expand/collapse sections and slide through multiple content sets, ideal for feature tours, product walkthroughs, or multi-step processes. 
+
+#### [**Media Accordion**](https://easyaccordion.io/blocks/#demoId120) **(Pro)**🔥
+
+Use images and texts together within collapsible sections– keeping media-rich pages organized without overwhelming visitors, perfect for tutorials, testimonials, or multimedia content libraries. 
+
+[**Post Accordion**](https://easyaccordion.io/blocks/#demoId121) 
+
+Automatically display your latest blog posts in a sleek accordion format with featured images, excerpts, and metadata– keeping pages fresh with dynamic content that updates automatically as you publish. 
+
+Easy accordion offers two post accordion blocks with enhanced filtering, custom queries, and styling options– perfect for news sites, magazines, or blogs needing sophisticated control over which posts appear and how they're presented. [Post Accordion 02](https://easyaccordion.io/blocks/#demoId122) 
+
+#### [**Product Accordion**](https://easyaccordion.io/blocks/#demoId123) 
+
+WooCommerce product display in collapsible format showing prices, images, and add-to-cart buttons– ideal for comparison pages, category showcases, or compact product listings that drive sales without clutter. 
+
+Easy accordion offers two product accordion blocks with advanced filtering– perfect for stores with complex product catalogs needing organized, conversion-focused displays that guide purchase decisions. [Product Accordion 02](https://easyaccordion.io/blocks/#demoId124)
+
+#### [**Category or Menu Accordion**](https://easyaccordion.io/blocks/#demoId125) 🔥
+
+Collapsible navigation for categories, menus, or taxonomies– essential for sites with deep content hierarchies, helping visitors explore without overwhelming sidebars or endless dropdown menus. 
+
+[**Sidebar Tab Accordion**](https://easyaccordion.io/blocks/#demoId119) 
+
+Combine tabs and accordions in sidebar-friendly format– maximizing sidebar utility with organized, expandable content that doesn't dominate layout or force visitors away from main content focus. 
+
+[**User FAQ Forms**](https://easyaccordion.io/blocks/#demoId126) **(Pro)**
+
+Let visitors submit their own questions directly through an accordion interface– building comprehensive FAQs crowdsourced from real customer inquiries while reducing support ticket volume automatically. 
+
+[**Toggle All Button**](https://easyaccordion.io/blocks/#demoId128) **(Pro)**
+
+One-click expand/collapse all accordions simultaneously– giving users a choice between focused reading (one section) or a comprehensive overview (all sections open), respecting different browsing preferences. 
+
+[**Ajax FAQ Search**](https://easyaccordion.io/blocks/#demoId129) **(Pro)**
+
+Instant accordion search that filters and highlights matching content as users type– eliminating frustrating scrolling through irrelevant FAQs, getting customers to answers in seconds instead of minutes.  
+
+### [**Live Frontend Filter (Category-wise)**](https://easyaccordion.io/search-frontend-live-filter/)
+
+Let users quickly find what they need by filtering FAQs or accordions by category in real time—no page reload required.
+
+### [**Motion Effects & Interactions**](https://easyaccordion.io/motion-effects-animations/)
+
+Enhance user experience with smooth animations, transitions, and interactive effects that make your accordions more engaging and visually appealing.
+
+[**Ajax Load More Pagination**](https://easyaccordion.io/blocks/#demoId130) 
+
+Smooth, no-reload pagination for accordion content– load more items without page refresh, maintaining user context while browsing extensive FAQs, posts, or product collections efficiently. 
+
+= ❇️ Generate FAQs & Accordions Instantly with AI 🔥 =
+
+Stop spending hours writing FAQ content manually. Let AI generate professional, relevant questions and answers in seconds, then customize as needed for instant, expert-quality accordions that engage visitors and answer objections automatically.
+
+= Add WooCommerce Product FAQs to Boost Sales =
+
+Answer common customer questions directly on product pages with structured, scannable FAQs that eliminate buying hesitation, build instant trust, and drive sales– while dramatically reducing support tickets and cart abandonment from unanswered objections. 
+
+= Schema Markup for SEO & AIO 🔥 =
+
+Easy Accordion automatically generates FAQ schema markup (structured data) that helps search engines, AI assistants (ChatGPT, Gemini, Claude), and answer engines understand and feature your content in rich snippets. It helps boost visibility, powering AI-generated responses, increasing click-through rates, and maximizing your chances of appearing in Google's "People Also Ask" sections.  
+
+= Create Reusable Templates for Any Page Builder 🔥 =
+
+Build FAQ and accordion templates once, then deploy them instantly across your entire site– works seamlessly with Elementor, Divi, WP Bakery, Gutenberg, and all major page builders, saving hours of repetitive work while maintaining perfect consistency.
+
+= Custom Responsive Breakpoints =
+
+Create perfectly optimized FAQs and accordions for every device with custom responsive breakpoints. It ensures flawless display from desktop monitors to mobile phones, controlling exactly how content adapts at each screen size for maximum readability and engagement across all devices. 
+
+= Let Users Ask Their Own Questions =
+
+Add a simple FAQ form to your site after the FAQs section or page, so visitors can submit questions directly. This helps you see what people are actually confused about, so you can build a better FAQ over time — based on real questions, not guesses.
+
+= Get Real-Time Insights with Live Analytics =
+
+See which FAQ topics get the most attention and how users interact with your content. Use that data to focus on what matters most, answer more questions up front, and reduce support requests.
+
+= Customize Visually with Full Flexibility =
+
+Enjoy full flexibility to customize your FAQs and accordions with the visual editor and make them exactly how you want. Adjust everything, including colors, dimensions, and styles. 
+
+= 🧩 Fully Compatible with Page Builders & Themes =
+
+No compatibility worries! Easy Accordion works flawlessly with your existing setup. It seamlessly integrates with:
+
+* **Gutenberg Block Editor**  
+* **Popular Page Builders**: Elementor, Divi, WPBakery, Beaver Builder, and more  
+* **Top WordPress Themes**: Avada, X Theme, BeTheme, Astra, OceanWP, and others  
+* **Multilingual Plugins**: WPML, Polylang, Loco Translate, qTranslate, etc. You can [**translate**](https://translate.wordpress.org/projects/wp-plugins/easy-accordion-free/) Easy Accordion on translate.wordpress.org.  
+* **WooCommerce** and other essential tools
 
 
-[__Live Demo__](https://easyaccordion.io/easy-accordion-free-demo/) | [__Documentation__](https://docs.shapedplugin.com/docs/easy-accordion/introduction/) | [__Support__](https://shapedplugin.com/create-new-ticket/) | [__Upgrade to Pro!__](https://easyaccordion.io/pricing/?ref=1)
+= 👨🏻‍💻 Author =
 
+[**Easy Accordion**](https://easyaccordion.io/) is developed by [**ShapedPlugin LLC**](https://shapedplugin.com/), a team with over a decade of experience in building WordPress plugins, focused on quality, performance, and ongoing improvements.
 
-The Easy Accordion helps you organize answers to your visitors’ most common questions. It allows you to create comprehensive FAQs to improve the visitors browsing experience and reduce support requests.
+= 🛟 Documentation & Support =
 
+Although Easy Accordion is beginner-friendly with a minimal learning curve, it is well-documented. It provides dedicated support whenever you need.  
 
-= Main Features =
+👉 Read well-organized Easy Accordion [Documentation](https://easyaccordion.io/docs/) 
 
-**Responsive Vertical Accordions**
-Create unlimited responsive accordion groups in vertical layouts for FAQs, product details, or content sections.
+👉 Watch Easy Accordion [YouTube Playlist](https://www.youtube.com/watch?v=u3lRDX0zG9Y&list=PLoUb-7uG-5jPNXkpGII8cTTfB-L4TCaqv) 
 
-**Multi-level / Nested Accordions**
-Easily create nested accordion structures by adding FAQ groups inside another accordion item.
+👉 Join the plugin’s [Forum](https://wordpress.org/support/plugin/easy-accordion-free/) or [Contact Us](https://shapedplugin.com/contact-us/) for support.
 
-**Custom Post Type Support**
-Create and manage accordions or FAQs using a dedicated FAQ custom post type, giving you maximum content flexibility with the Gutenberg editor.
+👉 Join the [ShapedPlugin Community](https://community.shapedplugin.com/portal/) for tips from users and experts  
 
-**Drag & Drop Accordion Builder**
-Arrange and organize accordion items instantly with an intuitive drag & drop interface.
+👉 Learn more about the Easy Accordion at [https://easyaccordion.io/](https://easyaccordion.io/)
 
-**Multiple FAQ Sections or Pages**
-Display multiple FAQ sections on a single page or across different pages, each with its own unique design and settings.
+= 🔥 Explore More Solutions from **ShapedPlugin** =
 
-**Accordion Activator Events**
-Choose how users or visitors trigger accordion transitions: either by clicking or hovering.
+Discover our powerful WordPress and WooCommerce plugins designed to save time, boost performance, and enhance your website experience:
 
-**Accordion Display Modes**
-Control how your accordion loads: First Open, All Open, or All Collapsed.
+[**Real Testimonials**](https://wordpress.org/plugins/testimonial-free/) – Showcase authentic customer reviews with stylish layouts to build trust, boost credibility, and increase conversions effortlessly on your website.
 
-**Multiple Items Active Together**
-Allow multiple accordion panels to remain open simultaneously (toggle mode).
+[**WP Carousel**](https://wordpress.org/plugins/wp-carousel-free/) – Create responsive carousels for posts, images, and content with smooth navigation to engage visitors and beautifully highlight your key content.
 
-**Scroll to Active Item**
-Automatically scroll to the expanded accordion item for a smooth user experience.
+[**Smart Tabs**](https://wordpress.org/plugins/wp-expand-tabs-free/) – Organize content into clean, responsive tabs to improve user experience, reduce clutter, and present information in a structured, engaging way.
 
-**SEO-Friendly Schema Markup**
-Add a structured FAQ schema to improve search engine visibility and provide richer results.
+[**Location Weather**](https://wordpress.org/plugins/location-weather/) – Display real-time weather updates for any location with customizable layouts, enhancing user engagement and adding dynamic, useful content to your site.
 
-**Customizable Toggle Icons**
-Show or hide expand/collapse icons, adjust their color, size, and position.
+[**Smart Post**](https://wordpress.org/plugins/post-carousel/) – Smart Post is a next-generation Post Grid and Gutenberg Page Builder Blocks plugin designed to help you build stunning blogs, magazines, news portals, and content-driven websites with ease.
 
-**Color and Styling Options**
-Easily customize titles, descriptions, colors, borders, spacing, and typography to match your site’s design perfectly.
+[**Smart Team**](https://wordpress.org/plugins/team-free/) – Showcase your team members with stylish, customizable layouts to build trust, highlight expertise, and present your organization professionally.
 
-**Import and Export FAQs**
-Easily import or export FAQs, with support for multiple file types. 
+[**Logo Carousel**](https://wordpress.org/plugins/logo-carousel-free/) – Display client, partner, or brand logos in responsive carousels to build credibility, strengthen brand identity, and showcase partnerships effectively.
 
+[**WooGallery**](https://wordpress.org/plugins/gallery-slider-for-woocommerce/) – Create beautiful, responsive product galleries for WooCommerce to showcase images attractively, improve user experience, and increase product engagement.
 
-= For Support, Feature Requests, and Bug Reporting =
+[**Smart Swatches**](https://wordpress.org/plugins/smart-swatches/) – Replace default WooCommerce variation dropdowns with color, image, and label swatches to improve product selection and enhance the shopping experience.
 
->Ask us at [__Support__](https://shapedplugin.com/create-new-ticket/)
+[**Product Slider (Smart Store)**](https://wordpress.org/plugins/woo-product-slider/) – Build modern, conversion-focused WooCommerce store layouts with advanced features to improve product visibility, user experience, and sales performance.
 
-
-= Easy Accordion Pro =
-
->[__Easy Accordion Pro__](https://easyaccordion.io/?ref=1) is the premium version of the Easy Accordion plugin, adding additional features and functionality. It includes FAQ analytics, user FAQ submission forms, AJAX search, toggle all button, featured title icons, multiple toggle icon sets, accordion animations, and AJAX load more functionality.
-
->The plugin supports horizontal, vertical, and multi-column layouts, offers extended customization and styling options, and includes 17 pre-designed accordion themes. Learn more about [Easy Accordion Features](https://easyaccordion.io/).
-
-
-= Multilingual Ready =
-
-* [WPML](https://wpml.org/)
-* [Polylang](https://wordpress.org/plugins/polylang/)
-* [Loco Translate](https://wordpress.org/plugins/loco-translate/)
-* [qTranslate-x](https://wordpress.org/plugins/qtranslate-x/)
-* [GTranslate](https://wordpress.org/plugins/gtranslate/)
-* [Google Language Translator](https://wordpress.org/plugins/google-language-translator/)
-* [WPGlobus](https://wordpress.org/plugins/wpglobus/)
-
-
-= Page Builders Ready =
-
-* Gutenberg
-* Elementor
-* Divi Builder
-* WPBakery
-* BeaverBuilder
-* SiteOrgin
-* Fusion Builder
-* Genesis Framework
-
-
-= Author =
-The Easy Accordion plugin is developed and maintained by [__ShapedPlugin LLC__](https://shapedplugin.com/)
+[**WooCategory**](https://wordpress.org/plugins/woo-category-slider-grid/) – Display WooCommerce product categories in stylish grids or sliders to improve navigation, highlight collections, and enhance store browsing experience.
 
 
 == Installation ==
@@ -144,105 +290,74 @@ clicking "Install Now" and then "Activate".
 * Activate the plugin in the Plugin dashboard
 
 
-
 == Frequently Asked Questions ==
 
-= Q. How can I add Accordion FAQs to my site? =
-**A.** After activating the plugin, you will see the “Easy Accordion” menu on your WordPress admin panel.
+= Q. What is Easy Accordion, and what can it do? =
+**A.** Easy Accordion is a WordPress FAQ and accordion builder that lets you create beautiful, responsive FAQs, Image Accordions, Accordion Sliders, and Product FAQs in minutes — no coding needed. It works with **Gutenberg**, **Elementor**, **Divi**, and all major page builders.
 
-Go to Easy Accordion > and click “Add New” menu and you will find an Accordion Content input field and Shortcode Generator Settings panel.
+= Q. How do I get started quickly? =
+**A.** Simply choose a ready-made design from the 100+ ready-made pattern library, add your content (or generate it with AI), customize the look, and publish. Most users are up and running in just a few minutes.
 
-The generator fields are highly customizable. After input accordion content, customize the accordion and publish. And then will see a generated shortcode in the bottom section. You need to insert it into any page or post editor even Gutenberg editor.
+= Q. Can AI write my FAQ content for me? =
+**A.** Yes! Easy Accordion has a built-in AI FAQ generator that creates professional, relevant questions and answers in seconds. Simply enter a prompt describing your topic, or paste a link to any page on your site — and AI will instantly generate FAQs tailored to that content. Just review, tweak if needed, and publish. No more hours of manual writing.
 
-For including on the template, copy and paste the PHP code into your template file.
+= Q. Does it work with WooCommerce? =
+**A.** Absolutely. You can add product FAQs directly to product pages, display products in accordion format with prices and add-to-cart buttons, and reduce cart abandonment by answering buyer questions upfront.
 
-= Q. How to use ‘Easy Accordion’ in WordPress 5.x Gutenberg Block Editor =
-**A.** Adding Accordion using the WordPress 5.x Block Editor is pretty straight-forward. You can paste the generated shortcode into a ‘Paragraph Block’ or use the ‘Shortcode Block’. It works nicely as a classic editor. Really cool!
+= Q. Will Easy Accordion help my Google rankings? =
+**A.** Yes. It automatically adds FAQ schema markup (structured data) that helps Google, ChatGPT, Gemini, and other AI engines feature your content in rich snippets and "People Also Ask" sections.
 
+= Q. Is it mobile-friendly? =
+**A.** Yes. Easy Accordion supports custom responsive breakpoints, giving you full control over how your FAQs display on desktops, tablets, and mobile phones for the best experience on every device.
 
-= Q. Can I show multiple accordions on one page? =
-**A.** Yes, you can use multiple accordions on one page!
+= Q. Can visitors submit their own questions? =
+**A.** Yes, with the [__Pro plan__](https://easyaccordion.io/pricing/?ref=1). You can add a user FAQ form below your FAQ section so visitors can submit real questions — helping you identify knowledge gaps and build a more helpful FAQ over time.
 
+= Q. What's the difference between the free and Pro versions? =
+**A.** The free version covers core accordion and FAQ features. Pro unlocks advanced tools like AI-powered unlimited FAQs generation, live analytics, Ajax search, accordion slider, frontend category filters, smooth animations, and much more. [__Upgrade to Pro__](https://easyaccordion.io/pricing/?ref=1) for full access.
 
-= Q. How to include an accordion in a post or a page? =
-**A.** <pre>[sp_easyaccordion id=Here comes the accordion id]</pre>
+= Q. Can I see which FAQs are most popular? =
+**A.** Yes, with [__Pro's real-time analytics__](https://easyaccordion.io/pricing/?ref=1). You can track which topics get the most attention, understand user behavior, and use that data to prioritize high-impact content and reduce support requests.
 
-
-= Q. I want to show the accordion on my homepage or into header.php or other PHP files? =
-**A.** Add the following PHP code in template file where you want to show the accordion:
-<pre>&#60;?php echo do_shortcode('[sp_easyaccordion id=Here comes the accordion id]'); ?&#62;</pre>
-
-
-= Q. Do I need to have coding skills to use Easy Accordion? =
-**A.** No. You don’t need any coding skill. No more pain writing any shortcode attributes to display accordion in your any site. With just a few clicks, you can amazingly create unlimited accordions.
-
-
-= Q. Is it possible to drag & drop re-order my Accordion FAQs? =
-**A.** Yes, It is possible to Drag & drop Accordion sorting from the back-end.
-
-
-= Q. Can I customize the colors of the accordion? =
-**A.** Yes, The Easy Accordion plugin is fully customizable. create a new accordion, then customize your accordion's design without requiring HTML or CSS knowledge. Change accordion mode, colors, backgrounds, icon positions, and more…
-
-
-= Q. I’d like access to more features. How can I get them? =
-**A.** You can get access to more features when you purchase a license of the plugin. Purchasing a license of [__Easy Accordion Pro__](https://easyaccordion.io/pricing/?ref=1) gets you to access the full version of Easy Accordion, including 16+ Premium Themes, Automatic Lifetime Updates, and Dedicated Support.
-
-
-= Q. What if I update to Premium version? =
-**A.** Your existing accordion content will work with [__Premium Version__](https://easyaccordion.io/pricing/?ref=1). So you won’t lose your developed contents.
-
-
-= Q. Is Easy Accordion is totally responsive? =
-**A.** **Easy Accordion** is 100% responsive, so it will fit perfectly into your page, regardless of the size of your desktop screen or device.
-
-
-= Q. Does it work with any theme? =
-**A.** Absolutely! It will work with any theme that is built with WordPress standard.
-
-
-= Q. Is Easy accordion Multilingual Ready? =
-**A.** Yes, **Easy accordion** is translation ready.
-
-
-= Q. Is Easy Accordion compatible with the multisite network? =
-**A.** Yes, **Easy Accordion** works perfectly with WordPress multi-site network.
-
-
-= Q. How can I get support if the plugin is not working? =
-**A.** If you face any problem with our plugin or something is not working as it should, first follow the preliminary steps:
-Test the plugin with a WordPress default theme, to be sure that the error is not caused by the theme you are currently using.
-
-Deactivate all plugins you are using and check if the problem is still occurring.
-
-If none of the previously listed actions helps you solve the problem, then, submit a ticket in the forum and describe your problem accurately, specify WordPress and plugin versions you are using and any other information that might help us solve your problem as quickly as possible. Please create a support thread here: [__support.__](https://shapedplugin.com/create-support-ticket/)
-
-Note: Support will be delayed If you post on Sunday (Sunday is our official holiday).
-
-
-= Q. Where can I report bugs? =
-**A.** If you find a bug, please report it in our active [__support.__](https://shapedplugin.com/create-support-ticket/) You will be replied once the issue is resolved.
-
-
-= Q. Do you want to encourage the developer team for future improvement? =
-**A.** If you love this plugin and want to help others, please [__post a review__](https://wordpress.org/support/plugin/easy-accordion-free/reviews/) for it.
-
-Thank you!
+= Q. Is Easy Accordion compatible with my existing theme and plugins? =
+**A.** Very likely yes. It works seamlessly with popular themes like Astra, Avada, and OceanWP, page builders like Elementor and Divi, multilingual plugins like WPML, and WooCommerce — with no compatibility issues.
 
 
 
 == Screenshots ==
 
-1. Live Demo.
-2. Accordion Settings (Add New).
-3. Display Settings.
-4. Accordion Groups.
-5. Advanced Settings.
-6. Custom CSS.
-7. Export Accordion Groups.
+1. Vertical Accordion - Traditional stacked FAQ layout
+2. Accordion Single Item - Individual panel controls
+3. Horizontal Accordion - Side-by-side expansion
+4. Image Accordion - Visual hover/click accordions
+5. Post Accordion - Dynamic blog post display
+6. Product Accordion - WooCommerce product listings
+7. Sidebar Accordion - Sidebar-optimized layout
+8. Responsive Mode - Mobile-optimized view
+9. Classic Shortcode Editor - Traditional editor interface
 
 
 == Changelog ==
+
+= Version 3.1.0 - May 07, 2026 =
+* New: Introduced the Generate FAQ with AI module to generate FAQs automatically.
+* New: Vertical Accordion block.
+* New: Horizontal Accordion block.
+* New: Sidebar Tab Accordion block.
+* New: Image Accordion block.
+* New: Post Accordion 01 block.
+* New: Product Accordion 01 block.
+* New: The Saved Templates module to use blocks on any page builder.
+* New: Setup Wizard to guide users through initial plugin configuration.
+* New: Ready Patterns Library module to import pre-designed templates.
+* New: Google Gemini AI integration for the Generate FAQ with AI module.
+* New: Elementor builder integration for rendering the Saved Templates module.
+* New: Divi builder integration for rendering the Saved Templates module.
+* New: WPBakery integration for rendering the Saved Templates module.
+* New: Oxygen builder integration for rendering the Saved Templates module.
+* New: Beaver Builder integration for rendering the Saved Templates module.
+* New: Bricks builder integration for rendering the Saved Templates module.
+* Tested: WordPress 7.0 compatibility.
 
 = Version 3.0.8 - Apr 14, 2026 =
 * Fix: Resolved styling issues in certain options with WordPress 7.0.

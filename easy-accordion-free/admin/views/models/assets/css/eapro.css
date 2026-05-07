@@ -900,8 +900,9 @@
 .eapro-field-spacing .eapro--input select,
 .eapro-field-dimensions .eapro--input select {
 	margin: 0;
-	min-height: 32px;
-	line-height: 2;
+	min-height: 10px;
+	max-height: 30px;
+	line-height: 1;
 }
 
 .eapro-field-border .eapro--input input,
@@ -915,7 +916,7 @@
 	text-align: center;
 	padding: 0;
 	min-height: 30px;
-	line-height: 2;
+	max-height: 30px;
 }
 
 .only-for-pro.eapro-field-spacing .eapro--input input {
@@ -1102,6 +1103,16 @@
 	margin-top: 0;
 	margin-left: 10px;
 	float: left;
+}
+
+.eapro-field-radio input[type=radio]:checked {
+	background-color: #FFF;
+	border-color: #1A74E4;
+}
+
+.eapro-field-radio input[type=radio]:focus {
+	box-shadow: none;
+	outline: none;
 }
 
 /**
@@ -1449,6 +1460,9 @@
 .eapro-field-select select {
 	max-width: 100%;
 	margin: 0;
+	min-height: 30px;
+	max-height: 30px;
+	line-height: 1;
 }
 
 .sp_eap_accordion_theme .theme_preview {
@@ -1540,6 +1554,9 @@
 	margin: 0;
 	padding: 0;
 	border-radius: 0;
+	min-height: 30px;
+	max-height: 30px;
+	line-height: 1;
 }
 
 .eapro-field-spinner .ui-button-text {
@@ -4582,24 +4599,24 @@ span.eap-shortcode-selectable::after {
 
 .eap-faq-form .sp-eap-upgrade-to-pro-button,
 .sp-eap-indicator .sp-eap-upgrade-to-pro-button {
-    box-sizing: border-box;
-    background-color: #12a10d;
-    border: none;
-    font-size: 16px;
-    font-weight: 500;
-    z-index: 99;
+	box-sizing: border-box;
+	background-color: #12a10d;
+	border: none;
+	font-size: 16px;
+	font-weight: 500;
+	z-index: 99;
 	width: 180px;
-    height: 50px;
-    border-radius: 8px;
-    transition: .2s ease-in-out;
+	height: 50px;
+	border-radius: 8px;
+	transition: .2s ease-in-out;
 	position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
+	top: 50%;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
 	transform: translateY(-50%);
 	display: flex;
-    align-items: center;
+	align-items: center;
 	justify-content: center;
 	cursor: pointer;
 }
@@ -4617,7 +4634,7 @@ span.eap-shortcode-selectable::after {
 
 .eap-faq-form .sp-eap-upgrade-to-pro-button:hover,
 .sp-eap-indicator .sp-eap-upgrade-to-pro-button:hover {
-    background-color: #008f00;
+	background-color: #008f00;
 }
 
 .eapro-theme-light.sp-eap-options .eapro-nav ul li.eapro-tab-active a {
@@ -4764,14 +4781,15 @@ div:is(#eap_pro_notice, #eap_builder_option, #sp_eap_display_shortcode_sidebar).
 	color: rgba(74, 184, 102, 1);
 	font-size: 11px;
 }
+
 .eapro-field-spinner input,
-.eapro-field-select select, 
+.eapro-field-select select,
 .eapro-field-text input {
 	min-height: 30px;
 	line-height: 2;
 }
 
 .eapro-field input:focus,
-.eapro-field select:focus  {
+.eapro-field select:focus {
 	box-shadow: none;
 }

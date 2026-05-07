@@ -1,0 +1,45 @@
+.sp-easy-accordion-tabs-panel {
+  .components-range-control__thumb-wrapper {
+    background: transparent;
+
+    span {
+      background-color: var(--eab-primary-color);
+    }
+  }
+
+  .components-range-control__thumb-wrapper span::after,
+  .components-range-control__thumb-wrapper span::before {
+    background-color: var(--eab-primary-color);
+  }
+
+  .sp-eab-ranger-length .sp-eab-units span,
+  .sp-eab-ranger-length .sp-eab-units button {
+    width: 38px;
+  }
+
+  .sp-eab-range-control {
+    .components-range-control {
+      .components-input-control {
+        .components-input-control__container {
+          input {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+
+  //  Adjusting the position of the spin buttons for number inputs.
+  .components-input-control__container {
+    input::-webkit-inner-spin-button {
+      margin-right: -12px !important;
+      height: 32px;
+    }
+  }
+
+  .components-range-control__root,
+  .components-input-control__container input {
+    height: 32px !important;
+    min-height: 32px !important;
+  }
+}

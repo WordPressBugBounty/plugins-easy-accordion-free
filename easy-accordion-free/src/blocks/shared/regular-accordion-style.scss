@@ -1,0 +1,400 @@
+$wrapper_class : '>.sp-eab-accordion-item>.sp-eab-accordion-item-wrapper';
+
+/* 
+ * ------------------
+ * ACCORDION.SCSS.
+ * ------------------
+ */
+// expand and collapse icon toggle.
+.sp-eab-accordion {
+    margin: 0 auto;
+
+    // normal icon set.
+    >.sp-eab-accordion-item {
+        >.sp-eab-accordion-item-wrapper {
+            >.sp-eab-accordion-heading {
+                .sp-eab-collapse-icon {
+                    display: none;
+                }
+
+                .eab-icon-animated {
+                    .sp-eab-expand-icon {
+                        display: block;
+                        transition: transform 0.4s ease;
+                        transform: rotate(0deg);
+                    }
+                }
+
+                a {
+                    text-decoration: none;
+                    outline: none;
+                    box-shadow: none;
+                    border: none;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+
+        &.eab-expand {
+            >.sp-eab-accordion-item-wrapper {
+                >.sp-eab-accordion-heading {
+                    .eab-icon-static {
+                        .sp-eab-expand-icon {
+                            display: none;
+                        }
+
+                        .sp-eab-collapse-icon {
+                            display: block;
+                        }
+                    }
+
+                    .eab-icon-animated .sp-eab-expand-icon {
+                        transform: rotate(180deg);
+                    }
+                }
+            }
+        }
+    }
+
+    .sp-eab-expand-collapse-icon {
+        line-height: 1;
+		align-items: center;
+		justify-content: center;
+		display: flex;		
+    }
+
+}
+
+.sp-eab-accordion-heading {
+    margin: 0;
+    cursor: pointer;
+    background: var(--eab-primary-bg-color);
+
+    &:hover {
+        background: var(--eab-primary-bg-color);
+    }
+
+    .eab-icon-position-start {
+        flex-direction: row-reverse;
+        justify-content: start;
+    }
+
+    .eab-icon-position-end {
+        justify-content: space-between;
+    }
+
+    .sp-eab-accordion-featured-icon {
+        line-height: 1;
+    }
+}
+
+.sp-eab-accordion-item {
+    display: block;
+    border: 1px solid var(--eab-border-color);
+}
+
+.sp-eab-icon-container {
+
+    img,
+    svg {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.sp-eab-accordion-item {
+    .sp-eab-accordion-title-text {
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: 500;
+    }
+
+    .sp-eab-accordion-subtitle {
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 400;
+    }
+
+    // suffix and prefix css.
+    .sp-eab-accordion-suffix,
+    .sp-eab-accordion-prefix {
+        font-size: 12px;
+        line-height: 16px;
+        border-radius: 2px;
+    }
+
+    .sp-eab-accordion-body {
+        width: 100%;
+    }
+}
+
+// GRADIENT BACKGROUND COLOR TRANSITION.
+.sp-eab-accordion-item {
+    .sp-eab-accordion-heading {
+        transition: background 0.4s ease-in-out;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.8s linear;
+        }
+
+        &:hover::after {
+            opacity: 1;
+        }
+    }
+
+}
+
+// --------------------------------
+// Vertical Accordion Template Css.
+// --------------------------------
+.sp-eab-mode-vertical {
+    flex-direction: column;
+
+    >.sp-eab-accordion-item {
+        width: 100%;
+
+        >.sp-eab-accordion-item-wrapper {
+
+            // vertical accordion heading.
+            >.sp-eab-accordion-heading {
+
+                // title and sub title css.
+                .sp-eab-title-subtitle-wrapper {
+                    gap: 2px;
+                }
+
+                .sp-eab-accordion-header-start,
+                .sp-eab-accordion-header-wrapper {
+                    width: 100%;
+                }
+            }
+
+            /* Accordion Content */
+            >.sp-eab-accordion-content {
+                overflow: hidden;
+
+                >.sp-eab-accordion-content-wrapper {
+                    height: 100%;
+                    position: relative;
+                    overflow-y: auto;
+                }
+            }
+        }
+    }
+
+    // ACCORDION CONTENT CLOSE BUTTON CSS.
+    .sp-eab-accordion-inner-close-button {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        padding: 6px 12px;
+        cursor: pointer;
+        border: 1px solid var(--eab-primary-text-color);
+        outline: none;
+        box-shadow: none;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        color: #fff;
+        background-color: var(--eab-primary-text-color);
+        border-radius: 4px;
+        z-index: 4;
+    }
+
+    >.sp-eab-accordion-item {
+        .eab-show-on-hover {
+            display: none;
+        }
+
+        &:hover {
+            .eab-show-on-hover {
+                display: block;
+            }
+        }
+    }
+
+}
+
+// -------------------------------------
+// Vertical Accordion Template Two Css.
+// -------------------------------------
+.sp-easy-accordion-block {
+    .sp-eab-vertical-two {
+        >.sp-eab-accordion-item {
+            border-right: none;
+            border-left: none;
+            border-radius: 0;
+
+            &:not(:last-child) {
+                margin-bottom: 0;
+                border-bottom: none;
+            }
+        }
+    }
+}
+// theme conflict css.
+.sp-eab-accordion {
+    .sp-eab-accordion-heading {
+        margin: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .sp-eab-accordion-item {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+
+// css for overlay background color when bg image or video is selected.
+.sp-easy-accordion-block {
+
+    .sp-eab-accordion,
+    .sp-eab-video-player,
+    .sp-eab-accordion-content-wrapper,
+    .sp-eab-sidebar-tabs {
+        &::after {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+    }
+
+    .sp-eab-accordion-item,
+    .sp-eab-accordion-body,
+    .sp-eab-qa-section,
+    .sp-eab-sidebar-tabs-nav-wrapper,
+    .sp-eab-sidebar-tabs-content,
+    .sp-eab-block-appender {
+        position: relative;
+        z-index: 2;
+    }
+
+    .sp-eab-accordion-content-wrapper {
+        position: relative;
+    }
+
+}
+
+/* 
+ * ---------------------------
+ * HORIZONTAL ACCORDION.SCSS.
+ * ---------------------------
+ */
+.sp-eab-mode-horizontal {
+    flex-direction: row;
+
+    #{$wrapper_class} {
+        display: flex;
+        height: 100%;
+
+        >.sp-eab-accordion-heading {
+            justify-content: start;
+            writing-mode: sideways-lr;
+            border: none;
+
+            .sp-eab-accordion-featured-icon {
+                transform: rotate(-90deg);
+            }
+
+            &,
+            .sp-eab-accordion-header-wrapper,
+            .sp-eab-accordion-header-start {
+                height: 100%;
+            }
+        }
+
+        >.sp-eab-accordion-content {
+            overflow: hidden;
+
+            >.sp-eab-accordion-content-wrapper {
+                overflow-y: auto;
+                height: 100%;
+            }
+        }
+    }
+
+    // single accordion overflow.
+    .sp-eab-accordion-item {
+        overflow: clip;
+    }
+
+    // line break in title.
+    .sp-eab-accordion-title-text {
+        line-break: anywhere;
+    }
+}
+
+// CSS ONLY FOR FRONTEND.
+.sp-eab-regular-accordion {
+    .sp-eab-horizontal-accordion {
+        overflow-x: auto;
+
+        >.sp-eab-mode-horizontal {
+            .eab-expand>.sp-eab-accordion-item-wrapper>.sp-eab-accordion-heading {
+                pointer-events: none;
+            }
+        }
+    }
+
+    // remove default margin if first and last item will be p tag.
+    .sp-eab-accordion-body {
+
+        >*:first-child {
+            margin-top: 0;
+        }
+
+        >*:last-child {
+            margin-bottom: 0;
+        }
+
+    }
+}
+
+// ------- Horizontal Two Css ---------//
+.sp-eab-title-number {
+    color: #fff;
+    background-color: #546069;
+}
+
+.sp-eab-horizontal-two {
+    #{$wrapper_class} {
+        >.sp-eab-accordion-heading {
+            .sp-eab-title-number {
+                padding: 14px 8px;
+            }
+        }
+    }
+}
+
+.eab-vertical-on-horizontal-layout {
+    >.sp-eab-wrapper>.sp-eab-accordion {
+        height: 100% !important;
+
+        #{$wrapper_class} {
+
+            >.sp-eab-accordion-heading {
+                width: 100% !important;
+
+                .sp-eab-title-number {
+                    padding: 8px 14px;
+                    margin-bottom: 0 !important;
+                    margin-left: 14px;
+                }
+            }
+
+            >.sp-eab-accordion-content>.sp-eab-accordion-content-wrapper {
+                width: 100% !important;
+            }
+        }
+    }
+}

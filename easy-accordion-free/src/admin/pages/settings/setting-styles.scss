@@ -1,0 +1,413 @@
+@use '../../../components/multipleSelect/editor.scss';
+
+.sp-eap-settings-page-container {
+    min-height: 360px;
+    align-items: flex-start;
+    border-radius: 4px;
+    border: 1px solid #DDDDDD;
+    background: #ffffff;
+    box-shadow: 0 1px 2px 0 rgba(17, 17, 17, 0.20);
+    overflow: hidden;
+    position: relative;
+
+    ul,
+    li {
+        margin: 0;
+        padding: 0;
+    }
+
+    .sp-eap-setting-tabs-wrapper {
+        z-index: 10;
+        width: 225px;
+        height: 100%;
+    }
+
+    .sp-eap-setting-tab {
+        padding: 14px 15px;
+        font-size: 14px;
+        line-height: 20px;
+        border-radius: 0;
+        font-weight: 500;
+        z-index: 10;
+        color: #444444;
+        position: relative;
+        background: #F0F0F0;
+        border-bottom: 1px solid #E0E0E0;
+        border-right: 1px solid #E0E0E0;
+        transition: all 0.3s ease;
+
+        &:nth-child(1) {
+            svg {
+                height: 16px;
+                width: 16px;
+                margin-bottom: -3px;
+            }
+
+            path {
+                stroke: #2F2F2F;
+            }
+        }
+
+        &.active {
+            background: #FFFFFF;
+            color: var(--eab-primary-color);
+            border-right: 1px solid #00000000;
+            box-shadow: 3px 0 0 0 var(--eab-primary-color) inset;
+
+            path {
+                stroke: var(--eab-primary-color);
+            }
+        }
+    }
+
+    .sp-eap-setting-tabs-bottom {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: 9;
+        width: 225px;
+        border-right: 1px solid #E0E0E0;
+        background: #FFFFFF;
+    }
+
+    // tabs content.
+    .sp-eap-setting-tab-content {
+        height: 100%;
+        padding: 32px;
+        flex: 1;
+    }
+}
+
+// save and reset button wrapper.
+.sp-eap-settings-save-wrapper {
+    margin-top: 30px;
+
+    button {
+        background-color: #c5c5c6;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        padding: 11px 20px;
+        transition: all .3s ease-in-out;
+    }
+
+    .sp-eap-settings-save-btn.active {
+        background-color: #00c263;
+    }
+
+    .sp-eap-settings-reset-btn {
+        background-color: #cd3c3c;
+    }
+}
+
+// License key manage tab styles.
+.sp-eap-dashboard-license-settings {
+    height: 100%;
+    padding: 83px 0;
+
+    .sp-eap-license-tab-section-title {
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 28px;
+        margin: 0 0 24px;
+    }
+
+    .sp-eap-help-text {
+        color: #757575;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 28px;
+        margin-top: -16px;
+
+        a {
+            text-decoration: underline;
+        }
+    }
+
+    // input control.
+    .sp-eab-input-control {
+        width: 380px;
+
+        .components-input-control__input {
+            height: 42px !important;
+        }
+
+        .sp-eab-input-control-header-left {
+            display: none;
+        }
+
+        .components-base-control {
+            flex: 1;
+            max-width: 460px;
+            position: relative;
+        }
+
+        .key-icon {
+            left: 10px;
+            position: absolute;
+            top: 14px;
+        }
+
+        .components-input-control__input {
+            padding-left: 38px !important;
+        }
+    }
+
+    .components-input-control__backdrop {
+        border: 1px solid #ddd !important;
+        border-radius: 6px !important;
+    }
+
+    .components-base-control__help {
+        margin: 0;
+        padding: 0;
+    }
+
+    .sp-eap-settings-option {
+        margin-top: 24px;
+        gap: 8px;
+    }
+
+    .sp-eap-license-action-btn {
+        font-size: 14px;
+        line-height: 20px;
+        padding: 0 18px;
+        border-radius: 4px;
+        border: none;
+        outline: none;
+        height: 42px;
+
+        &.deactivate {
+            width: 106px;
+            color: rgb(220, 53, 69);
+            background-color: rgb(246, 247, 247);
+            border: 1px solid rgb(220, 53, 69);
+
+            .components-spinner {
+                color: rgb(220, 53, 69);
+            }
+        }
+
+        &.active {
+            width: 88px;
+            color: #FFFFFF;
+            background-color: var(--eab-wp-primary-color);
+        }
+    }
+
+    .sp-eap-settings-option.license-active {
+        input {
+            pointer-events: none;
+            color: #757575 !important;
+        }
+    }
+
+    .active-status {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 7px;
+        padding: 4px 10px;
+        border-radius: 3px;
+        line-height: 20px;
+        color: #fff;
+        background-color: #28a745;
+    }
+
+    .sp-eap-api-integration-notice {
+        background-color: #fff3cd;
+        color: #856404;
+        font-size: 14px;
+        padding: 12px 20px;
+        margin-top: 12px;
+        border-radius: 2px;
+        max-width: 476px;
+        width: 100%;
+    }
+}
+
+// advanced controls tab styles.
+.sp-eap-dashboard-advanced-settings {
+    width: 356px;
+    gap: 34px;
+
+    &.eap-woocommerce-settings-tab {
+        width: 902px;
+    }
+}
+
+// woocommerce settings tab css.
+.sp-eap-setting-tab-content {
+    .sp-eab-dashboard-woo-notice {
+        font-size: 12px;
+        padding: 17px 30px;
+        margin: -32px -32px 15px -32px;
+
+        &.woo-activate {
+            color: #8a6d3b;
+            border-color: #faebcc;
+            background-color: #fcf8e3;
+        }
+
+        &.woo-inactive {
+            color: #1e1e1e;
+            background-color: #ffd9d9;
+        }
+
+        i.dashicons {
+            color: #807f7f;
+        }
+
+        a {
+            text-decoration: underline;
+        }
+    }
+
+    // pointer events off if woocommerce is deactivated.
+    .eap-woo-inactive {
+        .react-toggle {
+            pointer-events: none;
+        }
+    }
+}
+
+// woo tabs.
+.eap-woocommerce-settings-tab {
+    .sp-eap-component-title {
+        width: 270px;
+    }
+
+    .sp-eap-settings-option {
+        gap: 50px;
+    }
+
+    .sp-eap-woo-faq-tab-items,
+    .sp-eab-input-control {
+        width: calc(100% - 320px);
+    }
+
+    .sp-eap-woo-faq-tab-items {
+        div[data-rfd-droppable-id='sp-eap-woo-faq-tab-dnd'] {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+    }
+
+    .sp-eap-woo-faq-tab-item {
+        border: 1px solid #FECDBF;
+        border-radius: 4px;
+        box-shadow: 0px 3px 6px 0px #00000014;
+        cursor: move;
+    }
+
+    .sp-eap-woo-faq-tab-header {
+        background-color: #FAE9E8;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+
+        .sp-eap-woo-faq-tab-label,
+        .sp-eap-cloneable-helper {
+            padding: 14px 20px;
+        }
+
+        .sp-eap-woo-faq-tab-label {
+            width: 90%;
+        }
+    }
+
+    .sp-eap-woo-faq-tab-content {
+        padding: 24px;
+        background-color: #fff;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    .sp-eap-woo-faq-tab-label {
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 1.3;
+    }
+
+    // multi select css.
+    .sp-multiple-select-dnd-label {
+        display: none;
+    }
+
+    select,
+    .shaped-plugin-multiple-select {
+        width: 50%;
+    }
+
+    // new item inserter css.
+    .sp-eap-woo-faq-tab-inserter-button {
+        color: #fff;
+        background-color: var(--eab-link-color);
+        transition: all 0.4s ease-in-out;
+        padding: 12px 20px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 1.3;
+        border: none;
+        border-radius: 4px;
+
+        &:hover {
+            background: #1b63d2;
+        }
+    }
+
+    &:has(.sp-eap-woo-faq-tab-item) {
+        .sp-eap-woo-faq-tab-inserter-button {
+            margin-top: 24px;
+        }
+    }
+}
+
+// custom css and js styles.
+.sp-eap-settings-custom-assets {
+    gap: 24px;
+
+    .sp-eab-code-editor-component {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .sp-eab-code-editor {
+        width: 80%;
+    }
+}
+
+// Info text style.
+.sp-eap-settings-info {
+    display: flex;
+    cursor: help;
+    position: relative;
+
+    img {
+        height: 14px;
+        width: 14px;
+    }
+
+    &:hover {
+        .sp-eap-settings-info-text {
+            display: block;
+        }
+    }
+
+    .sp-eap-settings-info-text {
+        display: none;
+        position: absolute;
+        background: rgb(22 30 38);
+        color: rgb(127 159 175);
+        width: 290px;
+        padding: 14px 20px;
+        font-weight: normal;
+        border-radius: 5px;
+        z-index: 10;
+        left: 22px;
+        top: 0;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+}

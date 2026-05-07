@@ -107,7 +107,10 @@ if ( ! class_exists( 'SP_EAP' ) ) {
 			// Include plugin meta field config file.
 			self::include_plugin_file( 'configs/option-config.php' );
 			self::include_plugin_file( 'configs/metabox-config.php' );
-			self::include_plugin_file( 'configs/tools-config.php' );
+			// load tools if module active.
+			if ( self::eap_manage_module_settings( 'eap_tools' ) ) {
+				self::include_plugin_file( 'configs/tools-config.php' );
+			}
 
 			// setup options.
 			$params = array();
@@ -559,6 +562,17 @@ if ( ! class_exists( 'SP_EAP' ) ) {
 			echo ( ! empty( $field['title'] ) || ! empty( $field['fancy_title'] ) ) ? '</div>' : '';
 			echo '<div class="clear"></div>';
 			echo '</div>';
+		}
+		/**
+		 * Method eap_manage_module_settings.
+		 *
+		 * @param string $module_name is module name.
+		 * @return boolean
+		 */
+		public static function eap_manage_module_settings( $module_name ) {
+			$settings  = get_option( 'sp_eap_dashboard_settings', array() );
+			$is_active = isset( $settings['modules'][ $module_name ] ) ? $settings['modules'][ $module_name ]['is_active'] : true;
+			return $is_active;
 		}
 	}
 

@@ -1,0 +1,64 @@
+// wrap swiper default css
+.sp-eab-layout-preset-slider-component {
+
+	.swiper-button-prev,
+	.swiper-button-next {
+		background-color: var(--eab-primary-color) !important;
+		width: 20px !important;
+		height: 20px !important;
+		border-radius: 50%;
+		position: absolute;
+		z-index: 9999;
+		cursor: pointer;
+
+		svg {
+			height: 12px;
+			width: 12px;
+
+			path {
+				fill: #fff;
+			}
+		}
+		&::after{
+			display: none;
+		}
+	}
+
+	.swiper-button-prev {
+		svg {
+			margin-left: -2px;
+		}
+	}
+
+	.swiper-button-next {
+		svg {
+			margin-right: -2px;
+		}
+	}
+	// .swiper-slide-active svg{
+	// 	fill: #1A74E41A;		
+	// }
+
+	// .swiper-button-prev::after,
+	// .swiper-button-next::after {
+	// 	color: white !important;
+	// 	font-size: 10px !important;
+	// 	font-weight: 700 !important;
+	// }
+
+	// .swiper-button-next {
+	// 	right: 0;
+	// }
+
+	.swiper-pagination-bullet-active {
+		background-color: var(--eab-primary-color) !important;
+	}
+
+	.sp-eab-preset-image {
+		margin-bottom: 30px;
+	}
+
+	.sp-eab-layout-picker-swiper {
+		position: relative;
+	}
+}

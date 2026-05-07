@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sp-easy-accordion-pro/accordion-slider",
+  "title": "Accordion Slider",
+  "category": "sp-easy-accordion-pro",
+  "description": "Slide and expand multiple images with an interactive accordion slider.",
+  "textdomain": "easy-accordion-free",
+  "supports": {
+		"align": ["wide", "full"],
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"isPreview": true
+		}
+	},
+  "editorScript": "sp_eab_admin_index_js",
+  "editorStyle": "sp_eab_editor_style",
+  "script": [
+    "sp_eab_lightbox_js",
+    "sp-eap-swiper",
+    "sp_eab_script_js"
+  ],
+  "style": [
+    "sp_eab_main_css",
+    "sp_eab_google_fonts",
+    "sp_eab_fontello_style",
+    "sp-ea-animation",
+    "sp_eab_lightBox_style",
+    "sp_eab_swiper_style"
+  ]
+}

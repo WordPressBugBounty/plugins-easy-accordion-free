@@ -1,0 +1,77 @@
+.components-popover__content:has(.sp-eab-popover__content-visible) {
+    .sp-eab-popover__content-visible {
+        width: 360px;
+        box-shadow: 4px 4px 12px 2px rgba(0, 0, 0, 0.10);
+        position: relative;
+
+        &-label {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            padding: 12px 20px;
+            background: #FFFFFF;
+            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.10);
+
+            h4 {
+                padding: 0;
+                margin: 0;
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 20px;
+                color: #2F2F2F;
+            }
+        }
+
+        &-content {
+            overflow-y: hidden;
+            padding: 16px 20px 0;
+        }
+    }
+}
+
+.sp-easy-accordion-tabs-panel {
+    .sp-eab-popover-toggle-button {
+        height: 26px;
+        border: none;
+        outline: none;
+        background: transparent;
+        outline: 2px solid transparent;
+        border-radius: 4px;
+        padding: 1px;
+        margin: 0;
+
+        &.active {
+            svg {
+                fill: var(--eab-primary-color);
+
+                path {
+                    fill: #fff;
+                }
+
+                rect:nth-child(2) {
+                    stroke: var(--eab-primary-color);
+                }
+            }
+        }
+    }
+
+    .sp-eab-link-settings {
+        .sp-eab-component-mb {
+            margin-bottom: 0;
+        }
+
+        .sp-eab-popover-toggle-wrapper {
+            align-items: end;
+        }
+
+        .sp-eab-popover-toggle-button {
+            margin: 5px 0;
+        }
+
+        .sp-eab-component-title {
+            width: 85%;
+        }
+    }
+}

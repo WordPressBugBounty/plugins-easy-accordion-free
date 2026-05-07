@@ -72,6 +72,7 @@ class Easy_Accordion_Free_Product_Tab {
 		$settings         = get_option( 'sp_eap_settings' );
 		$ea_tab_label     = isset( $settings['eap_woo_faq_label'] ) ? $settings['eap_woo_faq_label'] : 'FAQ';
 		$eap_woo_set_tabs = isset( $settings['eap_woo_set_tab'] ) ? $settings['eap_woo_set_tab'] : array();
+		$ea_tab_priority  = isset( $settings['eap_woo_faq_label_priority'] ) ? $settings['eap_woo_faq_label_priority'] : '35';
 
 		$eap_woo_set_tab           = array();
 		$eap_woo_tab_shortcode_ids = array();
@@ -94,7 +95,7 @@ class Easy_Accordion_Free_Product_Tab {
 			$tabs['eap_faq_tab'] = array(
 				'title'      => $ea_tab_label,
 				'callback'   => array( $this, 'woo_new_product_tab_content' ),
-				'priority'   => '50',
+				'priority'   => $ea_tab_priority,
 				'shortcodes' => $eap_woo_tab_shortcode_ids,
 			);
 		}

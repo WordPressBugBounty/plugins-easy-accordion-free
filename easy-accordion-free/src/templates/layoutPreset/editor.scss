@@ -1,0 +1,193 @@
+// modal css
+.sp-eab-layout-variation-picker-modal {
+  background: #ffffff;
+  box-shadow: 6px 6px 0px 0px #FAE9E8;
+  border: 2px solid #FAE9E8;
+  border-radius: 6px;
+  width: 652px;
+  margin: 0 auto;
+  gap: 32px;
+  padding: 48px;
+  box-sizing: border-box;
+
+  .sp-eab-layout-modal-label {
+    h3 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 28px;
+      color: var(--eab-primary-text-color);
+      text-align: center;
+      text-transform: capitalize;
+    }
+
+    p {
+      margin: 0 !important;
+      font-size: 15px;
+      color: #5B5B5B;
+      font-weight: 400;
+      line-height: 20px;
+      text-align: center;
+    }
+  }
+
+  .sp-eab-layout-modal-skip-button {
+	cursor: pointer;
+	font-weight: 500;
+	font-size: 13px;
+	line-height: 20px;
+	color: var(--eab-primary-text-color);
+	padding: 12px 16px;
+	transition: all 0.4s ease-in-out;
+
+    &:hover {
+      color: var(--eab-primary-color);
+    }
+
+    &:focus:not(:disabled) {
+      box-shadow: none;
+      border: none;
+    }
+  }
+}
+
+// layout picker modal items.
+.sp-eab-layout-modal-items {
+  margin: 0 auto;
+  list-style: none;
+  gap: 20px;
+  padding: 0;
+
+  &.sp-eab-vertical-accordion-preview-icon {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sp-eab-layout-picker-label {
+    color: var(--eab-primary-text-color);
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .sp-eab-layout-picker-icon {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      width: 100%;
+      background-color: #1A74E41A;
+      opacity: 0;
+    }
+	&::after,
+	svg>rect:nth-child(2) {
+		transition: all 0.3s ease-in-out;
+	}
+  }
+
+  .sp-eab-layout-modal-item:hover {
+
+    svg>rect:nth-child(2) {
+      stroke: #1A74E4;
+      stroke-width: 2;
+      border-radius: 4px;
+    }
+
+    .sp-eab-layout-picker-icon::after {
+      opacity: 1;
+    }
+  }
+}
+
+.sp-eab-only-pro-card {
+	overflow: unset;
+	position: relative;
+
+	.sp-eab-preset-icon-wrapper {
+		position: relative;
+	}
+
+	svg {
+		opacity: 0.3;
+		transition: opacity 0.3s ease;
+	}
+
+	/* Pro badge container */
+	.sp-eab-pro-badge {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -10%);
+		text-align: center;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.3s ease, transform 0.3s ease;
+		z-index: 5;
+
+		a {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 4px;
+			color: #fff;
+			background: rgba(17, 161, 12, 1);
+			padding: 2px 6px;
+			border-radius: 4px;
+			text-decoration: none !important;
+			font-weight: 500;
+			position: relative;
+			z-index: 2;
+			transition: background 0.3s ease;
+			line-height: 1.7;
+			font-size: 10px;
+
+
+			&:focus {
+				box-shadow: none;
+			}
+
+			&:hover {
+				background: rgba(15, 145, 11, 1);
+			}
+
+			/* Icon inside link */
+			&.sp-eab-pro-card-link::before {
+				content: "";
+				display: inline-block;
+				width: 12px;
+				height: 12px;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: contain;
+				background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10' fill='none'%3E%3Cg clip-path='url(%23clip0_19846_6595)'%3E%3Cpath d='M6.38574 3.76074C6.50346 3.97645 6.70098 4.13761 6.94336 4.18848C7.18995 4.2401 7.44217 4.16788 7.63281 3.99316C8.11984 3.54672 8.60669 3.09979 9.09375 2.65332C8.93567 3.90923 8.7782 5.165 8.62012 6.4209H1.38867C1.23059 5.165 1.07215 3.90923 0.914062 2.65332C1.40131 3.09997 1.88876 3.54655 2.37598 3.99316C2.56663 4.16792 2.81882 4.24011 3.06543 4.18848C3.30784 4.13762 3.50532 3.97644 3.62305 3.76074L5.00391 1.22754L6.38574 3.76074Z' stroke='white' stroke-width='0.84656'/%3E%3Cpath d='M8.5771 9.28125H1.43153C1.20184 9.28125 1.01562 9.05366 1.01562 8.77292V7.65625H8.99304V8.77292C8.99301 9.05366 8.8068 9.28125 8.5771 9.28125Z' fill='white'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0_19846_6595'%3E%3Crect width='10' height='10' fill='white'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+			}
+
+			&.sp-eab-pro-card-demo-link {
+				position: absolute;
+				bottom: 100%;
+				left: 50%;
+				transform: translate(-50%, 0);
+				background: #000000ba;
+				padding: 2px 9px;
+				white-space: nowrap;
+				transition: opacity 0.2s ease, transform 0.2s ease;
+				margin-bottom: 4px;
+			}
+		}
+	}
+
+	/* On hover show badge */
+	&:hover {
+		svg {
+			opacity: 0.3;
+		}
+
+		.sp-eab-pro-badge {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+}

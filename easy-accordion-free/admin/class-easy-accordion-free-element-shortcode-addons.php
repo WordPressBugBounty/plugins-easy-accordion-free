@@ -89,6 +89,7 @@ class Easy_Accordion_Free_Element_Shortcode_Addons {
 		 * class.
 		 */
 
+		// Old styles - keep for backward compatibility.
 		wp_enqueue_style( 'sp-ea-fontello-icons' );
 		wp_enqueue_style( 'sp-ea-style' );
 	}
@@ -110,8 +111,66 @@ class Easy_Accordion_Free_Element_Shortcode_Addons {
 		 * class.
 		 */
 
+		// Old scripts - keep for backward compatibility.
 		wp_enqueue_script( 'sp-ea-accordion-js' );
 		wp_enqueue_script( 'sp-ea-accordion-config' );
+
+		// Define blocks URL if not already defined.
+		if ( ! defined( 'SP_EAP_BLOCKS_URL' ) ) {
+			define( 'SP_EAP_BLOCKS_URL', SP_EA_URL . 'Blocks/' );
+		}
+
+		if ( ! wp_script_is( 'sp_easy_blocks_builder_js', 'registered' ) ) {
+			wp_register_script( 'sp_easy_blocks_builder_js', SP_EA_URL . 'blocks/assets/js/builder-scripts.js', array( 'jquery' ), SP_EA_VERSION, true );
+		}
+
+		// Enqueue blocks scripts.
+		wp_enqueue_script( 'sp_easy_blocks_builder_js' );
+
+		// Add inline script for Elementor editor change events.
+		wp_add_inline_script(
+			'sp_easy_blocks_builder_js',
+			'jQuery(document).ready(function($) {
+				// Re-initialize scripts when Elementor updates elements
+				function reinitEasyBlocksScripts() {
+					if (typeof window.sp_accordion_init === "function") {
+						window.sp_accordion_init();
+					}
+				}
+
+				// Listen for Elementor preview changes
+				$(document).on("elementor/render/preview", function() {
+					reinitEasyBlocksScripts();
+				});
+
+				// Listen for Elementor widget updates
+				$(window).on("elementor/frontend/element_ready/widget", function() {
+					reinitEasyBlocksScripts();
+				});
+
+				// Also observe DOM changes as fallback - watch for .eap-elementor-accordion-wrapper
+				var observer = new MutationObserver(function(mutations) {
+					mutations.forEach(function(mutation) {
+						if (mutation.addedNodes.length) {
+							for (var i = 0; i < mutation.addedNodes.length; i++) {
+								var node = mutation.addedNodes[i];
+								if (node.nodeType === 1) {
+									if ($(node).hasClass("eap-elementor-accordion-wrapper") || $(node).find(".eap-elementor-accordion-wrapper").length) {
+										reinitEasyBlocksScripts();
+										break;
+									}
+								}
+							}
+						}
+					});
+				});
+
+				// Start observing the document for changes
+				if (document.body) {
+					observer.observe(document.body, { childList: true, subtree: true });
+				}
+			});'
+		);
 	}
 
 	/**
@@ -157,9 +216,23 @@ class Easy_Accordion_Free_Element_Shortcode_Addons {
 	 * @access public
 	 */
 	public function init_widgets() {
-		// Register widget.
+		// Register Shortcode widget.
 		require_once SP_EA_PATH . 'admin/ElementAddons/Sp_Easy_Accordion_Shortcode_Widget.php';
 		\Elementor\Plugin::instance()->widgets_manager->register( new Sp_Easy_Accordion_Shortcode_Widget() );
+
+		$dashboard_settings = get_option( 'sp_eap_dashboard_settings', array() );
+		$integrations       = $dashboard_settings['integrations'] ?? array();
+
+		/**
+		 * WPBakery Page Builder Integration.
+		 */
+		$elementor_integration = $integrations['elementor']['is_active'] ?? false;
+
+		if ( $elementor_integration ) {
+			// Register Saved Template widget.
+			require_once SP_EA_PATH . 'admin/ElementAddons/SP_Eap_Saved_Template_Widget.php';
+			\Elementor\Plugin::instance()->widgets_manager->register( new SP_Eap_Saved_Template_Widget() );
+		}
 	}
 }
 

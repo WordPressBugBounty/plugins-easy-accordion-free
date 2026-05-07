@@ -1,0 +1,626 @@
+.sp-eap-patterns-toolbar-design-library {
+    span {
+        display: flex;
+        height: 36px;
+        padding: 12px;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        border-radius: 2px;
+        background: var(--eab-primary-color);
+        color: #FFF;
+        font-size: 13px;
+        line-height: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: all 0.3s ease-in-out;
+        margin: 0 6px;
+
+        &:hover {
+            background: #e9510c;
+        }
+    }
+}
+
+.sp-eap-patterns-skeleton__image {
+    height: 300px;
+    width: 300px;
+    border-radius: 4px;
+}
+
+.sp-eap-patterns-skeleton__circle {
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+}
+
+.sp-eap-patterns-skeleton__title {
+    height: 20px;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.sp-eap-patterns-skeleton__button {
+    height: 40px;
+    width: 90px;
+    border-radius: 4px;
+}
+
+.sp-eap_patterns_frequency {
+    position: relative;
+    background-color: #e2e2e2;
+    overflow: hidden;
+
+    &.loop {
+        margin-bottom: 10px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &::after {
+        display: block;
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transform: translateX(-100%);
+        background: -webkit-gradient(linear, left top,
+                right top, from(transparent),
+                color-stop(rgba(255, 255, 255, 0.2)),
+                to(transparent));
+
+        background: linear-gradient(90deg, transparent,
+                rgba(255, 255, 255, 0.2), transparent);
+        animation: loadings 0.8s infinite;
+    }
+}
+
+
+.skeletonOverflow {
+    overflow: hidden;
+}
+
+@keyframes loadings {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.sp-eap-patterns-popup-open {
+    .sp-eap-patterns-builder-modal.sp-eab-patterns-blocks-layouts {
+        display: block;
+        position: fixed;
+        z-index: 999999;
+        height: 100%;
+        width: 90%;
+        top: 20px;
+        right: 90px;
+    }
+}
+
+/* Modal component for Design template end */
+.sp-eap-patterns-popup-header {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    background: linear-gradient(0deg, rgba(242, 108, 13, 0.05) 0%, rgba(242, 108, 13, 0.05) 100%), #FFF;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.10);
+
+    .sp-eap-patterns-popup-filter {
+        padding: 30px 5px;
+        max-width: 600px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.sp-eap-patterns-popup-filter-title {
+    position: relative;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    height: 72px;
+
+    &:not(:has(.sp-eap-patterns-popup-filter-nav)) {
+        padding-top: 18px;
+        padding-bottom: 18px;
+        height: auto;
+    }
+}
+
+
+.sp-eap-patterns-btn-close {
+    svg {
+        margin-right: -1px;
+    }
+
+    box-shadow: none;
+    cursor: pointer;
+    transition: .3s;
+    border-radius: 4px;
+    border: 1px solid #2F2F2F;
+    background: #2F2F2F;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        color: #fff;
+        background: var(--eab-primary-color);
+        border-color: var(--eab-primary-color);
+    }
+
+    span {
+        font-size: 26px;
+        width: auto;
+        height: auto;
+        vertical-align: middle;
+    }
+
+    &:focus {
+        outline: 0;
+    }
+}
+
+
+.sp-eap-patterns-popup-filter-image-head {
+    display: flex;
+    align-items: center;
+
+    svg {
+        color: var(--eab-primary-color);
+        width: 35px;
+        height: 23px;
+    }
+
+    span {
+        text-transform: capitalize;
+        font-weight: 600;
+        margin-left: 6px;
+        font-size: 18px;
+    }
+}
+
+
+.sp-eap-patterns-popup-filter-sync-close {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 220px;
+
+    .sp-eap-patterns-popup-sync {
+        cursor: pointer;
+        margin-right: 50px;
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        transition: var(--postx-transition-400);
+    }
+}
+
+.sp-eap-patterns-builder-modal-shadow {
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .8);
+    z-index: 100000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    backdrop-filter: blur(4px);
+}
+
+/* ========== Header Part ========== */
+.sp-eap-patterns-popup-wrap {
+    width: 100%;
+    margin: 30px auto;
+    position: relative;
+    background: #fff;
+    max-width: 97%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.sp-eap-patterns-template-wrap {
+    display: flex;
+    gap: 32px;
+    padding: 32px;
+}
+
+.sp-eap-patterns-left-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    .components-base-control__label {
+        color: #1E1E1E;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 20px;
+        text-transform: capitalize;
+        margin-bottom: 24px;
+    }
+
+    .components-radio-control__group-wrapper {
+        gap: 0;
+    }
+
+    .components-radio-control:nth-child(2) {
+        max-height: 500px;
+        overflow: auto;
+        scrollbar-width: none;
+
+        .components-radio-control__option {
+            display: block;
+        }
+
+        .components-radio-control__input {
+            display: none;
+        }
+    }
+
+    .components-radio-control__input {
+        border: 1px solid #BBBBBB;
+        height: 14px;
+        width: 14px;
+        min-width: 14px;
+
+        &::before {
+            height: 7px;
+            width: 7px;
+        }
+
+        &:focus {
+            box-shadow: none;
+        }
+
+        &:checked {
+            border: 1px solid var(--eab-primary-color);
+            background-color: #ffffff;
+
+            &::before {
+                background-color: var(--eab-primary-color);
+                border: 1px solid #ffffff;
+            }
+        }
+    }
+
+    .components-radio-control__option {
+        width: 260px;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:has(.components-radio-control__input:checked) {
+            background-color: #FFF3E0;
+        }
+    }
+
+    .components-radio-control__label {
+        display: flex;
+        justify-content: space-between;
+        color: #2F2F2F;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 25px;
+    }
+}
+
+.sp-eap-patterns-template-wrap .sp-eap-pattern-list-container {
+    width: -webkit-fill-available;
+    width: -moz-available;
+    position: relative;
+    height: 88vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.sp-eap-pattern-list-container .sp-eap-pattern-grid {
+    background: #fff !important;
+}
+
+.sp-eap-patterns-popup-wrap .sp-eap-pattern-list-container .sp-eap-pattern-grid .sp-eap-patterns-item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
+    border-radius: 4px;
+    border: 1px solid #E0E0E0;
+    background: #FFF;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.08);
+    padding: 20px;
+
+    img {
+        width: 100%;
+    }
+}
+
+.sp-eap-pattern-list-container {
+    .sp-eap-pattern-grid {
+        display: grid;
+        gap: 30px;
+        padding: 32px 0;
+		margin-bottom: 50px;
+    }
+
+    .sp-eap-pattern-col2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sp-eap-pattern-col3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.sp-eap-patterns-item-list-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: capitalize;
+    cursor: pointer;
+
+    span {
+        font-size: 16px;
+        font-weight: 500;
+    }
+}
+
+
+.sp-eap-patterns-action-btn {
+
+    a,
+    span {
+        height: 36px;
+        line-height: 36px;
+        padding: 0 14px;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+    }
+
+    a svg {
+        vertical-align: middle;
+        margin-right: 6px;
+        margin-top: -3px;
+    }
+
+    .sp-eap-patterns-import-btn {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        background-color: #3D9E56;
+        transition: background-color 400ms;
+
+        svg {
+            vertical-align: middle;
+            margin-top: -2px;
+            margin-right: 5px;
+            color: #fff;
+        }
+    }
+
+    .sp-eap-patterns-btn-pro {
+        border-radius: 4px;
+        background: #EA7E11;
+        transition: background-color 400ms;
+    }
+
+    &:has(.sp-eap-pattern-wishlist) {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+    }
+
+    .sp-eap-pattern-wishlist {
+        height: 36px;
+        line-height: 36px;
+        width: 36px;
+        padding: 0;
+        color: #757575;
+        display: flex;
+        align-items: center;
+        border-radius: 50%;
+        justify-content: center;
+        border: 1px solid #F0F0F0;
+        background: #FFF;
+        box-shadow: 1px 1px 5px 1px rgba(76, 189, 246, 0.10);
+
+        svg {
+            height: 16px;
+            width: 16px;
+            color: #F26262;
+        }
+
+    }
+
+}
+
+.sp-eap-pattern-wishlist {
+    &.sp-eap-pattern-wishlist-active {
+        background: #404040;
+
+        svg {
+            fill: #fff !important;
+        }
+    }
+}
+
+.sp-eap-pattern-img {
+    display: block;
+    width: 100%;
+}
+
+.sp-eap-pattern-overlay {
+    font-weight: 600;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    position: absolute;
+    display: flex;
+    background: rgba(0, 0, 0, 0);
+}
+
+.sp-eap-patterns-item-list-overlay {
+    cursor: pointer;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
+    line-height: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid transparent;
+}
+
+
+.sp-eap-patterns-item-list:hover .sp-eap-pattern-overlay {
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 4px;
+}
+
+.sp-eap-patterns-overlay-view {
+    opacity: 0;
+    border-radius: 4px;
+    border: 1px solid #E0E0E0;
+    background: rgba(255, 255, 255, 0.10);
+    display: flex;
+    padding: 12px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: #FFF;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    transition: all 0.3s ease-in-out;
+
+    &:focus {
+        color: #FFF;
+    }
+
+    &:hover {
+        opacity: 1;
+        background: var(--eab-primary-color);
+        border-color: var(--eab-primary-color);
+        text-decoration: none;
+        color: #FFF;
+    }
+}
+
+.sp-eap-patterns-item-list:hover .sp-eap-patterns-overlay-view {
+    opacity: 1;
+}
+
+.sp-rotate svg {
+    animation: rotate 1.5s linear infinite;
+}
+
+@keyframes sp-rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// Error Boundary Styles
+.sp-eap-patterns-error-boundary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    padding: 40px;
+    background: #fff;
+    border-radius: 8px;
+
+    .sp-eap-patterns-error-content {
+        text-align: center;
+        max-width: 500px;
+
+        h3 {
+            color: #d63638;
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+
+        p {
+            margin-bottom: 24px;
+            color: #50575e;
+            line-height: 1.6;
+        }
+
+        .sp-eap-patterns-error-details {
+            margin: 20px 0;
+            text-align: left;
+            background: #f6f7f7;
+            border-radius: 4px;
+
+            summary {
+                padding: 12px 16px;
+                cursor: pointer;
+                font-weight: 600;
+                color: #50575e;
+                border-bottom: 1px solid #dcdcde;
+            }
+
+            pre {
+                padding: 16px;
+                margin: 0;
+                font-size: 12px;
+                color: #646970;
+                overflow-x: auto;
+                white-space: pre-wrap;
+            }
+        }
+
+        .sp-eap-patterns-retry-button {
+            background: var(--eab-primary-color);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+
+            &:hover {
+                background: var(--eab-primary-color);
+            }
+
+            &:focus {
+                outline: 2px solid var(--eab-primary-color);
+                outline-offset: 2px;
+            }
+        }
+    }
+}
+
+.sp-eap-patterns-image-rotate {
+    font-size: 30px;
+    padding: 20px 0;
+    display: block;
+    line-height: 1.5;
+}

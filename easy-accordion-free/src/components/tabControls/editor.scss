@@ -1,0 +1,62 @@
+.sp-easy-accordion-tab-panel {
+    .components-tab-panel__tabs-item:focus:not(:disabled) {
+        box-shadow: none;
+    }
+
+    .components-tab-panel__tabs {
+        justify-content: center;
+        margin-bottom: 16px;
+    }
+
+    .sp-eab-tab-panel-title {
+        gap: 8px;
+
+        .sp-eab-tab-panel-icon {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    .components-tab-panel__tabs>button {
+        padding: 0;
+    }
+
+    .components-tab-panel__tabs button {
+        color: #2f2f2f;
+        height: 30px !important;
+        font-size: 14px;
+        font-weight: 500;
+        width: 100%;
+        justify-content: center;
+        border-bottom: 2px solid #ddd;
+
+        &:hover {
+            color: #2f2f2f;
+        }
+    }
+
+    .components-tab-panel__tabs button span {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+
+        svg {
+            margin-right: 4px;
+            fill: #2f2f2f;
+        }
+    }
+
+    .components-tab-panel__tabs button.active-tab {
+        position: relative;
+        border-bottom: 2px solid var(--eab-primary-color) !important;
+
+        span {
+            svg g {
+                fill: var(--eab-primary-color);
+            }
+            svg path {
+                fill: var(--eab-primary-color);
+            }
+        }
+    }
+}

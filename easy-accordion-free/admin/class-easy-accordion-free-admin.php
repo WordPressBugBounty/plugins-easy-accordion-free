@@ -59,7 +59,10 @@ class Easy_Accordion_Free_Admin {
 
 			wp_enqueue_script( 'sp-ea-accordion-js' );
 		}
-		wp_enqueue_style( 'sp-ea-style-admin' );
+		$is_block_editor = isset( $current_screen->is_block_editor ) ? $current_screen->is_block_editor : false;
+		if ( ! $is_block_editor ) {
+			wp_enqueue_style( 'sp-ea-style-admin' );
+		}
 	}
 
 	/**
@@ -130,7 +133,7 @@ class Easy_Accordion_Free_Admin {
 	 */
 	public function sp_eap_review_text( $text ) {
 		$screen = get_current_screen();
-		if ( 'sp_easy_accordion' === $screen->post_type || 'sp_accordion_faqs' === $screen->post_type ) {
+		if ( 'sp_easy_accordion' === $screen->post_type || 'sp_accordion_faqs' === $screen->post_type || 'sp_easy_accordion_page_eap_dashboard' === $screen->base ) {
 			$url  = 'https://wordpress.org/support/plugin/easy-accordion-free/reviews/';
 			$text = sprintf( wp_kses_post( 'Enjoying <strong>Easy Accordion?</strong> Please rate us <span class="spea-footer-text-star">★★★★★</span> <a href="%s" target="_blank">WordPress.org.</a> Your positive feedback will help us grow more. Thank you! 😊', 'easy-accordion-free' ), $url );
 		}
@@ -165,13 +168,21 @@ class Easy_Accordion_Free_Admin {
 	/**
 	 * Redirect after activation.
 	 *
-	 * @param string $file Path to the plugin file, relative to the plugin.
+	 * @param string $plugin Path to the plugin file, relative to the plugin.
 	 * @return void
 	 */
-	public function sp_ea_redirect_after_activation( $file ) {
-		if ( SP_EA_BASENAME === $file && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) && ! ( defined( 'WP_CLI' ) && WP_CLI ) ) {
-			exit( esc_url( wp_safe_redirect( admin_url( 'edit.php?post_type=sp_easy_accordion&page=eap_help' ) ) ) );
+	public function sp_ea_redirect_after_activation( $plugin ) {
+		// return if plugin name is not match.
+		if ( SP_EA_BASENAME !== $plugin ) {
+			return;
 		}
+		// check is user visited setup wizard.
+		$dashboard_settings      = get_option( 'sp_eap_dashboard_settings', array() );
+		$is_visited_setup_wizard = $dashboard_settings['visited_setup_wizard'] ?? false;
+		// manage redirect url.
+		$redirect_url = $is_visited_setup_wizard ? 'edit.php?post_type=sp_easy_accordion&page=eap_dashboard' : 'admin.php?page=eap_dashboard#setupwizard';
+		wp_safe_redirect( admin_url( $redirect_url ) );
+		exit;
 	}
 
 	/**
@@ -186,7 +197,7 @@ class Easy_Accordion_Free_Admin {
 
 		if ( SP_EA_BASENAME === $file ) {
 			$new_links =
-				sprintf( '<a href="%s">%s</a>', admin_url( 'post-new.php?post_type=sp_easy_accordion' ), __( 'Add Accordion', 'easy-accordion-free' ) );
+				sprintf( '<a href="%s">%s</a>', admin_url( 'post-new.php?post_type=page&eabblock_inserter=true' ), __( 'Add Accordion', 'easy-accordion-free' ) );
 			array_unshift( $links, $new_links );
 
 			$links['go_pro'] = sprintf( '<a target="_blank" href="%1$s" style="color: #35b747; font-weight: 700;">Go Pro!</a>', 'https://easyaccordion.io/pricing/?ref=1' );

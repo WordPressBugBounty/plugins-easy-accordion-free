@@ -1,0 +1,36 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sp-easy-accordion-pro/product-accordion",
+  "title": "Product Accordion 01",
+  "category": "sp-easy-accordion-pro",
+  "description": "Display WooCommerce products in organized, collapsible accordion panels.",
+  "textdomain": "easy-accordion-free",
+  "supports": {
+    "align": [
+      "wide",
+      "full"
+    ],
+    "customClassName": false
+  },
+  "example": {
+    "attributes": {
+      "isPreview": true
+    }
+  },
+  "editorScript": "sp_eab_admin_index_js",
+  "editorStyle": "sp_eab_editor_style",
+  "script": [
+    "sp-eap-accordion",
+    "sp_eab_script_js",
+    "sp-eap-swiper"
+  ],
+  "style": [
+    "sp_eab_main_css",
+    "sp_eab_google_fonts",
+    "sp_eab_fontello_style",
+    "sp-ea-animation",
+    "sp_eab_lightBox_style",
+    "sp_eab_swiper_style"
+  ]
+}

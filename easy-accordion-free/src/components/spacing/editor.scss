@@ -1,0 +1,205 @@
+.sp-eab-spacing {
+  .sp-eab-spacing-part-2 {
+    text-align: center;
+
+    &.sp-eab-spacing-indicators {
+
+      .sp-eab-spacing-top,
+      .sp-eab-spacing-right,
+      .sp-eab-spacing-bottom,
+      .sp-eab-spacing-left {
+        position: relative;
+
+        &::before {
+          content: "";
+          background: #2f2f2f;
+          position: absolute;
+        }
+      }
+
+      // Shared horizontal line styles (top/bottom)
+      .sp-eab-spacing-top::before,
+      .sp-eab-spacing-bottom::before {
+        width: 80%;
+        height: 1px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      // Shared vertical line styles (left/right)
+      .sp-eab-spacing-right::before,
+      .sp-eab-spacing-left::before {
+        width: 1px;
+        height: 80%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      // Individual positioning overrides
+      .sp-eab-spacing {
+        &-top::before {
+          top: 2px;
+        }
+
+        &-bottom::before {
+          bottom: 2px;
+        }
+
+        &-right::before {
+          right: 2px;
+        }
+
+        &-left {
+          &::before {
+            left: 4px;
+          }
+
+          input {
+            border-right: 1px solid #ddd;
+          }
+        }
+
+        &-all {
+          button {
+            border-left: 0;
+          }
+        }
+      }
+    }
+
+    &.sp-eab-radius-indicators {
+
+      .sp-eab-spacing-top,
+      .sp-eab-spacing-right,
+      .sp-eab-spacing-bottom,
+      .sp-eab-spacing-left {
+        position: relative;
+
+        &::before {
+          content: "";
+          position: absolute;
+          width: 8px;
+          height: 8px;
+          border: 1px solid #2f2f2f;
+        }
+      }
+
+      /* Border radius indicator mixin Handles border removal and positioning for all directions */
+      @mixin radius-indicator($direction) {
+        @if $direction ==top {
+          top: 1px;
+          left: 2px;
+          border-bottom: none;
+          border-right: none;
+        }
+
+        @else if $direction ==right {
+          top: 1px;
+          right: -1px;
+          border-bottom: none;
+          border-left: none;
+        }
+
+        @else if $direction ==bottom {
+          bottom: 1px;
+          right: 0px;
+          border-top: none;
+          border-left: none;
+        }
+
+        @else if $direction ==left {
+          bottom: 1px;
+          left: 2px;
+          border-top: none;
+          border-right: none;
+        }
+      }
+
+      /* Apply mixin to each direction variant */
+      .sp-eab-spacing-top::before {
+        @include radius-indicator(top);
+      }
+
+      .sp-eab-spacing-right::before {
+        @include radius-indicator(right);
+      }
+
+      .sp-eab-spacing-bottom::before {
+        @include radius-indicator(bottom);
+      }
+
+      .sp-eab-spacing-left::before {
+        @include radius-indicator(left);
+      }
+
+      .sp-eab-spacing-left {
+        input {
+          border-right: 1px solid #ddd;
+        }
+      }
+
+      .sp-eab-spacing-all {
+        button {
+          border-left: 0;
+        }
+      }
+    }
+
+    input {
+      width: 100%;
+      padding: 0;
+      text-align: center;
+      border-radius: 0;
+      border-right: 0;
+      border-color: #ddd;
+	  font-size: unset;
+	  min-height: 30px;
+	  line-height: 1;
+
+      &:focus:not(:disabled) {
+        outline: none;
+        box-shadow: none;
+        border-color: #ddd;
+      }
+    }
+  }
+
+  .sp-eab-spacing-all {
+    width: 140px;
+    height: 30px;
+
+    button {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      border-radius: 0;
+      justify-content: center;
+      border: 1px solid #ddd;
+
+      &.active {
+        background-color: var(--eab-primary-color);
+        border-color: transparent;
+      }
+
+      &:focus:not(:disabled) {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .sp-eab-spacing-left.box input,
+  .sp-eab-spacing-right.box input {
+    border-right: 1px solid #ddd;
+    margin-right: 0;
+  }
+
+  .sp-eab-spacing-indicator-label {
+    margin-top: 4px;
+    font-size: 10px;
+    color: #2f2f2f;
+  }
+  input[type="number"]::-webkit-inner-spin-button {
+  	height: 30px;
+  }
+}

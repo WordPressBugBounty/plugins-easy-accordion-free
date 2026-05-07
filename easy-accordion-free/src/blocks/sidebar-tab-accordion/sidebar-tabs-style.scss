@@ -1,0 +1,129 @@
+//sidebar tabs one layout css.
+.sp-eab-sidebar-tab-accordion {
+    max-width: 900px;
+
+    .sp-eab-accordion-header-wrapper {
+        justify-content: space-between;
+    }
+
+    .sp-eab-sidebar-tabs-content,
+    .sp-eab-accordion-content-wrapper {
+        height: 100%;
+    }
+
+    .sp-eab-sidebar-tabs-content {
+        overflow: hidden;
+    }
+
+    .sp-eab-accordion-content-wrapper,
+    .sp-eab-accordion-header-wrapper,
+    .sp-eab-accordion-header-start {
+        width: 100%;
+    }
+
+    .sp-eab-accordion-content-wrapper {
+        overflow-y: auto;
+    }
+
+    .sp-eab-sidebar-tabs-nav,
+    .sp-eab-accordion-heading,
+    .sp-eab-sidebar-tabs-content {
+        border-color: var(--eab-border-color);
+    }
+
+    //  tab visibility.
+    .sp-eab-sidebar-tab-item {
+        display: none;
+
+        &.eab-expand {
+            display: block;
+            flex: 1;
+			overflow: hidden;
+        }
+    }
+
+    .sp-eab-accordion-heading {
+        position: relative;
+        background-color: transparent;
+        transition: background-color 0.4s ease-in-out;
+		margin: 0;
+    }
+
+    .eab-expand.sp-eab-accordion-heading {
+        background-color: #EEEEEE;
+    }
+
+    // expand and collapse icon toggle.
+    >.sp-eab-sidebar-tabs>.sp-eab-sidebar-tabs-nav-wrapper {
+        .sp-eab-accordion-heading {
+            .sp-eab-collapse-icon {
+                display: none;
+            }
+
+            .eab-icon-animated {
+                .sp-eab-expand-icon {
+                    display: block;
+                    transition: transform 0.4s ease;
+                    transform: rotate(0deg);
+                }
+            }
+
+            a {
+                text-decoration: none;
+                outline: none;
+                box-shadow: none;
+                border: none;
+            }
+
+            &:focus {
+                outline: none;
+            }
+
+            &.eab-expand {
+                .eab-icon-static {
+                    .sp-eab-expand-icon {
+                        display: none;
+                    }
+
+                    .sp-eab-collapse-icon {
+                        display: block;
+                    }
+                }
+
+                .eab-icon-animated .sp-eab-expand-icon {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+
+        .sp-eab-expand-collapse-icon {
+            line-height: 1;
+        }
+    }
+
+}
+
+@media only screen and (max-width: 599px) {
+	.sp-eab-sidebar-tabs {
+		flex-direction: column;
+	}
+
+	.sp-eab-sidebar-tabs-content {
+		width: 100% !important;
+	}
+	.sp-eab-sidebar-tabs>.sp-eab-sidebar-tabs-nav-wrapper {
+		width: 100% !important;
+	}
+
+	.sp-eab-sidebar-tab-accordion-one {
+		.sp-eab-sidebar-tabs-nav {
+			border-top-right-radius: 4px !important;
+			border-bottom-right-radius: 4px !important;
+		}
+
+		.sp-eab-sidebar-tabs-content {
+			border-top-left-radius: 4px !important;
+		}
+	}
+
+}

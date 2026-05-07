@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sp-easy-accordion-pro/image-accordion",
+  "title": "Image Accordion",
+  "category": "sp-easy-accordion-pro",
+  "description": "Show images in a stylish accordion layout with expand effects.",
+  "textdomain": "easy-accordion-free",
+  "supports": {
+		"align": ["wide", "full"],
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"isPreview": true
+		}
+	},
+  "editorScript": "sp_eab_admin_index_js",
+  "editorStyle": "sp_eab_editor_style",
+  "script": [
+    "sp_eab_lightbox_js",
+    "sp_eab_script_js"
+  ],
+  "style": [
+    "sp_eab_main_css",
+    "sp_eab_google_fonts",
+    "sp_eab_fontello_style",
+    "sp-ea-animation",
+    "sp_eab_lightBox_style"
+  ]
+}

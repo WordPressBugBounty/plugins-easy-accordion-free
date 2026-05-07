@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sp-easy-accordion-pro/sidebar-tab-item",
+  "title": "Tab Single Item",
+  "category": "sp-easy-accordion-pro",
+  "icon": "editor-table",
+  "description": "Display Sidebar Tab Item.",
+  "textdomain": "easy-accordion-free",
+  "supports": {
+    "customClassName": false,
+    "inserter": false,
+    "align": false
+  },
+  "parent": [
+    "sp-easy-accordion-pro/sidebar-tab-accordion"
+  ],
+  "editorScript": "sp_eab_admin_index_js",
+  "editorStyle": "sp_eab_editor_style"
+}

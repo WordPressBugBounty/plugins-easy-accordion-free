@@ -1,0 +1,113 @@
+.sp-easy-accordion-layout-picker {
+	max-height: 320px;
+	height: auto;
+	overflow: hidden;
+	position: relative;
+
+	.sp-easy-accordion-layouts {
+		display: grid;
+		gap: 8px;
+		text-align: center;
+		max-width: 620px;
+		line-height: 1;
+		// margin-top: 16px;
+
+		&.grid-1 {
+			grid-template-columns: 1;
+		}
+
+		&.grid-2 {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		&.grid-3 {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		&.grid-4 {
+			grid-template-columns: repeat(4, 1fr);
+		}
+
+		.sp-easy-accordion-layout-card {
+			cursor: pointer;
+			position: relative;
+
+			.sp-easy-accordion-layout-title {
+				font-size: 12px;
+				color: #1e1e1e;
+				font-weight: 400;
+				line-height: 16px;
+				text-align: center;
+				margin: 0;
+				padding: 0;
+			}
+
+			&.active .active-symbol {
+				position: absolute;
+				right: 5px;
+				top: 2px;
+			}
+		}
+	}
+
+	.sp-eab-see-more-overlay {
+		bottom: 30px;
+		cursor: pointer;
+		display: table;
+		font-size: 14px;
+		font-weight: 600;
+		text-align: center;
+		left: 50%;
+		position: absolute;
+		right: 0;
+		text-transform: capitalize;
+		transform: translateX(-50%);
+
+		.sp-eab-pro-link {
+			display: inline-flex;
+			height: 32px;
+			padding: 8px 16px;
+			justify-content: center;
+			align-items: center;
+			gap: 8px;
+			flex-shrink: 0;
+			color: #2F2F2F;
+			border-radius: 4px;
+			border: 1px solid #2F2F2F;
+			background: #FFF;
+			text-decoration: none;
+
+			&:focus {
+				outline: none;
+				box-shadow: none;
+			}
+		}
+	}
+
+	.sp-eab-only-pro-card {
+		position: relative;
+		overflow: unset;
+
+		svg {
+			opacity: 0.5;
+			transition: opacity 0.3s ease;
+		}
+
+		/* On hover show badge */
+		&:hover {
+			svg {
+				opacity: 0.3;
+			}
+
+			.sp-eab-pro-badge {
+				opacity: 1;
+				visibility: visible;
+				transform: translateX(-50%) translateY(-50%);
+			}
+		}
+	}
+}
+
+.sp-easy-accordion-panel-pb {
+	padding-bottom: 16px;
+}

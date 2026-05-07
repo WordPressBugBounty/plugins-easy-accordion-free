@@ -7,7 +7,7 @@
  * Author URI:  https://shapedplugin.com/
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Version:     3.0.8
+ * Version:     3.1.0
  * Text Domain: easy-accordion-free
  * Domain Path: /languages/
  *
@@ -18,6 +18,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
+
+use ShapedPlugin\EasyAccordion\Blocks\Blocks_Init;
 
 /**
  * Pro version check.
@@ -59,7 +61,7 @@ class SP_EASY_ACCORDION_FREE {
 	 *
 	 * @var string
 	 */
-	public $version = '3.0.8';
+	public $version = '3.1.0';
 
 	/**
 	 * The name of the plugin.
@@ -138,6 +140,7 @@ class SP_EASY_ACCORDION_FREE {
 		define( 'SP_EA_URL', plugin_dir_url( __FILE__ ) );
 		define( 'SP_EA_BASENAME', plugin_basename( __FILE__ ) );
 		define( 'SP_EA_INCLUDES', SP_EA_PATH . '/includes' );
+		define( 'SP_EA_SDR_KEY', 'e3379a1efacdf6334b3c18a77g3eba2abfcd49' );
 	}
 
 	/**
@@ -160,14 +163,15 @@ class SP_EASY_ACCORDION_FREE {
 		$this->loader->add_filter( 'plugin_row_meta', $plugin_admin, 'after_easy_accodion_row_meta', 10, 4 );
 		$this->loader->add_action( 'activated_plugin', $plugin_admin, 'sp_ea_redirect_after_activation', 10, 2 );
 		$this->loader->add_filter( 'plugin_action_links', $plugin_admin, 'add_plugin_action_links', 10, 2 );
+
 		// import export tools.
-		$import_export = new Easy_Accordion_Import_Export( SP_PLUGIN_NAME, SP_EA_VERSION );
-		$this->loader->add_action( 'wp_ajax_eap_export_accordions', $import_export, 'export_accordions' );
-		$this->loader->add_action( 'wp_ajax_eap_import_accordions', $import_export, 'import_accordions' );
-		if ( version_compare( $GLOBALS['wp_version'], '5.3', '>=' ) ) {
-			// Gutenberg block.
-			new Easy_Accordion_Free_Gutenberg_Block();
+		if ( SP_EAP::eap_manage_module_settings( 'eap_tools' ) ) {
+			$import_export = new Easy_Accordion_Import_Export( SP_PLUGIN_NAME, SP_EA_VERSION );
+			$this->loader->add_action( 'wp_ajax_eap_export_accordions', $import_export, 'export_accordions' );
+			$this->loader->add_action( 'wp_ajax_eap_import_accordions', $import_export, 'import_accordions' );
 		}
+
+		add_action( 'init', array( $this, 'load_page_builder_integrations' ), 10 );
 
 		// Elementor shortcode addons.
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -176,6 +180,30 @@ class SP_EASY_ACCORDION_FREE {
 		}
 		add_filter( 'body_class', array( $this, 'sp_easy_accordion_body_class' ) );
 		register_activation_hook( 'easy-accordion-free/easy-accordion-free.php', array( $this, 'eap_post_type_reset_flush_flag' ) );
+		// blocks init class init.
+		$this->loader->add_action( 'init', $this, 'load_gutenberg_blocks' );
+
+		if ( version_compare( $GLOBALS['wp_version'], '5.3', '>=' ) ) {
+			// admin dashboard class init.
+			if ( is_admin() ) {
+				new Eab_Admin_Dashboard();
+			}
+			// saved template class init.
+			if ( SP_EAP::eap_manage_module_settings( 'saved_templates' ) ) {
+				new EAP_Saved_Templates();
+			}
+		}
+	}
+
+	/**
+	 * Load_gutenberg_blocks.
+	 *
+	 * @return void
+	 */
+	public function load_gutenberg_blocks() {
+		if ( version_compare( $GLOBALS['wp_version'], '5.3', '>=' ) ) {
+			Blocks_Init::instance();
+		}
 	}
 
 	/**
@@ -239,6 +267,7 @@ class SP_EASY_ACCORDION_FREE {
 	 * @return void
 	 */
 	public function includes() {
+		require_once SP_EA_PATH . '/admin/helper/class-easy-accordion-cron.php';
 		require_once SP_EA_INCLUDES . '/class-easy-accordion-free-updates.php';
 		require_once SP_EA_INCLUDES . '/class-easy-accordion-free-loader.php';
 		require_once SP_EA_INCLUDES . '/class-easy-accordion-free-post-types.php';
@@ -251,7 +280,69 @@ class SP_EASY_ACCORDION_FREE {
 		require_once SP_EA_PATH . '/public/eap-frontend.php';
 		require_once SP_EA_PATH . '/includes/class-easy-accordion-import-export.php';
 		require_once SP_EA_PATH . '/admin/preview/class-easy-accordion-free-preview.php';
-		require_once SP_EA_PATH . '/admin/class-easy-accordion-free-gutenberg-block.php';
+		// require_once SP_EA_PATH . '/admin/class-easy-accordion-free-gutenberg-block.php';
+		require_once SP_EA_PATH . '/admin/Dashboard/class-eap-admin-dashboard.php';
+		require_once SP_EA_PATH . '/admin/Dashboard/class-eap-saved-templates.php';
+
+		if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+			require_once __DIR__ . '/vendor/autoload.php';
+		}
+	}
+
+	/**
+	 * Load Page Builder Integrations.
+	 *
+	 * Loads integrations for various page builders (WPBakery, Beaver Builder,
+	 * Bricks, Divi, Oxygen) during the init hook to ensure all page builders
+	 * are loaded before checking for their availability.
+	 *
+	 * @since 4.1.2
+	 * @return void
+	 */
+	public function load_page_builder_integrations() {
+
+		$dashboard_settings = get_option( 'sp_eap_dashboard_settings', array() );
+		$integrations       = $dashboard_settings['integrations'] ?? array();
+
+		/**
+		 * WPBakery Page Builder Integration.
+		 */
+		$wpbakery_integration = $integrations['wpbakery']['is_active'] ?? false;
+		if ( $wpbakery_integration && defined( 'WPB_VC_VERSION' ) ) {
+			require_once SP_EA_PATH . 'admin/page-builder/wpBakery/easy-accordion-wpbakery.php';
+		}
+
+		/**
+		 * Beaver Builder Integration.
+		 */
+		$beaver_integration = $integrations['beaver']['is_active'] ?? false;
+		if ( $beaver_integration && class_exists( 'FLBuilder' ) ) {
+			require_once SP_EA_PATH . 'admin/page-builder/beaver/easy-accordion-beaver-module.php';
+		}
+
+		/**
+		 * Bricks Builder Integration.
+		 */
+		$bricks_integration = $integrations['bricks']['is_active'] ?? false;
+		if ( $bricks_integration && defined( 'BRICKS_VERSION' ) ) {
+			require_once SP_EA_PATH . 'admin/page-builder/bricks/init.php';
+		}
+
+		/**
+		 * Divi Builder Integration.
+		 */
+		$divi_integration = $integrations['divi']['is_active'] ?? false;
+		if ( $divi_integration && class_exists( 'ET_Builder_Module' ) ) {
+			require_once SP_EA_PATH . 'admin/page-builder/divi/easy-accordion-divi-module.php';
+		}
+
+		/**
+		 * Oxygen Builder Integration.
+		 */
+		$oxygen_integration = $integrations['oxygen']['is_active'] ?? false;
+		if ( $oxygen_integration && ( defined( 'CT_VERSION' ) || class_exists( 'Oxygen_VSB_Divi_Block' ) ) ) {
+			require_once SP_EA_PATH . 'admin/page-builder/oxygen/init.php';
+		}
 	}
 
 	/**

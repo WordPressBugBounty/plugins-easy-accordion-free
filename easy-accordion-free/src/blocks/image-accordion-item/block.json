@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sp-easy-accordion-pro/image-accordion-item",
+  "title": "Single (Image) Accordion Item",
+  "category": "sp-easy-accordion-pro",
+  "description": "Easily manage & style individual images with advanced customizations.",
+  "textdomain": "easy-accordion-free",
+  "supports": {
+    "customClassName": false,
+    "inserter": false
+  },
+  "parent": [
+    "sp-easy-accordion-pro/image-accordion",
+    "sp-easy-accordion-pro/accordion-slider"
+  ],
+  "editorScript": "sp_eab_admin_index_js",
+  "editorStyle": "sp_eab_editor_style"
+}

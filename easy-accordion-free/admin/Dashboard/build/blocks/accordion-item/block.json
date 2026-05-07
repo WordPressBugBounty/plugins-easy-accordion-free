@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "sp-easy-accordion-pro/accordion-item",
+  "title": "Accordion Single Item",
+  "category": "sp-easy-accordion-pro",
+  "description": "Easily manage & style individual accordion items with advanced customizations.",
+  "parent": [
+    "sp-easy-accordion-pro/vertical-accordion",
+    "sp-easy-accordion-pro/horizontal-accordion"
+  ],
+  "textdomain": "easy-accordion-free",
+  "editorScript": "sp_eab_admin_index_js",
+  "editorStyle": "sp_eab_editor_style",
+  "style": "sp_eab_main_css",
+  "supports": {
+    "customClassName": false,
+    "inserter": false
+  }
+}

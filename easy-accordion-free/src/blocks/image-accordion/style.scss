@@ -1,0 +1,272 @@
+/* Accordion container */
+.sp-eab-image-accordion-wrapper {
+	margin: auto;
+	width: 100%;
+}
+
+.sp-eab-image-accordion {
+	display: block;
+	position: relative;
+	box-sizing: initial;
+	width: 100%;
+
+	.sp-eab-image-accordion-container {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		margin: 0 auto;
+	}
+
+	.block-editor-block-list__layout {
+		display: flex;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		gap: 0;
+	}
+
+	.eab-accordion-orientation-vertical .block-editor-block-list__layout {
+		flex-direction: column;
+		width: 100%;
+	}
+
+	.sp-eab-image-accordion-items {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		gap: 10px;
+	}
+
+	// ========================================
+	// Image Accordion Item
+	// ========================================
+
+	.sp-eab-image-accordion-item {
+		flex: 1;
+		height: 100%;
+		position: relative;
+		overflow: hidden;
+		pointer-events: painted;
+		cursor: pointer;
+		transition: all .66s;
+
+		.sp-eab-accordion-bg {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			cursor: pointer;
+			background-image: var(--bg-url);
+			background-position: 50% 50%;
+			background-size: cover;
+			background-repeat: no-repeat;
+			backface-visibility: hidden;
+			overflow: hidden;
+
+			// Move the actual background image here
+			&::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background-image: inherit; // inherit from inline style
+				background-size: inherit;
+				background-position: inherit;
+				background-repeat: inherit;
+				// transition: 0.4s ease;
+				// will-change: transform, filter;
+				z-index: 0;
+				// transition: opacity .3s ease;
+			}
+
+			// Keep overlays & titles above background
+			>* {
+				width: 100%;
+				height: 100%;
+				position: relative;
+				inset: 0;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+				color: #fff;
+				border-radius: inherit;
+				opacity: 1;
+				visibility: visible;
+				z-index: 2;
+				// transition: 0.4s ease;
+			}
+
+			.sp-eab-overlay {
+				transition: 0.4s ease;
+			}
+
+			.animated {
+				animation-delay: 400ms;
+			}
+		}
+
+		.eab-icon {
+			z-index: 5;
+			fill: #fff;
+			opacity: 0;
+			visibility: hidden;
+			width: 100%;
+			line-height: 1;
+
+			img,
+			svg {
+				width: 50px;
+				height: 50px;
+			}
+		}
+
+		.eab-img-content-wrapper {
+			width: 100%;
+			gap: 10px;
+			transition: opacity 400ms ease;
+			transition-delay: 400ms;
+			opacity: 0;
+		}
+
+
+		.eab-icon-position-leftContent .eab-icon {
+			width: auto;
+		}
+
+		.eab-content-section {
+			width: 100%;
+		}
+
+		.sp-eab-image-title {
+			font-size: 20px;
+			font-weight: 600;
+			margin: 0 0 8px;
+			color: #fff;
+			width: 100%;
+		}
+
+		.sp-eab-image-desc {
+			font-size: 15px;
+			line-height: 1.5;
+			color: #fff;
+			width: 100%;
+			margin: 0;
+		}
+
+		.eab-content-alignment-left {
+			text-align: left;
+			align-items: flex-start;
+		}
+
+		.eab-content-alignment-right {
+			text-align: right;
+			align-items: flex-end;
+		}
+
+		.sp-eab-image-title,
+		.sp-eab-image-desc {
+			opacity: 0;
+			white-space: wrap;
+			word-wrap: break-word;
+			transform: translateZ(0);
+			will-change: opacity, transform;
+		}
+
+		// ========================================
+		// Active / Inactive Flex Transitions
+		// ========================================
+		&.active {
+			flex: 0 1 30%;
+		}
+
+		&.active {
+			.sp-eab-overlay:not(:has(*)) {
+				display: none;
+			}
+
+			.sp-eab-overlay {
+				z-index: 3;
+			}
+			.sp-eab-overlay:not(:has(*)) {
+				display: none;
+			}
+
+			.sp-eab-image-title,
+			.sp-eab-image-desc {
+				opacity: 1;
+				visibility: visible;
+			}
+
+			.eab-img-content-wrapper {
+				opacity: 1;
+			}
+
+			.eab-img-content-wrapper {
+				opacity: 1;
+			}
+
+			.sp-eab-image-desc {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	.eab-accordion-orientation-vertical {
+		margin: auto;
+	}
+
+	// ========================================
+	// Image Accordion Effects
+	// ========================================
+
+	// 💫 Transition defaults
+	$transition-transform: 0.4s ease;
+	$transition-filter: 0.4s ease;
+
+	// ========================================
+	// Base image transition setup
+	// ========================================
+
+	.eab-image-effect .sp-eab-image-accordion-item {
+		.sp-eab-accordion-bg::before {
+			transform: scale(1);
+			filter: none;
+			transition: transform $transition-transform, filter $transition-filter;
+			will-change: transform, filter;
+		}
+
+		// --------------------------
+		// 🔹 ZOOM OUT
+		// --------------------------
+		&.eab-zoom-out-normal {
+			.sp-eab-accordion-bg::before {
+				transform: scale(1.3);
+			}
+		}
+
+		&.eab-zoom-out-onhover:hover,
+		&.eab-zoom-out-active {
+			.sp-eab-accordion-bg::before {
+				transform: scale(1);
+			}
+		}
+	}
+
+	&.sp-easy-accordion-block::after {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+	}
+
+	.sp-eab-image-accordion-container {
+		z-index: 2;
+	}
+}
+.sp-eab-image-accordion,
+.sp-eab-image-accordion .sp-eab-image-accordion-container {
+	overflow: hidden;
+}
+
+.sp-eab-accordion-bg:focus {
+	outline: none;
+}

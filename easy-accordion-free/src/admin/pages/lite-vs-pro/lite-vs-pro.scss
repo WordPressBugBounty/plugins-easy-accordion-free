@@ -1,0 +1,376 @@
+/*----------------------------------------*/
+/*  Lite vs Pro style
+/*----------------------------------------*/
+
+.sp-eab-pro-table-list {
+	ul {
+		border-radius: 6px;
+		overflow: hidden;
+		border: 1px solid #fae9e8;
+	}
+
+	.sp-eab-pro-table-row.sp-eab-header {
+		background: #ff5b2e;
+		color: #fff;
+
+		.sp-eab-title {
+			color: #fff;
+		}
+		.sp-eab-free{
+			border: none !important;
+		}
+		.sp-eab-pro-icon {
+			svg {
+				width: 18px;
+				margin-right: 5px;
+			}
+		}
+	}
+}
+
+.sp-eab-pro-page {
+
+	.sp-eab-settings-info {
+		padding: 0 !important;
+		width: auto;
+	}
+
+	a,
+	button {
+		transition: all 0.3s ease;
+		font-size: 16px;
+		line-height: 1.3;
+		font-weight: 500;
+	}
+
+	.sp-eab-pro-subtitle {
+		color: #2F2F2F;
+		font-size: 16px;
+		line-height: 22px;
+		margin-top: 4px;
+	}
+
+	.sp-eab-upgrade-to-pro-btn {
+		border-radius: 5px;
+		background: #02B472;
+		color: #FFFFFF;
+		display: flex;
+		padding: 14px 24px;
+		justify-content: center;
+		align-items: center;
+		height: 50px;
+		gap: 8px;
+
+		svg {
+			transform: scale(1.5);
+		}
+
+		&:hover {
+			background: #019E64;
+		}
+	}
+
+	.sp-eab-settings-info-text {
+		width: 400px !important;
+		text-align: left !important;
+		line-height: 1.3;
+		color: #3C434A;
+		background-color: #ffffff;
+		padding: 15px 20px;
+		font-size: 15px;
+
+		ul {
+			margin-top: 8px;
+			margin-left: 20px;
+		}
+
+		li {
+			list-style: disc;
+			margin-top: 4px;
+		}
+	}
+}
+
+.sp-eab-pro-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 6px;
+	background: #fae9e8;
+	padding: 32px;
+	margin: 32px;
+
+	.sp-eab-upgrade-to-pro-btn {
+		font-weight: 700;
+	}
+}
+
+.sp-eab-pro-table {
+	border-radius: 12px;
+	background: #FFF;
+	box-shadow: 0 1px 2px 0 rgba(17, 17, 17, 0.06);
+	padding: 8px;
+
+	&-list {
+		padding: 0 32px;
+	}
+
+	&-row {
+		display: flex;
+		align-items: center;
+		height: 60px;
+		margin-bottom: 0;
+
+		&:nth-child(odd) {
+			background-color: #fae9e858;
+		}
+
+		&:not(:first-child) {
+			border-top: 1px solid transparent;
+		}
+
+		&.sp-eab-header {
+			height: 68px;
+
+			span {
+				font-weight: 600;
+			}
+		}
+
+		>span {
+			flex: 1;
+			text-align: center;
+			font-size: 16px;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.sp-eab-free {
+			border-right: 1px solid #fae9e8;
+			border-left: 1px solid #fae9e8;
+		}
+
+		.sp-eab-title {
+			flex-basis: 70%;
+			width: 70%;
+			text-align: left;
+			justify-content: left;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			color: #00073A;
+			font-size: 16px;
+			padding-left: 32px;
+		}
+	}
+
+	.dashicons-no-alt,
+	.dashicons-saved {
+		font-size: 28px;
+		height: 28px;
+		width: 28px;
+		font-weight: 600;
+	}
+
+	.dashicons-saved {
+		color: #40CA8B;
+	}
+
+	.dashicons-no-alt {
+		color: #F76C63;
+	}
+
+	.sp-eab-hot,
+	.sp-eab-new {
+		display: inline-block;
+		background: #14ae5c;
+		color: #fff;
+		font-size: 10px;
+		text-align: center;
+		border-radius: 40px;
+		font-style: normal;
+		font-weight: 600;
+		text-transform: uppercase;
+		padding: 0 8px;
+	}
+
+	.sp-eab-hot {
+		background-color: #ec2121;
+	}
+}
+
+.sp-eab-upgrade-to-pro-promotion {
+	text-align: center;
+	margin: auto;
+	max-width: 750px;
+	margin-top: 60px;
+
+	.sp-eab-section-subtitle {
+		margin: 18px 0 24px 0;
+		display: inline-block;
+		font-size: 16px;
+		line-height: 22px;
+	}
+}
+
+.sp-eab-pro-page {
+	.sp-eab-section-title {
+		font-size: 22px;
+		font-weight: 600;
+		line-height: 28px;
+		color: #1d2327;
+		margin: 0;
+	}
+
+	.sp-eab-upgrade-to-pro-promotion {
+		.sp-eab-section-title {
+			font-size: 28px;
+		}
+	}
+}
+
+.sp-eab-upgrade-to-pro-btn-wrapper {
+	display: flex;
+	justify-content: center;
+	gap: 15px;
+
+	.sp-eab-upgrade-to-pro-btn {
+		&:nth-child(2) {
+			border: 1px solid #F26C0D;
+			background: #FFF;
+			color: #F26C0D;
+
+			&:hover {
+				background: #F26C0D;
+				color: #FFF;
+			}
+		}
+
+		&:nth-child(3) {
+			border: 1px solid #757575;
+			background: #FFF;
+			color: #2F2F2F;
+			&:hover {
+				background: #757575;
+				color: #FFF;
+			}
+		}
+	}
+}
+
+.sp-eab-pro-page .sp-eab-pro-wrap {
+	padding: 40px;
+	background: #fff;
+	border-radius: 8px;
+}
+
+.sp-eab-pro-page .sp-eab-features {
+	border-radius: 6px;
+	border: 1px solid #CCCCCC;
+	overflow: hidden;
+}
+
+.sp-eab-pro-page .sp-eab-upgrade-to-pro .sp-eab-upgrade-to-pro-btn {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	gap: 15px;
+}
+
+.sp-eab-pro-page .sp-eab-upgrade-to-pro .sp-eab-upgrade-to-pro-btn .sp-eab-action-btn span {
+	display: block;
+	font-size: 11px;
+	// ----------------------------------------
+	// SCSS Variables
+	// ----------------------------------------
+	color: inherit;
+	text-decoration: underline dotted;
+	transition: .2s linear;
+	// ----------------------------------------
+	// SCSS Mixins
+	// ----------------------------------------
+	color: #e36105;
+}
+
+// ----------------------------------------
+// Lite vs Pro Main Styles
+// ----------------------------------------
+.sp-eab-pro-page .sp-eab-testimonial .sp-eab-testimonial-title-section {
+	// ----------------------------------------
+	// Lite to Pro Section
+	// ----------------------------------------
+	text-align: center;
+	margin: 80px 0 40px;
+}
+
+.sp-eab-pro-page .sp-eab-testimonial .sp-eab-testimonial-title-section span {
+	font-size: 14px;
+	font-weight: 600;
+	color: #F26C0D;
+	margin-bottom: 12px;
+	display: inline-block;
+}
+
+.sp-eab-pro-page .sp-eab-testimonial-wrap {
+	display: flex;
+	gap: 30px;
+}
+
+.sp-eab-pro-page .sp-eab-testimonial-content {
+	background-color: #fff;
+	padding: 20px 25px;
+	position: relative;
+	border-radius: 8px;
+	margin-bottom: 20px;
+	box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.06);
+}
+
+.sp-eab-pro-page .sp-eab-testimonial-content p {
+	font-size: 16px;
+	line-height: 28px;
+	color: #3C434A;
+}
+
+.sp-eab-pro-page .sp-eab-testimonial-content::after {
+	content: "";
+	position: absolute;
+	bottom: -13px;
+	left: 40px;
+	width: 25px;
+	height: 15px;
+	background-color: #ffffff;
+	clip-path: polygon(0 0, 50% 100%, 100% 0);
+}
+
+.sp-eab-pro-page .sp-eab-testimonial-info {
+	display: flex;
+	gap: 20px;
+	margin-left: 20px;
+}
+
+.sp-eab-pro-page .sp-eab-testimonial-info .sp-eab-img img {
+	border-radius: 50%;
+	width: 60px;
+}
+
+.sp-eab-pro-page .sp-eab-testimonial-info .sp-eab-info h3 {
+	font-size: 16px;
+	color: #1D2327;
+}
+
+.sp-eab-pro-page .sp-eab-testimonial-info .sp-eab-info p {
+	margin: 4px 0;
+	font-size: 12px;
+	color: #3C434A;
+}
+
+.sp-eab-pro-page .sp-eab-testimonial-info .sp-eab-info .sp-eab-star {
+	color: #FFC329;
+	font-size: 17px;
+}
+
+.sp-eab-pro-page .sp-eab-recommended-plugins {
+	overflow: hidden;
+}

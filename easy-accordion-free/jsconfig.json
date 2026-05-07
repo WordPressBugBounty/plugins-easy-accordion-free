@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "ignoreDeprecations": "6.0",
+        "moduleResolution": "node",
+        "paths": {
+            "@easy-accordion/components/*": [
+                "src/components/"
+            ],
+            "@easy-accordion/controls": [
+                "src/controls/controls.js"
+            ],
+            "@easy-accordion/constants": [
+                "src/controls/constants.js"
+            ],
+            "@easy-accordion/templates": [
+                "src/templates/"
+            ],
+            "@easy-accordion/hooks": [
+                "src/hooks/"
+            ],
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "build"
+    ]
+}

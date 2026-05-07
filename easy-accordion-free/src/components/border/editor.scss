@@ -1,0 +1,95 @@
+.sp-easy-accordion-tabs-panel {
+  .sp-eab-border-component {
+    .components-select-control {
+      flex-direction: row;
+      align-items: center;
+
+      .components-input-control__container {
+        flex: 0;
+      }
+
+      .components-select-control__input {
+        width: 185px;
+      }
+    }
+
+    // border style selector buttons.
+
+    .sp-eab-button-component {
+      .sp-eab-button-group-content span {
+        border-color: #2F2F2F;
+        padding: 2px;
+        margin: 3px;
+        width: 100%;
+
+        &.sp-eab-border-double {
+          margin: 2px;
+        }
+      }
+
+      &.active {
+        .sp-eab-button-group-content span {
+          border-color: #fff;
+          color: #fff;
+        }
+
+        span {
+          svg {
+            fill: #fff;
+
+            path {
+              stroke: #fff;
+              fill: #fff;
+            }
+          }
+        }
+
+        &:hover {
+          color: #fff;
+        }
+      }
+
+      &:hover p {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      &:hover {
+        color: #2F2F2F;
+      }
+
+      span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    // border styles.
+    .sp-eab-border {
+      &-none {
+        border-style: none;
+      }
+
+      &-solid {
+        border-width: 1px;
+        border-style: solid;
+      }
+
+      &-dashed {
+        border-width: 1px;
+        border-style: dashed;
+      }
+
+      &-dotted {
+        border-width: 1px;
+        border-style: dotted;
+      }
+
+      &-double {
+        border-width: 3px;
+        border-style: double;
+      }
+    }
+  }
+}

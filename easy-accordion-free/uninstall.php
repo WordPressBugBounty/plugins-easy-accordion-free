@@ -14,8 +14,8 @@ defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 // Load LCP file.
 require_once 'plugin-main.php';
 
-$settings = get_option( 'sp_eap_settings' );
-if ( true === ( $settings['eap_data_remove'] ) ) {
+$settings = get_option( 'sp_eap_settings', array() );
+if ( ! empty( $settings['eap_data_remove'] ) && '1' === $settings['eap_data_remove'] ) {
 	// Delete Accordions and shortcodes.
 	$accordions = get_posts(
 		array(
@@ -41,6 +41,9 @@ if ( true === ( $settings['eap_data_remove'] ) ) {
 	delete_option( '_transient_eapro-metabox-transient' );
 	delete_transient( 'spea_plugins' );
 	delete_transient( 'spea_plugins_data' );
+	// Delete setup wizard visited option.
+	delete_option( 'visited_setup_wizard' );
+	delete_site_option( 'visited_setup_wizard' );
 
 	// Remove options in Multisite.
 	delete_site_option( 'sp_eap_settings' );

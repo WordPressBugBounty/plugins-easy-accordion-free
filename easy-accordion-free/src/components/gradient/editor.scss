@@ -1,0 +1,25 @@
+.sp-eab-gradient-color-picker-component {
+    .components-custom-gradient-picker__gradient-bar {
+        height: 48px;
+    }
+
+    .components-custom-gradient-picker__control-point-dropdown {
+        height: 16px;
+        top: 15px;
+    }
+
+    .components-h-stack.components-v-stack.components-custom-gradient-picker,
+    .components-flex.components-custom-gradient-picker__ui-line {
+        gap: 8px;
+    }
+
+    .components-input-control__label,
+    .components-circular-option-picker {
+        display: none !important;
+        all: unset;
+    }
+
+    legend {
+        display: none;
+    }
+}

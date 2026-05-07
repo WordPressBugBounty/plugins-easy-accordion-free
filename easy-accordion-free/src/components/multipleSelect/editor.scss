@@ -1,0 +1,168 @@
+// multiple select's css
+.sp-easy-accordion-tabs-panel {
+    .sp-eab-multi-select {
+        .sp-eab-basic-multi-select div {
+            div {
+                div {
+                    input {
+                        &:focus {
+                            box-shadow: none;
+                            border-color: var(--eab-primary-color);
+                        }
+                    }
+
+                    div:last-child:hover {
+                        background-color: var(--eab-primary-color);
+
+                        svg {
+                            fill: #fff;
+                        }
+                    }
+                }
+            }
+
+            div[role="option"] {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+/*
+* multiple select with dnd scss
+*/
+
+.shaped-plugin-multiple-select {
+    .sp-multiple-select-dnd-label {
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 20px;
+        margin-bottom: 8px;
+    }
+
+    .sp-multiple-select-dnd-container {
+        min-height: 32px;
+        position: relative;
+
+        .sp-select-header {
+            padding: 4px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .sp-selected-options {
+                width: 91%;
+                margin: 0;
+                padding-right: 7px;
+                border-right: 1px solid #F0F0F0;
+
+                // selected options css 
+                div div {
+                    .sp-selected-option {
+                        width: 100%;
+                        margin: 2px;
+                        height: 30px;
+                        background-color: #f1f1f1;
+                        border: 1px solid #ccc;
+                        border-radius: 2px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        .sp-select-label {
+                            cursor: move;
+                            padding: 5px;
+                            width: 85%;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+
+                        .sp-select-remove-button {
+                            cursor: pointer;
+                            padding: 5px;
+                            width: 15%;
+                            text-align: center;
+
+                            &:hover {
+                                background-color: var(--eab-primary-color);
+
+                                svg path {
+                                    fill: #fff;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // all options modal css 
+        .sp-select-options {
+            margin: 5px 0 0 0;
+            position: absolute;
+            width: 100%;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 999;
+
+            // customize scrollbar
+            /* width */
+            &::-webkit-scrollbar {
+                width: 4px;
+            }
+
+            /* Track */
+            &::-webkit-scrollbar-track {
+                background: #f1f1f1;
+            }
+
+            /* Handle */
+            &::-webkit-scrollbar-thumb {
+                background: var(--eab-primary-color);
+            }
+
+            .sp-select-option {
+                cursor: pointer;
+                padding: 10px;
+                margin: 0;
+
+                &.selected {
+                    background-color: #e6e6e6;
+                }
+
+                &:hover {
+                    background-color: #f0f0f0;
+                }
+
+            }
+
+            //input field css
+            .sp-select-search-field {
+                background-color: transparent;
+                width: 97%;
+                padding: 6px;
+                margin: 4px;
+                border-radius: 4px;
+                border: 1px solid #ccc;
+
+                &:focus-visible {
+                    border: 1px solid #ccc;
+                    box-shadow: none;
+                    outline: 0;
+                }
+            }
+        }
+
+        .sp-select-remove-button {
+            cursor: pointer;
+        }
+    }
+}

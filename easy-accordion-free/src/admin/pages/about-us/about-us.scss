@@ -1,0 +1,175 @@
+/*----------------------------------------*/
+/*  About us page style
+/*----------------------------------------*/
+$primary-text-color: #1E1E1E;
+$secondary-text-color: #3C434A;
+$button-text-color: #756C69;
+
+.sp_easy_accordion_page_eap_dashboard {
+  .sp-eab-about-box {
+    display: flex;
+    background: #fff;
+    margin: 0 auto;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.06);
+  }
+
+  .sp-eab-about-img {
+    width: 50%;
+    flex-basis: 50%;
+    flex-shrink: 0;
+    overflow: hidden;
+    align-self: center;
+
+    span {
+      text-align: center;
+      display: block;
+      margin-top: 12px;
+      font-weight: 400;
+      font-size: 13px;
+      font-style: italic;
+      color: #3C434A;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+      border-radius: 8px;
+    }
+  }
+
+  .sp-eab-about-info {
+    margin-right: 40px;
+
+    h3 {
+      font-size: 26px;
+      line-height: 32px;
+      margin-bottom: 25px;
+      color: #1D2327;
+      margin-top: 0;
+    }
+
+    p {
+      line-height: 28px;
+      margin-bottom: 15px;
+      font-size: 15px;
+      font-weight: 400;
+      color: #3C434A;
+    }
+  }
+
+  .sp-eab-about-page {
+    .sp-eab-video-section-btn {
+      margin-top: 40px;
+
+      ul {
+        display: flex;
+        gap: 18px;
+        margin: 0;
+
+        li {
+          display: inline-flex;
+          margin-bottom: 0;
+
+          a {
+            color: $button-text-color;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            transition: all .3s linear;
+            padding: 14px 24px;
+          }
+        }
+
+        li:nth-child(1) a {
+          color: #fff;
+          background-color: var(--eab-primary-color);
+          transition: all .3s ease-in-out;
+        }
+
+        li:nth-child(1) a:hover {
+          background-color: var(--eab-primary-color-hover);
+        }
+
+        li:nth-child(1) a:hover {
+          background-color: var(--eab-primary-color);
+        }
+
+        li:nth-child(2) a {
+          color: var(--eab-primary-color);
+          border-color: var(--eab-primary-color);
+          display: flex;
+
+          svg {
+            margin-left: 5px;
+            margin-right: -4px;
+            fill: var(--eab-primary-color);
+            transition: all .3s linear;
+          }
+        }
+
+        li:nth-child(2) a:hover {
+          color: #fff;
+          background-color: var(--eab-primary-color);
+          border-color: transparent;
+
+          svg {
+            fill: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+
+.eab-recommended-plugins-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 50px;
+
+  a {
+    text-decoration: none;
+  }
+
+  .sp-eab-section-title {
+    margin: 80px 0 40px 8px;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 28px;
+    color: #1d2327;
+  }
+}
+
+#sp-eab-admin-dashboard-wrapper:has(.sp-eab-about-page) {
+  .eab-recommended-plugins-wrapper {
+    display: block !important;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .sp-eab-admin-dashboard-wrapper .plugin-card {
+    width: 48%;
+    width: calc(49% - 8px)
+  }
+
+  .sp-eab-admin-dashboard-wrapper .plugin-card:nth-child(odd) {
+    clear: none;
+    margin-left: 8px
+  }
+
+  .sp-eab-admin-dashboard-wrapper .plugin-card:nth-child(2n) {
+    margin-right: 0
+  }
+
+  .sp-eab-admin-dashboard-wrapper .plugin-card:nth-child(3n+1) {
+    clear: both;
+    margin-left: 8px
+  }
+
+  .sp-eab-admin-dashboard-wrapper .plugin-card:nth-child(3n) {
+    margin-right: 8px
+  }
+}

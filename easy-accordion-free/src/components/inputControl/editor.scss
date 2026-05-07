@@ -1,0 +1,30 @@
+.sp-easy-accordion-tabs-panel {
+    .sp-eab-input-control-header {
+        &.sp-flex-input {
+
+            .sp-eab-input-control-header-left {
+                width: 60%;
+            }
+
+            .sp-eab-input-control-field {
+                width: 30%;
+
+                .components-input-control__container {
+                    input[type="number"] {
+                        text-align: center;
+                    }
+                }
+            }
+        }
+
+        &.sp-block-input {
+            .sp-eab-input-control-header-left {
+                width: 100%;
+            }
+
+            .sp-eab-input-control-field .components-base-control {
+                width: 100%;
+            }
+        }
+    }
+}

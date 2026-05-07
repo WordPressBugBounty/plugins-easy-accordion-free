@@ -1,0 +1,153 @@
+$border-color: #DDDDDD;
+
+// font family select.
+.sp-easy-accordion-tabs-panel {
+    .sp-eab-typography-header {
+        border-bottom: 1px solid $border-color;
+        padding: 12px 20px;
+        background-color: #F2F2F2;
+        margin: -20px -20px 10px -20px;
+
+        span {
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 20px;
+            letter-spacing: 0%;
+        }
+    }
+
+    .sp-eab-typography {
+
+        input[type="text"]:focus {
+            box-shadow: none;
+            outline: none;
+        }
+
+        .css-1u9des2-indicatorSeparator {
+            display: none;
+        }
+
+        .components-button:hover,
+        .components-button[aria-expanded="true"] {
+            color: var(--eab-primary-color);
+        }
+    }
+
+    .sp-eab-typography-select-fields {
+        gap: 16px;
+
+        .sp-eab-select-field {
+            width: 100%;
+        }
+
+        .sp-eab-select-field {
+            flex-direction: column;
+        }
+		input[type="text"]{
+			min-height: 30px;
+		}
+		select {
+			min-height: 10px !important;
+			max-height: 30px;
+		}
+    }
+
+    //  family select styles.
+    .sp-eab-font-family-select__control {
+        height: 32px;
+        line-height: 1;
+        min-height: 32px;
+        border-radius: 2px;
+        border-color: $border-color;
+        box-shadow: none;
+
+        &:hover,
+        &--is-focused {
+            border-color: rgb(177, 177, 177);
+        }
+    }
+
+    .sp-eab-font-family-select__control,
+    .sp-eab-font-family-select__option {
+        cursor: pointer;
+    }
+
+    .sp-eab-font-family-select__indicator {
+        padding: 6px;
+
+        svg {
+            stroke-width: 0px;
+            fill: #1E1E1E;
+            height: 15px;
+        }
+    }
+
+    .sp-eab-font-family-select__value-container {
+        padding: 0 6px;
+    }
+
+    .sp-eab-font-family-select__menu {
+        width: 160px;
+        z-index: 999;
+    }
+
+    .sp-eab-font-family-select__option {
+
+        &:hover,
+        &--is-selected {
+            color: #fff !important;
+            background-color: var(--eab-primary-color) !important;
+        }
+
+        &--is-focused {
+            color: #1E1E1E;
+            background-color: transparent;
+        }
+    }
+
+    .sp-eab-font-family-select__input-container {
+        margin: 0;
+        padding: 0;
+    }
+
+    .sp-eab-font-family-select__input:focus {
+        box-shadow: none;
+        outline: none;
+    }
+
+    .sp-eab-global-family-picker {
+        .sp-eab-font-family-select__menu {
+            width: 100%;
+        }
+    }
+
+    .sp-eab-font-family-select__menu-list {
+        max-height: 220px;
+        width: 100%;
+    }
+
+    .sp-eab-popover-toggle-button.active {
+        color: #fff;
+
+        .sp-eab-typography-icon {
+            svg {
+                border-radius: 4px;
+                fill: var(--eab-primary-color);
+
+                rect {
+                    stroke: var(--eab-primary-color);
+                }
+
+                path {
+                    stroke: #fff;
+                    fill: var(--eab-primary-color);
+                }
+            }
+        }
+    }
+
+    // HIDE TYPOGRAPHY POPUP TRIGGER BUTTON OUTLINE.
+    .sp-eab-popover-toggle-button.active:has(.sp-eab-typography-icon) {
+        outline: none;
+    }
+}

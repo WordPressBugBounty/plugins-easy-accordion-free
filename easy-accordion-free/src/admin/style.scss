@@ -1,0 +1,350 @@
+@use './responsive-css.scss';
+@use '../blocks/tailwind-class.scss';
+@use './pages/quickStart/quick-start-style.scss';
+@use './pages/blockVisibility/visibility-style.scss';
+@use './pages/saved-templates/saved-templates.scss';
+@use './pages/settings/setting-styles.scss';
+@use './setup-wizard/setup-wizard.scss';
+@use './pages/integrations/integrations-style.scss';
+@use './pages/lite-vs-pro/lite-vs-pro.scss';
+@use './pages/about-us/about-us.scss';
+
+$primary-text-color: #1E1E1E;
+
+/*
+ * ADMIN DASHBOARD LAYOUT CSS.
+ */
+
+.sp-eab-admin-dashboard-wrapper {
+    margin-left: -20px;
+
+    * {
+        box-sizing: border-box;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    // width and padding.
+    .sp-eab-admin-dashboard-content,
+    .sp-eab-admin-dashboard-nav ul {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 50px;
+    }
+
+    .sp-eab-block-setting-header-wrapper {
+        color: #fff;
+        padding: 0 50px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    // override default a tag focus style.
+    .wp-person a:focus .gravatar,
+    a:focus,
+    a:focus .media-icon img,
+    a:focus .plugin-icon {
+        box-shadow: none;
+        outline: none;
+    }
+
+    // component title.
+    .sp-eap-component-title,
+    .sp-eab-component-title {
+        color: #2f2f2f;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+    }
+
+    .sp-eap-company-name {
+        color: #2f2f2f;
+        transition: color 0.4s ease-in-out;
+
+        &:hover {
+            color: var(--eab-primary-color);
+        }
+    }
+}
+
+/*
+ * ADMIN DASHBOARD HEADING CSS.
+ */
+.sp-eab-admin-dashboard-header {
+    background-color: var(--eab-primary-color);
+
+    .sp-eab-admin-dashboard-header-left {
+        width: 70%;
+        padding: 20px 0;
+
+        >svg {
+            width: 205px;
+            height: 32px;
+        }
+    }
+
+    .sp-eap-plugin-version {
+        padding: 2px 10px;
+        border: 1px solid #fff;
+        border-radius: 40px;
+    }
+
+    .sp-eab-header-changelog-btn {
+        border: none;
+        background: none;
+        outline: none;
+    }
+
+
+    img {
+        max-width: 180px;
+    }
+}
+
+/*
+ * GET HELP SETTINGS.
+ */
+.sp-eab-admin-dashboard-header-right {
+    font-size: 15px;
+    font-weight: 600;
+    position: relative;
+    padding: 20px 0;
+
+    &:hover {
+        .sp-eab-help-drop-down {
+            display: flex;
+        }
+    }
+
+    .sp-eab-help-drop-down {
+        position: absolute;
+        top: 40px;
+        background: #fff;
+        right: 0px;
+        padding: 10px;
+        text-align: left;
+        border-radius: 4px;
+        box-shadow: 0 2px 15px 0 rgba(17, 17, 17, 0.15);
+        z-index: 10;
+        width: 244px;
+    }
+
+    .sp-eap-support-link {
+        font-size: 16px;
+        font-weight: 400;
+        color: #565A5F;
+        padding: 10px;
+        border-radius: 5px;
+        width: 100%;
+        position: relative;
+        transition: all 0.3s;
+        text-decoration: none;
+
+        .drop-down-arrow {
+            width: 16px;
+            height: 18px;
+            scale: 0.8;
+            fill: #565A5F;
+            margin-left: auto;
+            position: relative;
+            overflow: hidden;
+
+            svg {
+                position: absolute;
+                top: 80%;
+                left: -16px;
+                transition: all 0.5s;
+            }
+        }
+
+        &:hover {
+            background: #FAE9E8;
+
+            .drop-down-arrow {
+                svg {
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+        }
+    }
+}
+
+/*
+ * ADMIN DASHBOARD ROUTE NAVIGATION INDICATOR CSS.
+ */
+.sp-eab-admin-dashboard-nav {
+    padding-top: 32px;
+    background: #fff;
+    margin-bottom: 48px;
+
+    ul {
+        margin: 0 auto;
+        flex-wrap: wrap;
+
+        li {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 20px;
+            margin: 0;
+
+            a {
+                border: 1px solid transparent;
+                text-decoration: none;
+                padding: 13px 16px;
+                display: inline-block;
+                color: $primary-text-color;
+                border-radius: 4px 4px 0 0;
+
+                &.active {
+                    color: var(--eab-primary-color);
+                    border-color: var(--eab-primary-color) var(--eab-primary-color) transparent var(--eab-primary-color);
+                    background-color: #F0F0F1;
+                }
+            }
+        }
+    }
+}
+
+/*
+ * ADMIN DASHBOARD FOOTER CSS.
+ */
+.sp-eab-admin-dashboard-footer {
+    margin: 80px auto 0;
+    width: 310px;
+
+    h4 {
+        color: #6E6A69;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16px;
+        text-align: center;
+    }
+
+    .sp-eab-admin-dashboard-footer-title {
+        h4 {
+            margin: 0;
+            gap: 4px;
+
+            i {
+                color: #E57373;
+            }
+        }
+    }
+
+    .sp-eab-admin-dashboard-footer-social-media {
+        h4 {
+            margin: 12px auto;
+        }
+
+        ul {
+            margin: 0 auto;
+            display: flex;
+            width: 120px;
+            gap: 16px;
+
+            li {
+                margin: 0;
+
+                a:focus {
+                    box-shadow: none;
+                    outline: none;
+                    border: none;
+                }
+            }
+        }
+    }
+}
+
+/*
+ * CHANGELOG CSS.
+ */
+.sp-eab-admin-changelog-wrapper {
+    margin-top: 32px;
+    width: 350px;
+
+    .sp-eab-changelog-heading {
+        background: #fff;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+        left: 0;
+        padding: 15px;
+        position: sticky;
+        top: 0;
+        z-index: 9;
+
+        .sp-eab-changelog-heading-title {
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 16px;
+            margin: 0;
+        }
+
+        .sp-eab-changelog-close-btn {
+            border: none;
+            background: none;
+            outline: none;
+            margin: 0;
+            padding: 0;
+
+            svg {
+                width: 12px;
+                height: 12px;
+            }
+        }
+    }
+
+    .sp-eab-changelog-details {
+        padding: 0 15px 50px;
+
+        p {
+            font-size: 16px;
+            margin: 20px 0;
+        }
+
+        ul {
+            font-size: 13px;
+            list-style: disc;
+
+            li {
+                margin-bottom: 5px;
+                margin-left: 18px;
+            }
+        }
+    }
+}
+
+.sp-eab-pro-blocks-badge {
+    align-items: center;
+    background: var(--eab-primary-color);
+    border-radius: 4px;
+    color: #fff;
+    display: flex;
+    font-size: 10px;
+    font-weight: 600;
+    gap: 2px;
+    overflow: hidden;
+    padding: 0 2px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    transition: width .3s ease;
+    width: 18px;
+}
+
+.sp-eab-admin-dashboard-wrapper .sp-eab-visibility-setting-card:hover .sp-eab-pro-blocks-badge {
+    width: 43px;
+}
+
+.sp-eab-pro-blocks-badge * {
+    flex-shrink: 0;
+}
+
+// sub menu css.
+#menu-posts-sp_easy_accordion {
+    li a[href="edit.php?post_type=sp_easy_accordion&page=eap_dashboard#settings"] {
+        border-bottom: 1px solid hsla(0, 0%, 100%, .1);
+    }
+}

@@ -1,0 +1,73 @@
+$border-color :#DDDDDD;
+$hover-border-color :rgb(176.8, 176.8, 176.8);
+
+.sp-easy-accordion-tabs-panel {
+	.sp-eab-button-group {
+
+		.sp-eab-button-group-items {
+			width: 100%;
+			border: 1px solid $border-color;
+			border-radius: 2px;
+			height: 40px;
+			padding: 4px 3px;
+			gap: 2px;
+
+			&:hover {
+				border-color: $hover-border-color;
+			}
+		}
+
+		.sp-eab-button-component[value='text-number'] {
+			width: 150%;
+		}
+
+		// border right css.
+		.sp-eab-button-component {
+			height: 100%;
+			border-radius: 2px;
+			width: calc((100% - ((var(--total-buttons) - 1) * 1px)) / var(--total-buttons));
+
+			// active button.
+			&:not(:last-child) {
+				.sp-eab-button-group-content {
+					border-right: 1px solid #DDDDDD;
+				}
+			}
+
+			&.active {
+				color: #fff;
+				background-color: var(--eab-primary-color);
+
+				.sp-eab-button-group-content {
+					border-right-color: transparent;
+				}
+
+				svg {
+					fill: #fff;
+
+					path {
+						stroke: #fff;
+						fill: #fff;
+					}
+
+				}
+			}
+
+			&:has(+ button.active) {
+				.sp-eab-button-group-content {
+					border-right-color: transparent;
+				}
+			}
+
+			&.is-pro {
+				opacity: .6;
+				pointer-events: none;
+			}
+		}
+
+		.sp-eab-button-group-content {
+			width: 100%;
+			display: block;
+		}
+	}
+}

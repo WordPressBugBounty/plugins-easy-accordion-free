@@ -1,0 +1,116 @@
+@use './post-accordion/post-accordion.scss';
+// @use '../src/templates/accordion/accordion.scss';
+@use './sidebar-tab-accordion/sidebar-tabs-style.scss';
+@use './shared/regular-accordion-style.scss';
+@use './image-accordion/style.scss';
+@use './tailwind-class.scss';
+
+.sp-easy-accordion-block {
+	* {
+		box-sizing: border-box;
+	}
+
+	.sp-eab-wrapper,
+	.sp-eab-toggle-all-block,
+	.sp-eab-faq-search-block,
+	.sp-eab-ajax-pagination-block {
+		margin: 0 auto;
+	}
+
+	.eab-disabled {
+		pointer-events: none;
+		opacity: 0.6;
+	}
+
+	.sp-eab-accordion-featured-icon {
+		overflow: hidden;
+
+		svg,
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	// wrapper position relative for bg video.
+	.sp-eab-wrapper {
+		position: relative;
+	}
+
+	.sp-eab-highlight-text {
+		background-color: yellow;
+	}
+}
+
+.wp-theme-generatepress .sp-easy-accordion-block {
+	margin-left: 0 !important;
+	width: 100% !important;
+}
+.wp-theme-hello-elementor div:is(.sp-easy-accordion-block,.sp-eab-image-accordion-wrapper).alignwide {
+	margin-inline: 0 !important;
+}
+
+// toggle all button block css.
+.sp-eab-toggle-all-block {
+	.eab-toggle-button {
+		cursor: pointer;
+		color: #FFFFFF;
+		background-color: #2F2F2F;
+		z-index: 10;
+	}
+}
+
+.sp-eab-preloader {
+	position: absolute;
+	inset: 0;
+	background: rgba(255, 255, 255, 0.9);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 99;
+
+	&.sp-d-hidden {
+		display: none;
+	}
+}
+
+.eab-spinner {
+	width: 40px;
+	height: 40px;
+	border: 4px solid #ccc;
+	border-top-color: #333;
+	border-radius: 50%;
+	animation: eab-spin 0.8s linear infinite;
+}
+
+@keyframes eab-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.sp-eab-video-player {
+	height: 100%;
+	position: absolute;
+	overflow: hidden;
+	-webkit-transition: opacity 1s;
+	-o-transition: opacity 1s;
+	transition: opacity 1s;
+	z-index: -2;
+	top: 0;
+	left: 0;
+	width: 100%;
+	border-radius: inherit;
+
+	iframe {
+		max-width: none;
+	}
+
+	video {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		object-fit: cover;
+		background-size: cover;
+	}
+}

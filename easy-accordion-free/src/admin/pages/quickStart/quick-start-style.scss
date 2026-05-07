@@ -1,0 +1,166 @@
+$primary-text-color: #1E1E1E;
+$secondary-text-color: #3C434A;
+$button-text-color: #949494;
+
+/*
+ * GETTING START PAGE CSS.
+ */
+.sp-eab-getting-start-page {
+    gap: 40px;
+
+    // video intro section.
+    .sp-eab-video-section {
+        padding: 40px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 1px 2px 0 rgba(17, 17, 17, 0.2);
+        width: 65%;
+    }
+
+    //  video intro section text;
+    .sp-eab-video-section-text {
+        h3 {
+            color: $primary-text-color;
+            margin: 0;
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 28px;
+            margin-bottom: 20px;
+        }
+
+        span {
+            color: $secondary-text-color;
+            display: block;
+            margin-top: 18px;
+            font-size: 15px;
+            font-weight: 400;
+        }
+    }
+
+    //  video section video tag;
+    .sp-eab-video-section-video {
+        width: 100%;
+        margin: 24px 0 36px 0;
+		position: relative;
+		padding-bottom: 56.25%;
+
+        iframe {
+            border-radius: 8px;
+            border: none;
+            border: 0;
+			position: absolute;
+			left: 0;
+			top: 0;
+			height: 100%;
+			width: 100%;
+        }
+    }
+
+    .sp-eab-video-section-btn {
+        ul {
+            gap: 18px;
+            margin: 0;
+
+            li {
+                display: inline-flex;
+                margin-bottom: 0;
+
+                a {
+                    color: $button-text-color;
+                    text-decoration: none;
+                    font-size: 16px;
+                    font-weight: 600;
+                    padding: 17px 24px;
+                    border-radius: 4px;
+                    border: 1px solid transparent;
+                    transition: all .3s linear;
+                }
+            }
+
+            li:nth-child(1) a {
+                color: #fff;
+                background-color: var(--eab-primary-color);
+            }
+
+            li:nth-child(1) a:hover {
+                background-color: var(--eab-primary-color-hover);
+            }
+
+            li:nth-child(2) a {
+                color: var(--eab-primary-color);
+                border-color: var(--eab-primary-color);
+
+                svg {
+                    margin-left: 5px;
+                    margin-right: -4px;
+                    fill: var(--eab-primary-color);
+                    transition: all .3s linear;
+                }
+            }
+
+            li:nth-child(2) a:hover {
+                color: #fff;
+                background-color: var(--eab-primary-color);
+                border-color: transparent;
+
+                svg {
+                    fill: #fff;
+                }
+            }
+        }
+    }
+
+    // sidebar cards.
+    .sp-eab-sidebar-section {
+        width: 35%;
+        gap: 40px;
+    }
+
+    // sidebar-info-card css.
+    .sp-eab-sidebar-info-card {
+        background-color: #fff;
+        border-radius: 4px;
+        padding: 28px;
+        box-shadow: 0 1px 2px 0 rgba(108, 99, 99, 0.2);
+        width: 100%;
+    }
+
+    .sp-eab-sidebar-info-card-title {
+        margin-bottom: 12px;
+
+        h4 {
+            color: $primary-text-color;
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 20px;
+        }
+    }
+
+    .sp-eab-sidebar-info-card-text {
+        color: $secondary-text-color;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 22px;
+        margin-bottom: 24px;
+    }
+
+    .sp-eab-sidebar-info-card-btn {
+        color: $button-text-color;
+        text-decoration: none;
+        border: 1px solid $button-text-color;
+        padding: 10px 16px;
+        font-size: 14px;
+        line-height: 16px;
+        font-weight: 600;
+        border-radius: 3px;
+        display: inline-block;
+        transition: all .3s linear;
+    }
+
+    .sp-eab-sidebar-info-card-btn:hover {
+        color: #fff;
+        background-color: var(--eab-primary-color);
+        border-color: var(--eab-primary-color);
+    }
+}

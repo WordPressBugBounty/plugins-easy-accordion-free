@@ -157,21 +157,37 @@
 /**
 Go Pro
 **/
-#adminmenu #menu-posts-sp_easy_accordion li:nth-child(11) a {
-	color: #f9be48;
-}
 
 #adminmenu #menu-posts-sp_easy_accordion li a .sp-go-pro-icon {
 	background-image: url(../img/premium.svg);
-	width: 20px;
-	height: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 16px;
 	display: block;
 	float: left;
 	margin-right: 1px;
 	margin-left: -2px;
-	margin-top: -2px;
+	margin-top: -1px;
 }
-
+#adminmenu #menu-posts-sp_easy_accordion li a .sp-eab-upgrade-btn {
+	box-sizing: border-box;
+	display: flex;
+	width: 100%;
+	gap: 4px;
+	border-radius: 4px;
+	background: #11B916;
+	color: #ffffff;
+	padding: 6px 10px;
+	font-weight: 500;
+	width: 136px;
+	transition: all .3s ease-in-out;
+}
+#adminmenu #menu-posts-sp_easy_accordion li a .sp-eab-upgrade-btn:hover {
+	background: #00aa08;
+}
+#adminmenu #menu-posts-sp_easy_accordion .eab-upgrade-btn-wrapper {
+	margin-top: -10px;
+}
 .block-editor-page a.sp-easyaccordion-block-edit-button,
 a.sp-easyaccordion-block-edit-button {
 	display: inline-block;
@@ -209,4 +225,8 @@ a.sp-easyaccordion-block-edit-button {
 
 #shapedplugin-offer-banner button.shapedplugin-offer-banner-dismiss:hover:before {
 	color: #f30808;
+}
+
+#adminmenu #menu-posts-sp_easy_accordion li:nth-last-child(2) a {
+	color: #FFA500;
 }

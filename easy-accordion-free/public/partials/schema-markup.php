@@ -114,6 +114,17 @@ if ( $eap_schema_markup ) {
 				$markup .= ',';
 			}
 		}
+	} elseif ( 'eab-block' === $accordion_type && is_array( $schema_items_data ) ) {
+		$item_count = count( $schema_items_data );
+		foreach ( $schema_items_data as $keys => $content_source ) {
+			$accordion_title     = $content_source['title'] ? $content_source['title'] : '';
+			$content_description = $content_source['description'] ? $content_source['description'] : '';
+
+			$markup .= schema_markup( $accordion_title, $content_description );
+			if ( $keys + 1 !== $item_count ) {
+				$markup .= ',';
+			}
+		}
 	} elseif ( 'post-accordion' === $accordion_type ) {
 		if ( $post_query->have_posts() ) {
 			$post_count = 0;
@@ -138,8 +149,8 @@ if ( $eap_schema_markup ) {
     }
     </script>';
 	// Output the minified markup, ensuring only one instance is printed.
-	if ( ! isset( $GLOBALS['faq_schema_outputted'] ) ) {
+	if ( ! isset( $GLOBALS['sp_ea_faq_schema_outputted'] ) ) {
 		echo minify_markup( $markup ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output is safe, as $markup is fully escaped in schema_markup().
-		$GLOBALS['faq_schema_outputted'] = true;
+		$GLOBALS['sp_ea_faq_schema_outputted'] = true;
 	}
 }

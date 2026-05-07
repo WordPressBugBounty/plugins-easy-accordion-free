@@ -1,0 +1,213 @@
+// display color container.
+.sp-eab-color-picker-palette-display-container {
+  padding-top: 16px;
+
+  .sp-eab-color-picker-palette-title {
+    color: #757575;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+
+  .sp-eab-color-picker-palette {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin: 8px 0 0 0;
+    padding: 0;
+
+    li {
+      border-radius: 100%;
+      border: 1px solid #E6E6E6;
+      height: 28px;
+      width: 28px;
+      margin: 0;
+      position: relative;
+
+      button {
+        width: 100%;
+        padding: 0;
+
+        &:focus:not(:disabled) {
+          box-shadow: none;
+          outline: none;
+        }
+      }
+
+      .sp-eab-color-remove-button {
+        position: absolute;
+        cursor: pointer;
+        display: none;
+        font-size: 14px;
+        left: 16px;
+        top: -16px;
+
+        i {
+          color: #2f2f2f;
+        }
+      }
+
+      &:hover .sp-eab-color-remove-button {
+        display: block;
+      }
+    }
+  }
+}
+
+// main dropdown container.
+.components-popover__content:has(.sp-eab-color-picker-renderer) {
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 16px;
+  width: 280px;
+
+  .react-colorful,
+  .components-color-picker,
+  .react-colorful__hue,
+  .react-colorful__alpha {
+    width: 100%;
+  }
+
+  .react-colorful__alpha.react-colorful__last-control {
+    margin-bottom: 0;
+  }
+
+  // customize scrollbar.
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #dbdbdb;
+    border-radius: 4px;
+  }
+}
+
+// color picker popup indicator css component.
+.sp-eab-color-picker {
+
+  // indicator
+  .sp-eab-color-picker-right-area {
+    gap: 10px;
+
+    button.components-button {
+      height: 24px;
+    }
+  }
+
+  .components-dropdown,
+  button.components-button {
+    padding: 0;
+    line-height: 1;
+
+    :focus:not(:disabled) {
+      box-shadow: none;
+      outline: none;
+    }
+
+    span.component-color-indicator {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  // saturation height fix.
+  .react-colorful__saturation {
+    height: 128px !important;
+  }
+}
+
+// color picker popup css.
+.sp-eab-color-picker-renderer {
+  .sp-eab-color-picker {
+
+    // color selector css.
+    >div:nth-child(2) {
+      display: flex;
+      position: relative;
+      align-items: center;
+
+      &:has(>div:nth-child(2)>div:not(:only-child)) {
+        margin-bottom: 8px;
+      }
+
+      // color type and copy color input field container.
+      >div:first-child {
+        justify-content: space-between;
+        padding: 0;
+
+        .components-input-base.components-select-control {
+          margin-left: 0;
+          width: 55px;
+
+          select {
+            height: 28px;
+            padding: 0 4px;
+            min-height: 28px;
+            border: 1px solid #DDDDDD;
+          }
+        }
+
+        // copy button css.
+        .components-button.is-compact {
+          height: 24px;
+          width: 24px;
+          min-width: 24px;
+
+          svg {
+            height: 18px;
+            width: 18px;
+            fill: #757575;
+          }
+        }
+      }
+
+      >div:nth-child(2) {
+        display: flex;
+        flex-direction: row;
+        justify-content: unset;
+        position: absolute;
+        left: 63px;
+        height: 28px;
+        width: 153px;
+        padding: 0;
+        gap: 1px;
+
+        >div:not(:only-child) {
+          width: 37.5px;
+
+          .components-input-control__container {
+            .components-input-control__prefix {
+              position: absolute;
+              top: 100%;
+              left: 4px;
+
+              span {
+                color: #2f2f2f;
+              }
+            }
+          }
+        }
+
+        >div:only-child .components-input-control__container {
+          width: 153px;
+        }
+
+        .components-flex.components-input-base {
+          height: 28px;
+        }
+
+        .components-base-control.components-range-control {
+          display: none;
+        }
+
+        .components-input-control__input {
+          padding: 0 5px;
+        }
+
+        .components-input-control__backdrop {
+          border-color: #DDDDDD;
+        }
+      }
+    }
+  }
+}

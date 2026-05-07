@@ -1,0 +1,26 @@
+.sp-easy-accordion-tabs-panel {
+  .sp-eab-background-left {
+    .sp-bg-indicator {
+      line-height: 1;
+      border: 1px solid transparent;
+      padding: 4px;
+      height: 26px;
+      cursor: pointer;
+      background-color: transparent;
+
+      &.active {
+        border-color: var(--eab-primary-color);
+      }
+    }
+  }
+
+  .sp-eab-background {
+    legend {
+      display: none;
+    }
+
+    .components-circular-option-picker {
+      display: none;
+    }
+  }
+}
