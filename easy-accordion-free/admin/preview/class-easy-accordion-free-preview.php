@@ -42,6 +42,11 @@ class Easy_Accordion_Free_Preview {
 	 * @since 2.2.5
 	 */
 	public function sp_eap_backend_preview() {
+		$capability = apply_filters( 'sp_easy_accordion_ui_permission', 'manage_options' );
+		if ( ! current_user_can( $capability ) ) {
+			wp_send_json_error( array( 'error' => esc_html__( 'You do not have permission to perform this action.', 'easy-accordion-free' ) ) );
+		}
+
 		$nonce = isset( $_POST['ajax_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['ajax_nonce'] ) ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'eapro_metabox_nonce' ) ) {
 			return;

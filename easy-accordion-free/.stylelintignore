@@ -1,0 +1,17 @@
+/vendor/
+/node_modules/
+build
+node_modules
+vendor
+
+lib/
+bin/
+dist/
+
+*.json
+*.js
+*.lock
+*-invalid.*
+*.min.css
+
+

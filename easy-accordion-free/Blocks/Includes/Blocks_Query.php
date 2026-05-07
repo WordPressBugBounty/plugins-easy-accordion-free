@@ -367,6 +367,8 @@ if ( ! class_exists( 'Blocks_Query' ) ) {
 		 * @return void
 		 */
 		public function eab_post_query() {
+			// No need to check current_user_can() capability check for this as it's used for both admin and frontend.
+
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
 			if ( ! wp_verify_nonce( $nonce, 'sp_easy_accordion_block_nonce' ) ) {
@@ -448,6 +450,8 @@ if ( ! class_exists( 'Blocks_Query' ) ) {
 		 * @return void
 		 */
 		public function eab_all_post_query() {
+			// No need to check current_user_can() capability check for this as it's used for both admin and frontend.
+
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
 			if ( ! wp_verify_nonce( $nonce, 'sp_easy_accordion_block_nonce' ) ) {
@@ -490,6 +494,8 @@ if ( ! class_exists( 'Blocks_Query' ) ) {
 		 * @return void
 		 */
 		public function eab_meta_data_query() {
+			// No need to check current_user_can() capability check for this as it's used for both admin and frontend.
+
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
 			if ( ! wp_verify_nonce( $nonce, 'sp_easy_accordion_block_nonce' ) ) {

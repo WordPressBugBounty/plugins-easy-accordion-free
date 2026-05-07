@@ -92,6 +92,10 @@ class Blocks_Init {
 	 * @return $colors
 	 */
 	public function sp_eab_color_settings_ajax() {
+		// Check user capabilities, current_user_can() is called internally.
+		Blocks_Helper::sp_eap_verify_capability();
+
+		// Verify nonce.
 		$nonce = isset( $_POST['spEabAjaxNonce'] ) ? sanitize_text_field( wp_unslash( $_POST['spEabAjaxNonce'] ) ) : '';
 
 		if ( ! wp_verify_nonce( $nonce, 'sp_easy_accordion_block_nonce' ) ) {

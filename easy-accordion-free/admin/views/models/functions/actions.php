@@ -21,6 +21,11 @@ if ( ! function_exists( 'eapro_import_ajax' ) ) {
 	 * @version 1.0.0
 	 */
 	function eapro_import_ajax() {
+		$capability = apply_filters( 'sp_easy_accordion_ui_permission', 'manage_options' );
+
+		if ( ! current_user_can( $capability ) ) {
+			wp_send_json_error( array( 'error' => esc_html__( 'You do not have required permissions to access.', 'easy-accordion-free' ) ) );
+		}
 
 		$nonce  = ( ! empty( $_POST['nonce'] ) ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 		$unique = ( ! empty( $_POST['unique'] ) ) ? sanitize_text_field( wp_unslash( $_POST['unique'] ) ) : '';
@@ -56,6 +61,11 @@ if ( ! function_exists( 'eapro_reset_ajax' ) ) {
 	 * @version 1.0.0
 	 */
 	function eapro_reset_ajax() {
+		$capability = apply_filters( 'sp_easy_accordion_ui_permission', 'manage_options' );
+
+		if ( ! current_user_can( $capability ) ) {
+			wp_send_json_error( array( 'error' => esc_html__( 'You do not have required permissions to access.', 'easy-accordion-free' ) ) );
+		}
 
 		$nonce  = ( ! empty( $_POST['nonce'] ) ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 		$unique = ( ! empty( $_POST['unique'] ) ) ? sanitize_text_field( wp_unslash( $_POST['unique'] ) ) : '';

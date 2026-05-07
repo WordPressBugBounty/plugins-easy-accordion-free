@@ -1,0 +1,17 @@
+build
+dist
+.github
+*.json
+*.yml
+composer.lock
+lib/
+Gruntfile.js
+node_modules
+*-rtl*
+*.md
+.distignore
+font-awesome-pollyfiller.js
+.eslintrc.js
+*.min.js
+*.min.css
+*.css

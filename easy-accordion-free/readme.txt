@@ -4,7 +4,7 @@ Tags: faq, accordion blocks, image accordion, product faq, category menu accordi
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 3.1.0
+Stable tag: 3.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,7 +29,7 @@ The plugin powers up 100k+ WordPress sites and WooCommerce stores built in **Gut
 
 [youtube https://www.youtube.com/watch?v=u3lRDX0zG9Y&list=PLoUb-7uG-5jPNXkpGII8cTTfB-L4TCaqv]
 
-= Ready FAQ & Accordion Templates = 
+### Ready FAQ & Accordion Templates
 
 Choose from beautifully designed, ready-to-use templates to create engaging FAQs and accordions in minutes– no design skills needed. 
 
@@ -65,7 +65,7 @@ Choose from beautifully designed, ready-to-use templates to create engaging FAQs
 * Optimized for speed & performance  
 * Multisite compatible & RTL supported.
 
-### **Easy Accordion Pro Features** 
+= Easy Accordion Pro Features =
 
 * Advanced AI-powered FAQ generation 🔥  
 * Auto layout switch on mobile (horizontal → vertical)  
@@ -102,23 +102,23 @@ Choose from beautifully designed, ready-to-use templates to create engaging FAQs
 
 Create elegant, interactive FAQs and accordions with 15+ specialized Gutenberg blocks designed for more engagement and a higher conversion rate. 
 
-#### [**Vertical Accordion** **& FAQ**](https://easyaccordion.io/blocks/#demoId15) 
+[**Vertical Accordion** **& FAQ**](https://easyaccordion.io/blocks/#demoId15) 
 
 The classic collapsible format that stacks content vertically– perfect for FAQs, step-by-step guides, and any content where users need to browse topics sequentially with an intuitive top-to-bottom flow.
 
-#### [**Horizontal Accordion**](https://easyaccordion.io/blocks/#demoId9) 
+[**Horizontal Accordion**](https://easyaccordion.io/blocks/#demoId9) 
 
 Unique side-by-side expansion that reveals content horizontally– ideal for timeline presentations, comparison displays, or creating unique visual experiences that stand out from typical vertical layouts.
 
-#### [**Image Accordion**](https://easyaccordion.io/blocks/#demoId11) 🔥
+[**Image Accordion**](https://easyaccordion.io/blocks/#demoId11) 🔥
 
 Stunning visual accordions where images expand on hover or click– perfect for portfolios, before/after comparisons, product showcases, or any content where imagery tells the story better than text alone. 
 
-#### [**Accordion Slider**](https://easyaccordion.io/blocks/#demoId13) **(Pro)**
+[**Accordion Slider**](https://easyaccordion.io/blocks/#demoId13) **(Pro)**
 
 Combines accordion functionality with slider navigation– letting users both expand/collapse sections and slide through multiple content sets, ideal for feature tours, product walkthroughs, or multi-step processes. 
 
-#### [**Media Accordion**](https://easyaccordion.io/blocks/#demoId120) **(Pro)**🔥
+[**Media Accordion**](https://easyaccordion.io/blocks/#demoId120) **(Pro)**🔥
 
 Use images and texts together within collapsible sections– keeping media-rich pages organized without overwhelming visitors, perfect for tutorials, testimonials, or multimedia content libraries. 
 
@@ -128,13 +128,13 @@ Automatically display your latest blog posts in a sleek accordion format with fe
 
 Easy accordion offers two post accordion blocks with enhanced filtering, custom queries, and styling options– perfect for news sites, magazines, or blogs needing sophisticated control over which posts appear and how they're presented. [Post Accordion 02](https://easyaccordion.io/blocks/#demoId122) 
 
-#### [**Product Accordion**](https://easyaccordion.io/blocks/#demoId123) 
+[**Product Accordion**](https://easyaccordion.io/blocks/#demoId123) 
 
 WooCommerce product display in collapsible format showing prices, images, and add-to-cart buttons– ideal for comparison pages, category showcases, or compact product listings that drive sales without clutter. 
 
 Easy accordion offers two product accordion blocks with advanced filtering– perfect for stores with complex product catalogs needing organized, conversion-focused displays that guide purchase decisions. [Product Accordion 02](https://easyaccordion.io/blocks/#demoId124)
 
-#### [**Category or Menu Accordion**](https://easyaccordion.io/blocks/#demoId125) 🔥
+[**Category or Menu Accordion**](https://easyaccordion.io/blocks/#demoId125) 🔥
 
 Collapsible navigation for categories, menus, or taxonomies– essential for sites with deep content hierarchies, helping visitors explore without overwhelming sidebars or endless dropdown menus. 
 
@@ -154,11 +154,11 @@ One-click expand/collapse all accordions simultaneously– giving users a choice
 
 Instant accordion search that filters and highlights matching content as users type– eliminating frustrating scrolling through irrelevant FAQs, getting customers to answers in seconds instead of minutes.  
 
-### [**Live Frontend Filter (Category-wise)**](https://easyaccordion.io/search-frontend-live-filter/)
+[**Live Frontend Filter (Category-wise)**](https://easyaccordion.io/search-frontend-live-filter/)
 
 Let users quickly find what they need by filtering FAQs or accordions by category in real time—no page reload required.
 
-### [**Motion Effects & Interactions**](https://easyaccordion.io/motion-effects-animations/)
+[**Motion Effects & Interactions**](https://easyaccordion.io/motion-effects-animations/)
 
 Enhance user experience with smooth animations, transitions, and interactive effects that make your accordions more engaging and visually appealing.
 
@@ -209,11 +209,11 @@ No compatibility worries! Easy Accordion works flawlessly with your existing set
 * **WooCommerce** and other essential tools
 
 
-= 👨🏻‍💻 Author =
+### 👨🏻‍💻 Author
 
 [**Easy Accordion**](https://easyaccordion.io/) is developed by [**ShapedPlugin LLC**](https://shapedplugin.com/), a team with over a decade of experience in building WordPress plugins, focused on quality, performance, and ongoing improvements.
 
-= 🛟 Documentation & Support =
+### 🛟 Documentation & Support
 
 Although Easy Accordion is beginner-friendly with a minimal learning curve, it is well-documented. It provides dedicated support whenever you need.  
 
@@ -227,7 +227,7 @@ Although Easy Accordion is beginner-friendly with a minimal learning curve, it i
 
 👉 Learn more about the Easy Accordion at [https://easyaccordion.io/](https://easyaccordion.io/)
 
-= 🔥 Explore More Solutions from **ShapedPlugin** =
+### 🔥 Explore More Solutions from ShapedPlugin
 
 Discover our powerful WordPress and WooCommerce plugins designed to save time, boost performance, and enhance your website experience:
 
@@ -338,6 +338,9 @@ clicking "Install Now" and then "Activate".
 
 
 == Changelog ==
+
+= Version 3.1.1 - May 07, 2026 =
+* Improved: The plugin security has been enhanced.
 
 = Version 3.1.0 - May 07, 2026 =
 * New: Introduced the Generate FAQ with AI module to generate FAQs automatically.

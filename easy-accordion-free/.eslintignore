@@ -1,0 +1,10 @@
+**/*.min.js
+**/node_modules/**
+build
+node_modules
+*.css
+*.scss
+*.min.js
+
+**/deprecated/**
+

@@ -76,9 +76,7 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 			add_action( 'current_screen', array( $this, 'remove_admin_notices' ) );
 			// manage ajax request.
 			add_action( 'wp_ajax_sp_eab_admin_option_update', array( $this, 'sp_eab_admin_option_update' ) );
-			add_action( 'wp_ajax_nopriv_sp_eab_admin_option_update', array( $this, 'sp_eab_admin_option_update' ) );
 			add_action( 'wp_ajax_sp_eap_changelog_data', array( $this, 'sp_eap_changelog_data' ) );
-			add_action( 'wp_ajax_nopriv_sp_eap_changelog_data', array( $this, 'sp_eap_changelog_data' ) );
 			add_action( 'wp_ajax_sp_eap_get_user_consent', array( $this, 'sp_eap_get_user_consent' ) );
 			// manage admin dashboard assets.
 			add_action( 'init', array( $this, 'sp_eab_admin_dashboard_enqueue_admin_assets' ) );
@@ -506,7 +504,7 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 		 * @return void
 		 * */
 		public function sp_eab_admin_option_update() {
-			// Check user capability.
+			// Check user capabilities, current_user_can() is called internally.
 			Blocks_Helper::sp_eap_verify_capability();
 
 			// Verify nonce.
@@ -554,7 +552,7 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 		 * @return void
 		 */
 		public function sp_eap_changelog_data() {
-			// Check user capability.
+			// Check user capabilities, current_user_can() is called internally.
 			Blocks_Helper::sp_eap_verify_capability();
 			// Verify nonce.
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
@@ -682,7 +680,7 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 		 * @return void Sends JSON response with success or error message.
 		 */
 		public function sp_eap_get_user_consent() {
-			// Check user capability.
+			// Check user capabilities, current_user_can() is called internally.
 			Blocks_Helper::sp_eap_verify_capability();
 
 			// Verify nonce.

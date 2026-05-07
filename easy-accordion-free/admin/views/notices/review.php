@@ -109,6 +109,11 @@ class Easy_Accordion_Free_Review {
 	 * @return void
 	 **/
 	public function dismiss_review_notice() {
+		// Check user capabilities, current_user_can() is called internally.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
 		$post_data = wp_unslash( $_POST );
 		$review    = get_option( 'sp_eafree_review_notice_dismiss' );
 
