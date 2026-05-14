@@ -1,26 +1,26 @@
-﻿=== AI-Powered FAQ & Accordion Blocks, Image Accordion & Slider, Product FAQ – Easy Accordion ===
+﻿=== Easy Accordion – AI-Powered FAQ & Accordion Blocks, Product FAQ ===
 Contributors: shapedplugin, khalilu, rubel_miah, shamimmiashuhagh
 Tags: faq, accordion blocks, image accordion, product faq, category menu accordion
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 3.1.1
+Stable tag: 3.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Generate FAQs with AI and Powerful Gutenberg FAQ & Accordion Blocks, Image Accordion, Accordion Slider, WooCommerce Product FAQ – works with Elementor
+AI-Powered FAQ Generator. Gutenberg FAQ & Accordion Blocks, Image Accordion, Accordion Slider, WooCommerce Product FAQ – Elementor & Shortcode Ready.
 
 == Description ==
 
 🚀 Explore Powerful [**15+ FAQ & Accordion Blocks**](https://easyaccordion.io/blocks/)  
-📚 Launch Fast with [**100+ Ready Patterns Library**](https://easyaccordion.io/patterns/)
+📚 Start with [**100+ Ready FAQ & Accordion Patterns**](https://easyaccordion.io/patterns/)
 🌐 Visit the Official Website [**Easy Accordion**](https://easyaccordion.io/)
-❤️ 112+ ⭐⭐⭐⭐⭐ Reviews & 4.8/5 Happiness Rating on [**Trustpilot**](https://www.trustpilot.com/review/shapedplugin.com)
+❤️ 114+ ⭐⭐⭐⭐⭐ Reviews & 4.8/5 Happiness Rating on [**Trustpilot**](https://www.trustpilot.com/review/shapedplugin.com)
 
 Create beautiful, responsive FAQs and stylish accordions in minutes with **Easy Accordion**, the most popular WordPress FAQ & Accordion Builder – in 3 simple steps:  
 
 1. Choose a ready design from the rich library  
-2. Add your content or generate **FAQs** **with AI**   
+2. Add your content or generate **FAQs with AI**   
 3. Customize visually, and publish in minutes 
 
 The plugin powers up 100k+ WordPress sites and WooCommerce stores built in **Gutenberg**, **Elementor**, **Classic**, and many popular page builders, and becomes the most popular FAQ & Accordion solution with the highest Reviews and Ratings **(4.9)** ⭐⭐⭐⭐⭐. 
@@ -102,9 +102,9 @@ Choose from beautifully designed, ready-to-use templates to create engaging FAQs
 
 Create elegant, interactive FAQs and accordions with 15+ specialized Gutenberg blocks designed for more engagement and a higher conversion rate. 
 
-[**Vertical Accordion** **& FAQ**](https://easyaccordion.io/blocks/#demoId15) 
+[**FAQ Block / Vertical Accordion**](https://easyaccordion.io/blocks/#demoId15) 
 
-The classic collapsible format that stacks content vertically– perfect for FAQs, step-by-step guides, and any content where users need to browse topics sequentially with an intuitive top-to-bottom flow.
+The classic collapsible layout format that stacks content vertically– perfect for FAQs, step-by-step guides, and any content where users need to browse topics sequentially with an intuitive top-to-bottom flow.
 
 [**Horizontal Accordion**](https://easyaccordion.io/blocks/#demoId9) 
 
@@ -180,7 +180,7 @@ Easy Accordion automatically generates FAQ schema markup (structured data) that 
 
 = Create Reusable Templates for Any Page Builder 🔥 =
 
-Build FAQ and accordion templates once, then deploy them instantly across your entire site– works seamlessly with Elementor, Divi, WP Bakery, Gutenberg, and all major page builders, saving hours of repetitive work while maintaining perfect consistency.
+Build FAQ and accordion templates once, then deploy them instantly across your entire site– works seamlessly with Elementor, Divi, WP Bakery, Gutenberg, and all major page builders, saving hours of repetitive work while maintaining FAQ section or FAQ page perfect consistency.
 
 = Custom Responsive Breakpoints =
 
@@ -338,6 +338,11 @@ clicking "Install Now" and then "Activate".
 
 
 == Changelog ==
+
+= Version 3.1.2 - May 13, 2026 =
+* Improved: Plugin admin UI improved
+* Improved: The minor style issue for Astra theme.
+* Fix: The conflict issue with Divi builder template.
 
 = Version 3.1.1 - May 07, 2026 =
 * Improved: The plugin security has been enhanced.

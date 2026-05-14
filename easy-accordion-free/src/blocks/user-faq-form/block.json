@@ -3,7 +3,7 @@
   "apiVersion": 3,
   "name": "sp-easy-accordion-pro/user-faq-form",
   "title": "User FAQ Forms",
-  "category": "sp-easy-accordion-pro",
+  "category": "sp-easy-accordion-pro-blocks",
   "description": "Add a customizable User FAQ Form to collect and manage questions.",
   "textdomain": "easy-accordion-free",
   "supports": {

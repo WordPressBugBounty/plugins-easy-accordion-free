@@ -94,3 +94,23 @@ export const CategoryIcon = () => (
 		</defs>
 	</svg>
 );
+
+export const ProBlocksCategoryIcon = () => (
+	<svg width={18} height={18} viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path d="M0 9a9 9 0 1 1 18 0A9 9 0 0 1 0 9" fill="#4ab866" fillOpacity={0.1} />
+		<path d="M9 .5a8.5 8.5 0 1 1 0 17 8.5 8.5 0 0 1 0-17Z" stroke="#4ab866" strokeOpacity={0.6} />
+		<g clipPath="url(#a)" fill="#4ab866">
+			<path
+				d="M10.386 7.761a.84.84 0 0 0 .557.428.78.78 0 0 0 .69-.195l1.46-1.34-.473 3.767H5.39l-.475-3.767 1.462 1.34a.78.78 0 0 0 .69.195.84.84 0 0 0 .557-.428l1.38-2.533z"
+				stroke="#4ab866"
+				strokeWidth={0.847}
+			/>
+			<path d="M12.577 13.282H5.432c-.23 0-.416-.228-.416-.508v-1.117h7.977v1.117c0 .28-.186.508-.416.508" />
+		</g>
+		<defs>
+			<clipPath id="a">
+				<path fill="#fff" d="M4 4h10v10H4z" />
+			</clipPath>
+		</defs>
+	</svg>
+);

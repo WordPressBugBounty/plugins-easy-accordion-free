@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const autoInterval = accordion.dataset.autoplayDelay;
 		const animation =
 			accordion.dataset.animation &&
-			accordion.dataset.animation !== 'none'
+				accordion.dataset.animation !== 'none'
 				? accordion.dataset.animation
 				: null;
 
@@ -474,6 +474,9 @@ const animateAccordionItemsOnView = (items, animationClass = 'none') => {
 
 // reload screen on resize tablet-or-desktop to mobile.
 document.addEventListener('DOMContentLoaded', () => {
+	if (window?.elementorFrontend?.isEditMode()) {
+		return;
+	}
 	// Function to determine the device category.
 	const getDeviceType = () => {
 		const width = window.innerWidth;
@@ -492,6 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (newDevice !== currentDevice) {
 			location.reload();
 		}
+
 		// Update the current device type
 		currentDevice = newDevice;
 	});

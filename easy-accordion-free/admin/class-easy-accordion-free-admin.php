@@ -197,7 +197,7 @@ class Easy_Accordion_Free_Admin {
 
 		if ( SP_EA_BASENAME === $file ) {
 			$new_links =
-				sprintf( '<a href="%s">%s</a>', admin_url( 'post-new.php?post_type=page&eabblock_inserter=true' ), __( 'Add Accordion', 'easy-accordion-free' ) );
+				sprintf( '<a href="%s">%s</a>', admin_url( 'post-new.php?post_type=page&eabblock_inserter=true' ), __( 'Explore Blocks', 'easy-accordion-free' ) );
 			array_unshift( $links, $new_links );
 
 			$links['go_pro'] = sprintf( '<a target="_blank" href="%1$s" style="color: #35b747; font-weight: 700;">Go Pro!</a>', 'https://easyaccordion.io/pricing/?ref=1' );

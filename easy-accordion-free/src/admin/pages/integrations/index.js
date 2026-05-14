@@ -3,7 +3,6 @@ import {
 	BeaverIntegrationIcon,
 	BricksIntegrationIcon,
 	ChatGPTIcon,
-	DeepSeekIntegrationIcon,
 	DiviIntegrationIcon,
 	ElementorIntegrationIcon,
 	GeminiIcon,
@@ -66,7 +65,8 @@ const pageBuilderAddons = [
 			"easy-accordion-free"
 		),
 		// demoLink: "#",
-		docLink: "https://easyaccordion.io/docs/page-builder-integrations/easy-accordion-pro-with-elementor-elementor-pro/",
+		docLink:
+			"https://easyaccordion.io/docs/page-builder-integrations/easy-accordion-pro-with-elementor-elementor-pro/",
 	},
 	{
 		id: 2,

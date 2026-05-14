@@ -2,12 +2,12 @@
 /**
  * Plugin name: Easy Accordion
  * Plugin URI:  https://easyaccordion.io/?ref=1
- * Description: Easy Accordion is a responsive Accordion and FAQ builder plugin for WordPress. Create unlimited accordions, FAQ sections, and WooCommerce Product FAQs with a simple drag-and-drop interface—no coding required.
+ * Description: Generate FAQs with AI and arrange them with drag-and-drop — no coding needed. Includes <a href="https://easyaccordion.io/blocks/" target="_blank"><strong>15+ Gutenberg Blocks</strong></a> and <a href="https://easyaccordion.io/patterns/" target="_blank"><strong>100+ Ready Patterns</strong></a> for FAQ & Accordion, Image Accordion, Accordion Slider, Post Accordion, Product Accordion, Category/Menu Accordion, User FAQ Forms, and WooCommerce Product FAQ. Works with Elementor, Divi, and Classic Shortcodes.
  * Author:      ShapedPlugin LLC
  * Author URI:  https://shapedplugin.com/
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Version:     3.1.1
+ * Version:     3.1.2
  * Text Domain: easy-accordion-free
  * Domain Path: /languages/
  *
@@ -61,7 +61,7 @@ class SP_EASY_ACCORDION_FREE {
 	 *
 	 * @var string
 	 */
-	public $version = '3.1.1';
+	public $version = '3.1.2';
 
 	/**
 	 * The name of the plugin.

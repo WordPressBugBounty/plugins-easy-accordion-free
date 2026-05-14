@@ -180,7 +180,7 @@ class EAP_File_System {
 		}
 
 		if ( file_exists( $file_path ) ) {
-			return (bool) @unlink( $file_path );
+			return (bool) wp_delete_file( $file_path );
 		}
 
 		return false;

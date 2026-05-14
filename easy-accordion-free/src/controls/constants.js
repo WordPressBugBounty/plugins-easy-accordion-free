@@ -48,6 +48,14 @@ import {
 } from "../blocks/product-accordion/icons";
 import { MediaAccordionBlockIcon } from "../blocks/media-accordion/icons";
 import { FaqFormBlockIcon } from "../blocks/user-faq-form/icons";
+import {
+	AjaxPaginationBlockIcon,
+	FaqSearchBlockIcon,
+	MenuAccordionBlockIcon,
+	PostAccordionBlockTwoIcon,
+	ProductAccordionTwoBlockIcon,
+	ToggleAllBlockIcon,
+} from "./upcomingBlocksIcon";
 
 export const orderByOptions = [
 	{ label: "None", value: "all", type: "order_by" },
@@ -187,6 +195,25 @@ export const borderStyles = [
 ];
 
 export const accordionBlocksInfo = {
+	// child blocks.
+	"sp-easy-accordion-pro/faq-search": {
+		icon: <FaqSearchBlockIcon />,
+		title: __("FAQ Search", "easy-accordion-free"),
+		docLink: "https://easyaccordion.io/docs/faq-searchchild-block/",
+		demoLink: "",
+	},
+	"sp-easy-accordion-pro/ajax-pagination": {
+		icon: <AjaxPaginationBlockIcon />,
+		title: __("Ajax Pagination", "easy-accordion-free"),
+		docLink: "https://easyaccordion.io/docs/ajax-pagination-child-block/",
+		demoLink: "",
+	},
+	"sp-easy-accordion-pro/toggle-all": {
+		icon: <ToggleAllBlockIcon />,
+		title: __("Toggle All Button", "easy-accordion-free"),
+		docLink: "https://easyaccordion.io/docs/toggle-all-buttonchild-block/",
+		demoLink: "",
+	},
 	"sp-easy-accordion-pro/accordion-item": {
 		icon: <VerticalAccordionBlockIcon />,
 		title: __("Accordion Single Item", "easy-accordion-free"),
@@ -195,13 +222,15 @@ export const accordionBlocksInfo = {
 	},
 	"sp-easy-accordion-pro/image-accordion-item": {
 		icon: <ImageAccordionBlockIcon />,
-		title: __("Accordion Single Item", "easy-accordion-free"),
+		title: __("Single (Image) Accordion Item", "easy-accordion-free"),
 		docLink: "https://easyaccordion.io/docs/single-image-accordion-item/",
 		demoLink: "",
 	},
+	// parent blocks.
+	// v4.0.0
 	"sp-easy-accordion-pro/vertical-accordion": {
 		icon: <VerticalAccordionBlockIcon />,
-		title: __("Vertical Accordion", "easy-accordion-free"),
+		title: __("FAQ / Vertical Accordion", "easy-accordion-free"),
 		docLink: "https://easyaccordion.io/docs/vertical-accordion/",
 		demoLink: "https://easyaccordion.io/blocks/#demoId15",
 	},
@@ -223,17 +252,18 @@ export const accordionBlocksInfo = {
 		docLink: "https://easyaccordion.io/docs/accordion-slider/",
 		demoLink: "https://easyaccordion.io/blocks/#demoId13",
 	},
+	// v4.1.0
+	"sp-easy-accordion-pro/sidebar-tab-accordion": {
+		icon: <SidebarAccordionBlockIcon />,
+		title: __("Sidebar Tab Accordion", "easy-accordion-free"),
+		docLink: "https://easyaccordion.io/docs/sidebar-tab-accordion/",
+		demoLink: "https://easyaccordion.io/blocks/#demoId119",
+	},
 	"sp-easy-accordion-pro/post-accordion": {
 		icon: <PostAccordionBlockIcon />,
 		title: __("Post Accordion 01", "easy-accordion-free"),
 		docLink: "https://easyaccordion.io/docs/post-accordion-01/",
 		demoLink: "https://easyaccordion.io/blocks/#demoId121",
-	},
-	"sp-easy-accordion-pro/media-accordion": {
-		icon: <MediaAccordionBlockIcon />,
-		title: __("Media Accordion", "easy-accordion-free"),
-		docLink: "https://easyaccordion.io/docs/media-accordion/",
-		demoLink: "https://easyaccordion.io/blocks/#demoId120",
 	},
 	"sp-easy-accordion-pro/product-accordion": {
 		icon: <ProductAccordionBlockIcon />,
@@ -241,13 +271,44 @@ export const accordionBlocksInfo = {
 		docLink: "https://easyaccordion.io/docs/product-accordion-01/",
 		demoLink: "https://easyaccordion.io/blocks/#demoId123",
 	},
-	"sp-easy-accordion-pro/sidebar-tab-accordion": {
-		icon: <SidebarAccordionBlockIcon />,
-		title: __("Sidebar Tab Accordion", "easy-accordion-free"),
-		docLink: "https://easyaccordion.io/docs/sidebar-tab-accordion/",
-		demoLink: "https://easyaccordion.io/blocks/#demoId119",
+	// v4.2.0
+	"sp-easy-accordion-pro/post-accordion-block-two": {
+		icon: <PostAccordionBlockTwoIcon />,
+		title: __("Post Accordion 02", "easy-accordion-free"),
+		docLink: "https://easyaccordion.io/docs/post-accordion-02/",
+		demoLink: "https://easyaccordion.io/blocks/#demoId122",
+	},
+	"sp-easy-accordion-pro/post-accordion-two": {
+		icon: <PostAccordionBlockTwoIcon />,
+		title: __("Post Accordion 02", "easy-accordion-free"),
+		docLink: "https://easyaccordion.io/docs/post-accordion-02/",
+		demoLink: "https://easyaccordion.io/blocks/#demoId122",
+	},
+	"sp-easy-accordion-pro/product-accordion-two": {
+		icon: <ProductAccordionTwoBlockIcon />,
+		title: __("Product Accordion 02", "easy-accordion-free"),
+		docLink: "https://easyaccordion.io/docs/product-accordion-02/",
+		demoLink: "https://easyaccordion.io/blocks/#demoId124",
+	},
+	"sp-easy-accordion-pro/menu-accordion": {
+		icon: <MenuAccordionBlockIcon />,
+		title: __("Category or Menu Accordion", "easy-accordion-free"),
+		docLink: "https://easyaccordion.io/docs/category-or-menu-accordion/",
+		demoLink: "https://easyaccordion.io/blocks/#demoId125",
+	},
+	"sp-easy-accordion-pro/media-accordion": {
+		icon: <MediaAccordionBlockIcon />,
+		title: __("Media Accordion", "easy-accordion-free"),
+		docLink: "https://easyaccordion.io/docs/media-accordion/",
+		demoLink: "https://easyaccordion.io/blocks/#demoId120",
 	},
 	"sp-easy-accordion-pro/user-faq-form": {
+		icon: <FaqFormBlockIcon />,
+		title: __("User FAQ Forms", "easy-accordion-free"),
+		docLink: "https://easyaccordion.io/docs/user-faq-forms/",
+		demoLink: "https://easyaccordion.io/blocks/#demoId126",
+	},
+	"sp-easy-accordion-pro/user-faq-forms": {
 		icon: <FaqFormBlockIcon />,
 		title: __("User FAQ Forms", "easy-accordion-free"),
 		docLink: "https://easyaccordion.io/docs/user-faq-forms/",

@@ -3,7 +3,7 @@
   "apiVersion": 3,
   "name": "sp-easy-accordion-pro/media-accordion",
   "title": "Media Accordion",
-  "category": "sp-easy-accordion-pro",
+  "category": "sp-easy-accordion-pro-blocks",
   "description": "Present content with images or media for a more engaging and structured layout.",
   "textdomain": "easy-accordion-free",
   "supports": {

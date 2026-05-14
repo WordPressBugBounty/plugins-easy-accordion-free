@@ -1,9 +1,14 @@
 import { __ } from "@wordpress/i18n";
 import { toast } from "react-hot-toast";
 import ToggleCard from "../../templates/toggleCard";
-import { upcomingBlocksList } from "../upcomingBlocks";
 import { useDispatch, useSelect } from "@wordpress/data";
 import { STORE_NAME } from "../../store/constants";
+
+const upcomingBlocksList = [
+	{ name: "sp-easy-accordion-pro/post-accordion-block-two", show: false },
+	{ name: "sp-easy-accordion-pro/product-accordion-two", show: false },
+	{ name: "sp-easy-accordion-pro/menu-accordion", show: false },
+];
 
 const BlockVisibility = ({ showHeading = true }) => {
 	const blockVisibility = useSelect((select) => select(STORE_NAME).getBlockVisibility());

@@ -1,11 +1,16 @@
 import Toggle from "react-toggle";
 import { Demos, Docs, ProIconFill } from "../icons";
 import { accordionBlocksInfo } from "@easy-accordion/constants";
-import { upcomingBlockInfo, proBlocks } from "../pages/upcomingBlocks";
+
+const proBlocks = [
+	"sp-easy-accordion-pro/accordion-slider",
+	"sp-easy-accordion-pro/media-accordion",
+	"sp-easy-accordion-pro/user-faq-form",
+];
 
 const ToggleCard = ({ attributes, blockShowHideHandler, isUpcomingBlock = false }) => {
 	const { show, name } = attributes;
-	const blocksInfo = { ...accordionBlocksInfo, ...upcomingBlockInfo };
+	const blocksInfo = accordionBlocksInfo;
 	// return if block info don't exist.
 	if (!blocksInfo[name]) {
 		return;

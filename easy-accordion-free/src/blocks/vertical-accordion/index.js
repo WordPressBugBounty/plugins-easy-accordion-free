@@ -9,7 +9,7 @@ if (sp_eab_localize_data?.activeBlockList?.includes(metadata.name)) {
 	registerBlockType(metadata.name, {
 		...metadata,
 		icon: <VerticalAccordionBlockIcon />,
-		title: __("Vertical Accordion", "easy-accordion-free"),
+		title: __("FAQ / Vertical Accordion", "easy-accordion-free"),
 		description: __(
 			"Display FAQs vertically in an expandable accordion layout for better readability.",
 			"easy-accordion-free"

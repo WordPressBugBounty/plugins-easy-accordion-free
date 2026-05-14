@@ -28,6 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Blocks_Init
  */
 class Blocks_Init {
+
 	/**
 	 * This plugin's instance.
 	 *
@@ -229,6 +230,10 @@ class Blocks_Init {
 				array(
 					'slug'  => 'sp-easy-accordion-pro',
 					'title' => __( 'EASY ACCORDION', 'easy-accordion-free' ),
+				),
+				array(
+					'slug'  => 'sp-easy-accordion-pro-blocks',
+					'title' => __( 'EASY ACCORDION PRO BLOCKS', 'easy-accordion-free' ),
 				),
 			),
 			$categories

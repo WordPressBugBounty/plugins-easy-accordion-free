@@ -74,7 +74,7 @@ const show_notification = (enabled, optionKey = "modules") => {
 	toast.success(message, { style: { marginTop: "20px", fontSize: "14px" } });
 };
 
-const RenderModuleCard = ({ items = [], optionKey = "integrations", hideUpcoming = false, type="" }) => {
+const RenderModuleCard = ({ items = [], optionKey = "integrations", hideUpcoming = false, type = "" }) => {
 	const dashboardSettings = useSelect((select) => select(STORE_NAME).getDashboardSettings());
 	const { saveSettings } = useDispatch(STORE_NAME);
 	// default settings.
@@ -195,7 +195,7 @@ const RenderModuleCard = ({ items = [], optionKey = "integrations", hideUpcoming
 									)}
 								</div>
 							)}
-							{(optionKey === "integrations" && type !== "page-builder") && (
+							{optionKey === "integrations" && type !== "page-builder" && (
 								<div className="sp-eap-integrations-card__settings sp-cursor-pointer">
 									<span
 										onClick={() => {

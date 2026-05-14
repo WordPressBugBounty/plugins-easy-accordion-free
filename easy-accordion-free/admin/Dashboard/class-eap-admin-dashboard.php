@@ -79,7 +79,7 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 			add_action( 'wp_ajax_sp_eap_changelog_data', array( $this, 'sp_eap_changelog_data' ) );
 			add_action( 'wp_ajax_sp_eap_get_user_consent', array( $this, 'sp_eap_get_user_consent' ) );
 			// manage admin dashboard assets.
-			add_action( 'init', array( $this, 'sp_eab_admin_dashboard_enqueue_admin_assets' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'sp_eab_admin_dashboard_enqueue_admin_assets' ) );
 			// admin notices.
 			add_action( 'init', array( $this, 'eap_submit_user_consent' ) );
 			add_action( 'admin_notices', array( $this, 'eap_maybe_show_user_consent_notice' ) );
@@ -457,6 +457,9 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 		 * @return void
 		 */
 		public function sp_eab_admin_dashboard_enqueue_admin_assets() {
+			if ( ! isset( $_GET['page'] ) || 'eap_dashboard' !== $_GET['page'] ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				return;
+			}
 			/**
 			 * Enqueue block admin dashboard main script.
 			 * react-jsx-runtime,

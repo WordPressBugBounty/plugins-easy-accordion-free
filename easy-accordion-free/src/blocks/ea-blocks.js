@@ -1,5 +1,5 @@
 import { updateCategory } from "@wordpress/blocks";
-import { CategoryIcon } from "../icons";
+import { CategoryIcon, ProBlocksCategoryIcon } from "../icons";
 import { ToolbarLibrary } from "../prebuild-library/toolbarButton";
 import "./editor.scss";
 import "./style.scss";
@@ -21,6 +21,10 @@ import "./shortcode";
 // update block category icon.
 updateCategory("sp-easy-accordion-pro", {
 	icon: <CategoryIcon />,
+});
+
+updateCategory("sp-easy-accordion-pro-blocks", {
+	icon: <ProBlocksCategoryIcon />,
 });
 // toolbar button for accordion patterns library.
 ToolbarLibrary();
