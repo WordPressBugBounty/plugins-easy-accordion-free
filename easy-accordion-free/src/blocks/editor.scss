@@ -2,6 +2,10 @@
 
 $border-color :#DDDDDD;
 
+[class*=version-7] .sp-easy-accordion-tabs-panel .sp-eab-doc-link-button-wrapper {
+    margin-left: 0;
+}
+
 // panel body css.
 .sp-easy-accordion-tabs-panel {
 	* {

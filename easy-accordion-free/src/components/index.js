@@ -11,6 +11,7 @@ export { default as BackgroundControl } from "./background";
 export { default as Responsive } from "./responsive";
 export { default as Spacing } from "./spacing";
 export { default as SelectControl } from "./selectControl";
+export { default as SelectField } from "./selectControl";
 export { default as InputControl } from "./inputControl";
 export { default as ToggleControl } from "./toggleControl";
 export { default as MultipleSelect } from "./multipleSelect/multiSelect";

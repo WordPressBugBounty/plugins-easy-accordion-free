@@ -81,6 +81,7 @@
 
 .eap-dashboard-page-header {
     margin-bottom: 32px;
+    margin-top: -4px;
 
     .eap-dashboard-page-header__label {
         font-weight: 500;
@@ -95,7 +96,7 @@
     }
 
     &.eap-upcoming-modules {
-        margin-top: 48px;
+        margin-top: 30px;
     }
 }
 

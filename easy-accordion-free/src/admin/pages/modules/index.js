@@ -82,6 +82,7 @@ const ModulesItems = [
 	{
 		id: 1,
 		Icon: SEOSChemaMarkupModuleIcon,
+		key: "seo_schema_markup",
 		label: __("SEO Schema Markup", "easy-accordion-free"),
 		desc: __(
 			"This allows you to add structured FAQ schema, improving search visibility and increasing clicks with rich results.",
@@ -554,4 +555,5 @@ const Modules = () => {
 	);
 };
 
+export { ModulesItems };
 export default Modules;

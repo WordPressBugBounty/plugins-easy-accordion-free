@@ -108,9 +108,9 @@ if ( ! class_exists( 'SP_EAP' ) ) {
 			self::include_plugin_file( 'configs/option-config.php' );
 			self::include_plugin_file( 'configs/metabox-config.php' );
 			// load tools if module active.
-			if ( self::eap_manage_module_settings( 'eap_tools' ) ) {
-				self::include_plugin_file( 'configs/tools-config.php' );
-			}
+			// if ( self::eap_manage_module_settings( 'eap_tools' ) ) {
+			// 	self::include_plugin_file( 'configs/tools-config.php' );
+			// }
 
 			// setup options.
 			$params = array();

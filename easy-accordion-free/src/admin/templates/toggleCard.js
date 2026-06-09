@@ -8,7 +8,7 @@ const proBlocks = [
 	"sp-easy-accordion-pro/user-faq-form",
 ];
 
-const ToggleCard = ({ attributes, blockShowHideHandler, isUpcomingBlock = false }) => {
+const ToggleCard = ({ attributes, blockShowHideHandler, isUpcomingBlock = false, type = '' }) => {
 	const { show, name } = attributes;
 	const blocksInfo = accordionBlocksInfo;
 	// return if block info don't exist.
@@ -35,7 +35,7 @@ const ToggleCard = ({ attributes, blockShowHideHandler, isUpcomingBlock = false 
 						<span className="sp-eab-visibility-block-name">{title}</span>
 					</h4>
 					<ul className="sp-d-flex sp-align-center sp-gap-10px">
-						{(docLink || isUpcomingBlock) && (
+						{(docLink || isUpcomingBlock) && type !== 'quick-start' && (
 							<li className="sp-eab-doc-link">
 								<a
 									className="sp-d-flex sp-align-center"
@@ -55,7 +55,7 @@ const ToggleCard = ({ attributes, blockShowHideHandler, isUpcomingBlock = false 
 									target="_blank"
 									rel="noreferrer"
 								>
-									<Demos /> Demo
+									<Demos /> {type === 'quick-start' ? 'Live Demo' : 'Demo'}
 								</a>
 							</li>
 						)}
@@ -65,13 +65,13 @@ const ToggleCard = ({ attributes, blockShowHideHandler, isUpcomingBlock = false 
 			<div className="sp-eab-visibility-setting-toggle">
 				<Toggle
 					icons={false}
-					defaultChecked={isUpcomingBlock ? false : show}
+					defaultChecked={(isUpcomingBlock || isPro) ? false : show}
 					onChange={() => {
-						if (!isUpcomingBlock) {
+						if (!isUpcomingBlock && !isPro) {
 							blockShowHideHandler(name);
 						}
 					}}
-					disabled={isUpcomingBlock}
+					disabled={isUpcomingBlock || isPro}
 				/>
 			</div>
 		</div>

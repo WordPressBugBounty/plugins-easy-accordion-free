@@ -1,13 +1,10 @@
 @use '../../../components/multipleSelect/editor.scss';
 
 .sp-eap-settings-page-container {
-    min-height: 360px;
+    display: flex;
+    gap: 32px;
     align-items: flex-start;
-    border-radius: 4px;
-    border: 1px solid #DDDDDD;
-    background: #ffffff;
-    box-shadow: 0 1px 2px 0 rgba(17, 17, 17, 0.20);
-    overflow: hidden;
+    padding: 0 50px;
     position: relative;
 
     ul,
@@ -18,63 +15,83 @@
 
     .sp-eap-setting-tabs-wrapper {
         z-index: 10;
-        width: 225px;
+        width: 248px;
         height: 100%;
+        background: #ffffff;
+        border: 1px solid #DDDDDD;
+        border-radius: 12px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .sp-eap-setting-tabs {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
     }
 
     .sp-eap-setting-tab {
-        padding: 14px 15px;
+        padding: 10px 20px 10px 8px;
         font-size: 14px;
         line-height: 20px;
-        border-radius: 0;
+        border-radius: 6px;
         font-weight: 500;
         z-index: 10;
-        color: #444444;
+        color: #1e1e1e;
         position: relative;
-        background: #F0F0F0;
-        border-bottom: 1px solid #E0E0E0;
-        border-right: 1px solid #E0E0E0;
+        background: transparent;
+        border: 1px solid transparent;
         transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
 
-        &:nth-child(1) {
+        .sp-eap-setting-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+
             svg {
-                height: 16px;
                 width: 16px;
-                margin-bottom: -3px;
+                height: 16px;
             }
 
             path {
-                stroke: #2F2F2F;
+                stroke: #1e1e1e;
             }
         }
 
-        &.active {
-            background: #FFFFFF;
-            color: var(--eab-primary-color);
-            border-right: 1px solid #00000000;
-            box-shadow: 3px 0 0 0 var(--eab-primary-color) inset;
+        &:hover {
+            background: #f5f5f5;
+        }
 
-            path {
-                stroke: var(--eab-primary-color);
+        &.active {
+            background: #ffffff;
+            color: #f26c0d;
+            border: 1px solid #f26c0d;
+
+            .sp-eap-setting-icon path {
+                stroke: #f26c0d;
             }
         }
     }
 
     .sp-eap-setting-tabs-bottom {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        z-index: 9;
-        width: 225px;
-        border-right: 1px solid #E0E0E0;
-        background: #FFFFFF;
+        display: none;
     }
 
     // tabs content.
     .sp-eap-setting-tab-content {
-        height: 100%;
-        padding: 32px;
         flex: 1;
+        padding: 32px;
+        background: #ffffff;
+        border: 1px solid #DDDDDD;
+        border-radius: 12px;
+        min-width: 0;
     }
 }
 
@@ -83,22 +100,30 @@
     margin-top: 30px;
 
     button {
-        background-color: #c5c5c6;
-        border: none;
         border-radius: 4px;
         color: #fff;
         font-size: 16px;
         font-weight: 600;
-        padding: 11px 20px;
+        padding: 10px 24px;
         transition: all .3s ease-in-out;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
-    .sp-eap-settings-save-btn.active {
-        background-color: #00c263;
+    .sp-eap-settings-save-btn {
+        background-color: #c5c5c6;
+        border: none;
+
+        &.active {
+            background-color: #3b9752;
+        }
     }
 
     .sp-eap-settings-reset-btn {
         background-color: #cd3c3c;
+        border: 1px solid #cd3c3c;
+        color: #fff;
     }
 }
 
@@ -230,11 +255,36 @@
 
 // advanced controls tab styles.
 .sp-eap-dashboard-advanced-settings {
-    width: 356px;
-    gap: 34px;
+    width: 100%;
+    gap: 20px;
 
-    &.eap-woocommerce-settings-tab {
-        width: 902px;
+    .sp-eap-settings-option {
+        padding-bottom: 20px;
+        border-bottom: 1px solid #f0f0f0;
+        gap: 32px;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    .sp-eap-option-label-wrapper {
+        gap: 4px;
+        width: 50%;
+    }
+
+    .sp-eap-component-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #2f2f2f;
+        line-height: 20px;
+    }
+
+    .sp-eap-option-help-text {
+        font-size: 13px;
+        font-weight: 400;
+        color: #757575;
+        line-height: 20px;
     }
 }
 
@@ -281,11 +331,16 @@
 
     .sp-eap-settings-option {
         gap: 50px;
+        justify-content: space-between;
     }
 
-    .sp-eap-woo-faq-tab-items,
+    // .sp-eap-woo-faq-tab-items,
     .sp-eab-input-control {
-        width: calc(100% - 320px);
+        width: 45%;
+    }
+
+    .sp-eap-woo-faq-tab-items {
+        width: 600px;
     }
 
     .sp-eap-woo-faq-tab-items {
@@ -410,4 +465,321 @@
         top: 0;
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     }
+}
+// Tools Tab Styles
+.sp-eap-settings-tools-controls {
+	display: flex;
+	flex-direction: column;
+	gap: 36px;
+	width: 100%;
+
+	.sp-eap-settings-tools-section {
+		display: flex;
+		gap: 32px;
+		width: 100%;
+
+		.sp-eap-settings-tools-section-header {
+			width: 280px;
+			flex-shrink: 0;
+
+			.sp-eap-settings-tools-section-title {
+				color: #2F2F2F;
+				font-size: 14px;
+				font-weight: 500;
+				line-height: 1.6;
+				margin: 0;
+			}
+		}
+
+		.sp-eap-settings-tools-section-content {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			gap: 24px;
+			justify-content: center;
+
+			.sp-eap-settings-tools-subtitle {
+				color: #2F2F2F;
+				font-size: 13px;
+				font-weight: 500;
+				line-height: 20px;
+				margin: 0;
+				white-space: nowrap;
+			}
+
+			.sp-eap-settings-tools-radio-group {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+
+				.sp-eap-settings-tools-radio {
+					display: flex;
+					align-items: center;
+					gap: 8px;
+					cursor: pointer;
+
+					input[type="radio"] {
+						display: none;
+					}
+
+					.sp-eap-settings-tools-radio-label {
+						color: #2F2F2F;
+						font-size: 13px;
+						line-height: 20px;
+						position: relative;
+						padding-left: 24px;
+
+						&::before {
+							content: '';
+							position: absolute;
+							left: 0;
+							top: 50%;
+							transform: translateY(-50%);
+							width: 16px;
+							height: 16px;
+							border-radius: 10px;
+							background: #FFFFFF;
+							border: 1px solid #949494;
+						}
+
+						&::after {
+							content: '';
+							position: absolute;
+							left: 5px;
+							top: 50%;
+							transform: translateY(-50%);
+							width: 8px;
+							height: 8px;
+							border-radius: 50%;
+							background: #FFFFFF;
+							opacity: 0;
+							transition: opacity 0.2s ease;
+						}
+					}
+
+					&.active {
+						.sp-eap-settings-tools-radio-label {
+							&::before {
+								background: #1A74E4;
+								border-color: #1A74E4;
+							}
+
+							&::after {
+								opacity: 1;
+							}
+						}
+					}
+				}
+			}
+
+			.sp-eap-settings-tools-file-input {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+
+				.sp-eap-settings-tools-file-btn {
+					background: #F0F0F0;
+					border: 1px solid #2F2F2F;
+					border-radius: 4px;
+					padding: 10px 16px;
+					color: #2F2F2F;
+					font-size: 13px;
+					font-weight: 500;
+					line-height: 13px;
+					cursor: pointer;
+					display: inline-block;
+				}
+
+				.sp-eap-settings-tools-file-name {
+					color: #757575;
+					font-size: 13px;
+					line-height: 20px;
+				}
+			}
+
+			.sp-eap-settings-tools-checkbox {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				cursor: pointer;
+
+				input[type="checkbox"] {
+					width: 16px;
+					height: 16px;
+					cursor: pointer;
+                    margin: 0;
+				}
+
+				.sp-eap-settings-tools-checkbox-label {
+					color: #2F2F2F;
+					font-size: 13px;
+					font-weight: 500;
+					line-height: 20px;
+				}
+			}
+
+			.sp-eap-settings-tools-checkbox-help {
+				color: #757575;
+				font-size: 12px;
+				line-height: 18px;
+				margin: 0;
+			}
+
+			.sp-eap-settings-tools-btn {
+				padding: 10px 16px;
+				border-radius: 4px;
+				border: none;
+				color: #FFFFFF;
+				font-size: 14px;
+				font-weight: 600;
+				line-height: 20px;
+				text-transform: capitalize;
+				cursor: pointer;
+				white-space: nowrap;
+				width: 150px;
+
+				&.sp-eap-settings-tools-btn-primary {
+					background: #1A74E4;
+					border-color: #1A74E4;
+
+					&:hover {
+						background: #155DB7;
+						border-color: #155DB7;
+					}
+				}
+
+				&.sp-eap-settings-tools-btn-secondary {
+					background: #BBBBBB;
+
+					&:hover {
+						background: #A8A8A8;
+					}
+
+					&.has-file {
+						background: #1A74E4;
+
+						&:hover {
+							background: #155DB7;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.sp-eap-settings-tools-divider {
+		height: 1px;
+		background: #F0F0F0;
+		width: 100%;
+	}
+}
+
+/* Multi-select dropdown */
+.sp-eap-settings-tools-multiselect {
+	margin-top: 12px;
+}
+
+/* React Select Multi-Select Styles */
+.sp-eap-settings-tools-multiselect {
+	margin-top: 12px;
+	min-width: 260px;
+
+	.sp-eap-tools-multi-select {
+		.sp-eap-tools__control {
+			min-height: 38px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+
+			&:hover {
+				border-color: #ddd;
+			}
+		}
+
+		.sp-eap-tools__value-container {
+			padding: 2px 8px;
+		}
+
+		.sp-eap-tools__multi-value {
+			background-color: #1A74E4;
+			border-radius: 4px;
+			margin: 2px;
+			display: flex;
+			align-items: center;
+
+			.sp-eap-tools__multi-value__label {
+				color: #fff;
+				font-size: 13px;
+			}
+
+			.sp-eap-tools__multi-value__remove {
+				background: transparent;
+				border: none;
+				color: #fff;
+				cursor: pointer;
+
+				&:hover {
+					background: transparent;
+					color: #fff;
+				}
+			}
+		}
+
+		.sp-eap-tools__placeholder {
+			color: #757575;
+			font-size: 13px;
+		}
+
+		.sp-eap-tools__single-value,
+		.sp-eap-tools__input {
+			font-size: 13px;
+			color: #2f2f2f;
+            border: none;
+            box-shadow: none;
+            outline: none;
+            min-height: 26px;
+		}
+
+		.sp-eap-tools__menu {
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			margin-top: 4px;
+
+			.sp-eap-tools__menu-list {
+				padding: 4px 0;
+
+				.sp-eap-tools__option {
+					padding: 8px 12px;
+					font-size: 13px;
+					cursor: pointer;
+
+					&:hover {
+						background-color: #f0f0f0;
+					}
+
+					&.sp-eap-tools__option--is-selected {
+						background-color: #F26C0D;
+						color: #fff;
+					}
+
+					&.sp-eap-tools__option--is-focused {
+						background-color: #e0e0e0;
+					}
+				}
+			}
+		}
+
+		.sp-eap-tools__indicator-separator {
+			display: none;
+		}
+
+		.sp-eap-tools__dropdown-indicator,
+		.sp-eap-tools__clear-indicator {
+			padding: 4px;
+		}
+
+        .sp-eap-tools__input-container::after {
+            display: none;
+        }
+	}
 }

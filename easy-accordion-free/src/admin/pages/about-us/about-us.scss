@@ -6,170 +6,291 @@ $secondary-text-color: #3C434A;
 $button-text-color: #756C69;
 
 .sp_easy_accordion_page_eap_dashboard {
-  .sp-eab-about-box {
-    display: flex;
-    background: #fff;
-    margin: 0 auto;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.06);
-  }
+	.sp-eab-about-box {
+		display: flex;
+		background: #fff;
+		margin: 0 auto;
+		padding: 40px;
+		border-radius: 8px;
+		box-shadow: 0 0 6px rgba(0, 0, 0, 0.06);
+	}
 
-  .sp-eab-about-img {
-    width: 50%;
-    flex-basis: 50%;
-    flex-shrink: 0;
-    overflow: hidden;
-    align-self: center;
+	.sp-eab-about-img {
+		width: 50%;
+		flex-basis: 50%;
+		flex-shrink: 0;
+		overflow: hidden;
+		align-self: center;
 
-    span {
-      text-align: center;
-      display: block;
-      margin-top: 12px;
-      font-weight: 400;
-      font-size: 13px;
-      font-style: italic;
-      color: #3C434A;
-    }
+		span {
+			text-align: center;
+			display: block;
+			margin-top: 12px;
+			font-weight: 400;
+			font-size: 13px;
+			font-style: italic;
+			color: #3C434A;
+		}
 
-    img {
-      width: 100%;
-      display: block;
-      border-radius: 8px;
-    }
-  }
+		img {
+			width: 100%;
+			display: block;
+			border-radius: 8px;
+		}
+	}
 
-  .sp-eab-about-info {
-    margin-right: 40px;
+	.sp-eab-about-info {
+		margin-right: 40px;
 
-    h3 {
-      font-size: 26px;
-      line-height: 32px;
-      margin-bottom: 25px;
-      color: #1D2327;
-      margin-top: 0;
-    }
+		h3 {
+			font-size: 26px;
+			line-height: 32px;
+			margin-bottom: 25px;
+			color: #1D2327;
+			margin-top: 0;
+		}
 
-    p {
-      line-height: 28px;
-      margin-bottom: 15px;
-      font-size: 15px;
-      font-weight: 400;
-      color: #3C434A;
-    }
-  }
+		.sp-eab-highlight-text {
+			position: relative;
+			display: inline-block;
+			z-index: 2;
 
-  .sp-eab-about-page {
-    .sp-eab-video-section-btn {
-      margin-top: 40px;
+			&::after {
+				content: '';
+				position: absolute;
+				bottom: 4px;
+				left: 0;
+				right: 0;
+				height: 5px;
+				background-color: #ffe0b3;
+				border-radius: 2px;
+				z-index: -1;
+			}
+		}
 
-      ul {
-        display: flex;
-        gap: 18px;
-        margin: 0;
+		p {
+			line-height: 28px;
+			margin-bottom: 15px;
+			font-size: 15px;
+			font-weight: 400;
+			color: #3C434A;
+		}
+	}
 
-        li {
-          display: inline-flex;
-          margin-bottom: 0;
+	.sp-eab-about-page {
+		.sp-eab-video-section-btn {
+			margin-top: 40px;
 
-          a {
-            color: $button-text-color;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 600;
-            border-radius: 4px;
-            border: 1px solid transparent;
-            transition: all .3s linear;
-            padding: 14px 24px;
-          }
-        }
+			ul {
+				display: flex;
+				gap: 18px;
+				margin: 0;
 
-        li:nth-child(1) a {
-          color: #fff;
-          background-color: var(--eab-primary-color);
-          transition: all .3s ease-in-out;
-        }
+				li {
+					display: inline-flex;
+					margin-bottom: 0;
 
-        li:nth-child(1) a:hover {
-          background-color: var(--eab-primary-color-hover);
-        }
+					a {
+						color: $button-text-color;
+						text-decoration: none;
+						font-size: 16px;
+						font-weight: 600;
+						border-radius: 4px;
+						border: 1px solid transparent;
+						transition: all .3s linear;
+						padding: 14px 24px;
+					}
+				}
 
-        li:nth-child(1) a:hover {
-          background-color: var(--eab-primary-color);
-        }
+				li:nth-child(1) a {
+					color: #fff;
+					background-color: var(--eab-primary-color);
+					transition: all .3s ease-in-out;
+				}
 
-        li:nth-child(2) a {
-          color: var(--eab-primary-color);
-          border-color: var(--eab-primary-color);
-          display: flex;
+				li:nth-child(1) a:hover {
+					background-color: var(--eab-primary-color-hover);
+				}
 
-          svg {
-            margin-left: 5px;
-            margin-right: -4px;
-            fill: var(--eab-primary-color);
-            transition: all .3s linear;
-          }
-        }
+				li:nth-child(2) a {
+					color: var(--eab-primary-color);
+					border-color: var(--eab-primary-color);
+					display: flex;
 
-        li:nth-child(2) a:hover {
-          color: #fff;
-          background-color: var(--eab-primary-color);
-          border-color: transparent;
+					svg {
+						margin-left: 5px;
+						margin-right: -4px;
+						fill: var(--eab-primary-color);
+						transition: all .3s linear;
+					}
+				}
 
-          svg {
-            fill: #fff;
-          }
-        }
-      }
-    }
-  }
+				li:nth-child(2) a:hover {
+					color: #fff;
+					background-color: var(--eab-primary-color);
+					border-color: transparent;
+
+					svg {
+						fill: #fff;
+					}
+				}
+			}
+		}
+	}
 }
 
 .eab-recommended-plugins-wrapper {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 50px;
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 0 50px;
 
-  a {
-    text-decoration: none;
-  }
+	a {
+		text-decoration: none;
+	}
 
-  .sp-eab-section-title {
-    margin: 80px 0 40px 8px;
-    font-size: 28px;
-    font-weight: 600;
-    line-height: 28px;
-    color: #1d2327;
-  }
+	.sp-eab-section-title {
+		margin: 80px 0 40px 8px;
+		font-size: 22px;
+		font-weight: 600;
+		line-height: 28px;
+		color: #1d2327;
+	}
 }
 
-#sp-eab-admin-dashboard-wrapper:has(.sp-eab-about-page) {
-  .eab-recommended-plugins-wrapper {
-    display: block !important;
-  }
+/* More Plugins Section - Matching Location Weather Design */
+.sp-eab-more-plugins-section {
+	margin-top: 60px;
+	border-radius: 8px;
+
+	.sp-eab-more-plugins-header {
+		text-align: center;
+		margin-bottom: 40px;
+
+		.sp-eab-more-plugins-title {
+			font-size: 24px;
+			font-weight: 500;
+			line-height: 1.4;
+			color: #1e1e1e;
+			margin: 0 0 10px 0;
+		}
+
+		.sp-eab-more-plugins-subtitle {
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 20px;
+			color: #4e4f52;
+			margin: 0;
+		}
+	}
+
+	.sp-eab-more-plugins-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+		margin: 0 auto;
+
+		@media (max-width: 992px) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		@media (max-width: 640px) {
+			grid-template-columns: 1fr;
+		}
+	}
+}
+
+.sp-eab-plugin-card {
+	display: flex;
+	flex-direction: column;
+	background: #ffffff;
+	border-radius: 8px;
+	padding: 24px;
+	text-decoration: none;
+	transition: box-shadow 0.2s ease;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	border: 1px solid #e0e0e0;
+	position: relative;
+
+	&:hover {
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		border-color: #00a1ff;
+	}
+
+	.sp-eab-plugin-card-icon {
+		margin-bottom: 16px;
+		img {
+			width: 48px;
+		}
+		img,
+		svg {
+			border-radius: 4px;
+			overflow: hidden;
+		}
+	}
+
+	.sp-eab-plugin-card-content {
+		.sp-eab-plugin-card-title {
+						font-size: 20px;
+			font-weight: 600;
+			color: #333333;
+			margin: 0 0 8px 0;
+			line-height: 1.3;
+		}
+
+		.sp-eab-plugin-card-desc {
+						font-size: 14px;
+			line-height: 1.5;
+			color: #666666;
+			margin: 0;
+		}
+	}
+
+	.sp-eab-plugin-card-arrow {
+		position: absolute;
+		top: 24px;
+		right: 24px;
+		opacity: 0;
+		transition: opacity 0.2s ease;
+		color: #00a1ff;
+		width: 32px;
+		height: 32px;
+		border: 1px solid #00a1ff45;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		svg {
+			display: block;
+		}
+	}
+
+	&:hover .sp-eab-plugin-card-arrow {
+		opacity: 1;
+	}
 }
 
 @media screen and (min-width: 1600px) {
-  .sp-eab-admin-dashboard-wrapper .plugin-card {
-    width: 48%;
-    width: calc(49% - 8px)
-  }
+	.sp-eab-admin-dashboard-wrapper .plugin-card {
+		width: 48%;
+		width: calc(49% - 8px)
+	}
 
-  .sp-eab-admin-dashboard-wrapper .plugin-card:nth-child(odd) {
-    clear: none;
-    margin-left: 8px
-  }
+	.sp-eab-admin-dashboard-wrapper .plugin-card:nth-child(odd) {
+		clear: none;
+		margin-left: 8px
+	}
 
-  .sp-eab-admin-dashboard-wrapper .plugin-card:nth-child(2n) {
-    margin-right: 0
-  }
+	.sp-eab-admin-dashboard-wrapper .plugin-card:nth-child(2n) {
+		margin-right: 0
+	}
 
-  .sp-eab-admin-dashboard-wrapper .plugin-card:nth-child(3n+1) {
-    clear: both;
-    margin-left: 8px
-  }
+	.sp-eab-admin-dashboard-wrapper .plugin-card:nth-child(3n+1) {
+		clear: both;
+		margin-left: 8px
+	}
 
-  .sp-eab-admin-dashboard-wrapper .plugin-card:nth-child(3n) {
-    margin-right: 8px
-  }
+	.sp-eab-admin-dashboard-wrapper .plugin-card:nth-child(3n) {
+		margin-right: 8px
+	}
 }

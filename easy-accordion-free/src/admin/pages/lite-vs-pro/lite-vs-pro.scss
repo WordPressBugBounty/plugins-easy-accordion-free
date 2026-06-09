@@ -110,6 +110,7 @@
 	background: #FFF;
 	box-shadow: 0 1px 2px 0 rgba(17, 17, 17, 0.06);
 	padding: 8px;
+	padding-bottom: 24px;
 
 	&-list {
 		padding: 0 32px;
@@ -295,80 +296,258 @@
 }
 
 // ----------------------------------------
-// Lite vs Pro Main Styles
+// Testimonial Section Styles
 // ----------------------------------------
-.sp-eab-pro-page .sp-eab-testimonial .sp-eab-testimonial-title-section {
-	// ----------------------------------------
-	// Lite to Pro Section
-	// ----------------------------------------
-	text-align: center;
-	margin: 80px 0 40px;
+.sp-eab-testimonial {
+	margin-top: 60px;
+
+	.sp-eab-testimonial-header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 16px;
+		padding-top: 28px;
+		margin-bottom: 50px;
+
+		.sp-eab-testimonial-ratings {
+			display: flex;
+			gap: 16px;
+
+			.sp-eab-testimonial-rating-item {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+
+				.sp-eab-testimonial-rating-wordpress {
+					display: flex;
+					align-items: center;
+					gap: 8px;
+
+					.sp-eab-wp-mark {
+						width: 20px;
+						height: 20px;
+						border-radius: 4px;
+						color: #fff;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						font-weight: 700;
+						font-size: 14px;
+					}
+
+					.sp-eab-wp-text {
+						color: #444c50;
+						font-weight: 500;
+						font-size: 14px;
+						display: flex;
+					}
+				}
+
+				.sp-eab-testimonial-rating-trustpilot {
+					width: 20px;
+					height: 20px;
+
+					.sp-eab-trustpilot-mark {
+						color: #00b57a;
+						font-size: 20px;
+					}
+				}
+
+				.sp-eab-trustpilot-stars {
+					color: #fff;
+					font-size: 14px;
+					display: flex;
+					gap: 2px;
+
+					svg {
+						background-color: #00b57a;
+						padding: 2px;
+						width: 10px;
+						height: 10px;
+					}
+				}
+
+				.sp-eab-testimonial-rating-score {
+					color: #444c50;
+					font-weight: 600;
+					font-size: 16px;
+				}
+
+				.sp-eab-testimonial-review-count {
+					color: #575f62;
+					font-weight: 500;
+					font-size: 14px;
+				}
+			}
+		}
+
+		.sp-eab-testimonial-title {
+			font-size: 28px;
+			font-weight: 600;
+			line-height: 28px;
+			color: #2f2f2f;
+			margin: 0;
+		}
+	}
+
+	.sp-eab-testimonial-wrap {
+		display: flex;
+		gap: 24px;
+	}
 }
 
-.sp-eab-pro-page .sp-eab-testimonial .sp-eab-testimonial-title-section span {
-	font-size: 14px;
-	font-weight: 600;
-	color: #F26C0D;
-	margin-bottom: 12px;
-	display: inline-block;
-}
-
-.sp-eab-pro-page .sp-eab-testimonial-wrap {
+.sp-eab-testimonial-card {
+	background: #fff;
+	border: 1px solid #ddd;
+	border-radius: 16px;
+	padding: 32px;
+	flex: 1;
+	min-width: 0;
 	display: flex;
-	gap: 30px;
-}
-
-.sp-eab-pro-page .sp-eab-testimonial-content {
-	background-color: #fff;
-	padding: 20px 25px;
-	position: relative;
-	border-radius: 8px;
-	margin-bottom: 20px;
-	box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.06);
-}
-
-.sp-eab-pro-page .sp-eab-testimonial-content p {
-	font-size: 16px;
-	line-height: 28px;
-	color: #3C434A;
-}
-
-.sp-eab-pro-page .sp-eab-testimonial-content::after {
-	content: "";
-	position: absolute;
-	bottom: -13px;
-	left: 40px;
-	width: 25px;
-	height: 15px;
-	background-color: #ffffff;
-	clip-path: polygon(0 0, 50% 100%, 100% 0);
-}
-
-.sp-eab-pro-page .sp-eab-testimonial-info {
-	display: flex;
+	flex-direction: column;
 	gap: 20px;
-	margin-left: 20px;
-}
+	align-items: flex-start;
 
-.sp-eab-pro-page .sp-eab-testimonial-info .sp-eab-img img {
-	border-radius: 50%;
-	width: 60px;
-}
+	.sp-eab-testimonial-card-header {
+		.sp-eab-testimonial-reviewer {
+			display: flex;
+			gap: 12px;
+			align-items: center;
 
-.sp-eab-pro-page .sp-eab-testimonial-info .sp-eab-info h3 {
-	font-size: 16px;
-	color: #1D2327;
-}
+			.sp-eab-testimonial-avatar {
+				position: relative;
+				width: 60px;
+				height: 60px;
+				flex-shrink: 0;
 
-.sp-eab-pro-page .sp-eab-testimonial-info .sp-eab-info p {
-	margin: 4px 0;
-	font-size: 12px;
-	color: #3C434A;
-}
+				img {
+					width: 60px;
+					height: 60px;
+					border-radius: 99px;
+					object-fit: cover;
+				}
 
-.sp-eab-pro-page .sp-eab-testimonial-info .sp-eab-info .sp-eab-star {
-	color: #FFC329;
-	font-size: 17px;
+				.sp-eab-testimonial-source-badge {
+					position: absolute;
+					bottom: 0;
+					right: 0;
+					width: 24px;
+					height: 24px;
+					background: #fff;
+					border-radius: 50%;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					padding: 1px;
+					box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+					span {
+						width: 16px;
+						height: 16px;
+						background: #1e1e1e;
+						border-radius: 4px;
+						color: #fff;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						font-weight: 700;
+						font-size: 10px;
+					}
+				}
+			}
+
+			.sp-eab-testimonial-reviewer-info {
+				display: flex;
+				flex-direction: column;
+				gap: 4px;
+
+				h3 {
+					font-size: 16px;
+					font-weight: 500;
+					color: #1e1e1e;
+					margin: 0;
+				}
+
+				p {
+					font-size: 14px;
+					color: #757575;
+					margin: 0;
+				}
+			}
+		}
+	}
+
+	.sp-eab-testimonial-rating-stars {
+		display: flex;
+		justify-content: flex-start;
+		gap: 2px;
+		align-items: center;
+
+		span {
+			color: #F4674D;
+			font-size: 16px;
+			display: flex;
+			gap: 2px;
+		}
+
+		// Trustpilot stars styling
+		.sp-eab-testimonial-rating-trustpilot-stars {
+			display: flex;
+			gap: 2px;
+			align-items: center;
+
+			.sp-eab-trustpilot-star-item {
+				background-color: #00b57a;
+				padding: 1.5px;
+				border-radius: 2px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 11px;
+				height: 11px;
+				flex-shrink: 0;
+
+				svg {
+					width: 10px;
+					height: 10px;
+				}
+			}
+		}
+	}
+
+	.sp-eab-testimonial-card-content {
+		p {
+			font-size: 15px;
+			line-height: 24px;
+			color: #1e1e1e;
+			margin: 0;
+		}
+	}
+
+	// Trustpilot card specific styles
+	&.sp-eab-testimonial-card-trustpilot {
+		.sp-eab-testimonial-avatar {
+			// Yellow background for Trustpilot initials
+			.sp-eab-testimonial-avatar-initials {
+				width: 60px;
+				height: 60px;
+				border-radius: 99px;
+				background-color: #fff7c4;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-weight: 500;
+				font-size: 22px;
+				color: #000;
+			}
+		}
+
+		.sp-eab-testimonial-source-badge {
+			svg {
+				color: #00b57a;
+			}
+		}
+	}
 }
 
 .sp-eab-pro-page .sp-eab-recommended-plugins {

@@ -28,7 +28,7 @@ class Easy_Accordion_Import_Export {
 		$export = array();
 		if ( ! empty( $accordion_ids ) ) {
 			$post_type = 'all_faqs' === $accordion_ids ? 'sp_accordion_faqs' : 'sp_easy_accordion';
-			$post_in   = 'all_faqs' === $accordion_ids || 'all_shortcodes' === $accordion_ids ? '' : $accordion_ids;
+			$post_in   = 'all_faqs' === $accordion_ids || 'all_shortcodes' === $accordion_ids ? array() : array_map( 'intval', explode( ',', $accordion_ids ) );
 
 			$args       = array(
 				'post_type'        => $post_type,
@@ -75,6 +75,57 @@ class Easy_Accordion_Import_Export {
 	}
 
 	/**
+	 * Get shortcode list for export.
+	 *
+	 * @return void
+	 */
+	public function get_shortcode_list_for_export() {
+		$nonce = ( ! empty( $_POST['nonce'] ) ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+
+		$capability      = apply_filters( 'sp_easy_accordion_ui_permission', 'manage_options' );
+		$is_user_capable = current_user_can( $capability ) ? true : false;
+
+		if ( ! $is_user_capable ) {
+			wp_send_json_error(
+				array(
+					'error' => esc_html__( 'You do not have permission.', 'easy-accordion-free' ),
+				),
+				403
+			);
+		}
+
+		if ( ! wp_verify_nonce( $nonce, 'sp_eap_admin_dashboard_nonce' ) ) {
+			wp_send_json_error(
+				array(
+					'error' => esc_html__( 'Error: Nonce verification has failed. Please try again.', 'easy-accordion-free' ),
+				),
+				403
+			);
+		}
+
+		$args = array(
+			'post_type'      => 'sp_easy_accordion',
+			'post_status'    => array( 'publish', 'draft' ),
+			'posts_per_page' => -1,
+			'orderby'        => 'title',
+			'order'          => 'ASC',
+			'fields'         => array( 'ID', 'post_title' ),
+		);
+
+		$posts = get_posts( $args );
+
+		$data = array();
+		foreach ( $posts as $post ) {
+			$data[] = array(
+				'id'    => $post->ID,
+				'title' => $post->post_title,
+			);
+		}
+
+		wp_send_json_success( $data, 200 );
+	}
+
+	/**
 	 * Export Accordion by ajax.
 	 *
 	 * @return void
@@ -94,7 +145,7 @@ class Easy_Accordion_Import_Export {
 			);
 		}
 
-		if ( ! wp_verify_nonce( $nonce, 'eapro_options_nonce' ) ) {
+		if ( ! wp_verify_nonce( $nonce, 'sp_eap_admin_dashboard_nonce' ) ) {
 			wp_send_json_error(
 				array(
 					'error' => esc_html__( 'Error: Nonce verification has failed. Please try again.', 'easy-accordion-free' ),
@@ -262,6 +313,108 @@ class Easy_Accordion_Import_Export {
 	}
 
 	/**
+	 * Duplicate Classic Shortcode by ajax.
+	 *
+	 * @return void
+	 */
+	public function duplicate_classic_shortcode() {
+		$nonce           = ( ! empty( $_POST['nonce'] ) ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+		$capability      = apply_filters( 'sp_easy_accordion_ui_permission', 'manage_options' );
+		$is_user_capable = current_user_can( $capability ) ? true : false;
+
+		if ( ! $is_user_capable ) {
+			wp_send_json_error(
+				array(
+					'message' => esc_html__( 'You do not have permission.', 'easy-accordion-free' ),
+				),
+				403
+			);
+		}
+
+		if ( ! wp_verify_nonce( $nonce, 'sp_eap_admin_dashboard_nonce' ) ) {
+			wp_send_json_error(
+				array(
+					'message' => esc_html__( 'Error: Nonce verification has failed. Please try again.', 'easy-accordion-free' ),
+				),
+				403
+			);
+		}
+
+		$post_id = isset( $_POST['post_id'] ) ? intval( $_POST['post_id'] ) : 0;
+
+		if ( ! $post_id ) {
+			wp_send_json_error(
+				array(
+					'message' => esc_html__( 'Invalid post ID.', 'easy-accordion-free' ),
+				),
+				400
+			);
+		}
+
+		// Get the original post.
+		$original_post = get_post( $post_id );
+
+		if ( ! $original_post || 'sp_easy_accordion' !== $original_post->post_type ) {
+			wp_send_json_error(
+				array(
+					'message' => esc_html__( 'Post not found or invalid post type.', 'easy-accordion-free' ),
+				),
+				404
+			);
+		}
+
+		// Create the duplicate post.
+		$new_post_id = wp_insert_post(
+			array(
+				'post_title'   => sanitize_text_field( $original_post->post_title ) . ' (Copy)',
+				'post_status'  => 'draft',
+				'post_type'    => 'sp_easy_accordion',
+			),
+			true
+		);
+
+		if ( is_wp_error( $new_post_id ) ) {
+			wp_send_json_error(
+				array(
+					'message' => esc_html( $new_post_id->get_error_message() ),
+				),
+				400
+			);
+		}
+
+		// Copy all meta data.
+		$meta_data = get_post_meta( $post_id );
+		if ( is_array( $meta_data ) ) {
+			foreach ( $meta_data as $meta_key => $meta_values ) {
+				// Take the first value only (most meta has single value).
+				$meta_value = $meta_values[0];
+
+				// Replace {#ID#} placeholder with new post ID.
+				$data = str_replace( '{#ID#}', $new_post_id, $meta_value );
+
+				// Unserialize if the data is serialized.
+				if ( is_serialized( $data ) ) {
+					$data = unserialize( $data, array( 'allowed_classes' => false ) );
+				}
+
+				update_post_meta(
+					$new_post_id,
+					$meta_key,
+					wp_slash( $data )
+				);
+			}
+		}
+
+		wp_send_json_success(
+			array(
+				'post_id' => $new_post_id,
+				'message' => esc_html__( 'Template duplicated successfully.', 'easy-accordion-free' ),
+			),
+			200
+		);
+	}
+
+	/**
 	 * Import Accordions by ajax.
 	 *
 	 * @return void
@@ -280,7 +433,7 @@ class Easy_Accordion_Import_Export {
 			);
 		}
 
-		if ( ! wp_verify_nonce( $nonce, 'eapro_options_nonce' ) ) {
+		if ( ! wp_verify_nonce( $nonce, 'sp_eap_admin_dashboard_nonce' ) ) {
 			wp_send_json_error(
 				array(
 					'error' => esc_html__( 'Error: Nonce verification has failed. Please try again.', 'easy-accordion-free' ),

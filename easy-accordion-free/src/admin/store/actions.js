@@ -41,9 +41,10 @@ export const fetchApiData =
  * The API returns the full updated state, which replaces the store data.
  *
  * @param {Object} modifiedData - The data to save (e.g. { pluginSettings: {...} }).
+ * @param {string} editorPreference - The editor preference value.
  */
 export const saveSettings =
-	(modifiedData) =>
+	(modifiedData, editorPreference) =>
 	async ({ dispatch }) => {
 		dispatch(setSaving(true));
 		try {
@@ -51,6 +52,9 @@ export const saveSettings =
 			data.append("nonce", sp_eab_admin_dashboard_localize?.nonce);
 			data.append("action", "sp_eab_admin_option_update");
 			data.append("queryData", JSON.stringify(modifiedData));
+			if (editorPreference !== undefined) {
+				data.append("editorPreference", editorPreference);
+			}
 
 			const response = await axios.post(sp_eab_admin_dashboard_localize?.ajax_url, data);
 			dispatch(setApiData(response.data));

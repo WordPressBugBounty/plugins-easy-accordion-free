@@ -1,10 +1,10 @@
 ﻿=== Easy Accordion – AI-Powered FAQ & Accordion Blocks, Product FAQ ===
 Contributors: shapedplugin, khalilu, rubel_miah, shamimmiashuhagh
 Tags: faq, accordion blocks, image accordion, product faq, category menu accordion
-Requires at least: 5.0
+Requires at least: 5.9
 Tested up to: 7.0
-Requires PHP: 7.0
-Stable tag: 3.1.2
+Requires PHP: 7.4
+Stable tag: 3.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,9 +13,9 @@ AI-Powered FAQ Generator. Gutenberg FAQ & Accordion Blocks, Image Accordion, Acc
 == Description ==
 
 🚀 Explore Powerful [**15+ FAQ & Accordion Blocks**](https://easyaccordion.io/blocks/)  
-📚 Start with [**100+ Ready FAQ & Accordion Patterns**](https://easyaccordion.io/patterns/)
+📚 Start with [**200+ Ready FAQ & Accordion Patterns**](https://easyaccordion.io/patterns/)
 🌐 Visit the Official Website [**Easy Accordion**](https://easyaccordion.io/)
-❤️ 114+ ⭐⭐⭐⭐⭐ Reviews & 4.8/5 Happiness Rating on [**Trustpilot**](https://www.trustpilot.com/review/shapedplugin.com)
+❤️ 129+ ⭐⭐⭐⭐⭐ Reviews & 4.8/5 Happiness Rating on [**Trustpilot**](https://www.trustpilot.com/review/shapedplugin.com)
 
 Create beautiful, responsive FAQs and stylish accordions in minutes with **Easy Accordion**, the most popular WordPress FAQ & Accordion Builder – in 3 simple steps:  
 
@@ -258,9 +258,9 @@ Discover our powerful WordPress and WooCommerce plugins designed to save time, b
 
 = MINIMUM REQUIREMENTS =
 
-* PHP 7.0 or later
+* PHP 7.4 or later
 * MySQL 5.6 or later
-* WordPress 5.0 or later
+* WordPress 5.9 or later
 
 **This section describes how to install the plugin and get it working**
 
@@ -338,6 +338,16 @@ clicking "Install Now" and then "Activate".
 
 
 == Changelog ==
+
+= Version 3.1.3 - Jun 09, 2026 =
+* New: The Default Editor option in the plugin settings tab to set editor preference to create accordion showcase.
+* New: The Shortcode area added to the Saved Templates' right sidebar to copy shortcode easily.
+* Improved: WordPress minimum version requirement updated from 5.0 to 5.9.0 for better Gutenberg block compatibility.
+Improved: PHP minimum version requirement updated from 7.0 to 7.4.
+* Improved: The Add to Cart button style of Product Accordion block.
+* Improved: The Plugin Dashboard Panel has been enhanced.
+* Improved: The Tools (Export/Import) panel moved to Settings page.
+* Fix: The Import  Product Accordion from Ready Template.
 
 = Version 3.1.2 - May 13, 2026 =
 * Improved: Plugin admin UI improved

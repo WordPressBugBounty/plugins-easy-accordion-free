@@ -12,12 +12,18 @@ const SelectField = ({
 	flexStyle = false,
 	units = false,
 	onChange = false,
+	value = false,
 }) => {
 	// Device check fn
 	const deviceType = useDeviceType();
-	// Set Button value
+
+	// Determine if this is settings page usage (direct value/onChange) or block usage (setAttributes)
+	const isSettingsUsage = value !== false && onChange !== false;
+
 	const setNewValue = (newValue) => {
-		if (attributes?.device) {
+		if (isSettingsUsage) {
+			onChange(newValue);
+		} else if (attributes?.device) {
 			setAttributes({
 				[attributesKey]: {
 					device: { ...attributes?.device, [deviceType]: newValue },
@@ -34,24 +40,26 @@ const SelectField = ({
 	}));
 
 	// Get active button value
-	const activeValue = attributes?.device ? attributes?.device[deviceType] : attributes;
+	const activeValue = isSettingsUsage ? value : (attributes?.device ? attributes?.device[deviceType] : attributes);
 
 	return (
 		<div
 			className={`sp-eab-select-field sp-eab-component-mb ${flexStyle ? "sp-d-flex sp-justify-between sp-align-center" : "sp-d-block"}`}
 		>
-			<ComponentHeader
-				label={label}
-				attributes={attributes}
-				attributesKey={attributesKey}
-				setAttributes={setAttributes}
-				units={units}
-			/>
+			{!isSettingsUsage && (
+				<ComponentHeader
+					label={label}
+					attributes={attributes}
+					attributesKey={attributesKey}
+					setAttributes={setAttributes}
+					units={units}
+				/>
+			)}
 			<SelectControl
 				className="custom-select-control"
 				value={activeValue}
 				options={selectItems}
-				onChange={(newField) => (onChange ? onChange(newField) : setNewValue(newField))}
+				onChange={setNewValue}
 				__nextHasNoMarginBottom
 				__next40pxDefaultSize
 			/>

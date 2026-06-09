@@ -230,3 +230,80 @@ a.sp-easyaccordion-block-edit-button {
 #adminmenu #menu-posts-sp_easy_accordion li:nth-last-child(2) a {
 	color: #FFA500;
 }
+
+/* Footer Styles */
+.eap-footer-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	width: 60%;
+	float: left;
+}
+
+.eap-footer-left {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.eap-footer-left span,
+.eap-footer-left a {
+	color: #6e6a69;
+	font-size: 14px;
+	font-weight: 500;
+	text-decoration: none;
+}
+
+.eap-footer-team-link {
+	color: #1e67d8 !important;
+	text-decoration: underline;
+}
+
+.eap-footer-team-link:hover {
+	color: #0a53b3 !important;
+	text-decoration: underline !important;
+}
+
+.eap-footer-team-link:focus {
+	border: none;
+	box-shadow: none;
+}
+
+.eap-footer-heart {
+	vertical-align: middle;
+	width: 16px;
+	height: 16px;
+}
+
+.eap-footer-social {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.eap-footer-social-link {
+	display: inline-flex;
+	align-items: center;
+	transition: transform 0.2s ease;
+}
+
+.eap-footer-social-link:hover {
+	transform: scale(1.1);
+}
+
+.eap-footer-social-link:hover svg path {
+	fill: #1e67d8;
+}
+
+.eap-footer-social-link svg {
+	display: block;
+}
+
+@media (max-width: 782px) {
+	.eap-footer-container {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+	}
+}

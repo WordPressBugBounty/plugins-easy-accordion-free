@@ -3,10 +3,10 @@ import { useEffect, useRef, useState } from "@wordpress/element";
 import { Tooltip, Spinner } from "@wordpress/components";
 import { useDispatch, resolveSelect, useSelect } from "@wordpress/data";
 import { copyText, toastErrorMsg, toastSuccessMsg } from "../../functions";
-import { CopyIcon, DeleteBinIcon, EditPencilIcon, LeftArrow, RightArrow } from "./icons";
+import { CheckIcon, CopyIcon, DeleteBinIcon, EditPencilIcon, LeftArrow, RightArrow } from "./icons";
+import { SavedTemplatesPromo } from "./SavedTemplatesPromo";
 
 const SavedTemplates = () => {
-	const tableCol = ["checkBox", "title", "shortcode", "date", "action"];
 	const [selectBulkValue, setSelectBulkValue] = useState("");
 	const [searchValue, setSearchValue] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
@@ -16,37 +16,83 @@ const SavedTemplates = () => {
 	const [noPostText, setNoPostText] = useState(false);
 	const timeoutRef = useRef(null);
 
-	// Get All Post Count.
-	const totalPostCount = useSelect(
+	// Get Block Editor Templates count.
+	const blockTemplateCount = useSelect(
 		(select) =>
 			select("core")?.getEntityRecords("postType", "sp_eap_template", {
 				status: "any",
 				per_page: -1,
 				search: searchValue,
 				_fields: ["id"],
-			})?.length,
+			})?.length || 0,
 		[searchValue]
 	);
 
-	const savedTemplateList = useSelect(
+	// Get Classic Shortcode Posts count.
+	const classicShortcodeCount = useSelect(
+		(select) =>
+			select("core")?.getEntityRecords("postType", "sp_easy_accordion", {
+				status: "any",
+				per_page: -1,
+				search: searchValue,
+				_fields: ["id"],
+			})?.length || 0,
+		[searchValue]
+	);
+
+	// Dynamic table columns based on whether classic shortcode exists
+	const tableCol = classicShortcodeCount < 1
+		? ["checkBox", "title", "shortcode", "date", "action"]
+	: ["checkBox", "title", "editor_type", "shortcode", "date", "action"];
+
+	// Total count for pagination.
+	const totalPostCount = blockTemplateCount + classicShortcodeCount;
+
+	// Get Block Editor Templates.
+	const blockTemplateList = useSelect(
 		(select) =>
 			select("core")?.getEntityRecords("postType", "sp_eap_template", {
 				status: "any",
-				per_page: 10,
-				offset: searchValue ? 0 : (currentPage - 1) * 10,
+				per_page: -1,
 				search: searchValue,
 				_fields: ["id", "modified", "title", "status"],
-			}),
-		[searchValue, currentPage]
+			}) || [],
+		[searchValue]
+	);
+
+	// Get Classic Shortcode Posts.
+	const classicShortcodeList = useSelect(
+		(select) =>
+			select("core")?.getEntityRecords("postType", "sp_easy_accordion", {
+				status: "any",
+				per_page: -1,
+				search: searchValue,
+				_fields: ["id", "modified", "title", "status"],
+			}) || [],
+		[searchValue]
+	);
+
+	// Combine and sort by modified date (newest first).
+	const allTemplates = [...blockTemplateList, ...classicShortcodeList].sort((a, b) => {
+		return new Date(b.modified) - new Date(a.modified);
+	});
+
+	// Paginate combined list.
+	const savedTemplateList = allTemplates.slice(
+		searchValue ? 0 : (currentPage - 1) * 10,
+		searchValue ? 10 : currentPage * 10
 	);
 
 	// Copy Shortcode Upon Clicking Short code.
-	const copyShortCodeHandler = (value) => {
-		const updateValue = `[sp_eap_template id="${value}"]`;
-		const copied = copyText(updateValue);
+	const copyShortCodeHandler = (item) => {
+		const postType = getPostType(item);
+		const shortcode = postType === "sp_eap_template"
+			? `[sp_eap_template id="${item.id}"]`
+			: `[sp_easyaccordion id="${item.id}"]`;
+		const copied = copyText(shortcode);
 
 		if (copied) {
-			setShortcodeCopied(value);
+			setShortcodeCopied(item.id);
 		} else {
 			toastErrorMsg(__("Failed to copy shortcode", "easy-accordion-free"));
 		}
@@ -67,12 +113,19 @@ const SavedTemplates = () => {
 		}
 		timeoutRef.current = setTimeout(() => {
 			setSearchValue(searchInputValue);
-		}, 100);
+		}, 1000);
 	};
 
 	// Get Delete entity record.
 	const { deleteEntityRecord, editEntityRecord, saveEntityRecord, saveEditedEntityRecord, invalidateResolution } =
 		useDispatch("core");
+
+	// Helper to determine post type from item.
+	const getPostType = (item) => {
+		const isBlockTemplate = blockTemplateList?.some(bt => bt.id === item.id);
+		return isBlockTemplate ? "sp_eap_template" : "sp_easy_accordion";
+	};
+
 	// Delete Item.
 	const deleteItemHandler = async (itemId = null) => {
 		const deleteId = itemId ? [itemId] : checkId;
@@ -85,14 +138,15 @@ const SavedTemplates = () => {
 			await Promise.all(
 				deleteId.map(async (id) => {
 					try {
-						await deleteEntityRecord("postType", "sp_eap_template", id, { force: true });
+						const type = getPostType({ id });
+						await deleteEntityRecord("postType", type, id, { force: true });
 					} catch (error) {
 						// console.error(`Error deleting template ID: ${id}`, error);
 						toastErrorMsg(`Error deleting template ID: ${id}: ${error} `);
 					}
 				})
 			);
-			const updateData = itemId ? checkId?.filter((itemValueId) => itemValueId !== deleteId) : [];
+			const updateData = itemId ? checkId?.filter((itemValueId) => itemValueId !== deleteId[0]) : [];
 			setCheckId(updateData);
 			toastSuccessMsg("Template deleted successfully.");
 		}
@@ -110,22 +164,24 @@ const SavedTemplates = () => {
 					if (!id) {
 						return;
 					}
+					// Determine post type for this ID
+					const postType = getPostType({ id });
+
 					// Check if record exists in the store
-					const record = await resolveSelect("core").getEntityRecord("postType", "sp_eap_template", id);
+					const record = await resolveSelect("core").getEntityRecord("postType", postType, id);
 
 					if (!record) {
 						return;
 					}
-					await editEntityRecord("postType", "sp_eap_template", id, { status: newStatus });
-					await saveEditedEntityRecord("postType", "sp_eap_template", id);
-					setCheckId([]);
-					toastSuccessMsg("Template post status updated successfully.");
+					await editEntityRecord("postType", postType, id, { status: newStatus });
+					await saveEditedEntityRecord("postType", postType, id);
 				} catch (error) {
 					// console.error(`Error update template ID: ${id}`, error);
 					toastErrorMsg(`Error while updating template ID: ${id}: ${error} `);
 				}
 			})
 		);
+		toastSuccessMsg("Template post status updated successfully.");
 		setCheckId([]);
 	};
 
@@ -152,26 +208,66 @@ const SavedTemplates = () => {
 		setSelectBulkValue("");
 	};
 
-	const duplicateShortcodeHandler = async (templateId) => {
+	const duplicateShortcodeHandler = async (item) => {
 		try {
-			// Get original template
-			const original = await resolveSelect("core").getEntityRecord("postType", "sp_eap_template", templateId);
+			const postType = getPostType(item);
 
-			if (!original) {
-				toastErrorMsg("Template not found");
-				return;
+			if (postType === "sp_eap_template") {
+				// Block template duplication via data store.
+				const original = await resolveSelect("core").getEntityRecord("postType", "sp_eap_template", item.id);
+
+				if (!original) {
+					toastErrorMsg("Template not found");
+					return;
+				}
+
+				await saveEntityRecord("postType", "sp_eap_template", {
+					title: `${original.title.raw || "(No title)"} (Copy)`,
+					content: original.content?.raw || "",
+					meta: original.meta || {},
+					status: "draft",
+				});
+			} else {
+				// Classic shortcode - use AJAX handler to properly duplicate with all meta data.
+				const formData = new FormData();
+				formData.append("action", "eap_duplicate_classic_shortcode");
+				formData.append("nonce", sp_eab_admin_dashboard_localize?.nonce);
+				formData.append("post_id", item.id);
+
+				const response = await fetch(ajaxurl, {
+					method: "POST",
+					body: formData,
+				});
+
+				const data = await response.json();
+
+				if (!data.success) {
+					toastErrorMsg(data.data?.message || __("Failed to duplicate template", "easy-accordion-free"));
+					return;
+				}
 			}
 
-			// Save new template (no ID = new record)
-			await saveEntityRecord("postType", "sp_eap_template", {
-				title: `${original.title.raw || "(No title)"} (Copy)`,
-				content: original.content?.raw || "",
-				meta: original.meta || {},
-				status: "draft",
-			});
-
-			// Refresh list
-			invalidateResolution("getEntityRecords", ["postType", "sp_eap_template"]);
+			// Invalidate both lists to refresh with exact query parameters (post-carousel pattern)
+			invalidateResolution("getEntityRecords", [
+				"postType",
+				"sp_eap_template",
+				{
+					status: "any",
+					per_page: -1,
+					search: searchValue,
+					_fields: ["id", "modified", "title", "status"],
+				},
+			]);
+			invalidateResolution("getEntityRecords", [
+				"postType",
+				"sp_easy_accordion",
+				{
+					status: "any",
+					per_page: -1,
+					search: searchValue,
+					_fields: ["id", "modified", "title", "status"],
+				},
+			]);
 
 			toastSuccessMsg("Template duplicated successfully.");
 		} catch (error) {
@@ -207,7 +303,8 @@ const SavedTemplates = () => {
 	const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
 	return (
-		<div className="sp-eab-saved-templates-page-container sp-d-flex sp-flex-col">
+		<div className="speap-saved-templates-page-wrapper">
+			<div className="sp-eab-saved-templates-page-container sp-d-flex sp-flex-col">
 			<div className="sp-eab-saved-template-header sp-d-flex sp-align-center sp-justify-between">
 				<div className="sp-eab-saved-template-header-left sp-d-flex">
 					<select
@@ -237,12 +334,11 @@ const SavedTemplates = () => {
 				<div className="sp-eab-saved-template-header-right">
 					<a
 						href={`${sp_eab_admin_dashboard_localize?.homeUrl}wp-admin/post-new.php?post_type=sp_eap_template`}
-						target="_blank"
 						className="sp-eab-saved-template-add-new sp-d-flex sp-align-center sp-justify-center sp-gap-8px sp-cursor-pointer"
 						rel="noreferrer"
 					>
 						<i className="dashicons dashicons-plus-alt2"></i>
-						Add New
+						Add New Template
 					</a>
 				</div>
 			</div>
@@ -251,9 +347,7 @@ const SavedTemplates = () => {
 					<tr>
 						{tableCol?.map((item, i) => (
 							<th key={i} className={`sp-eab-saved-template-table-${item}`}>
-								{item !== "checkBox" ? (
-									item
-								) : (
+								{item === "checkBox" ? (
 									<input
 										type="checkbox"
 										onChange={() => {
@@ -264,6 +358,10 @@ const SavedTemplates = () => {
 										}}
 										checked={allCheck}
 									/>
+								) : item === "editor_type" ? (
+									"Editor Type"
+								) : (
+									item
 								)}
 							</th>
 						))}
@@ -282,6 +380,8 @@ const SavedTemplates = () => {
 					{savedTemplateList?.map((item, i) => {
 						const date = new Date(item?.modified);
 						const checkBoxValue = allCheck ? true : checkId?.some((itemId) => itemId === item?.id);
+						const postType = getPostType(item);
+						const isBlockTemplate = postType === "sp_eap_template";
 
 						return (
 							<tr key={i} className="sp-eab-saved-template-table-row">
@@ -295,7 +395,6 @@ const SavedTemplates = () => {
 								<td className="sp-eab-saved-template-table-title">
 									<a
 										href={`${sp_eab_admin_dashboard_localize?.homeUrl}wp-admin/post.php?post=${item?.id}&action=edit`}
-										target="_blank"
 										rel="noreferrer noopener"
 									>
 										<span
@@ -305,13 +404,20 @@ const SavedTemplates = () => {
 										/>
 									</a>
 								</td>
+
+									{tableCol?.includes("editor_type") && (
+										<td className="sp-eab-saved-template-table-editor_type">
+											<span className={`sp-eab-editor-type-badge ${isBlockTemplate ? 'block-editor' : 'classic-editor'}`}>
+												{isBlockTemplate ? 'Block Editor' : 'Classic'}
+											</span>
+										</td>
+									)}
 								<td className="sp-eab-saved-template-table-shortcode">
 									<span
 										className="sp-eab-saved-template-shortcode-text"
-										onClick={() => copyShortCodeHandler(item?.id)}
+										onClick={() => copyShortCodeHandler(item)}
 									>
-										{`[sp_eap_template id="${item?.id}"]`}
-										<CopyIcon />
+										{isBlockTemplate ? `[sp_eap_template id="${item?.id}"]` : `[sp_easyaccordion id="${item?.id}"]`}
 									</span>{" "}
 									<span
 										className="sp-eab-shortcode-copy-tooltip"
@@ -319,8 +425,10 @@ const SavedTemplates = () => {
 											opacity: shortcodeCopied === item.id ? 1 : 0,
 										}}
 									>
-										Copied!
+										<CheckIcon />
+									Copied!
 									</span>
+									{shortcodeCopied !== item.id && <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M1.35417 1.25H9.47917C9.53667 1.25 9.58333 1.29667 9.58333 1.35417V9.47917C9.58333 9.50679 9.57236 9.53329 9.55282 9.55282C9.53329 9.57236 9.50679 9.58333 9.47917 9.58333H1.35417C1.32654 9.58333 1.30004 9.57236 1.28051 9.55282C1.26097 9.53329 1.25 9.50679 1.25 9.47917V1.35417C1.25 1.29667 1.29667 1.25 1.35417 1.25ZM0 1.35417C0 0.606667 0.606667 0 1.35417 0H9.47917C10.2275 0 10.8333 0.606667 10.8333 1.35417V9.47917C10.8333 10.2275 10.2275 10.8333 9.47917 10.8333H1.35417C0.995019 10.8333 0.650582 10.6907 0.396626 10.4367C0.142671 10.1828 0 9.83831 0 9.47917V1.35417ZM12.0833 11.0675V3.5675H13.3333V11.0675C13.3333 12.3333 12.3083 13.3333 11.0425 13.3333H1.875V12.0833H11.0425C11.6175 12.0833 12.0833 11.6433 12.0833 11.0675Z" fill="#757575"></path></svg>}
 								</td>
 								<td className="sp-eab-saved-template-table-date">
 									<div>{item?.status}</div>
@@ -332,7 +440,6 @@ const SavedTemplates = () => {
 											<a
 												aria-label="Edit"
 												href={`${sp_eab_admin_dashboard_localize?.homeUrl}wp-admin/post.php?post=${item?.id}&action=edit`}
-												target="_blank"
 												className="sp-eab-saved-template-action sp-action-edit"
 												rel="noreferrer"
 											>
@@ -343,7 +450,7 @@ const SavedTemplates = () => {
 											<button
 												aria-label="Duplicate"
 												className="sp-eab-saved-template-action sp-action-copy"
-												onClick={() => duplicateShortcodeHandler(item?.id)}
+												onClick={() => duplicateShortcodeHandler(item)}
 											>
 												<CopyIcon />
 											</button>
@@ -415,6 +522,8 @@ const SavedTemplates = () => {
 					)}
 				</div>
 			</div>
+		</div>
+		<SavedTemplatesPromo />
 		</div>
 	);
 };

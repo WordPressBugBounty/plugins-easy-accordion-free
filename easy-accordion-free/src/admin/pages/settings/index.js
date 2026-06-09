@@ -1,5 +1,5 @@
 import { memo, useState } from "@wordpress/element";
-import { CustomCssAndJs, AdvancedControls } from "./settings-tab-content";
+import { CustomCssAndJs, AdvancedControls, Tools } from "./settings-tab-content";
 import { pluginSettingDefaultValues, settingsTabNavigation } from "../../constants";
 import { checkIsEqual } from "@easy-accordion/controls";
 import WooCommerceFAQs from "./wooCommerceFaqTabs";
@@ -16,6 +16,7 @@ const getTabSettings = (settings, tab) => {
 };
 
 const defaultActiveTab = window.location?.hash?.replace("#", "")?.split("=")[1] || "advanced";
+const initialEditorPreference = sp_eab_admin_dashboard_localize?.eap_editor_preference || "";
 
 const SettingsPage = () => {
 	const { pluginSettings, eapShortcodes } = useSelect((select) => ({
@@ -27,6 +28,7 @@ const SettingsPage = () => {
 	const [allSettingsData, setAllSettingsData] = useState(pluginSettings);
 	const [tabSettingsData, setTabSettingsData] = useState(getTabSettings(pluginSettings, activeTab));
 	const [isChangeAnything, setIsChangeAnything] = useState(false);
+	const [editorPreference, setEditorPreference] = useState(initialEditorPreference);
 
 	// handle tab active.
 	const updateSettingsOption = (optionName, value) => {
@@ -48,7 +50,7 @@ const SettingsPage = () => {
 	// handle setting save.
 	const handleSettingsSave = () => {
 		const modifiedData = { ...pluginSettings, ...tabSettingsData };
-		saveSettings({ pluginSettings: modifiedData });
+		saveSettings({ pluginSettings: modifiedData }, editorPreference);
 		setIsChangeAnything(false);
 	};
 
@@ -81,7 +83,12 @@ const SettingsPage = () => {
 			</div>
 			<div className="sp-eap-setting-tab-content">
 				{activeTab === "advanced" && (
-					<AdvancedControls pluginSettings={tabSettingsData} updateSettingsOption={updateSettingsOption} />
+					<AdvancedControls
+						pluginSettings={tabSettingsData}
+						updateSettingsOption={updateSettingsOption}
+						editorPreference={editorPreference}
+						setEditorPreference={setEditorPreference}
+					/>
 				)}
 				{activeTab === "woocommerce-faqs" && (
 					<WooCommerceFAQs
@@ -93,7 +100,8 @@ const SettingsPage = () => {
 				{activeTab === "additional" && (
 					<CustomCssAndJs pluginSettings={tabSettingsData} updateSettingsOption={updateSettingsOption} />
 				)}
-				{activeTab !== "license-key" && (
+				{activeTab === "tools" && <Tools />}
+				{activeTab !== "license-key" && activeTab !== "tools" && (
 					<SaveAndReset
 						onSave={handleSettingsSave}
 						onReset={handleSettingsReset}

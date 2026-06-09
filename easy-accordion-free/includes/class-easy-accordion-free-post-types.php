@@ -110,6 +110,7 @@ class Easy_Accordion_Free_Post_Type {
 				'exclude_from_search' => true,
 				'show_ui'             => $is_user_capable,
 				'show_in_admin_bar'   => false,
+				'show_in_rest'        => true,
 				'menu_position'       => apply_filters( 'sp_easy_accordion_menu_position', 116 ),
 				'menu_icon'           => $menu_icon,
 				'rewrite'             => false,

@@ -4,6 +4,7 @@ import { ToolbarLibrary } from "../prebuild-library/toolbarButton";
 import "./editor.scss";
 import "./style.scss";
 import "../controls/redirect";
+import "../admin/saved-template-sidebar/index";
 import "./accordion-item";
 import "./vertical-accordion";
 import "./horizontal-accordion";

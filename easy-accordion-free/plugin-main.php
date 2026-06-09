@@ -7,7 +7,9 @@
  * Author URI:  https://shapedplugin.com/
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Version:     3.1.2
+ * Version:     3.1.3
+ * Requires at least: 5.9.0
+ * Requires PHP: 7.4
  * Text Domain: easy-accordion-free
  * Domain Path: /languages/
  *
@@ -61,7 +63,7 @@ class SP_EASY_ACCORDION_FREE {
 	 *
 	 * @var string
 	 */
-	public $version = '3.1.2';
+	public $version = '3.1.3';
 
 	/**
 	 * The name of the plugin.
@@ -167,8 +169,10 @@ class SP_EASY_ACCORDION_FREE {
 		// import export tools.
 		if ( SP_EAP::eap_manage_module_settings( 'eap_tools' ) ) {
 			$import_export = new Easy_Accordion_Import_Export( SP_PLUGIN_NAME, SP_EA_VERSION );
+			$this->loader->add_action( 'wp_ajax_eap_get_shortcode_list_for_export', $import_export, 'get_shortcode_list_for_export' );
 			$this->loader->add_action( 'wp_ajax_eap_export_accordions', $import_export, 'export_accordions' );
 			$this->loader->add_action( 'wp_ajax_eap_import_accordions', $import_export, 'import_accordions' );
+			$this->loader->add_action( 'wp_ajax_eap_duplicate_classic_shortcode', $import_export, 'duplicate_classic_shortcode' );
 		}
 
 		add_action( 'init', array( $this, 'load_page_builder_integrations' ), 10 );

@@ -28,7 +28,7 @@ export const ConfirmationPopup = ({
 
 export const SaveAndReset = ({ onSave, onReset, isChanged }) => {
 	return (
-		<div className="sp-eap-settings-save-wrapper sp-d-flex sp-align-center sp-justify-end sp-gap-10px">
+		<div className="sp-eap-settings-save-wrapper sp-d-flex sp-align-center sp-justify-start sp-gap-10px">
 			<button
 				className={`sp-eap-settings-save-btn sp-d-flex sp-align-center sp-gap-6px sp-cursor-pointer${isChanged ? " active" : ""}`}
 				onClick={onSave}

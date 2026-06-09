@@ -4,6 +4,7 @@ import { Fragment, useState } from "@wordpress/element";
 import useChangelogData from "../hooks/useChangelogData";
 import {
 	Arrow,
+	ArrowRight,
 	Blog,
 	ChangelogIcon,
 	CloseIcon,
@@ -18,6 +19,15 @@ import {
 	Video,
 	WhatsNew,
 } from "../icons";
+
+const GreenCheckIcon = () => (
+	<img
+		src={`${sp_eab_admin_dashboard_localize?.pluginUrl}/assets/images/bell-icon.gif`}
+		width={18}
+		height={18}
+		alt=""
+	/>
+);
 
 const GetHelpItems = [
 	{
@@ -76,14 +86,32 @@ const HeaderItems = () => {
 	const changelog = useChangelogData(showSidebar);
 
 	return (
-		<div className="sp-eab-admin-dashboard-header">
+		<>
+			<div className="sp-eab-green-header-notice">
+				<div className="sp-eab-green-header-notice-content">
+					<GreenCheckIcon />
+					<span className="sp-eab-green-header-notice-text">
+						<strong>You're on Lite</strong> — unlock the full power at <strong>50% OFF. Lifetime Deal.</strong> Pay once, Use forever.
+					</span>
+					<a
+						className="sp-eab-green-header-notice-link"
+						href="https://easyaccordion.io/pricing/?ref=1"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						{__("Upgrade to Pro", "easy-accordion-free")}
+						<ArrowRight />
+					</a>
+				</div>
+			</div>
+			<div className="sp-eab-admin-dashboard-header">
 			<div className="sp-eab-block-setting-header-wrapper sp-d-flex sp-justify-between sp-align-center">
 				<div className="sp-eab-admin-dashboard-header-left sp-d-flex sp-align-center sp-gap-10px">
 					<Logo />
-					<span className="sp-eap-plugin-version">{sp_eab_admin_dashboard_localize?.pluginVersion}</span>
-					<button className="sp-eab-header-changelog-btn sp-cursor-pointer" onClick={toggleDrawer(true)}>
+					<span onClick={toggleDrawer(true)} className="sp-eap-plugin-version">
 						<ChangelogIcon />
-					</button>
+						{sp_eab_admin_dashboard_localize?.pluginVersion}
+					</span>
 					<Drawer
 						anchor="right"
 						open={showSidebar}
@@ -106,7 +134,7 @@ const HeaderItems = () => {
 						<div className="sp-eab-changelog-details" dangerouslySetInnerHTML={{ __html: changelog }}></div>
 					</Drawer>
 				</div>
-				<div className="sp-eab-admin-dashboard-header-right sp-d-flex sp-gap-6px sp-cursor-pointer">
+				<div className="sp-eab-admin-dashboard-header-right sp-d-flex sp-gap-4px sp-cursor-pointer">
 					<Support />
 					<span>{__("Get Help", "easy-accordion-free")}</span>
 					<div className="sp-eab-help-drop-down sp-d-hidden sp-flex-col">
@@ -132,6 +160,7 @@ const HeaderItems = () => {
 				</div>
 			</div>
 		</div>
+		</>
 	);
 };
 

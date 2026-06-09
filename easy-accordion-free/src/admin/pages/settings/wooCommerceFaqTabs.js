@@ -234,15 +234,17 @@ const WooCommerceFAQs = ({ pluginSettings, eapShortcodes, updateSettingsOption }
 				<div
 					className={`sp-eap-settings-option sp-d-flex sp-align-center eap-woo-${isActiveWooCommerce ? "active" : "inactive"}`}
 				>
-					<span className="sp-eap-component-title sp-d-flex sp-align-center sp-gap-6px">
-						{__("WooCommerce FAQs Tab", "easy-accordion-free")}
-						<InfoText
-							text={__(
+					<div className="sp-eap-option-label-wrapper sp-d-flex sp-flex-col">
+						<span className="sp-eap-component-title">
+							{__("WooCommerce FAQs Tab", "easy-accordion-free")}
+						</span>
+						<span className="sp-eap-option-help-text">
+							{__(
 								"WooCommerce's FAQs tab gives quick answers to common customer queries about products and services.",
 								"easy-accordion-free"
 							)}
-						/>
-					</span>
+						</span>
+					</div>
 					<Toggle
 						icons={false}
 						defaultChecked={eapWooFaq}
@@ -252,25 +254,31 @@ const WooCommerceFAQs = ({ pluginSettings, eapShortcodes, updateSettingsOption }
 				{eapWooFaq && (
 					<>
 						<div className="sp-eap-settings-option sp-d-flex sp-align-center">
-							<span className="sp-eap-component-title sp-d-flex sp-align-center sp-gap-6px">
-								{__("FAQs Tab Label", "easy-accordion-free")}
-								<InfoText text={__("Set custom text for faq tab.", "easy-accordion-free")} />
-							</span>
+							<div className="sp-eap-option-label-wrapper sp-d-flex sp-flex-col">
+								<span className="sp-eap-component-title">
+									{__("FAQs Tab Label", "easy-accordion-free")}
+								</span>
+								<span className="sp-eap-option-help-text">
+									{__("Set custom text for faq tab.", "easy-accordion-free")}
+								</span>
+							</div>
 							<InputControl
 								attributes={pluginSettings?.eap_woo_faq_label}
 								onChange={(value) => updateSettingsOption("eap_woo_faq_label", value)}
 							/>
 						</div>
 						<div className="sp-eap-settings-option sp-d-flex sp-align-center">
-							<span className="sp-eap-component-title sp-d-flex sp-align-center sp-gap-6px">
-								{__("FAQs Tab Priority", "easy-accordion-free")}
-								<InfoText
-									text={__(
+							<div className="sp-eap-option-label-wrapper sp-d-flex sp-flex-col">
+								<span className="sp-eap-component-title">
+									{__("FAQs Tab Priority", "easy-accordion-free")}
+								</span>
+								<span className="sp-eap-option-help-text">
+									{__(
 										"Set WooCommerce FAQs tab priority position. Default value is 50.",
 										"easy-accordion-free"
 									)}
-								/>
-							</span>
+								</span>
+							</div>
 							<InputControl
 								inputType={"number"}
 								attributes={pluginSettings?.eap_woo_faq_label_priority}

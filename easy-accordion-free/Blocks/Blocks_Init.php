@@ -204,6 +204,7 @@ class Blocks_Init {
 				'spEabAjaxNonce'    => wp_create_nonce( 'sp_easy_accordion_block_nonce' ),
 				'activeBlockList'   => Blocks_Helper::sp_eab_get_active_block_list(),
 				'dashboardSettings' => get_option( 'sp_eap_dashboard_settings', array() ),
+				'savedTemplatesUrl' => admin_url( 'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#saved_templates' ),
 			)
 		);
 

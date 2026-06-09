@@ -39,7 +39,7 @@ class SP_Eap_Saved_Template_Widget extends \Elementor\Widget_Base {
 	 * @return string Widget title.
 	 */
 	public function get_title() {
-		return __( 'Saved Templates', 'easy-accordion-free' );
+		return __( 'Easy Accordion Saved Template', 'easy-accordion-free' );
 	}
 
 	/**
@@ -106,7 +106,7 @@ class SP_Eap_Saved_Template_Widget extends \Elementor\Widget_Base {
 	 */
 	private function get_saved_template_list() {
 		$template_list = array(
-			'0' => __( 'Select Template', 'easy-accordion-free' ),
+			'0' => __( '- Select Template -', 'easy-accordion-free' ),
 		);
 
 		$query = new \WP_Query(
@@ -147,11 +147,21 @@ class SP_Eap_Saved_Template_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'sp_eap_saved_template',
 			array(
-				'label'       => __( 'Saved Templates', 'easy-accordion-free' ),
+				'label'       => __( 'Saved Template', 'easy-accordion-free' ),
 				'type'        => \Elementor\Controls_Manager::SELECT2,
 				'label_block' => true,
 				'default'     => '0',
 				'options'     => $this->get_saved_template_list(),
+			)
+		);
+
+		// Edit This Template button.
+		$this->add_control(
+			'sp_eap_edit_template',
+			array(
+				'type'            => \Elementor\Controls_Manager::RAW_HTML,
+				'raw'             => $this->get_edit_template_button(),
+				'content_classes' => 'sp-eap-elementor-template-actions',
 			)
 		);
 
@@ -355,5 +365,34 @@ class SP_Eap_Saved_Template_Widget extends \Elementor\Widget_Base {
 			// On frontend, just render the shortcode.
 			echo do_shortcode( '[sp_eap_template id="' . absint( $template_id ) . '"]' );
 		}
+	}
+
+	/**
+	 * Get edit template and add new template buttons HTML.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @return string Buttons HTML.
+	 */
+	protected function get_edit_template_button() {
+		$template_url = admin_url( 'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#saved_templates' );
+
+		$new_template_url = admin_url( 'post-new.php?post_type=sp_eap_template&eabblock_inserter' );
+
+		ob_start();
+		?>
+
+		<div class="sp-eap-elementor-template-buttons">
+			<a class="sp-eap-edit-template-btn" href="<?php echo esc_url( $template_url ); ?>" style="color:#fff; background-color:#3e3e40; padding:12px 24px; border-radius:4px; display:inline-block; font-size: 14px" onmouseover="this.style.backgroundColor='#4b4b4d'" onmouseout="this.style.backgroundColor='#3e3e40'">
+				<span style="display:inline-block; transform: rotate(70deg); margin-right: 4px">✎</span>
+				<span><?php echo esc_html__( 'Edit This Template', 'easy-accordion-free' ); ?></span>
+			</a>
+			<a href="<?php echo esc_url( $new_template_url ); ?>" class="sp-eap-add-template-btn" style="color:#fff; background-color:#F26C0D; padding: 10px 23px; border-radius:4px; display:inline-block; margin-top: 15px; font-size: 14px" onmouseover="this.style.backgroundColor='#f27b26'" onmouseout="this.style.backgroundColor='#F26C0D'">
+				<span style="display:inline-block; font-size: 18px; margin-right: 4px;">+</span>
+				<span><?php echo esc_html__( 'Add New Template', 'easy-accordion-free' ); ?></span>
+			</a>
+		</div>
+		<?php
+		return ob_get_clean();
 	}
 }

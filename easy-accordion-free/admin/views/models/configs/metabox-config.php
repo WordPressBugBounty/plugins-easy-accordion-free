@@ -78,16 +78,16 @@ SP_EAP::createSection(
 	)
 );
 
-SP_EAP::createMetabox(
-	'eap_builder_option',
-	array(
-		'title'            => __( 'Page Builders', 'easy-accordion-free' ),
-		'post_type'        => 'sp_easy_accordion',
-		'context'          => 'side',
-		'show_restore'     => false,
-		'sp_lcp_shortcode' => false,
-	)
-);
+// SP_EAP::createMetabox(
+// 'eap_builder_option',
+// array(
+// 'title'            => __( 'Page Builders', 'easy-accordion-free' ),
+// 'post_type'        => 'sp_easy_accordion',
+// 'context'          => 'side',
+// 'show_restore'     => false,
+// 'sp_lcp_shortcode' => false,
+// )
+// );
 
 SP_EAP::createSection(
 	'eap_builder_option',

@@ -308,7 +308,7 @@ export const DeepSeekIntegrationIcon = () => (
 
 export const ElementorIntegrationIcon = () => (
 	<svg width={48} height={48} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-		<path d="M2 8a6 6 0 0 1 6-6h32a6 6 0 0 1 6 6v32a6 6 0 0 1-6 6H8a6 6 0 0 1-6-6z" fill="#ff7be5" />
+		<path d="M2 8a6 6 0 0 1 6-6h32a6 6 0 0 1 6 6v32a6 6 0 0 1-6 6H8a6 6 0 0 1-6-6z" fill="#EF00ED" />
 		<g clipPath="url(#ElementorIntegrationIcona)">
 			<mask
 				id="ElementorIntegrationIconb"

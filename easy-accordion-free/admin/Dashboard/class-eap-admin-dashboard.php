@@ -101,7 +101,7 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 			add_submenu_page(
 				'edit.php?post_type=sp_easy_accordion',
 				__( 'Easy Accordion Pro Blocks', 'easy-accordion-free' ),
-				__( 'Blocks', 'easy-accordion-free' ),
+				__( 'Blocks', 'easy-accordion-free' ) . '<span class="eap-menu-new-indicator" style="color: #f18200;font-size: 9px; padding-left: 3px;">' . __( ' NEW!', 'easy-accordion-free' ) . '</span>',
 				apply_filters( 'easy_accordion_access_capability', 'manage_options' ),
 				'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#blocks'
 			);
@@ -211,7 +211,7 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 			?>
 				<div id="sp-eab-admin-dashboard-wrapper" class="sp-eab-admin-dashboard-wrapper">
 					<div class="eab-recommended-plugins-wrapper" style="display: none;">
-						<h2 class="sp-eab-section-title"><?php esc_html_e( 'Enhance your Website with our Free Robust Plugins', 'easy-accordion-free' ); ?></h2>
+						<h2 class="sp-eab-section-title"><?php esc_html_e( 'Supercharge Your Website with Our Free Plugins — Trusted by 360,050+ Users', 'easy-accordion-free' ); ?></h2>
 						<div class="eab-wp-list-table plugin-install-php">
 							<div class="eab-recommended-plugins" id="the-list">
 								<?php
@@ -488,15 +488,17 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 				'sp-eab-admin-dashboard-script',
 				'sp_eab_admin_dashboard_localize',
 				array(
-					'ajax_url'            => admin_url( 'admin-ajax.php' ),
-					'pluginUrl'           => SP_EA_URL,
-					'pluginVersion'       => SP_EA_VERSION,
-					'isActiveWooCommerce' => $is_active_woocommerce,
-					'homeUrl'             => home_url( '/' ),
-					'dashboardInfo'       => $dashboard_settings,
-					'nonce'               => wp_create_nonce( $this->eab_admin_dashboard_nonce_key ),
-					'eab_user_consent'    => $dashboard_settings['eap_allow_anonymous_data'] ?? 'undefined',
-					'userName'            => $user_name,
+					'ajax_url'              => admin_url( 'admin-ajax.php' ),
+					'pluginUrl'             => SP_EA_URL,
+					'pluginVersion'         => SP_EA_VERSION,
+					'isActiveWooCommerce'   => $is_active_woocommerce,
+					'homeUrl'               => home_url( '/' ),
+					'dashboardInfo'         => $dashboard_settings,
+					'nonce'                 => wp_create_nonce( $this->eab_admin_dashboard_nonce_key ),
+					'eab_user_consent'      => $dashboard_settings['eap_allow_anonymous_data'] ?? 'undefined',
+					'userName'              => $user_name,
+					'eap_editor_preference' => get_option( 'ea_free_blocks_promo_modal_choice', '' ),
+					'savedTemplatesUrl' => admin_url( 'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#saved_templates' ),
 				)
 			);
 		}
@@ -533,6 +535,17 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 			$dashboard_settings = $query_data['dashboardSettings'] ?? array();
 			if ( ! empty( $dashboard_settings ) ) {
 				update_option( $this->eap_dashboard_settings_key, $dashboard_settings );
+			}
+
+			// Handle editor preference for promo modal.
+			if ( isset( $_POST['editorPreference'] ) ) {
+				$editor_preference = sanitize_key( wp_unslash( $_POST['editorPreference'] ) );
+				$allowed_editors   = array( 'block_editor', 'classic_shortcode' );
+				if ( in_array( $editor_preference, $allowed_editors, true ) ) {
+					update_option( 'ea_free_blocks_promo_modal_choice', $editor_preference, false );
+				} else {
+					delete_option( 'ea_free_blocks_promo_modal_choice' );
+				}
 			}
 			// send response.
 			$query_response = array(
@@ -865,43 +878,62 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 		 * @return void
 		 */
 		public function eap_notice_for_user_consent() {
-
+			$plugin_logo_image = 'https://ps.w.org/easy-accordion-free/assets/icon-256x256.gif';
 			?>
 				<style>
 					.sp-eap-anonymous-data-notice {
 						background-color: #ffffff;
 						border: none;
-						border-left: 4px solid var(--eab-primary-color);
+						border: 1px solid rgba(204, 204, 204, 1);
+						border-left: 4px solid #FF980F;
 						margin-bottom: 20px;
 						display: flex;
-						padding: 14px 24px 18px 27px;
+						padding: 14px;
 						align-items: flex-start;
-						gap: 20px;
+						gap: 16px;
 						box-shadow: 0 16px 32px -4px rgba(12, 12, 13, 0.05), 0 4px 4px -4px rgba(12, 12, 13, 0.02);
-					}
+						position: relative;
+						border-radius: 4px;
+						}
+
+					button.sp_eap_anonymous_data_cross {
+						border: none;
+						background: transparent;
+						position: absolute;
+						top: 0;
+						right: 7px;
+						cursor: pointer;
+						color: #b6b6b6;
+						font-size: 16px;
+						}
+
+					.sp-eap-anonymous-data-notice-wrapper {
+						display: flex;
+						gap: 26px;
+						}
 
 					.sp-eap-anonymous-data-notice img {
-						height: 36px;
-						width: 36px;
-					}
+						width: 52px;
+						border-radius: 4px;
+						}
 					.sp-eap-anonymous-data-notice h3 {
 						font-weight: 600;
 						font-size: 18px;
 						color: #2C2D2F;
 						margin: 0 0 8px 0;
-					}
+						}
 					.sp-eap-anonymous-data-notice p, .sp-eap-anonymous-data-notice a {
 						color: #6E6F72;
 						font-size: 14px;
-						margin: 0 0 8px 0;
-					}
+						margin: 0 0 2px 0;
+						}
 					.sp-eap-anonymous-data-notice a {
 						text-decoration: underline;
-					}
+						}
 					.sp-eap-anonymous-data-notice .button {
 						font-size: 14px;
 						font-weight: 500;
-					}
+						}
 					.sp-eap-anonymous-data-notice .button {
 						font-size: 14px;
 						font-weight: 500;
@@ -910,52 +942,60 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 						border: 1px solid #ECEDF0;
 						transition: all 0.2s ease;
 						margin-top: 8px;
-					}
+						}
 					.sp-eap-anonymous-data-notice .button:hover {
 						border: 1px solid #b7b8bb;
 						color: #6E6F72;
 						background-color: #ffffff;
-					}
-					.sp-eap-anonymous-data-notice .button-primary {
-						background-color: #1A74E4;
-						border: 1px solid #1A74E4;
+						}
+					.sp-eap-anonymous-data-notice .sp_eap_anonymous_data_connect {
+						background-color: rgba(30, 30, 30, 1);
 						color: #ffffff;
-					}
-					.sp-eap-anonymous-data-notice .button-primary:hover {
-						background-color: #1768CD;
+						line-height: 14px;
+						border-radius: 4px;
+						font-size: 13px;
+						}
+					.sp-eap-anonymous-data-notice .sp_eap_anonymous_data_connect:hover {
+						background-color: rgb(46, 46, 46);
 						color: #ffffff;
-						border: 1px solid #1A74E4;
-					}
+						}
+					.sp-eap-anonymous-data-notice .sp_eap_anonymous_data_connect:focus {
+						border: none;
+						box-shadow: none;
+						out-line: none;
+						}
 				</style>
 
 				<div class="notice notice-info sp-eap-anonymous-data-notice">
-					<img src="<?php echo esc_url( SP_EA_URL . 'admin/img/notice-icon.svg' ); ?>" alt='accordion logo icon'/>
-					<div>
-						<h3>
-							<?php esc_html_e( 'Contribute to Easy Accordion Improvements', 'easy-accordion-free' ); ?>
-						</h3>
-						<p>
-						<?php
-						esc_html_e(
-							'Help us improve Easy Accordion Plugin by reporting bugs and issues, so we can resolve problems faster and deliver better performance.',
-							'easy-accordion-free'
-						);
-						?>
-						<a href="https://easyaccordion.io/information-we-collect/" target="_blank"><?php esc_html_e( 'Learn More', 'easy-accordion-free' ); ?></a>
-						</p>
+					<img src="<?php echo esc_url( $plugin_logo_image ); ?>" alt="Easy Accordion"/>
+					<div class="sp-eap-anonymous-data-notice-wrapper">
+						<div>
+							<h3>
+							<?php esc_html_e( 'Help us make Easy Accordion even more awesome?', 'easy-accordion-free' ); ?>
+							</h3>
+							<p>
+							<?php
+							esc_html_e(
+								'Allow us to collect non-sensitive diagnostic data to resolve problems faster and improve performance.',
+								'easy-accordion-free'
+							);
+							?>
+							<a href="https://easyaccordion.io/information-we-collect/" target="_blank"><?php esc_html_e( 'Learn More', 'easy-accordion-free' ); ?></a>
+							</p>
+						</div>
 						<div style="display:flex; gap:10px;">
 							<form method="post" style="display:inline;">
 							<?php wp_nonce_field( 'eap_anonymous_data_action', 'eap_anonymous_data_nonce' ); ?>
 								<input type="hidden" name="eap_anonymous_data_action" value="allow" />
-								<button type="submit" class="button button-primary">
-								<?php esc_html_e( "I'd like to help", 'easy-accordion-free' ); ?>
+								<button type="submit" class="sp_eap_anonymous_data_connect button">
+								<?php esc_html_e( 'Accept & Close', 'easy-accordion-free' ); ?>
 								</button>
 							</form>
+
 							<form method="post" style="display:inline;">
 							<?php wp_nonce_field( 'eap_anonymous_data_action', 'eap_anonymous_data_nonce' ); ?>
 								<input type="hidden" name="eap_anonymous_data_action" value="deny" />
-								<button type="submit" class="button">
-								<?php esc_html_e( 'No thanks', 'easy-accordion-free' ); ?>
+								<button type="submit" class="sp_eap_anonymous_data_cross dashicons dashicons-dismiss">
 								</button>
 							</form>
 						</div>

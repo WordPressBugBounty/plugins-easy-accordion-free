@@ -179,12 +179,16 @@
 	margin: 16px 0 0;
 	padding: 0;
 	gap: 10px;
-
+	
 	a.eab-add-to-cart,
 	.eab-product-attributes.single_add_to_cart_button {
 		text-decoration: none !important; // Override theme styles astra.
 		transition: all 0.3s;
 		font-family: inherit;
+	}
+
+	.added_to_cart {
+		margin: auto;
 	}
 }
 

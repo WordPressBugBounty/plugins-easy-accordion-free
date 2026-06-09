@@ -1,5 +1,5 @@
 import { __ } from "@wordpress/i18n";
-import { AdditionalCodesIcon, AdvancedIcon, KeyIcon, WooCommerceFAQsTabIcon } from "./pages/settings/icons";
+import { AdditionalCodesIcon, AdvancedIcon, KeyIcon, ToolsIcon, WooCommerceFAQsTabIcon } from "./pages/settings/icons";
 
 export const pluginSettingOptions = [
 	{
@@ -17,12 +17,33 @@ export const pluginSettingOptions = [
 		infoText: __("Check this to enable focus style to improve accessibility.", "easy-accordion-free"),
 		inputType: "checkbox",
 	},
+	{
+		option_name: "eap_editor_preference",
+		label: __("Default Editor", "easy-accordion-free"),
+		infoText: __("Choose which editor opens when you click 'Add New Accordion'. Pick 'Ask each time' to keep the welcome popup.", "easy-accordion-free"),
+		inputType: "select",
+		items: [
+			{
+				label: __("Ask each time", "easy-accordion-free"),
+				value: "",
+			},
+			{
+				label: __("Block Editor", "easy-accordion-free"),
+				value: "block_editor",
+			},
+			{
+				label: __("Classic Shortcode", "easy-accordion-free"),
+				value: "classic_shortcode",
+			},
+		],
+	},
 ];
 
 export const pluginSettingDefaultValues = {
 	advanced: {
 		eap_data_remove: "0",
 		eap_focus_style: "0",
+		eap_editor_preference: "",
 	},
 	additional: {
 		ea_custom_css: "",
@@ -34,6 +55,7 @@ export const pluginSettingDefaultValues = {
 		eap_woo_faq_label_priority: "50",
 		eap_woo_set_tab: [],
 	},
+	tools: {},
 };
 
 export const settingsTabNavigation = [
@@ -51,6 +73,11 @@ export const settingsTabNavigation = [
 		label: __("Additional CSS & JS", "easy-accordion-free"),
 		Icon: AdditionalCodesIcon,
 		value: "additional",
+	},
+	{
+		label: __("Tools", "easy-accordion-free"),
+		Icon: ToolsIcon,
+		value: "tools",
 	},
 ];
 

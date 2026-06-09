@@ -54,7 +54,7 @@ class Easy_Accordion_Free_Help {
 		add_submenu_page(
 			'edit.php?post_type=sp_easy_accordion',
 			__( 'Easy Accordion Analytics', 'easy-accordion-free' ),
-			__( 'Analytics', 'easy-accordion-free' ) . '<span class="eap-menu-new-indicator" style="color: #f18200;font-size: 9px; padding-left: 3px;">' . __( ' NEW!', 'easy-accordion-free' ) . '</span>',
+			__( 'Analytics', 'easy-accordion-free' ),
 			'manage_options',
 			'eap_analytics',
 			array(
@@ -103,7 +103,7 @@ class Easy_Accordion_Free_Help {
 		add_submenu_page(
 			'edit.php?post_type=sp_easy_accordion',
 			__( 'Easy Accordion Form', 'easy-accordion-free' ),
-			__( 'FAQ Forms', 'easy-accordion-free' ) . '<span class="eap-menu-new-indicator" style="color: #f18200;font-size: 9px; padding-left: 3px;">' . __( ' HOT!', 'easy-accordion-free' ) . '</span>',
+			__( 'FAQ Forms', 'easy-accordion-free' ),
 			'manage_options',
 			'eap_form',
 			array(

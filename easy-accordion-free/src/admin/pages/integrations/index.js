@@ -133,17 +133,18 @@ const pageBuilderAddons = [
 const Integrations = () => {
 	return (
 		<div className="sp-eap-integrations-page">
-			<div className="eap-dashboard-page-header">
+			<div className="eap-dashboard-page-header sp-d-flex sp-flex-col sp-gap-10px">
 				<span className="eap-dashboard-page-header__label">
-					{__("API Integrations", "easy-accordion-free")}
+					{__("Manage Integrations", "easy-accordion-free")}
 				</span>
+				<span className="eap-dashboard-page-header__desc">Enable only what you need. Keep your site lean, fast, and clutter-free.</span>
 			</div>
 			<RenderModuleCard items={integrationsItems} optionKey="integrations" />
 			{/* upcoming integrations */}
 			<div className="eap-dashboard-page-header eap-upcoming-modules">
-				<span className="eap-dashboard-page-header__label">
+				{/* <span className="eap-dashboard-page-header__label">
 					{__("Page Builder Addons", "easy-accordion-free")}
-				</span>
+				</span> */}
 			</div>
 			<RenderModuleCard items={pageBuilderAddons} optionKey="integrations" type="page-builder" />
 		</div>
