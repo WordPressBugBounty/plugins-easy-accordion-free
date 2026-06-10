@@ -4,7 +4,7 @@ Tags: faq, accordion blocks, image accordion, product faq, category menu accordi
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.1.3
+Stable tag: 3.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -339,15 +339,18 @@ clicking "Install Now" and then "Activate".
 
 == Changelog ==
 
+= Version 3.1.4 - Jun 10, 2026 =
+* Fix: The compatibility issue with WP 5.9.
+
 = Version 3.1.3 - Jun 09, 2026 =
 * New: The Default Editor option in the plugin settings tab to set editor preference to create accordion showcase.
 * New: The Shortcode area added to the Saved Templates' right sidebar to copy shortcode easily.
-* Improved: WordPress minimum version requirement updated from 5.0 to 5.9.0 for better Gutenberg block compatibility.
-Improved: PHP minimum version requirement updated from 7.0 to 7.4.
+* Improved: WordPress minimum version requirement updated from 5.0 to 5.9 for better Gutenberg block compatibility.
+* Improved: PHP minimum version requirement updated from 7.0 to 7.4.
 * Improved: The Add to Cart button style of Product Accordion block.
 * Improved: The Plugin Dashboard Panel has been enhanced.
 * Improved: The Tools (Export/Import) panel moved to Settings page.
-* Fix: The Import  Product Accordion from Ready Template.
+* Fix: The Import Product Accordion from Ready Template.
 
 = Version 3.1.2 - May 13, 2026 =
 * Improved: Plugin admin UI improved

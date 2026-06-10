@@ -498,7 +498,7 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 					'eab_user_consent'      => $dashboard_settings['eap_allow_anonymous_data'] ?? 'undefined',
 					'userName'              => $user_name,
 					'eap_editor_preference' => get_option( 'ea_free_blocks_promo_modal_choice', '' ),
-					'savedTemplatesUrl' => admin_url( 'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#saved_templates' ),
+					'savedTemplatesUrl'     => admin_url( 'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#saved_templates' ),
 				)
 			);
 		}
@@ -799,7 +799,7 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 				'site_language'  => $site_language,
 				'theme_name'     => $theme->get( 'Name' ),
 				'plugin_version' => SP_EA_VERSION,
-				'wp_version'     => wp_get_wp_version(),
+				'wp_version'     => get_bloginfo( 'version' ),
 				'php_version'    => $php_version,
 				'db_version'     => $db_version,
 				'active_plugins' => $active_plugins,
