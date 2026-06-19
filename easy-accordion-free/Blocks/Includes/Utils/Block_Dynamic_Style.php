@@ -193,13 +193,14 @@ class Block_Dynamic_Style {
 				$google_fonts_list = array_merge( $google_fonts_list, $widget_fonts );
 			}
 		}
-		// Output inline CSS.
+		// Output inline CSS directly in widget output because widget rendering happens after wp_head.
 		if ( ! empty( $inline_style ) ) {
-			wp_add_inline_style( 'sp_eab_main_css', $inline_style );
+			echo '<style id="sp-eab-widget-dynamic-css">' . wp_strip_all_tags( $inline_style ) . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- widget rendering happens after wp_head.
 		}
 		if ( ! empty( $google_fonts_list ) ) {
 			$google_fonts_list = array_unique( $google_fonts_list );
-			wp_enqueue_style( 'sp-eab-widget_google-fonts', 'https://fonts.googleapis.com/css?family=' . implode( '|', $google_fonts_list ), array(), SP_EA_VERSION, 'all' );
+			$google_fonts      = array_map( 'rawurlencode', $google_fonts_list );
+			echo '<link rel="stylesheet" id="sp-eab-widget-google-fonts" href="' . esc_url( 'https://fonts.googleapis.com/css?family=' . implode( '|', $google_fonts ) ) . '" />'; // phpcs:ignore -- WordPress.Security.EscapeOutput.OutputNotEscaped -- widget rendering happens after wp_head.
 		}
 	}
 

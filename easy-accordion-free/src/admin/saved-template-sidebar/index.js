@@ -63,8 +63,8 @@ const copyText = async ( text ) => {
 const SavedTemplateSidebar = () => {
 	const { postType, postId } = useSelect(
 		( select ) => ( {
-			postType: select( 'core/editor' ).getCurrentPostType(),
-			postId: select( 'core/editor' ).getCurrentPostId(),
+			postType: select("core/editor")?.getCurrentPostType?.() || null,
+			postId: select("core/editor")?.getCurrentPostId?.() || null,
 		} ),
 		[]
 	);
