@@ -29,11 +29,11 @@ const getDefaultAttributes = (blockName = "") => {
 	}
 
 	if (blockName === "sp-easy-accordion-pro/product-accordion") {
-        attr = {
-            ...attr,
-            postType: "product",
-        };
-    }
+		attr = {
+			...attr,
+			postType: "product",
+		};
+	}
 
 	return attr;
 };

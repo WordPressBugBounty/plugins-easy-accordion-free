@@ -53,14 +53,14 @@ const updateSidebarActive = (pageName) => {
 
 const Render = () => {
 	const hashValue = window.location?.hash?.replace("#", "")?.split("=")[0];
-	const pluginsContainer = document.querySelector('.eab-recommended-plugins-wrapper');
+	const pluginsContainer = document.querySelector(".eab-recommended-plugins-wrapper");
 	// Update Sidebar active menu based on hash link.
 	updateSidebarActive(hashValue);
 	const [page, setPage] = useState(hashValue ? hashValue : "getting-start");
 
 	useEffect(() => {
-		if (hashValue === 'our_plugins' && pluginsContainer) {
-			pluginsContainer.style.display = 'block';
+		if (hashValue === "our_plugins" && pluginsContainer) {
+			pluginsContainer.style.display = "block";
 		}
 		const postMenu = document.getElementById("menu-posts-sp_easy_accordion");
 		const allItems = postMenu.querySelectorAll("li");
@@ -88,10 +88,10 @@ const Render = () => {
 
 	const setPageAndHash = (pageName) => {
 		setPage(pageName);
-		if (pageName === 'our_plugins' && pluginsContainer) {
-			pluginsContainer.style.display = 'block';
+		if (pageName === "our_plugins" && pluginsContainer) {
+			pluginsContainer.style.display = "block";
 		} else if (pluginsContainer) {
-			pluginsContainer.style.display = 'none';
+			pluginsContainer.style.display = "none";
 		}
 		window.location.hash = pageName;
 	};
@@ -120,7 +120,7 @@ const Render = () => {
 		}
 		let items = [
 			{ label: "Getting Started", value: "getting-start", hash: "#" },
-			{ label: "Blocks", value: "blocks", hash: "#blocks", badge: 'new' },
+			{ label: "Blocks", value: "blocks", hash: "#blocks", badge: "new" },
 			{ label: "Modules", value: "modules", hash: "#modules" },
 			{ label: "Saved Templates", value: "saved_templates", hash: "#saved_templates" },
 			{ label: "Integrations", value: "integrations", hash: "#integrations" },
@@ -156,9 +156,18 @@ const Render = () => {
 				<div className="sp-eab-admin-dashboard-body">
 					{/* Blocks settings page navigation tab */}
 					<div className="sp-eab-admin-dashboard-nav">
-						<ul className={page === 'our_plugins' || page === 'about_us' ? 'sp-eab-hide-our-plugins-border sp-d-flex' : 'sp-d-flex'}>
+						<ul
+							className={
+								page === "our_plugins" || page === "about_us"
+									? "sp-eab-hide-our-plugins-border sp-d-flex"
+									: "sp-d-flex"
+							}
+						>
 							{menuItems?.map((item) => (
-								<li key={item.value} className={item.value === 'our_plugins' ? 'sp-eab-nav-our-plugins' : ''}>
+								<li
+									key={item.value}
+									className={item.value === "our_plugins" ? "sp-eab-nav-our-plugins" : ""}
+								>
 									<a
 										href={item.hash}
 										className={page.includes(item.value) ? "active" : ""}
@@ -167,7 +176,9 @@ const Render = () => {
 										{item.icon}
 										{item.label}
 										{item.badge && (
-											<span className="sp-eab-nav-badge">{__("NEW!", "easy-accordion-free")}</span>
+											<span className="sp-eab-nav-badge">
+												{__("NEW!", "easy-accordion-free")}
+											</span>
 										)}
 									</a>
 								</li>

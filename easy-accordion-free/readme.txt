@@ -4,7 +4,7 @@ Tags: faq, accordion blocks, image accordion, product faq, category menu accordi
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.1.5
+Stable tag: 3.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -338,6 +338,9 @@ clicking "Install Now" and then "Activate".
 
 
 == Changelog ==
+
+= Version 3.1.6 - Jun 23, 2026 =
+* Fix: The Initial Accordion Display option issue - did not work from v3.1.3
 
 = Version 3.1.5 - Jun 19, 2026 =
 * Fix: A warning found at the Widget Editor.

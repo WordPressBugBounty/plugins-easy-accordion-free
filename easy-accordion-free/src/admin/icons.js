@@ -159,13 +159,7 @@ export const Arrow = () => {
 	);
 };
 export const ArrowRight = () => (
-	<svg
-		width={12}
-		height={12}
-		viewBox="0 0 12 12"
-		fill="none"
-		xmlns="http://www.w3.org/2000/svg"
-	>
+	<svg width={12} height={12} viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<path
 			d="m2 10 8-8m0 6.153V2H3.846"
 			stroke="currentColor"
@@ -176,13 +170,7 @@ export const ArrowRight = () => (
 	</svg>
 );
 export const OurPluginsIcon = () => (
-	<svg
-		width="18"
-		height="18"
-		viewBox="0 0 18 18"
-		fill="none"
-		xmlns="http://www.w3.org/2000/svg"
-	>
+	<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<g clipPath="url(#clip0_25995_249574)">
 			<path
 				d="M4.65129 4.92767L5.48877 3.93497L13.4466 12.1924L12.3618 12.9285C11.7111 13.5555 9.97594 13.9286 8.90513 13.9088L5.41372 13.8443L4.2773 14.9395C3.73658 15.4606 2.88173 15.4448 2.36962 14.9042C2.24569 14.7772 2.1482 14.6268 2.08282 14.4618C2.01744 14.2968 1.98546 14.1205 1.98874 13.943C1.99202 13.7656 2.03049 13.5905 2.10192 13.4281C2.17335 13.2656 2.27632 13.1189 2.40487 12.9966L3.54129 11.9014L3.60579 8.40995C3.62458 7.39313 4.01876 5.54609 4.65129 4.92767Z"

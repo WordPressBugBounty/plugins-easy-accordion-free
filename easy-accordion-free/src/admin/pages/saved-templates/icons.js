@@ -77,13 +77,7 @@ export const LeftArrow = () => (
 );
 
 export const CheckIcon = () => (
-	<svg
-		width={15}
-		height={15}
-		viewBox="0 0 15 15"
-		fill="none"
-		xmlns="http://www.w3.org/2000/svg"
-	>
+	<svg width={15} height={15} viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<path
 			d="M5.544 9.18a1.457 1.457 0 0 0 2.062 0l2.856-2.856a.53.53 0 1 0-.75-.75L6.856 8.428a.4.4 0 0 1-.561 0L5.289 7.423a.53.53 0 0 0-.75.75z"
 			fill="#317d46"

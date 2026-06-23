@@ -137,7 +137,9 @@ const Integrations = () => {
 				<span className="eap-dashboard-page-header__label">
 					{__("Manage Integrations", "easy-accordion-free")}
 				</span>
-				<span className="eap-dashboard-page-header__desc">Enable only what you need. Keep your site lean, fast, and clutter-free.</span>
+				<span className="eap-dashboard-page-header__desc">
+					Enable only what you need. Keep your site lean, fast, and clutter-free.
+				</span>
 			</div>
 			<RenderModuleCard items={integrationsItems} optionKey="integrations" />
 			{/* upcoming integrations */}

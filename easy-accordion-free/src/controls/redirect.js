@@ -8,15 +8,13 @@ window.addEventListener("load", function () {
 	}
 
 	function tryScroll() {
-		const headings = document.querySelectorAll('.block-editor-inserter__panel-title');
-		const easyAccordionHeading = Array.from(headings).find(
-			(h) => h.textContent.trim() === 'EASY ACCORDION'
-		);
+		const headings = document.querySelectorAll(".block-editor-inserter__panel-title");
+		const easyAccordionHeading = Array.from(headings).find((h) => h.textContent.trim() === "EASY ACCORDION");
 		if (easyAccordionHeading) {
 			easyAccordionHeading.scrollIntoView({
-				behavior: 'smooth',
-				block: 'start',
-				inline: 'nearest',
+				behavior: "smooth",
+				block: "start",
+				inline: "nearest",
 			});
 			return true;
 		}
@@ -50,7 +48,7 @@ window.addEventListener("load", function () {
 	}
 
 	function tryClickPatternButton() {
-		const button = document.getElementById('sp-eab-patterns-library-modal-button');
+		const button = document.getElementById("sp-eab-patterns-library-modal-button");
 		if (button) {
 			button.click();
 			// clear url.

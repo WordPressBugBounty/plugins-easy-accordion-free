@@ -44,14 +44,19 @@ export const AdvancedControls = ({ pluginSettings, updateSettingsOption, editorP
 						)}
 						{inputType === "select" && (
 							<SelectField
-								value={option_name === "eap_editor_preference" ? editorPreference : (pluginSettings?.[option_name] || "")}
-							onChange={(val) => {
+								attributes={
+									option_name === "eap_editor_preference"
+										? editorPreference
+										: pluginSettings?.[option_name] || ""
+								}
+								onChange={(val) => {
 									if (option_name === "eap_editor_preference") {
 										setEditorPreference(val);
 									}
 									updateSettingsOption(option_name, val);
 								}}
 								items={items}
+								showHeading={false}
 							/>
 						)}
 					</div>
@@ -145,7 +150,7 @@ export const Tools = () => {
 		e.stopPropagation();
 		setIsDragging(false);
 		const file = e.dataTransfer.files[0];
-		if (file && file.name.endsWith('.json')) {
+		if (file && file.name.endsWith(".json")) {
 			setSelectedFile(file);
 			setFileName(file.name);
 		}
@@ -153,7 +158,12 @@ export const Tools = () => {
 
 	const handleExport = () => {
 		// Export functionality
-		const exportValue = exportType === "all-faqs" ? "all_faqs" : exportType === "all-shortcodes" ? "all_shortcodes" : "selected_shortcodes";
+		const exportValue =
+			exportType === "all-faqs"
+				? "all_faqs"
+				: exportType === "all-shortcodes"
+					? "all_shortcodes"
+					: "selected_shortcodes";
 		const selectedShortcode = exportValue === "selected_shortcodes" ? selectedShortcodes.join(",") : exportValue;
 
 		if (
@@ -239,7 +249,9 @@ export const Tools = () => {
 					<h3 className="sp-eap-settings-tools-section-title">{__("Export", "easy-accordion-free")}</h3>
 				</div>
 				<div className="sp-eap-settings-tools-section-content">
-					<p className="sp-eap-settings-tools-subtitle">{__("Choose What to Export", "easy-accordion-free")}</p>
+					<p className="sp-eap-settings-tools-subtitle">
+						{__("Choose What to Export", "easy-accordion-free")}
+					</p>
 					<div className="sp-eap-settings-tools-radio-group">
 						<label className={`sp-eap-settings-tools-radio ${exportType === "all-faqs" ? "active" : ""}`}>
 							<input
@@ -249,9 +261,13 @@ export const Tools = () => {
 								checked={exportType === "all-faqs"}
 								onChange={() => setExportType("all-faqs")}
 							/>
-							<span className="sp-eap-settings-tools-radio-label">{__("All FAQs", "easy-accordion-free")}</span>
+							<span className="sp-eap-settings-tools-radio-label">
+								{__("All FAQs", "easy-accordion-free")}
+							</span>
 						</label>
-						<label className={`sp-eap-settings-tools-radio ${exportType === "all-shortcodes" ? "active" : ""}`}>
+						<label
+							className={`sp-eap-settings-tools-radio ${exportType === "all-shortcodes" ? "active" : ""}`}
+						>
 							<input
 								type="radio"
 								name="export-type"
@@ -327,7 +343,10 @@ export const Tools = () => {
 						</span>
 					</label>
 					<p className="sp-eap-settings-tools-checkbox-help">
-						{__("Enabling this option, you are allowing to import accordions which contain iframe, script or embed tags.", "easy-accordion-free")}
+						{__(
+							"Enabling this option, you are allowing to import accordions which contain iframe, script or embed tags.",
+							"easy-accordion-free"
+						)}
 					</p>
 					<div
 						className={`sp-eap-settings-tools-file-input${isDragging ? " dragging" : ""}`}
@@ -337,12 +356,7 @@ export const Tools = () => {
 					>
 						<label className="sp-eap-settings-tools-file-btn">
 							{__("Choose File", "easy-accordion-free")}
-							<input
-								type="file"
-								accept=".json"
-								onChange={handleFileChange}
-								style={{ display: "none" }}
-							/>
+							<input type="file" accept=".json" onChange={handleFileChange} style={{ display: "none" }} />
 						</label>
 						<span className="sp-eap-settings-tools-file-name">{fileName}</span>
 					</div>
@@ -353,7 +367,9 @@ export const Tools = () => {
 						onClick={handleImport}
 						disabled={!selectedFile || isImporting}
 					>
-						{isImporting ? __("Importing...", "easy-accordion-free") : __("Import File", "easy-accordion-free")}
+						{isImporting
+							? __("Importing...", "easy-accordion-free")
+							: __("Import File", "easy-accordion-free")}
 					</button>
 				</div>
 			</div>

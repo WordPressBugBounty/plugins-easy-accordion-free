@@ -41,9 +41,10 @@ const SavedTemplates = () => {
 	);
 
 	// Dynamic table columns based on whether classic shortcode exists
-	const tableCol = classicShortcodeCount < 1
-		? ["checkBox", "title", "shortcode", "date", "action"]
-	: ["checkBox", "title", "editor_type", "shortcode", "date", "action"];
+	const tableCol =
+		classicShortcodeCount < 1
+			? ["checkBox", "title", "shortcode", "date", "action"]
+			: ["checkBox", "title", "editor_type", "shortcode", "date", "action"];
 
 	// Total count for pagination.
 	const totalPostCount = blockTemplateCount + classicShortcodeCount;
@@ -86,9 +87,8 @@ const SavedTemplates = () => {
 	// Copy Shortcode Upon Clicking Short code.
 	const copyShortCodeHandler = (item) => {
 		const postType = getPostType(item);
-		const shortcode = postType === "sp_eap_template"
-			? `[sp_eap_template id="${item.id}"]`
-			: `[sp_easyaccordion id="${item.id}"]`;
+		const shortcode =
+			postType === "sp_eap_template" ? `[sp_eap_template id="${item.id}"]` : `[sp_easyaccordion id="${item.id}"]`;
 		const copied = copyText(shortcode);
 
 		if (copied) {
@@ -122,7 +122,7 @@ const SavedTemplates = () => {
 
 	// Helper to determine post type from item.
 	const getPostType = (item) => {
-		const isBlockTemplate = blockTemplateList?.some(bt => bt.id === item.id);
+		const isBlockTemplate = blockTemplateList?.some((bt) => bt.id === item.id);
 		return isBlockTemplate ? "sp_eap_template" : "sp_easy_accordion";
 	};
 
@@ -305,225 +305,244 @@ const SavedTemplates = () => {
 	return (
 		<div className="speap-saved-templates-page-wrapper">
 			<div className="sp-eab-saved-templates-page-container sp-d-flex sp-flex-col">
-			<div className="sp-eab-saved-template-header sp-d-flex sp-align-center sp-justify-between">
-				<div className="sp-eab-saved-template-header-left sp-d-flex">
-					<select
-						name="bulk-action"
-						className="sp-eab-saved-template-select"
-						value={selectBulkValue}
-						onChange={(e) => setSelectBulkValue(e.target.value)}
-					>
-						<option value="">Bulk Action</option>
-						<option value={"publish"}>Publish</option>
-						<option value={"draft"}>Draft</option>
-						<option value={"delete"}>Delete</option>
-					</select>
-					<button className="sp-eab-saved-template-select-apply" onClick={bulkActionHandler}>
-						Apply
-					</button>
-					<input
-						name="search-weather-template"
-						className="sp-eab-saved-template-search-field"
-						type="text"
-						placeholder="Search..."
-						spellCheck="false"
-						data-ms-editor="true"
-						onChange={searchValueHandler}
-					/>
+				<div className="sp-eab-saved-template-header sp-d-flex sp-align-center sp-justify-between">
+					<div className="sp-eab-saved-template-header-left sp-d-flex">
+						<select
+							name="bulk-action"
+							className="sp-eab-saved-template-select"
+							value={selectBulkValue}
+							onChange={(e) => setSelectBulkValue(e.target.value)}
+						>
+							<option value="">Bulk Action</option>
+							<option value={"publish"}>Publish</option>
+							<option value={"draft"}>Draft</option>
+							<option value={"delete"}>Delete</option>
+						</select>
+						<button className="sp-eab-saved-template-select-apply" onClick={bulkActionHandler}>
+							Apply
+						</button>
+						<input
+							name="search-weather-template"
+							className="sp-eab-saved-template-search-field"
+							type="text"
+							placeholder="Search..."
+							spellCheck="false"
+							data-ms-editor="true"
+							onChange={searchValueHandler}
+						/>
+					</div>
+					<div className="sp-eab-saved-template-header-right">
+						<a
+							href={`${sp_eab_admin_dashboard_localize?.homeUrl}wp-admin/post-new.php?post_type=sp_eap_template`}
+							className="sp-eab-saved-template-add-new sp-d-flex sp-align-center sp-justify-center sp-gap-8px sp-cursor-pointer"
+							rel="noreferrer"
+						>
+							<i className="dashicons dashicons-plus-alt2"></i>
+							Add New Template
+						</a>
+					</div>
 				</div>
-				<div className="sp-eab-saved-template-header-right">
-					<a
-						href={`${sp_eab_admin_dashboard_localize?.homeUrl}wp-admin/post-new.php?post_type=sp_eap_template`}
-						className="sp-eab-saved-template-add-new sp-d-flex sp-align-center sp-justify-center sp-gap-8px sp-cursor-pointer"
-						rel="noreferrer"
-					>
-						<i className="dashicons dashicons-plus-alt2"></i>
-						Add New Template
-					</a>
-				</div>
-			</div>
-			<table className="sp-eab-saved-template-content-table">
-				<thead className="sp-eab-saved-template-table-head">
-					<tr>
-						{tableCol?.map((item, i) => (
-							<th key={i} className={`sp-eab-saved-template-table-${item}`}>
-								{item === "checkBox" ? (
-									<input
-										type="checkbox"
-										onChange={() => {
-											setAllCheck((prev) => !prev);
-											setCheckId(
-												!allCheck ? savedTemplateList?.map((listItem) => listItem.id) : []
-											);
-										}}
-										checked={allCheck}
-									/>
-								) : item === "editor_type" ? (
-									"Editor Type"
-								) : (
-									item
-								)}
-							</th>
-						))}
-					</tr>
-				</thead>
-				<tbody className="sp-eab-saved-template-table-body">
-					{!noPostText && (!savedTemplateList || savedTemplateList.length === 0) && (
+				<table className="sp-eab-saved-template-content-table">
+					<thead className="sp-eab-saved-template-table-head">
 						<tr>
-							<td className="sp-eab-saved-template-preloader-no-data">
-								<span className="sp-eab-saved-template-loading">
-									<Spinner />
-								</span>
-							</td>
-						</tr>
-					)}
-					{savedTemplateList?.map((item, i) => {
-						const date = new Date(item?.modified);
-						const checkBoxValue = allCheck ? true : checkId?.some((itemId) => itemId === item?.id);
-						const postType = getPostType(item);
-						const isBlockTemplate = postType === "sp_eap_template";
-
-						return (
-							<tr key={i} className="sp-eab-saved-template-table-row">
-								<td id={item?.id} className="sp-eab-saved-template-table-checkBox">
-									<input
-										type="checkbox"
-										onChange={() => checkIdHandler(item?.id)}
-										checked={checkBoxValue}
-									/>
-								</td>
-								<td className="sp-eab-saved-template-table-title">
-									<a
-										href={`${sp_eab_admin_dashboard_localize?.homeUrl}wp-admin/post.php?post=${item?.id}&action=edit`}
-										rel="noreferrer noopener"
-									>
-										<span
-											dangerouslySetInnerHTML={{
-												__html: item?.title?.rendered || "(No Title)",
+							{tableCol?.map((item, i) => (
+								<th key={i} className={`sp-eab-saved-template-table-${item}`}>
+									{item === "checkBox" ? (
+										<input
+											type="checkbox"
+											onChange={() => {
+												setAllCheck((prev) => !prev);
+												setCheckId(
+													!allCheck ? savedTemplateList?.map((listItem) => listItem.id) : []
+												);
 											}}
+											checked={allCheck}
 										/>
-									</a>
+									) : item === "editor_type" ? (
+										"Editor Type"
+									) : (
+										item
+									)}
+								</th>
+							))}
+						</tr>
+					</thead>
+					<tbody className="sp-eab-saved-template-table-body">
+						{!noPostText && (!savedTemplateList || savedTemplateList.length === 0) && (
+							<tr>
+								<td className="sp-eab-saved-template-preloader-no-data">
+									<span className="sp-eab-saved-template-loading">
+										<Spinner />
+									</span>
 								</td>
+							</tr>
+						)}
+						{savedTemplateList?.map((item, i) => {
+							const date = new Date(item?.modified);
+							const checkBoxValue = allCheck ? true : checkId?.some((itemId) => itemId === item?.id);
+							const postType = getPostType(item);
+							const isBlockTemplate = postType === "sp_eap_template";
+
+							return (
+								<tr key={i} className="sp-eab-saved-template-table-row">
+									<td id={item?.id} className="sp-eab-saved-template-table-checkBox">
+										<input
+											type="checkbox"
+											onChange={() => checkIdHandler(item?.id)}
+											checked={checkBoxValue}
+										/>
+									</td>
+									<td className="sp-eab-saved-template-table-title">
+										<a
+											href={`${sp_eab_admin_dashboard_localize?.homeUrl}wp-admin/post.php?post=${item?.id}&action=edit`}
+											rel="noreferrer noopener"
+										>
+											<span
+												dangerouslySetInnerHTML={{
+													__html: item?.title?.rendered || "(No Title)",
+												}}
+											/>
+										</a>
+									</td>
 
 									{tableCol?.includes("editor_type") && (
 										<td className="sp-eab-saved-template-table-editor_type">
-											<span className={`sp-eab-editor-type-badge ${isBlockTemplate ? 'block-editor' : 'classic-editor'}`}>
-												{isBlockTemplate ? 'Block Editor' : 'Classic'}
+											<span
+												className={`sp-eab-editor-type-badge ${isBlockTemplate ? "block-editor" : "classic-editor"}`}
+											>
+												{isBlockTemplate ? "Block Editor" : "Classic"}
 											</span>
 										</td>
 									)}
-								<td className="sp-eab-saved-template-table-shortcode">
-									<span
-										className="sp-eab-saved-template-shortcode-text"
-										onClick={() => copyShortCodeHandler(item)}
-									>
-										{isBlockTemplate ? `[sp_eap_template id="${item?.id}"]` : `[sp_easyaccordion id="${item?.id}"]`}
-									</span>{" "}
-									<span
-										className="sp-eab-shortcode-copy-tooltip"
-										style={{
-											opacity: shortcodeCopied === item.id ? 1 : 0,
-										}}
-									>
-										<CheckIcon />
-									Copied!
+									<td className="sp-eab-saved-template-table-shortcode">
+										<span
+											className="sp-eab-saved-template-shortcode-text"
+											onClick={() => copyShortCodeHandler(item)}
+										>
+											{isBlockTemplate
+												? `[sp_eap_template id="${item?.id}"]`
+												: `[sp_easyaccordion id="${item?.id}"]`}
+										</span>{" "}
+										<span
+											className="sp-eab-shortcode-copy-tooltip"
+											style={{
+												opacity: shortcodeCopied === item.id ? 1 : 0,
+											}}
+										>
+											<CheckIcon />
+											Copied!
+										</span>
+										{shortcodeCopied !== item.id && (
+											<svg
+												width="14"
+												height="14"
+												viewBox="0 0 14 14"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													fillRule="evenodd"
+													clipRule="evenodd"
+													d="M1.35417 1.25H9.47917C9.53667 1.25 9.58333 1.29667 9.58333 1.35417V9.47917C9.58333 9.50679 9.57236 9.53329 9.55282 9.55282C9.53329 9.57236 9.50679 9.58333 9.47917 9.58333H1.35417C1.32654 9.58333 1.30004 9.57236 1.28051 9.55282C1.26097 9.53329 1.25 9.50679 1.25 9.47917V1.35417C1.25 1.29667 1.29667 1.25 1.35417 1.25ZM0 1.35417C0 0.606667 0.606667 0 1.35417 0H9.47917C10.2275 0 10.8333 0.606667 10.8333 1.35417V9.47917C10.8333 10.2275 10.2275 10.8333 9.47917 10.8333H1.35417C0.995019 10.8333 0.650582 10.6907 0.396626 10.4367C0.142671 10.1828 0 9.83831 0 9.47917V1.35417ZM12.0833 11.0675V3.5675H13.3333V11.0675C13.3333 12.3333 12.3083 13.3333 11.0425 13.3333H1.875V12.0833H11.0425C11.6175 12.0833 12.0833 11.6433 12.0833 11.0675Z"
+													fill="#757575"
+												></path>
+											</svg>
+										)}
+									</td>
+									<td className="sp-eab-saved-template-table-date">
+										<div>{item?.status}</div>
+										<div>{date?.toLocaleString("en-US")}</div>
+									</td>
+									<td className="sp-eab-saved-template-table-action">
+										<div className="sp-eab-saved-template-table-action-btn">
+											<Tooltip text="Edit" delay={300} placement="top">
+												<a
+													aria-label="Edit"
+													href={`${sp_eab_admin_dashboard_localize?.homeUrl}wp-admin/post.php?post=${item?.id}&action=edit`}
+													className="sp-eab-saved-template-action sp-action-edit"
+													rel="noreferrer"
+												>
+													<EditPencilIcon />
+												</a>
+											</Tooltip>
+											<Tooltip text="Duplicate" delay={300} placement="top">
+												<button
+													aria-label="Duplicate"
+													className="sp-eab-saved-template-action sp-action-copy"
+													onClick={() => duplicateShortcodeHandler(item)}
+												>
+													<CopyIcon />
+												</button>
+											</Tooltip>
+											<Tooltip text="Delete" delay={300} placement="top">
+												<button
+													aria-label="Delete"
+													className="sp-eab-saved-template-action sp-action-delete"
+													onClick={() => deleteItemHandler(item?.id)}
+												>
+													<DeleteBinIcon />
+												</button>
+											</Tooltip>
+										</div>
+									</td>
+								</tr>
+							);
+						})}
+						{noPostText && (!savedTemplateList || savedTemplateList.length === 0) && (
+							<tr>
+								<td className="sp-eab-saved-template-preloader-no-data">
+									<span className="sp-eab-saved-template-no-data">
+										{__("No saved template found!", "easy-accordion-free")}
 									</span>
-									{shortcodeCopied !== item.id && <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M1.35417 1.25H9.47917C9.53667 1.25 9.58333 1.29667 9.58333 1.35417V9.47917C9.58333 9.50679 9.57236 9.53329 9.55282 9.55282C9.53329 9.57236 9.50679 9.58333 9.47917 9.58333H1.35417C1.32654 9.58333 1.30004 9.57236 1.28051 9.55282C1.26097 9.53329 1.25 9.50679 1.25 9.47917V1.35417C1.25 1.29667 1.29667 1.25 1.35417 1.25ZM0 1.35417C0 0.606667 0.606667 0 1.35417 0H9.47917C10.2275 0 10.8333 0.606667 10.8333 1.35417V9.47917C10.8333 10.2275 10.2275 10.8333 9.47917 10.8333H1.35417C0.995019 10.8333 0.650582 10.6907 0.396626 10.4367C0.142671 10.1828 0 9.83831 0 9.47917V1.35417ZM12.0833 11.0675V3.5675H13.3333V11.0675C13.3333 12.3333 12.3083 13.3333 11.0425 13.3333H1.875V12.0833H11.0425C11.6175 12.0833 12.0833 11.6433 12.0833 11.0675Z" fill="#757575"></path></svg>}
-								</td>
-								<td className="sp-eab-saved-template-table-date">
-									<div>{item?.status}</div>
-									<div>{date?.toLocaleString("en-US")}</div>
-								</td>
-								<td className="sp-eab-saved-template-table-action">
-									<div className="sp-eab-saved-template-table-action-btn">
-										<Tooltip text="Edit" delay={300} placement="top">
-											<a
-												aria-label="Edit"
-												href={`${sp_eab_admin_dashboard_localize?.homeUrl}wp-admin/post.php?post=${item?.id}&action=edit`}
-												className="sp-eab-saved-template-action sp-action-edit"
-												rel="noreferrer"
-											>
-												<EditPencilIcon />
-											</a>
-										</Tooltip>
-										<Tooltip text="Duplicate" delay={300} placement="top">
-											<button
-												aria-label="Duplicate"
-												className="sp-eab-saved-template-action sp-action-copy"
-												onClick={() => duplicateShortcodeHandler(item)}
-											>
-												<CopyIcon />
-											</button>
-										</Tooltip>
-										<Tooltip text="Delete" delay={300} placement="top">
-											<button
-												aria-label="Delete"
-												className="sp-eab-saved-template-action sp-action-delete"
-												onClick={() => deleteItemHandler(item?.id)}
-											>
-												<DeleteBinIcon />
-											</button>
-										</Tooltip>
-									</div>
 								</td>
 							</tr>
-						);
-					})}
-					{noPostText && (!savedTemplateList || savedTemplateList.length === 0) && (
-						<tr>
-							<td className="sp-eab-saved-template-preloader-no-data">
-								<span className="sp-eab-saved-template-no-data">
-									{__("No saved template found!", "easy-accordion-free")}
-								</span>
-							</td>
-						</tr>
-					)}
-				</tbody>
-			</table>
-			<div className="sp-eab-saved-template-footer">
-				<div className="sp-eab-saved-template-count">
-					Page {currentPage} of {Math.ceil(totalPostCount / 10) || 1} &nbsp;{" "}
-					<span>[ {totalPostCount} Items ]</span>
-				</div>
-				<div className="sp-eab-saved-template-pagination">
-					{pages?.length > 1 && (
-						<>
-							<button
-								className={`sp-eab-saved-template-pagination-btn sp-btn-prev ${
-									currentPage === 1 ? "btn-disabled" : ""
-								}`}
-								onClick={() => setCurrentPage(currentPage !== 1 ? currentPage - 1 : 1)}
-							>
-								<LeftArrow />
-							</button>
-							{pages.map((item, i) => (
+						)}
+					</tbody>
+				</table>
+				<div className="sp-eab-saved-template-footer">
+					<div className="sp-eab-saved-template-count">
+						Page {currentPage} of {Math.ceil(totalPostCount / 10) || 1} &nbsp;{" "}
+						<span>[ {totalPostCount} Items ]</span>
+					</div>
+					<div className="sp-eab-saved-template-pagination">
+						{pages?.length > 1 && (
+							<>
 								<button
-									key={i}
-									className={`sp-eab-saved-template-pagination-btn ${
-										currentPage === item ? "btn-active" : "sp-btn-numb"
+									className={`sp-eab-saved-template-pagination-btn sp-btn-prev ${
+										currentPage === 1 ? "btn-disabled" : ""
 									}`}
-									onClick={(e) => setCurrentPage(Number(e.target?.value))}
-									value={item}
+									onClick={() => setCurrentPage(currentPage !== 1 ? currentPage - 1 : 1)}
 								>
-									{item}
+									<LeftArrow />
 								</button>
-							))}
-							<button
-								className={`sp-eab-saved-template-pagination-btn sp-btn-next ${
-									currentPage === pages?.length ? "btn-disabled" : ""
-								}`}
-								onClick={() =>
-									setCurrentPage(currentPage !== pages?.length ? currentPage + 1 : pages?.length)
-								}
-							>
-								<RightArrow />
-							</button>
-						</>
-					)}
+								{pages.map((item, i) => (
+									<button
+										key={i}
+										className={`sp-eab-saved-template-pagination-btn ${
+											currentPage === item ? "btn-active" : "sp-btn-numb"
+										}`}
+										onClick={(e) => setCurrentPage(Number(e.target?.value))}
+										value={item}
+									>
+										{item}
+									</button>
+								))}
+								<button
+									className={`sp-eab-saved-template-pagination-btn sp-btn-next ${
+										currentPage === pages?.length ? "btn-disabled" : ""
+									}`}
+									onClick={() =>
+										setCurrentPage(currentPage !== pages?.length ? currentPage + 1 : pages?.length)
+									}
+								>
+									<RightArrow />
+								</button>
+							</>
+						)}
+					</div>
 				</div>
 			</div>
-		</div>
-		<SavedTemplatesPromo />
+			<SavedTemplatesPromo />
 		</div>
 	);
 };

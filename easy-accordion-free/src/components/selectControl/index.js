@@ -12,16 +12,13 @@ const SelectField = ({
 	flexStyle = false,
 	units = false,
 	onChange = false,
-	value = false,
+	showHeading = true,
 }) => {
 	// Device check fn
 	const deviceType = useDeviceType();
 
-	// Determine if this is settings page usage (direct value/onChange) or block usage (setAttributes)
-	const isSettingsUsage = value !== false && onChange !== false;
-
 	const setNewValue = (newValue) => {
-		if (isSettingsUsage) {
+		if (onChange) {
 			onChange(newValue);
 		} else if (attributes?.device) {
 			setAttributes({
@@ -40,13 +37,13 @@ const SelectField = ({
 	}));
 
 	// Get active button value
-	const activeValue = isSettingsUsage ? value : (attributes?.device ? attributes?.device[deviceType] : attributes);
+	const activeValue = attributes?.device ? attributes?.device[deviceType] : attributes;
 
 	return (
 		<div
 			className={`sp-eab-select-field sp-eab-component-mb ${flexStyle ? "sp-d-flex sp-justify-between sp-align-center" : "sp-d-block"}`}
 		>
-			{!isSettingsUsage && (
+			{showHeading && (
 				<ComponentHeader
 					label={label}
 					attributes={attributes}

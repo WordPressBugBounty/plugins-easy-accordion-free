@@ -460,11 +460,20 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 			if ( ! isset( $_GET['page'] ) || 'eap_dashboard' !== $_GET['page'] ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				return;
 			}
+			// load dependencies.
+			$dependencies = array( 'wp-element', 'wp-i18n', 'wp-components' );
+			$asset_file   = SP_EA_PATH . 'admin/Dashboard/build/ea-dashboard.asset.php';
+			if ( file_exists( $asset_file ) ) {
+				$asset = require $asset_file;
+				if ( ! empty( $asset['dependencies'] ) && is_array( $asset['dependencies'] ) ) {
+					$dependencies = $asset['dependencies'];
+				}
+			}
 			/**
 			 * Enqueue block admin dashboard main script.
 			 * react-jsx-runtime,
 			 */
-			wp_enqueue_script( 'sp-eab-admin-dashboard-script', SP_EA_URL . 'admin/Dashboard/build/ea-dashboard.js', array( 'wp-element', 'wp-components' ), SP_EA_VERSION, true );
+			wp_enqueue_script( 'sp-eab-admin-dashboard-script', SP_EA_URL . 'admin/Dashboard/build/ea-dashboard.js', $dependencies, SP_EA_VERSION, true );
 			/**
 			 * Enqueue block admin dashboard main style.
 			 */

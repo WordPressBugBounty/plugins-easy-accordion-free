@@ -3,12 +3,7 @@ import { ProIconLight } from "../../icons";
 import { InfoText } from "../settings/template-parts";
 
 const WordPressIcon = () => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		width={17}
-		height={16}
-		fill="none"
-	>
+	<svg xmlns="http://www.w3.org/2000/svg" width={17} height={16} fill="none">
 		<path
 			fill="#6E6A69"
 			d="M16.5 8c0-4.408-3.592-8-8-8-4.416 0-8 3.592-8 8 0 4.416 3.584 8 8 8 4.408 0 8-3.584 8-8Zm-9.776 4.296-2.728-7.32c.44-.016.936-.064.936-.064.4-.048.352-.904-.048-.888 0 0-1.16.088-1.896.088-.144 0-.296 0-.464-.008A7.097 7.097 0 0 1 8.5.888c1.864 0 3.56.696 4.84 1.872-.544-.088-1.32.312-1.32 1.264 0 .592.36 1.088.72 1.68.28.488.44 1.088.44 1.968 0 1.192-1.12 4-1.12 4L9.636 4.976c.432-.016.656-.136.656-.136.4-.04.352-1-.048-.976 0 0-1.152.096-1.904.096-.696 0-1.864-.096-1.864-.096-.4-.024-.448.96-.048.976l.736.064 1.008 2.728-1.448 4.664ZM14.428 8c.192-.512.592-1.496.344-3.4.56 1.032.84 2.168.84 3.4 0 2.632-1.384 4.992-3.52 6.224.776-2.072 1.552-4.16 2.336-6.224ZM5.38 14.472C2.996 13.32 1.388 10.824 1.388 8c0-1.04.184-1.984.576-2.872C3.1 8.24 4.236 11.36 5.38 14.472Zm3.224-5.304 2.064 5.584a6.734 6.734 0 0 1-2.168.36 6.301 6.301 0 0 1-1.832-.264c.648-1.904 1.296-3.792 1.936-5.68Z"
@@ -17,13 +12,7 @@ const WordPressIcon = () => (
 );
 
 const StarIcon = ({ color = "#F4674D" }) => (
-	<svg
-		width={16}
-		height={15}
-		viewBox="0 0 16 15"
-		fill="none"
-		xmlns="http://www.w3.org/2000/svg"
-	>
+	<svg width={16} height={15} viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<path
 			d="M7.70547 0L9.84795 5.15113L15.409 5.59696L11.1721 9.22637L12.4665 14.653L7.70547 11.745L2.94441 14.653L4.23887 9.22637L0.00191116 5.59696L5.56299 5.15113L7.70547 0Z"
 			fill={color}
@@ -32,26 +21,22 @@ const StarIcon = ({ color = "#F4674D" }) => (
 );
 
 const HalfStarIcon = () => (
-	<svg
-		width={17}
-		height={17}
-		viewBox="0 0 17 17"
-		fill="none"
-		xmlns="http://www.w3.org/2000/svg"
-	>
+	<svg width={17} height={17} viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<path
 			d="m8.1 0 2.143 5.151 5.56.446-4.236 3.63 1.294 5.426L8.1 11.745l-4.761 2.908 1.294-5.427L.396 5.597l5.562-.446z"
 			fill="#e0e0e0"
 		/>
-		<path
-			d="m8.1 0-2.142 5.151-5.562.446 4.236 3.63-1.294 5.426L8.1 11.745V0z"
-			fill="#f4674d"
-		/>
+		<path d="m8.1 0-2.142 5.151-5.562.446 4.236 3.63-1.294 5.426L8.1 11.745V0z" fill="#f4674d" />
 	</svg>
 );
 
 const TrustpilotIcon = () => (
-	<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m10.5 15.252 4.563-1.164L16.969 20zM21 7.61h-8.031L10.5 0 8.031 7.61H0l6.5 4.717-2.469 7.61 6.5-4.717 4-2.893z" fill="#00b57a"/></svg>
+	<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path
+			d="m10.5 15.252 4.563-1.164L16.969 20zM21 7.61h-8.031L10.5 0 8.031 7.61H0l6.5 4.717-2.469 7.61 6.5-4.717 4-2.893z"
+			fill="#00b57a"
+		/>
+	</svg>
 );
 
 const features = [
@@ -512,15 +497,15 @@ const LiteVsPro = () => {
 						</a>
 					</div>
 					<h2 className="sp-eab-testimonial-title">
-						{__(
-							"Don't Just Take Our Word for It — See What Users Say!",
-							"easy-accordion-free"
-						)}
+						{__("Don't Just Take Our Word for It — See What Users Say!", "easy-accordion-free")}
 					</h2>
 				</div>
 				<div className="sp-eab-testimonial-wrap">
 					{testimonials?.map((item, index) => (
-						<div className={`sp-eab-testimonial-card ${item?.user === "trustpilot" ? "sp-eab-testimonial-card-trustpilot" : ""}`} key={index}>
+						<div
+							className={`sp-eab-testimonial-card ${item?.user === "trustpilot" ? "sp-eab-testimonial-card-trustpilot" : ""}`}
+							key={index}
+						>
 							<div className="sp-eab-testimonial-card-header">
 								<div className="sp-eab-testimonial-reviewer">
 									<div className="sp-eab-testimonial-avatar">

@@ -152,64 +152,64 @@ const RenderModuleCard = ({ items = [], optionKey = "integrations", hideUpcoming
 							{type !== "quick-start" && <span className="sp-eap-integrations-card__desc">{desc}</span>}
 						</div>
 						{type !== "quick-start" && (
-						<div className="sp-eap-integrations-card__links sp-d-flex sp-align-center sp-justify-between">
-							{(docLink || demoLink || videoLink) && (
-								<div className="sp-d-flex sp-align-center sp-gap-10px">
-									{demoLink && (
-										<a
-											className="sp-d-flex sp-align-center sp-gap-4px"
-											href={demoLink}
-											target="_blank"
-											rel="noreferrer"
-											{...(demoLink === "#" && {
-												style: { pointerEvents: "none", cursor: "default" },
-											})}
+							<div className="sp-eap-integrations-card__links sp-d-flex sp-align-center sp-justify-between">
+								{(docLink || demoLink || videoLink) && (
+									<div className="sp-d-flex sp-align-center sp-gap-10px">
+										{demoLink && (
+											<a
+												className="sp-d-flex sp-align-center sp-gap-4px"
+												href={demoLink}
+												target="_blank"
+												rel="noreferrer"
+												{...(demoLink === "#" && {
+													style: { pointerEvents: "none", cursor: "default" },
+												})}
+											>
+												<Demos /> Demo
+											</a>
+										)}
+										{videoLink && (
+											<a
+												className="sp-d-flex sp-align-center sp-gap-4px"
+												href={videoLink}
+												target="_blank"
+												rel="noreferrer"
+												{...(videoLink === "#" && {
+													style: { pointerEvents: "none", cursor: "default" },
+												})}
+											>
+												<VideoPlayIcon /> Video
+											</a>
+										)}
+										{docLink && (
+											<a
+												className="sp-d-flex sp-align-center sp-gap-4px"
+												href={docLink}
+												target="_blank"
+												rel="noreferrer"
+												{...(docLink === "#" && {
+													style: { pointerEvents: "none", cursor: "default" },
+												})}
+											>
+												<Docs /> Docs
+											</a>
+										)}
+									</div>
+								)}
+								{optionKey === "integrations" && type !== "page-builder" && (
+									<div className="sp-eap-integrations-card__settings sp-cursor-pointer">
+										<span
+											onClick={() => {
+												if (!upcoming) {
+													setOpenedPopup(key);
+												}
+											}}
 										>
-											<Demos /> Demo
-										</a>
-									)}
-									{videoLink && (
-										<a
-											className="sp-d-flex sp-align-center sp-gap-4px"
-											href={videoLink}
-											target="_blank"
-											rel="noreferrer"
-											{...(videoLink === "#" && {
-												style: { pointerEvents: "none", cursor: "default" },
-											})}
-										>
-											<VideoPlayIcon /> Video
-										</a>
-									)}
-									{docLink && (
-										<a
-											className="sp-d-flex sp-align-center sp-gap-4px"
-											href={docLink}
-											target="_blank"
-											rel="noreferrer"
-											{...(docLink === "#" && {
-												style: { pointerEvents: "none", cursor: "default" },
-											})}
-										>
-											<Docs /> Docs
-										</a>
-									)}
-								</div>
-							)}
-							{optionKey === "integrations" && type !== "page-builder" && (
-								<div className="sp-eap-integrations-card__settings sp-cursor-pointer">
-									<span
-										onClick={() => {
-											if (!upcoming) {
-												setOpenedPopup(key);
-											}
-										}}
-									>
-										<SettingsIcon />
-									</span>
-								</div>
-							)}
-						</div>
+											<SettingsIcon />
+										</span>
+									</div>
+								)}
+							</div>
 						)}
 					</div>
 					{openedPopup === key && (

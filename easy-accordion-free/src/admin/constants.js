@@ -20,7 +20,10 @@ export const pluginSettingOptions = [
 	{
 		option_name: "eap_editor_preference",
 		label: __("Default Editor", "easy-accordion-free"),
-		infoText: __("Choose which editor opens when you click 'Add New Accordion'. Pick 'Ask each time' to keep the welcome popup.", "easy-accordion-free"),
+		infoText: __(
+			"Choose which editor opens when you click 'Add New Accordion'. Pick 'Ask each time' to keep the welcome popup.",
+			"easy-accordion-free"
+		),
 		inputType: "select",
 		items: [
 			{

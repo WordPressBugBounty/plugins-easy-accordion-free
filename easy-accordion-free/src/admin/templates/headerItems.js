@@ -91,7 +91,8 @@ const HeaderItems = () => {
 				<div className="sp-eab-green-header-notice-content">
 					<GreenCheckIcon />
 					<span className="sp-eab-green-header-notice-text">
-						<strong>You're on Lite</strong> — unlock the full power at <strong>50% OFF. Lifetime Deal.</strong> Pay once, Use forever.
+						<strong>You're on Lite</strong> — unlock the full power at{" "}
+						<strong>50% OFF. Lifetime Deal.</strong> Pay once, Use forever.
 					</span>
 					<a
 						className="sp-eab-green-header-notice-link"
@@ -105,61 +106,64 @@ const HeaderItems = () => {
 				</div>
 			</div>
 			<div className="sp-eab-admin-dashboard-header">
-			<div className="sp-eab-block-setting-header-wrapper sp-d-flex sp-justify-between sp-align-center">
-				<div className="sp-eab-admin-dashboard-header-left sp-d-flex sp-align-center sp-gap-10px">
-					<Logo />
-					<span onClick={toggleDrawer(true)} className="sp-eap-plugin-version">
-						<ChangelogIcon />
-						{sp_eab_admin_dashboard_localize?.pluginVersion}
-					</span>
-					<Drawer
-						anchor="right"
-						open={showSidebar}
-						onClose={toggleDrawer(false)}
-						slotProps={{
-							paper: {
-								className: "sp-eab-admin-changelog-wrapper",
-							},
-						}}
-					>
-						<div className="sp-eab-changelog-heading sp-d-flex sp-justify-between">
-							<p className="sp-eab-changelog-heading-title">Latest Updates - Changelog</p>
-							<button
-								className="sp-eab-changelog-close-btn sp-d-flex sp-align-center sp-cursor-pointer"
-								onClick={toggleDrawer(false)}
-							>
-								<CloseIcon />
-							</button>
+				<div className="sp-eab-block-setting-header-wrapper sp-d-flex sp-justify-between sp-align-center">
+					<div className="sp-eab-admin-dashboard-header-left sp-d-flex sp-align-center sp-gap-10px">
+						<Logo />
+						<span onClick={toggleDrawer(true)} className="sp-eap-plugin-version">
+							<ChangelogIcon />
+							{sp_eab_admin_dashboard_localize?.pluginVersion}
+						</span>
+						<Drawer
+							anchor="right"
+							open={showSidebar}
+							onClose={toggleDrawer(false)}
+							slotProps={{
+								paper: {
+									className: "sp-eab-admin-changelog-wrapper",
+								},
+							}}
+						>
+							<div className="sp-eab-changelog-heading sp-d-flex sp-justify-between">
+								<p className="sp-eab-changelog-heading-title">Latest Updates - Changelog</p>
+								<button
+									className="sp-eab-changelog-close-btn sp-d-flex sp-align-center sp-cursor-pointer"
+									onClick={toggleDrawer(false)}
+								>
+									<CloseIcon />
+								</button>
+							</div>
+							<div
+								className="sp-eab-changelog-details"
+								dangerouslySetInnerHTML={{ __html: changelog }}
+							></div>
+						</Drawer>
+					</div>
+					<div className="sp-eab-admin-dashboard-header-right sp-d-flex sp-gap-4px sp-cursor-pointer">
+						<Support />
+						<span>{__("Get Help", "easy-accordion-free")}</span>
+						<div className="sp-eab-help-drop-down sp-d-hidden sp-flex-col">
+							{GetHelpItems?.map(({ title, link, Icon }, index) => (
+								<Fragment key={index}>
+									{link && (
+										<a
+											href={link}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="sp-eap-support-link sp-d-flex sp-align-center sp-gap-10px"
+										>
+											<Icon />
+											<span>{title}</span>
+											<span className="drop-down-arrow">
+												<Arrow />
+											</span>
+										</a>
+									)}
+								</Fragment>
+							))}
 						</div>
-						<div className="sp-eab-changelog-details" dangerouslySetInnerHTML={{ __html: changelog }}></div>
-					</Drawer>
-				</div>
-				<div className="sp-eab-admin-dashboard-header-right sp-d-flex sp-gap-4px sp-cursor-pointer">
-					<Support />
-					<span>{__("Get Help", "easy-accordion-free")}</span>
-					<div className="sp-eab-help-drop-down sp-d-hidden sp-flex-col">
-						{GetHelpItems?.map(({ title, link, Icon }, index) => (
-							<Fragment key={index}>
-								{link && (
-									<a
-										href={link}
-										target="_blank"
-										rel="noopener noreferrer"
-										className="sp-eap-support-link sp-d-flex sp-align-center sp-gap-10px"
-									>
-										<Icon />
-										<span>{title}</span>
-										<span className="drop-down-arrow">
-											<Arrow />
-										</span>
-									</a>
-								)}
-							</Fragment>
-						))}
 					</div>
 				</div>
 			</div>
-		</div>
 		</>
 	);
 };

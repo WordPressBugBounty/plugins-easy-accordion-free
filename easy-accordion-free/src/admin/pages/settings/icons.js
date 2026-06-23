@@ -85,22 +85,16 @@ export const WooCommerceFAQsTabIcon = () => (
 );
 
 export const ToolsIcon = () => (
-	<svg
-		width={16}
-		height={16}
-		viewBox="0 0 16 16"
-		fill="none"
-		xmlns="http://www.w3.org/2000/svg"
-	>
+	<svg width={16} height={16} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<path
-		d="M5.41 9.866h6M9.91 8.25l1.67 1.616-1.67 1.884m.67-5.884h-6m1.5-1.616L4.41 5.866 6.08 7.75"
-		stroke="#2f2f2f"
-		strokeLinecap="round"
-		strokeLinejoin="round"
+			d="M5.41 9.866h6M9.91 8.25l1.67 1.616-1.67 1.884m.67-5.884h-6m1.5-1.616L4.41 5.866 6.08 7.75"
+			stroke="#2f2f2f"
+			strokeLinecap="round"
+			strokeLinejoin="round"
 		/>
 		<path
-		d="M1.5 8c0-2.986 0-4.478.927-5.406.928-.927 2.42-.927 5.406-.927s4.479 0 5.406.927c.928.928.928 2.42.928 5.406s0 4.478-.928 5.406c-.927.927-2.42.927-5.406.927s-4.478 0-5.406-.927C1.5 12.478 1.5 10.986 1.5 8Z"
-		stroke="#2f2f2f"
+			d="M1.5 8c0-2.986 0-4.478.927-5.406.928-.927 2.42-.927 5.406-.927s4.479 0 5.406.927c.928.928.928 2.42.928 5.406s0 4.478-.928 5.406c-.927.927-2.42.927-5.406.927s-4.478 0-5.406-.927C1.5 12.478 1.5 10.986 1.5 8Z"
+			stroke="#2f2f2f"
 		/>
 	</svg>
 );
