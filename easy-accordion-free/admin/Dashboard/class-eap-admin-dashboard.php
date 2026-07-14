@@ -83,7 +83,6 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 			// admin notices.
 			add_action( 'init', array( $this, 'eap_submit_user_consent' ) );
 			add_action( 'admin_notices', array( $this, 'eap_maybe_show_user_consent_notice' ) );
-			add_action( 'easy_accordion_weekly_scheduled_events', array( $this, 'init_eap_data_storing' ) );
 		}
 
 		/**
@@ -225,14 +224,14 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 		}
 
 		/**
-		 * Spea_ajax_help_page function.
+		 * Eab_plugins_info_api_help_page function.
 		 *
 		 * @return void
 		 */
 		public function eab_plugins_info_api_help_page() {
 			$plugins_arr = get_transient( 'spea_plugins_data' );
 			if ( false === $plugins_arr ) {
-				$args    = (object) array(
+				$args = array(
 					'author'   => 'shapedplugin',
 					'per_page' => '120',
 					'page'     => '1',
@@ -250,33 +249,29 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 						'icons',
 					),
 				);
-				$request = array(
-					'action'  => 'query_plugins',
-					'timeout' => 30,
-					'request' => serialize( $args ),
-				);
-				// https://codex.wordpress.org/WordPress.org_API.
-				$url      = 'http://api.wordpress.org/plugins/info/1.0/';
-				$response = wp_remote_post( $url, array( 'body' => $request ) );
 
-				if ( ! is_wp_error( $response ) ) {
+				if ( ! function_exists( 'plugins_api' ) ) {
+					require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+				}
+
+				$plugin_info = plugins_api( 'query_plugins', $args );
+
+				if ( ! is_wp_error( $plugin_info ) ) {
 
 					$plugins_arr = array();
-					$plugins     = unserialize( $response['body'] );
-
-					if ( isset( $plugins->plugins ) && ( count( $plugins->plugins ) > 0 ) ) {
-						foreach ( $plugins->plugins as $pl ) {
+					if ( isset( $plugin_info->plugins ) && ( count( $plugin_info->plugins ) > 0 ) ) {
+						foreach ( $plugin_info->plugins as $pl ) {
 							$plugins_arr[] = array(
-								'slug'              => $pl->slug,
-								'name'              => $pl->name,
-								'version'           => $pl->version,
-								'downloaded'        => $pl->downloaded,
-								'active_installs'   => $pl->active_installs,
-								'last_updated'      => strtotime( $pl->last_updated ),
-								'rating'            => $pl->rating,
-								'num_ratings'       => $pl->num_ratings,
-								'short_description' => $pl->short_description,
-								'icons'             => $pl->icons['2x'],
+								'slug'              => $pl['slug'],
+								'name'              => $pl['name'],
+								'version'           => $pl['version'],
+								'downloaded'        => $pl['downloaded'],
+								'active_installs'   => $pl['active_installs'],
+								'last_updated'      => strtotime( $pl['last_updated'] ),
+								'rating'            => $pl['rating'],
+								'num_ratings'       => $pl['num_ratings'],
+								'short_description' => $pl['short_description'],
+								'icons'             => $pl['icons']['2x'],
 							);
 						}
 					}
@@ -286,7 +281,8 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 			}
 
 			if ( is_array( $plugins_arr ) && ( count( $plugins_arr ) > 0 ) ) {
-				array_multisort( array_column( $plugins_arr, 'active_installs' ), SORT_DESC, $plugins_arr );
+				$no_of_active_installs = array_column( $plugins_arr, 'active_installs' );
+				array_multisort( $no_of_active_installs, SORT_DESC, $plugins_arr );
 				foreach ( $plugins_arr as $plugin ) {
 					$plugin_slug = $plugin['slug'];
 					$plugin_icon = $plugin['icons'];
@@ -448,7 +444,7 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 		 * @return string
 		 */
 		public function activate_plugin_link( $plugin_slug, $plugin_file ) {
-			return wp_nonce_url( admin_url( 'edit.php?post_type=sp_easy_accordion&page=eap_dashboard&action=activate&plugin=' . $plugin_slug . '/' . $plugin_file . '#about_us' ), 'activate-plugin_' . $plugin_slug . '/' . $plugin_file );
+			return wp_nonce_url( admin_url( 'edit.php?post_type=sp_easy_accordion&page=eap_dashboard&action=activate&plugin=' . $plugin_slug . '/' . $plugin_file . '#our_plugins' ), 'activate-plugin_' . $plugin_slug . '/' . $plugin_file );
 		}
 
 		/**

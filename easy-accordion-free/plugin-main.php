@@ -7,7 +7,7 @@
  * Author URI:  https://shapedplugin.com/
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Version:     3.1.6
+ * Version:     3.1.7
  * Requires at least: 5.9
  * Requires PHP: 7.4
  * Text Domain: easy-accordion-free
@@ -63,7 +63,7 @@ class SP_EASY_ACCORDION_FREE {
 	 *
 	 * @var string
 	 */
-	public $version = '3.1.6';
+	public $version = '3.1.7';
 
 	/**
 	 * The name of the plugin.
@@ -200,6 +200,19 @@ class SP_EASY_ACCORDION_FREE {
 	}
 
 	/**
+	 * Initialize the eap_data_storing system.
+	 *
+	 * Runs on the weekly cron event, where is_admin() is false, so the
+	 * admin dashboard class is constructed on demand here.
+	 *
+	 * @return void
+	 */
+	public function init_eap_data_storing() {
+		$admin_dashboard = new Eab_Admin_Dashboard();
+		$admin_dashboard->init_eap_data_storing();
+	}
+
+	/**
 	 * Load_gutenberg_blocks.
 	 *
 	 * @return void
@@ -246,6 +259,8 @@ class SP_EASY_ACCORDION_FREE {
 		$this->loader->add_action( 'admin_menu', $plugin_cpt, 'add_faq_submenu' );
 		$this->loader->add_action( 'admin_notices', $plugin_review_notice, 'display_admin_notice' );
 		$this->loader->add_action( 'wp_ajax_sp-eafree-never-show-review-notice', $plugin_review_notice, 'dismiss_review_notice' );
+		// Weekly anonymous data sending. Must not be admin-gated: WP-Cron requests are not admin requests.
+		add_action( 'easy_accordion_weekly_scheduled_events', array( $this, 'init_eap_data_storing' ) );
 	}
 
 	/**

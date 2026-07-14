@@ -4,7 +4,7 @@ Tags: faq, accordion blocks, image accordion, product faq, category menu accordi
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.1.6
+Stable tag: 3.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ AI-Powered FAQ Generator. Gutenberg FAQ & Accordion Blocks, Image Accordion, Acc
 🚀 Explore Powerful [**15+ FAQ & Accordion Blocks**](https://easyaccordion.io/blocks/)  
 📚 Start with [**200+ Ready FAQ & Accordion Patterns**](https://easyaccordion.io/patterns/)
 🌐 Visit the Official Website [**Easy Accordion**](https://easyaccordion.io/)
-❤️ 134+ ⭐⭐⭐⭐⭐ Reviews & 4.8/5 Happiness Rating on [**Trustpilot**](https://www.trustpilot.com/review/shapedplugin.com)
+❤️ 140+ ⭐⭐⭐⭐⭐ Reviews & 4.8/5 Happiness Rating on [**Trustpilot**](https://www.trustpilot.com/review/shapedplugin.com)
 
 Create beautiful, responsive FAQs and stylish accordions in minutes with **Easy Accordion**, the most popular WordPress FAQ & Accordion Builder – in 3 simple steps:  
 
@@ -338,6 +338,11 @@ clicking "Install Now" and then "Activate".
 
 
 == Changelog ==
+
+= Version 3.1.7 - Jul 14, 2026 =
+* Improved: Replaced unserialize() with WordPress plugins_api() for the recommended plugin section.
+* Improved: Removed the "Upcoming" badge from the "Generate FAQs with AI" feature, as this feature was already added in v3.1.0
+* Fix: Sanitized and escaped the Shortcode block `align` attribute in its render callback to prevent a stored XSS vulnerability. 
 
 = Version 3.1.6 - Jun 23, 2026 =
 * Fix: The Initial Accordion Display option issue - did not work from v3.1.3

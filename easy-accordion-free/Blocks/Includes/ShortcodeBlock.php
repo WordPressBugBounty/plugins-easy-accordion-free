@@ -147,10 +147,10 @@ class ShortcodeBlock {
 	 */
 	public function sp_eap_render_shortcode( $attributes ) {
 		// class name.
-		$align      = $attributes['align'] ?? 'none';
-		$class_name = "align$align";
+		$align      = sanitize_key( $attributes['align'] ?? 'none' );
+		$class_name = 'align' . $align;
 
-		return '<div class="' . $class_name . '">' . do_shortcode( '[sp_easyaccordion id="' . sanitize_text_field( $attributes['shortcode'] ) . '"]' ) . '</div>';
+		return '<div class="' . esc_attr( $class_name ) . '">' . do_shortcode( '[sp_easyaccordion id="' . absint( $attributes['shortcode'] ) . '"]' ) . '</div>';
 	}
 	/**
 	 * Check if SP Easy Accordion shortcode block is enabled to show.

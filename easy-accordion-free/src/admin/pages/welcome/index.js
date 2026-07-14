@@ -36,7 +36,7 @@ const WelcomePage = () => {
 		},
 		{
 			title: __("Generate FAQs with AI", "easy-accordion-free"),
-			upcoming: true,
+			hot: true,
 		},
 		{
 			title: __("Menu and Category Accordion", "easy-accordion-free"),
