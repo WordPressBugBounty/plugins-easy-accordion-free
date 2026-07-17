@@ -9,7 +9,7 @@ import {
 	GoogleRecaptchaIcon,
 	OxygenIntegrationIcon,
 	WPBakeryIntegrationIcon,
-} from "./icons";
+} from "../integrations/icons";
 import RenderModuleCard from "../modules/render";
 
 const integrationsItems = [
@@ -30,6 +30,7 @@ const integrationsItems = [
 		upcoming: true,
 		id: 2,
 		Icon: GoogleRecaptchaIcon,
+		hideSettings: true,
 		key: "google_recaptcha",
 		label: "Google reCAPTCHA",
 		desc: __(
@@ -43,6 +44,7 @@ const integrationsItems = [
 		upcoming: true,
 		id: 3,
 		Icon: ChatGPTIcon,
+		hideSettings: true,
 		key: "chatgpt",
 		label: "ChatGPT",
 		desc: __(
@@ -55,6 +57,7 @@ const integrationsItems = [
 	{
 		id: 4,
 		key: "elementor",
+		hideSettings: true,
 		label: "Elementor",
 		Icon: ElementorIntegrationIcon,
 		desc: __(
@@ -68,6 +71,7 @@ const integrationsItems = [
 	{
 		id: 5,
 		key: "divi",
+		hideSettings: true,
 		label: "Divi",
 		Icon: DiviIntegrationIcon,
 		desc: __(
@@ -80,6 +84,7 @@ const integrationsItems = [
 	{
 		id: 6,
 		key: "wpbakery",
+		hideSettings: true,
 		label: "WPBakery",
 		Icon: WPBakeryIntegrationIcon,
 		desc: __(
@@ -92,6 +97,7 @@ const integrationsItems = [
 	{
 		id: 7,
 		key: "beaver",
+		hideSettings: true,
 		label: "Beaver Builder",
 		Icon: BeaverIntegrationIcon,
 		desc: __(
@@ -104,6 +110,7 @@ const integrationsItems = [
 	{
 		id: 8,
 		key: "bricks",
+		hideSettings: true,
 		label: "Bricks",
 		Icon: BricksIntegrationIcon,
 		desc: __(
@@ -116,6 +123,7 @@ const integrationsItems = [
 	{
 		id: 9,
 		key: "oxygen",
+		hideSettings: true,
 		label: "Oxygen",
 		Icon: OxygenIntegrationIcon,
 		desc: __(
@@ -138,7 +146,7 @@ const Integrations = () => {
 					Enable only what you need. Keep your site lean, fast, and clutter-free.
 				</span>
 			</div>
-			<RenderModuleCard items={integrationsItems} optionKey="integrations" />
+			<RenderModuleCard items={integrationsItems} optionKey="integrations" gridCols="sp-grid-cols-2" />
 		</div>
 	);
 };

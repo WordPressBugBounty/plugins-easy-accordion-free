@@ -10,11 +10,11 @@
 	}
 
 	.sp-eab-pro-table-row.sp-eab-header {
-		background: #ff5b2e;
-		color: #fff;
+		background: hsl(3deg 64% 95% / 75%);
+		// color: #fff;
 
 		.sp-eab-title {
-			color: #fff;
+			// color: #fff;
 		}
 		.sp-eab-free{
 			border: none !important;
@@ -96,7 +96,7 @@
 	justify-content: space-between;
 	align-items: center;
 	border-radius: 6px;
-	background: #fae9e8;
+	background: #e8fbf4;
 	padding: 32px;
 	margin: 32px;
 
@@ -135,6 +135,9 @@
 
 			span {
 				font-weight: 600;
+			}
+			.sp-eab-pro {
+				color: var(--eab-primary-color);
 			}
 		}
 
@@ -186,8 +189,9 @@
 	.sp-eab-hot,
 	.sp-eab-new {
 		display: inline-block;
-		background: #14ae5c;
-		color: #fff;
+		background: #edfaef;
+		color: #00753a;
+		border: 1px solid #9ad7b9;
 		font-size: 10px;
 		text-align: center;
 		border-radius: 40px;
@@ -198,7 +202,9 @@
 	}
 
 	.sp-eab-hot {
-		background-color: #ec2121;
+		background-color: #fcf0f1;
+		color: #d63638;
+		border: 1px solid #e99899;
 	}
 }
 

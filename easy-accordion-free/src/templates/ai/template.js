@@ -2,7 +2,7 @@ import { __ } from "@wordpress/i18n";
 import { useDispatch, useSelect } from "@wordpress/data";
 import { RichText } from "@wordpress/block-editor";
 import { memo, useMemo, useState } from "@wordpress/element";
-import { HeaderIcon, TriggerButtonIcon } from "./icon";
+import { HeaderIcon, InfoIcon, TriggerButtonIcon } from "./icon";
 import { ProIconLight } from "../../admin/icons";
 
 // Writing tone list
@@ -138,6 +138,7 @@ export const PromptCard = memo(
 									{ label: "5 FAQs", value: "5" },
 									{ label: "10 FAQs (Pro)", value: "10", disabled: true },
 									{ label: "15 FAQs (Pro)", value: "15", disabled: true },
+									{ label: "20 FAQs (Pro)", value: "20", disabled: true },
 								]}
 								id="numberOfFaqs"
 								value={formData.numberOfFaqs}
@@ -246,6 +247,20 @@ export const PromptCard = memo(
 
 				{/* Footer */}
 				<div className="eab-faq-gen-prompt-card__footer sp-d-flex sp-align-center sp-justify-end sp-gap-12px">
+					<span
+						className="eab-faq-gen-prompt-card__notice"
+						style={{ marginRight: "auto", display: "flex", alignItems: "center", fontSize: "15px" }}
+					>
+						{__("To generate unlimited FAQs with AI,", "easy-accordion-free")}
+						<a
+							href="https://easyaccordion.io/pricing/"
+							target="_blank"
+							rel="noopener noreferrer"
+							style={{ marginLeft: "4px" }}
+						>
+							{__("Upgrade to Pro!", "easy-accordion-free")}
+						</a>
+					</span>
 					{modelOptions?.length > 0 && (
 						<div className="eab-faq-gen-prompt-card__field">
 							<RenderSelect

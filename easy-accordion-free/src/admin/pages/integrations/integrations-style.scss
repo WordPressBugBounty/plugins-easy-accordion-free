@@ -229,3 +229,11 @@
     cursor: default;
     pointer-events: none;
 }
+
+// Integration tab styles within settings page
+.sp-eap-setting-tab-content {
+    .sp-eap-integrations-card {
+        border: 1px solid #ddd;
+        box-shadow: none;
+    }
+}

@@ -7,7 +7,7 @@ import QuickStart from "./pages/quickStart/quickStart";
 import BlockVisibility from "./pages/blockVisibility";
 import SavedTemplates from "./pages/saved-templates";
 import SettingsPage from "./pages/settings";
-import Integrations from "./pages/integrations";
+// import Integrations from "./pages/integrations"; // Moved to Settings page as a tab
 import Modules from "./pages/modules";
 import Footer from "./templates/footer";
 import SetupWizard from "./setup-wizard";
@@ -119,14 +119,13 @@ const Render = () => {
 			return [];
 		}
 		let items = [
-			{ label: "Getting Started", value: "getting-start", hash: "#" },
+			{ label: "Dashboard", value: "getting-start", hash: "#" },
+			{ label: "Saved Templates", value: "saved_templates", hash: "#saved_templates" },
 			{ label: "Blocks", value: "blocks", hash: "#blocks", badge: "new" },
 			{ label: "Modules", value: "modules", hash: "#modules" },
-			{ label: "Saved Templates", value: "saved_templates", hash: "#saved_templates" },
-			{ label: "Integrations", value: "integrations", hash: "#integrations" },
+			// { label: "Integrations", value: "integrations", hash: "#integrations" }, // Moved to Settings page as a tab
 			{ label: "Settings", value: "settings", hash: "#settings" },
 			{ label: "Lite vs Pro", value: "lite_vs_pro", hash: "#lite_vs_pro" },
-			{ label: "About Us", value: "about_us", hash: "#about_us" },
 			{ label: "Our Plugins", value: "our_plugins", hash: "#our_plugins", icon: <OurPluginsIcon /> },
 		];
 		const isActiveTemplates = dashboardSettings?.modules?.saved_templates
@@ -138,7 +137,7 @@ const Render = () => {
 		return items;
 	}, [dashboardSettings]);
 
-	// if not exist plugin settings then return;
+	// if not exist plugin settings then return.;
 
 	if (!pluginSettings) {
 		return null;
@@ -152,49 +151,18 @@ const Render = () => {
 		<>
 			<div className="sp-eab-admin-dashboard-container">
 				{/* header */}
-				<HeaderItems />
+				<HeaderItems menuItems={menuItems} currentPage={page} setPageAndHash={setPageAndHash} />
 				<div className="sp-eab-admin-dashboard-body">
-					{/* Blocks settings page navigation tab */}
-					<div className="sp-eab-admin-dashboard-nav">
-						<ul
-							className={
-								page === "our_plugins" || page === "about_us"
-									? "sp-eab-hide-our-plugins-border sp-d-flex"
-									: "sp-d-flex"
-							}
-						>
-							{menuItems?.map((item) => (
-								<li
-									key={item.value}
-									className={item.value === "our_plugins" ? "sp-eab-nav-our-plugins" : ""}
-								>
-									<a
-										href={item.hash}
-										className={page.includes(item.value) ? "active" : ""}
-										onClick={() => setPageAndHash(item.value)}
-									>
-										{item.icon}
-										{item.label}
-										{item.badge && (
-											<span className="sp-eab-nav-badge">
-												{__("NEW!", "easy-accordion-free")}
-											</span>
-										)}
-									</a>
-								</li>
-							))}
-						</ul>
-					</div>
 					{/* Render pages based on tab click */}
 					<div className="sp-eab-admin-dashboard-content">
 						{page === "getting-start" && <QuickStart setPageAndHash={setPageAndHash} />}
 						{page === "blocks" && blockVisibility && <BlockVisibility />}
 						{page === "modules" && <Modules />}
-						{page === "integrations" && dashboardSettings && <Integrations />}
+						{/* {page === "integrations" && dashboardSettings && <Integrations />} */} {/* Moved to Settings page as a tab */}
 						{page === "saved_templates" && <SavedTemplates />}
 						{page === "settings" && <SettingsPage />}
-						{page === "lite_vs_pro" && <LiteVsPro />}
 						{page === "about_us" && <AboutUs />}
+						{page === "lite_vs_pro" && <LiteVsPro />}
 					</div>
 				</div>
 				{/* {page === "getting-start" && <Footer />} */}

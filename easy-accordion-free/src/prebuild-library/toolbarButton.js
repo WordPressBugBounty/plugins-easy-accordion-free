@@ -34,7 +34,7 @@ export function ToolbarLibrary() {
 		root.render(
 			<span id="sp-eab-patterns-library-modal-button" className="popup-button" onClick={onInsertButtonClick}>
 				<EasyAccordionLogo fill="#ffffff" />
-				Easy Accordion Patterns Library
+				Easy Patterns
 			</span>
 		);
 	};

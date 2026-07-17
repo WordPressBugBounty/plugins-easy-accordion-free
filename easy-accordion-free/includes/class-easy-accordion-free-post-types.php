@@ -82,8 +82,8 @@ class Easy_Accordion_Free_Post_Type {
 			array(
 				'name'               => esc_html__( 'Manage FAQ Groups', 'easy-accordion-free' ),
 				'singular_name'      => esc_html__( 'Easy Accordion', 'easy-accordion-free' ),
-				'add_new'            => esc_html__( 'New FAQ Group', 'easy-accordion-free' ),
-				'add_new_item'       => esc_html__( 'New FAQ Group', 'easy-accordion-free' ),
+				'add_new'            => esc_html__( 'Add New FAQ Group', 'easy-accordion-free' ),
+				'add_new_item'       => esc_html__( 'Add New FAQ Group', 'easy-accordion-free' ),
 				'edit_item'          => esc_html__( 'Edit FAQ Group', 'easy-accordion-free' ),
 				'new_item'           => esc_html__( 'New New FAQ', 'easy-accordion-free' ),
 				'view_item'          => esc_html__( 'View New FAQ', 'easy-accordion-free' ),
@@ -132,10 +132,10 @@ class Easy_Accordion_Free_Post_Type {
 		$labels          = apply_filters(
 			'sp_accordion_faq_labels',
 			array(
-				'name'               => __( 'All FAQs', 'easy-accordion-free' ),
+				'name'               => __( 'All FAQ Items', 'easy-accordion-free' ),
 				'singular_name'      => __( 'FAQ', 'easy-accordion-free' ),
 				'menu_name'          => __( 'Easy Accordion', 'easy-accordion-free' ),
-				'all_items'          => __( 'All FAQs', 'easy-accordion-free' ),
+				'all_items'          => __( 'All FAQ Items', 'easy-accordion-free' ),
 				'add_new'            => __( 'Add New', 'easy-accordion-free' ),
 				'add_new_item'       => __( 'Add New FAQ', 'easy-accordion-free' ),
 				'edit'               => __( 'Edit FAQ', 'easy-accordion-free' ),
@@ -185,13 +185,46 @@ class Easy_Accordion_Free_Post_Type {
 		if ( current_user_can( $capability ) ) {
 			add_submenu_page(
 				'edit.php?post_type=sp_easy_accordion',
-				__( 'All FAQs', 'easy-accordion-free' ),
-				__( 'Add FAQ', 'easy-accordion-free' ),
+				__( 'All FAQ Items', 'easy-accordion-free' ),
+				__( 'Add FAQ Item', 'easy-accordion-free' ),
 				$capability,
 				'post-new.php?post_type=sp_accordion_faqs',
 				null,
 				3
 			);
 		}
+	}
+
+	/**
+	 * Add custom button next to "Add New" button on post list page
+	 *
+	 * @param array $views The existing views.
+	 * @return array Modified views with the new button.
+	 */
+	public function add_visual_block_editor_button( $views ) {
+		$block_editor_url = admin_url( 'post-new.php?post_type=page&eabblock_inserter=true&eab_auto_insert=sp-easy-accordion-pro/vertical-accordion' );
+		$button_html      = '<a href="' . esc_url( $block_editor_url ) . '" class="page-title-action sp-eab-visual-block-btn" style="margin-left: 4px; padding: 5px 20px; background-color: #3858e9; border-color: #3858e9; margin-left: 10px; color: #fff; transition: background-color 0.3s ease, border-color 0.3s ease;">' . __( 'Start with Visual Block Editor', 'easy-accordion-free' ) . '</a>';
+
+		// Sanitize button HTML with wp_kses.
+		$allowed_html = array(
+			'a' => array(
+				'href'  => array(),
+				'class' => array(),
+				'style' => array(),
+			),
+		);
+
+		// Add JavaScript to inject the button after the "Add New" button with hover effect.
+		echo '<script>
+			jQuery(document).ready(function($) {
+				$(".page-title-action").first().css("padding", "5px 20px");
+				var $newBtn = $(' . wp_json_encode( wp_kses( $button_html, $allowed_html ) ) . ');
+				$newBtn.on("mouseenter", function() { $(this).css("background-color", "#1b40e3").css("border-color", "#1b40e3"); });
+				$newBtn.on("mouseleave", function() { $(this).css("background-color", "#3858e9").css("border-color", "#3858e9"); });
+				$(".page-title-action").first().after($newBtn);
+			});
+		</script>';
+
+		return $views;
 	}
 }

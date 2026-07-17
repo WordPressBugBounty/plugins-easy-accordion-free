@@ -32,11 +32,11 @@ const quickStartBlocks = [
 	"sp-easy-accordion-pro/image-accordion",
 	"sp-easy-accordion-pro/accordion-slider",
 	"sp-easy-accordion-pro/sidebar-tab-accordion",
-	"sp-easy-accordion-pro/post-accordion",
-	"sp-easy-accordion-pro/product-accordion",
+	// "sp-easy-accordion-pro/post-accordion",
+	// "sp-easy-accordion-pro/product-accordion",
 	"sp-easy-accordion-pro/menu-accordion",
-	"sp-easy-accordion-pro/media-accordion",
-	"sp-easy-accordion-pro/user-faq-form",
+	// "sp-easy-accordion-pro/media-accordion",
+	// "sp-easy-accordion-pro/user-faq-form",
 ];
 
 // Pro features list (from Figma design)
@@ -198,6 +198,11 @@ const QuickStart = ({ setPageAndHash }) => {
 		setTimeout(() => window.scrollTo(0, 0), 100);
 	};
 
+	const handleBlockInsert = (blockName) => {
+		const url = `${sp_eab_admin_dashboard_localize?.homeUrl}wp-admin/post-new.php?post_type=page&eabblock_inserter=true&eab_auto_insert=${blockName}`;
+		window.location.href = url;
+	};
+
 	return (
 		<div className="speap-settings-getting-start-page">
 			<div className="speap-settings-getting-start-page-content">
@@ -213,12 +218,12 @@ const QuickStart = ({ setPageAndHash }) => {
 								</h3>
 								<p className="speap-qs-welcome-desc">
 									{__(
-										"Thank you for installing Easy Accordion! This video will help you get started with the plugin. Enjoy!",
+										"Thank you for installing Easy Accordion! Start creating your FAQs directly in the visual block editor. Enjoy!",
 										"easy-accordion-free"
 									)}
 								</p>
 								<a
-									href={`${sp_eab_admin_dashboard_localize?.homeUrl}wp-admin/post-new.php?post_type=sp_eap_template&eabblock_inserter=true`}
+									href={`${sp_eab_admin_dashboard_localize?.homeUrl}wp-admin/post-new.php?post_type=page&eabblock_inserter=true&eab_auto_insert=sp-easy-accordion-pro/vertical-accordion`}
 									className="speap-qs-create-btn"
 								>
 									<i className="dashicons dashicons-plus-alt2"></i>
@@ -268,79 +273,63 @@ const QuickStart = ({ setPageAndHash }) => {
 						<div className="speap-qs-blocks-gradient"></div>
 					</div>
 
-					{/* Modules Section */}
-					<div className="speap-qs-modules-page">
-						<div className="speap-qs-section-header">
-							<h3 className="speap-qs-section-title">{__("Modules", "easy-accordion-free")}</h3>
-							<button
-								className="speap-qs-view-more-btn"
-								onClick={() => {
-									setPageAndHash("modules");
-									setTimeout(() => window.scrollTo(0, 0), 100);
-								}}
-							>
-								{__("Manage All Modules", "easy-accordion-free")}
-								<ArrowRight />
-							</button>
-						</div>
-						<div className="speap-qs-modules-grid">
-							<RenderModuleCard
-								items={ModulesItems.filter((item) => quickStartModules.includes(item.key))}
-								optionKey="modules"
-								type="quick-start"
-							/>
-						</div>
-						<div className="speap-qs-modules-gradient"></div>
-					</div>
-
-					{/* Video Tutorials Section */}
-					<div className="speap-qs-tutorials-section">
-						<div className="speap-qs-section-header">
-							<h3 className="speap-qs-section-title">{__("Video Tutorials", "easy-accordion-free")}</h3>
-							<a
-								href="https://www.youtube.com/watch?v=u3lRDX0zG9Y&list=PLoUb-7uG-5jPNXkpGII8cTTfB-L4TCaqv"
-								target="_blank"
-								rel="noreferrer"
-								className="speap-qs-view-more-btn"
-							>
-								{__("View More Tutorials", "easy-accordion-free")}
-								<ArrowRight />
-							</a>
-						</div>
-						<div className="speap-qs-tutorials-grid">
-							<div className="speap-qs-tutorial-card">
-								<div className="speap-qs-tutorial-video">
-									<iframe
-										width="560"
-										height="315"
-										src="https://www.youtube.com/embed/u3lRDX0zG9Y?si=ty1Q76VBL8F3xcX8"
-										title="YouTube video player"
-										frameBorder="0"
-										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-										referrerPolicy="strict-origin-when-cross-origin"
-										allowFullScreen
-									></iframe>
+					{/* Documentation & Support Cards */}
+					<div className="speap-qs-info-cards-section" style={{ display: "flex", gap: "24px" }}>
+						{/* Documentation Card */}
+						<div className="speap-qs-info-card">
+							<div className="speap-qs-info-header">
+								<div className="speap-qs-info-icon">
+									<DocIcon />
 								</div>
-								<h4 className="speap-qs-tutorial-title">
-									{__("How to Use Easy Accordion Gutenberg Blocks", "easy-accordion-free")}
-								</h4>
+								<h4 className="speap-qs-info-title">{__("Documentation", "easy-accordion-free")}</h4>
 							</div>
-							<div className="speap-qs-tutorial-card">
-								<div className="speap-qs-tutorial-video">
-									<iframe
-										width="560"
-										height="315"
-										src="https://www.youtube.com/embed/xs3AlJKQHL4?si=osNaPeeUmuZmX03x"
-										title="YouTube video player"
-										frameBorder="0"
-										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-										referrerPolicy="strict-origin-when-cross-origin"
-										allowFullScreen
-									></iframe>
+							<div className="speap-qs-info-content-wrapper">
+								<p className="speap-qs-info-desc">
+									{__(
+										"Explore Easy Accordion plugin capabilities in our enriched documentation.",
+										"easy-accordion-free"
+									)}
+								</p>
+								<div className="speap-qs-info-link-wrapper">
+									<a
+										href="https://easyaccordion.io/docs/"
+										target="_blank"
+										rel="noreferrer"
+										className="speap-qs-info-link"
+									>
+										{__("Browse Now", "easy-accordion-free")}
+										<ArrowRight />
+									</a>
 								</div>
-								<h4 className="speap-qs-tutorial-title">
-									{__("How to Use Easy Accordion Blocks in Elementor", "easy-accordion-free")}
-								</h4>
+							</div>
+						</div>
+
+						{/* Technical Support Card */}
+						<div className="speap-qs-info-card">
+							<div className="speap-qs-info-header">
+								<div className="speap-qs-info-icon">
+									<TeamIcon />
+								</div>
+								<h4 className="speap-qs-info-title">{__("Technical Support", "easy-accordion-free")}</h4>
+							</div>
+							<div className="speap-qs-info-content-wrapper">
+								<p className="speap-qs-info-desc">
+									{__(
+										"For personalized assistance, reach out to our skilled support team for prompt help.",
+										"easy-accordion-free"
+									)}
+								</p>
+								<div className="speap-qs-info-link-wrapper">
+									<a
+										href="https://easyaccordion.io/support/"
+										target="_blank"
+										rel="noreferrer"
+										className="speap-qs-info-link"
+									>
+										{__("Ask Now", "easy-accordion-free")}
+										<ArrowRight />
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -374,7 +363,7 @@ const QuickStart = ({ setPageAndHash }) => {
 							</p>
 							<div className="speap-qs-patterns-btn-wrapper">
 								<a
-									href={`${sp_eab_admin_dashboard_localize?.homeUrl}wp-admin/post-new.php?post_type=sp_eap_template&eab_pattern_library`}
+									href={`${sp_eab_admin_dashboard_localize?.homeUrl}wp-admin/post-new.php?post_type=page&eab_pattern_library`}
 									className="speap-qs-patterns-btn"
 								>
 									{__("Start with Ready Patterns", "easy-accordion-free")}
@@ -434,64 +423,6 @@ const QuickStart = ({ setPageAndHash }) => {
 								>
 									{__("Lite vs Pro", "easy-accordion-free")}
 								</button>
-							</div>
-						</div>
-					</div>
-
-					{/* Documentation Card */}
-					<div className="speap-qs-info-card">
-						<div className="speap-qs-info-header">
-							<div className="speap-qs-info-icon">
-								<DocIcon />
-							</div>
-							<h4 className="speap-qs-info-title">{__("Documentation", "easy-accordion-free")}</h4>
-						</div>
-						<div className="speap-qs-info-content-wrapper">
-							<p className="speap-qs-info-desc">
-								{__(
-									"Explore Easy Accordion plugin capabilities in our enriched documentation.",
-									"easy-accordion-free"
-								)}
-							</p>
-							<div className="speap-qs-info-link-wrapper">
-								<a
-									href="https://easyaccordion.io/docs/"
-									target="_blank"
-									rel="noreferrer"
-									className="speap-qs-info-link"
-								>
-									{__("Browse Now", "easy-accordion-free")}
-									<ArrowRight />
-								</a>
-							</div>
-						</div>
-					</div>
-
-					{/* Community Card */}
-					<div className="speap-qs-info-card">
-						<div className="speap-qs-info-header">
-							<div className="speap-qs-info-icon">
-								<TeamIcon />
-							</div>
-							<h4 className="speap-qs-info-title">{__("Join The Community", "easy-accordion-free")}</h4>
-						</div>
-						<div className="speap-qs-info-content-wrapper">
-							<p className="speap-qs-info-desc">
-								{__(
-									"Join the official ShapedPlugin Community to share your experiences, thoughts, and ideas.",
-									"easy-accordion-free"
-								)}
-							</p>
-							<div className="speap-qs-info-link-wrapper">
-								<a
-									href="https://community.shapedplugin.com/portal/space/easyaccordion/home"
-									target="_blank"
-									rel="noreferrer"
-									className="speap-qs-info-link"
-								>
-									{__("Join Now", "easy-accordion-free")}
-									<ArrowRight />
-								</a>
 							</div>
 						</div>
 					</div>

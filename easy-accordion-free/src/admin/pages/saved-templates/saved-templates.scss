@@ -33,7 +33,7 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 16px;
-        width: 75%;
+        width: 80%;
         word-break: break-word;
     }
 
@@ -272,7 +272,10 @@
 }
 
 .sp-eab-saved-template-table-title {
-    flex: auto;
+    flex: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     a {
         span {
             color: #135e96;

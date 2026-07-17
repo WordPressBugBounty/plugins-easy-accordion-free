@@ -41,7 +41,7 @@ $pro-icon-orange: #FF9800;
 
 .speap-settings-getting-start-page-content {
 	display: flex;
-	gap: 40px;
+	gap: 24px;
 	align-items: flex-start;
 }
 
@@ -319,7 +319,7 @@ $pro-icon-orange: #FF9800;
 	background: $white;
 	border: 1px solid $border-color;
 	border-radius: 12px;
-	padding: 22px 32px 10px;
+	padding: 22px 32px 32px;
 	position: relative;
 	overflow: hidden;
 	display: flex;
@@ -383,7 +383,7 @@ $pro-icon-orange: #FF9800;
 
 		// Last 2 items opacity
 		&:nth-last-child(-n+2) {
-			opacity: 0.7;
+			opacity: 0.6;
 		}
 
 		.speap-pro-blocks-badge {
@@ -435,7 +435,7 @@ $pro-icon-orange: #FF9800;
 		align-items: center;
 
 		&:nth-last-child(-n+2) {
-			opacity: 0.7;
+			opacity: 0.6;
 		}
 
 		.sp-eap-integrations-card__icon {

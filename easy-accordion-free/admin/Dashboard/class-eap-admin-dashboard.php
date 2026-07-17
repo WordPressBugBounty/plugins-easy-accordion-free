@@ -52,6 +52,13 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 		private $sp_eap_settings_key = 'sp_eap_settings';
 
 		/**
+		 * Eab_show_upgrade_notice_key.
+		 *
+		 * @var string
+		 */
+		private $eab_show_upgrade_notice_key = 'sp_eab_show_upgrade_notice';
+
+		/**
 		 * Plugins Path variable.
 		 *
 		 * @var array
@@ -78,6 +85,7 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 			add_action( 'wp_ajax_sp_eab_admin_option_update', array( $this, 'sp_eab_admin_option_update' ) );
 			add_action( 'wp_ajax_sp_eap_changelog_data', array( $this, 'sp_eap_changelog_data' ) );
 			add_action( 'wp_ajax_sp_eap_get_user_consent', array( $this, 'sp_eap_get_user_consent' ) );
+			add_action( 'wp_ajax_sp_eab_hide_upgrade_notice', array( $this, 'sp_eab_hide_upgrade_notice' ) );
 			// manage admin dashboard assets.
 			add_action( 'admin_enqueue_scripts', array( $this, 'sp_eab_admin_dashboard_enqueue_admin_assets' ) );
 			// admin notices.
@@ -97,13 +105,13 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 				'eap_dashboard',
 				array( $this, 'blocks_page_wrapper_callback' )
 			);
-			add_submenu_page(
-				'edit.php?post_type=sp_easy_accordion',
-				__( 'Easy Accordion Pro Blocks', 'easy-accordion-free' ),
-				__( 'Blocks', 'easy-accordion-free' ) . '<span class="eap-menu-new-indicator" style="color: #f18200;font-size: 9px; padding-left: 3px;">' . __( ' NEW!', 'easy-accordion-free' ) . '</span>',
-				apply_filters( 'easy_accordion_access_capability', 'manage_options' ),
-				'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#blocks'
-			);
+			// add_submenu_page(
+			// 'edit.php?post_type=sp_easy_accordion',
+			// __( 'Easy Accordion Pro Blocks', 'easy-accordion-free' ),
+			// __( 'Blocks', 'easy-accordion-free' ) . '<span class="eap-menu-new-indicator" style="color: #f18200;font-size: 9px; padding-left: 3px;">' . __( ' NEW!', 'easy-accordion-free' ) . '</span>',
+			// apply_filters( 'easy_accordion_access_capability', 'manage_options' ),
+			// 'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#blocks'
+			// );
 			add_submenu_page(
 				'edit.php?post_type=sp_easy_accordion',
 				__( 'Easy Accordion Pro Settings', 'easy-accordion-free' ),
@@ -111,13 +119,13 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 				apply_filters( 'easy_accordion_access_capability', 'manage_options' ),
 				'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#settings'
 			);
-			add_submenu_page(
-				'edit.php?post_type=sp_easy_accordion',
-				__( 'Easy Accordion', 'easy-accordion-free' ),
-				__( 'Lite vs Pro', 'easy-accordion-free' ),
-				'manage_options',
-				'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#lite_vs_pro'
-			);
+			// add_submenu_page(
+			// 'edit.php?post_type=sp_easy_accordion',
+			// __( 'Easy Accordion', 'easy-accordion-free' ),
+			// __( 'Lite vs Pro', 'easy-accordion-free' ),
+			// 'manage_options',
+			// 'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#lite_vs_pro'
+			// );
 			add_submenu_page(
 				'edit.php?post_type=sp_easy_accordion',
 				__( 'Upgrade to Pro', 'easy-accordion-free' ),
@@ -157,13 +165,13 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 						'eap_dashboard',
 						'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#blocks',
 						'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#saved_templates',
-						'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#settings',
 						'edit.php?post_type=sp_easy_accordion',
 						'post-new.php?post_type=sp_easy_accordion',
 						'edit.php?post_type=sp_accordion_faqs',
 						'post-new.php?post_type=sp_accordion_faqs',
 						'eap_form',
 						'eap_analytics',
+						'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#settings',
 						'eap_tools',
 						'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#lite_vs_pro',
 						'eab_upgrade_to_pro',
@@ -503,6 +511,7 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 					'eab_user_consent'      => $dashboard_settings['eap_allow_anonymous_data'] ?? 'undefined',
 					'userName'              => $user_name,
 					'eap_editor_preference' => get_option( 'ea_free_blocks_promo_modal_choice', '' ),
+					'showUpgradeNotice'     => $this->should_show_upgrade_notice(),
 					'savedTemplatesUrl'     => admin_url( 'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#saved_templates' ),
 				)
 			);
@@ -561,6 +570,88 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 			);
 
 			wp_send_json( $query_response );
+		}
+		/**
+		 * Handles the AJAX request to hide the upgrade notice.
+		 *
+		 * - Updates the option to false when user clicks the close button.
+		 * - Returns success response.
+		 *
+		 * @return void
+		 */
+		public function sp_eab_hide_upgrade_notice() {
+			// Check user capabilities.
+			Blocks_Helper::sp_eap_verify_capability();
+
+			// Verify nonce.
+			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+
+			if ( ! wp_verify_nonce( $nonce, $this->eab_admin_dashboard_nonce_key ) ) {
+				wp_send_json_error( array( 'message' => 'Security check failed.' ), 403 );
+				return;
+			}
+
+			// Update the option to hide the notice.
+			update_option( $this->eab_show_upgrade_notice_key, 'hide' );
+
+			// Send success response.
+			wp_send_json_success(
+				array(
+					'message' => 'Upgrade notice hidden successfully.',
+				)
+			);
+		}
+
+
+
+		/**
+		 * Check if the upgrade notice should be shown.
+		 *
+		 * - Returns false if the notice has been dismissed.
+		 * - Checks if 3 days have passed since plugin installation.
+		 *
+		 * @return bool True if notice should be shown, false otherwise.
+		 */
+		public function should_show_upgrade_notice() {
+			// Check if notice is dismissed.
+			$show_notice = get_option( $this->eab_show_upgrade_notice_key, '' );
+
+			if ( 'hide' === $show_notice ) {
+				return false;
+			}
+
+			// Check if 3 days have passed since plugin installation.
+			$installed_at = $this->get_plugin_installation_date();
+
+			if ( ! $installed_at ) {
+				// If no installation date is set, set it now and don't show notice yet.
+				$this->set_plugin_installation_date();
+				return false;
+			}
+
+			// Calculate days since installation.
+			$days_since_install = ( time() - $installed_at ) / DAY_IN_SECONDS;
+
+			// Show notice only after 3 days.
+			return $days_since_install >= 3;
+		}
+
+		/**
+		 * Get the plugin installation date.
+		 *
+		 * @return int|false Timestamp of installation or false if not set.
+		 */
+		private function get_plugin_installation_date() {
+			return get_option( 'easy_accordion_free_activation_date', false );
+		}
+
+		/**
+		 * Set the plugin installation date.
+		 *
+		 * @return void
+		 */
+		private function set_plugin_installation_date() {
+			update_option( 'easy_accordion_free_activation_date', time() );
 		}
 
 		/**
@@ -863,10 +954,23 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 				return;
 			}
 
-			// delay logic (7 days).
+			// Check if there are any saved templates or classic shortcodes.
+			$saved_template_count    = wp_count_posts( 'sp_eap_template' );
+			$classic_shortcode_count = wp_count_posts( 'sp_easy_accordion' );
+
+			// Total published count from both post types.
+			$total_saved_templates    = isset( $saved_template_count->publish ) ? $saved_template_count->publish : 0;
+			$total_classic_shortcodes = isset( $classic_shortcode_count->publish ) ? $classic_shortcode_count->publish : 0;
+
+			// Do not show notice if both lists are empty.
+			if ( $total_saved_templates < 1 && $total_classic_shortcodes < 1 ) {
+				return;
+			}
+
+			// delay logic (3 days).
 			$this->eap_maybe_set_notice_start_time();
 
-			if ( ! $this->eap_has_notice_delay_passed( 7 ) ) {
+			if ( ! $this->eap_has_notice_delay_passed( 3 ) ) {
 				return;
 			}
 
@@ -972,7 +1076,7 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 				</style>
 
 				<div class="notice notice-info sp-eap-anonymous-data-notice">
-					<img src="<?php echo esc_url( $plugin_logo_image ); ?>" alt="Easy Accordion"/>
+					<!-- <img src="<?php echo esc_url( $plugin_logo_image ); ?>" alt="Easy Accordion"/> -->
 					<div class="sp-eap-anonymous-data-notice-wrapper">
 						<div>
 							<h3>

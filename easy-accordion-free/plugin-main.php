@@ -7,7 +7,7 @@
  * Author URI:  https://shapedplugin.com/
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Version:     3.1.7
+ * Version:     3.1.8
  * Requires at least: 5.9
  * Requires PHP: 7.4
  * Text Domain: easy-accordion-free
@@ -63,7 +63,7 @@ class SP_EASY_ACCORDION_FREE {
 	 *
 	 * @var string
 	 */
-	public $version = '3.1.7';
+	public $version = '3.1.8';
 
 	/**
 	 * The name of the plugin.
@@ -141,6 +141,7 @@ class SP_EASY_ACCORDION_FREE {
 		define( 'SP_EA_PATH', plugin_dir_path( __FILE__ ) );
 		define( 'SP_EA_URL', plugin_dir_url( __FILE__ ) );
 		define( 'SP_EA_BASENAME', plugin_basename( __FILE__ ) );
+		define( 'SP_EA_FILE', __FILE__ );
 		define( 'SP_EA_INCLUDES', SP_EA_PATH . '/includes' );
 		define( 'SP_EA_SDR_KEY', 'e3379a1efacdf6334b3c18a77g3eba2abfcd49' );
 	}
@@ -257,7 +258,8 @@ class SP_EASY_ACCORDION_FREE {
 		$this->loader->add_action( 'init', $plugin_cpt, 'easy_accordion_post_type', 10 );
 		$this->loader->add_action( 'init', $plugin_cpt, 'register_faq_post_type' );
 		$this->loader->add_action( 'admin_menu', $plugin_cpt, 'add_faq_submenu' );
-		$this->loader->add_action( 'admin_notices', $plugin_review_notice, 'display_admin_notice' );
+		$this->loader->add_filter( 'views_edit-sp_easy_accordion', $plugin_cpt, 'add_visual_block_editor_button' );
+		// $this->loader->add_action( 'admin_notices', $plugin_review_notice, 'display_admin_notice' );
 		$this->loader->add_action( 'wp_ajax_sp-eafree-never-show-review-notice', $plugin_review_notice, 'dismiss_review_notice' );
 		// Weekly anonymous data sending. Must not be admin-gated: WP-Cron requests are not admin requests.
 		add_action( 'easy_accordion_weekly_scheduled_events', array( $this, 'init_eap_data_storing' ) );

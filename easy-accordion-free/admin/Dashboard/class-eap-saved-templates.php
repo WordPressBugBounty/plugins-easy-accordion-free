@@ -31,18 +31,18 @@ if ( ! class_exists( 'EAP_Saved_Templates' ) ) {
 		 */
 		public function __construct() {
 			// add submenu page for saved templates under Easy Accordion menu.
-			add_action(
-				'admin_menu',
-				function () {
-					add_submenu_page(
-						'edit.php?post_type=sp_easy_accordion',
-						__( 'Easy Accordion Pro Saved Templates', 'easy-accordion-free' ),
-						__( 'Saved Templates', 'easy-accordion-free' ),
-						apply_filters( 'easy_accordion_access_capability', 'manage_options' ),
-						'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#saved_templates'
-					);
-				}
-			);
+			// add_action(
+			// 	'admin_menu',
+			// 	function () {
+			// 		add_submenu_page(
+			// 			'edit.php?post_type=sp_easy_accordion',
+			// 			__( 'Easy Accordion Pro Saved Templates', 'easy-accordion-free' ),
+			// 			__( 'Saved Templates', 'easy-accordion-free' ),
+			// 			apply_filters( 'easy_accordion_access_capability', 'manage_options' ),
+			// 			'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#saved_templates'
+			// 		);
+			// 	}
+			// );
 			// Register the CPT early enough for REST requests (Gutenberg saves via REST).
 			add_action( 'init', array( $this, 'sp_eap_register_post_type' ) );
 			add_action( 'admin_init', array( $this, 'eap_redirect_saved_template_edit_page' ) );

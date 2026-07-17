@@ -46,7 +46,7 @@ const features = [
 		pro: "yes",
 	},
 	{
-		title: __("Advanced Gutenberg Accordion Blocks", "easy-accordion-free"),
+		title: __("Gutenberg Accordion Blocks", "easy-accordion-free"),
 		free: 7,
 		pro: 15,
 		new: true,
@@ -58,7 +58,7 @@ const features = [
 		pro: 25,
 	},
 	{
-		title: __("Ready-to-use Rich Accordion Patterns Library", "easy-accordion-free"),
+		title: __("Accordion Patterns Library", "easy-accordion-free"),
 		free: "yes",
 		pro: "yes",
 	},
@@ -73,42 +73,42 @@ const features = [
 		pro: "yes",
 	},
 	{
-		title: __("Stunning Vertical Q & A, Timeline, Numbered & Multi Shaped Templates ", "easy-accordion-free"),
+		title: __("Stunning Vertical Q & A, Timeline, Numbered Templates", "easy-accordion-free"),
 		free: "no",
 		pro: "yes",
 		hot: true,
 	},
 	{
-		title: __("Striking Horizontal & Vertical Image Accordion", "easy-accordion-free"),
+		title: __("Horizontal & Vertical Image Accordion", "easy-accordion-free"),
 		free: "yes",
 		pro: "yes",
 	},
 	{
-		title: __("Dynamic Accordion Slider with Image Hover Effects", "easy-accordion-free"),
+		title: __("Accordion Slider with Image Hover Effects", "easy-accordion-free"),
 		free: "no",
 		pro: "yes",
 		new: true,
 		hot: true,
 	},
 	{
-		title: __("Display Posts and Products in FAQ Accordion Blocks", "easy-accordion-free"),
+		title: __("Display Posts & Products in FAQ Accordions", "easy-accordion-free"),
 		free: "yes",
 		pro: "yes",
 		hot: true,
 	},
 	{
-		title: __("Create FAQs in compact Sidebar Tab Accordion", "easy-accordion-free"),
+		title: __("Sidebar Tab Accordion", "easy-accordion-free"),
 		free: "yes",
 		pro: "yes",
 	},
 	{
-		title: __("Create an Accordion with Taxonomy or WordPress Menu  (Upcoming)", "easy-accordion-free"),
+		title: __("Taxonomy or WordPress Menu Accordion", "easy-accordion-free"),
 		free: "yes",
 		pro: "yes",
 	},
 	{
-		title: __("Collect Queries using FAQ Forms (Upcoming)", "easy-accordion-free"),
-		free: "yes",
+		title: __("FAQ Submission Forms", "easy-accordion-free"),
+		free: "no",
 		pro: "yes",
 		new: true,
 	},
@@ -118,123 +118,25 @@ const features = [
 		pro: "yes",
 		hot: true,
 	},
+	// {
+	// 	title: __("Create, Edit & Delete FAQs as Needed", "easy-accordion-free"),
+	// 	free: "yes",
+	// 	pro: "yes",
+	// },
 	{
-		title: __("Create, Edit & Delete FAQs as Needed", "easy-accordion-free"),
+		title: __("FAQ Schema Markup (Google rich results)", "easy-accordion-free"),
 		free: "yes",
 		pro: "yes",
-	},
-	{
-		title: __("Schema FAQs Markup Supported", "easy-accordion-free"),
-		free: "yes",
-		pro: "yes",
 		hot: true,
 	},
 	{
-		title: __("Get Real-time FAQs Analytics Data", "easy-accordion-free"),
+		title: __("FAQ Analytics (Impressions & Clicks)", "easy-accordion-free"),
 		free: "no",
 		pro: "yes",
 		hot: true,
 	},
 	{
-		title: __("Accordion Expand & Collapse Toggle Icon Styles", "easy-accordion-free"),
-		free: 8,
-		pro: 16,
-	},
-	{
-		title: __("Accordion Expand/Collapse All Button", "easy-accordion-free"),
-		free: "no",
-		pro: "yes",
-		hot: true,
-	},
-	{
-		title: __("Live AJAX FAQs Search Bar", "easy-accordion-free"),
-		free: "no",
-		pro: "yes",
-		hot: true,
-	},
-	{
-		title: __("Dynamic Navigation Arrow (10 Styles)", "easy-accordion-free"),
-		free: "no",
-		pro: "yes",
-	},
-	{
-		title: __("Multiple AJAX Paginations (Load More, Infinite Scroll, Number, etc.)", "easy-accordion-free"),
-		free: "no",
-		pro: "yes",
-	},
-	{
-		title: __("Image Flip & Custom Focal Point", "easy-accordion-free"),
-		free: "no",
-		pro: "yes",
-		new: true,
-		hot: true,
-	},
-	{
-		title: __("Advanced Image Lightbox (15+ Icon Styles)", "easy-accordion-free"),
-		free: "no",
-		pro: "yes",
-	},
-	{
-		title: __("Upload Custom or Featured Icon from Rich Icon Library", "easy-accordion-free"),
-		free: "no",
-		pro: "yes",
-	},
-	{
-		title: __("Control Accordion Items Expanded Area Width", "easy-accordion-free"),
-		free: "no",
-		pro: "yes",
-		new: true,
-	},
-	{
-		title: __("Dynamic Activator Events (On Click, Hover, AutoPlay)", "easy-accordion-free"),
-		free: "yes",
-		pro: "yes",
-	},
-	{
-		title: __("Initial Accordion Display (Single, Multiple, Selected)", "easy-accordion-free"),
-		free: "yes",
-		pro: "yes",
-	},
-	{
-		title: __("20+ Animation Effects for Accordion Content", "easy-accordion-free"),
-		free: "no",
-		pro: "yes",
-	},
-	{
-		title: __("25+ Entrance Animations Effects", "easy-accordion-free"),
-		free: "no",
-		pro: "yes",
-	},
-	{
-		title: __("Interactive Vertical Scrolling Effects", "easy-accordion-free"),
-		free: "no",
-		pro: "yes",
-	},
-	{
-		title: __("Accordion Item Anchor Links (Title / ID)", "easy-accordion-free"),
-		free: "no",
-		pro: "yes",
-		hot: true,
-	},
-	{
-		title: __("Make Horizontal Accordion in Vertical on Mobile", "easy-accordion-free"),
-		free: "no",
-		pro: "yes",
-		new: true,
-	},
-	{
-		title: __("Reduce Long Scrolling with Close Button", "easy-accordion-free"),
-		free: "no",
-		pro: "yes",
-		hot: true,
-	},
-	{
-		title: __("Disable / Inactive Specific Accordion Item", "easy-accordion-free"),
-		free: "no",
-		pro: "yes",
-	},
-	{
-		title: __("Add Subtitle & Featured Icon", "easy-accordion-free"),
+		title: __("Add FAQ Subtitle & Featured Icon", "easy-accordion-free"),
 		free: "no",
 		pro: "yes",
 		new: true,
@@ -246,40 +148,115 @@ const features = [
 		hot: true,
 	},
 	{
-		title: __("Enable Custom Title Linking", "easy-accordion-free"),
+		title: __("Custom Title Linking", "easy-accordion-free"),
 		free: "no",
 		pro: "yes",
 	},
+	
 	{
-		title: __("Display posts from Posts, Pages, Media & Custom Post Types", "easy-accordion-free"),
+		title: __("Accordion Expand/Collapse All Button", "easy-accordion-free"),
 		free: "no",
 		pro: "yes",
+		hot: true,
 	},
 	{
-		title: __("Advanced Post and Product Query Builder", "easy-accordion-free"),
-		free: "no",
-		pro: "yes",
-	},
-	{
-		title: __("Powerful Frontend Taxonomy Filter (Button, List)", "easy-accordion-free"),
+		title: __("Image Flip & Custom Focal Point", "easy-accordion-free"),
 		free: "no",
 		pro: "yes",
 		new: true,
 	},
 	{
-		title: __("Show WooCommerce Product Meta Data", "easy-accordion-free"),
-		free: "no",
-		pro: "yes",
-	},
-	{
-		title: __("Show Post Meta Data", "easy-accordion-free"),
+		title: __("Activator Events (On Click, Hover, AutoPlay)", "easy-accordion-free"),
 		free: "yes",
 		pro: "yes",
 	},
 	{
-		title: __("Link Posts and Products to the Single Pages", "easy-accordion-free"),
+		title: __("Initial Accordion Display (Single, Multiple, Selected)", "easy-accordion-free"),
+		free: "yes",
+		pro: "yes",
+	},
+	{
+		title: __("Accordion Item Anchor Links (Title / ID)", "easy-accordion-free"),
 		free: "no",
 		pro: "yes",
+		hot: true,
+	},
+	{
+		title: __("FAQ Close Button (Reduces Long Scrolling)", "easy-accordion-free"),
+		free: "no",
+		pro: "yes",
+		hot: true,
+	},
+	{
+		title: __("Live Taxonomy Filter for Posts & Products Accordion", "easy-accordion-free"),
+		free: "no",
+		pro: "yes",
+		new: true,
+	},
+	{
+		title: __("Live AJAX FAQs Search", "easy-accordion-free"),
+		free: "no",
+		pro: "yes",
+		hot: true,
+	},
+	{
+		title: __("AJAX FAQ Pagination (Load More, Infinite Scroll & Numbered)", "easy-accordion-free"),
+		free: "no",
+		pro: "yes",
+	},
+	
+	{
+		title: __("Image Lightbox for FAQ Images", "easy-accordion-free"),
+		free: "no",
+		pro: "yes",
+	},
+	{
+		title: __("Control Accordion Items Expanded Area Width", "easy-accordion-free"),
+		free: "no",
+		pro: "yes",
+		new: true,
+	},
+	
+	{
+		title: __("45+ Entrance & Content Animations, Scrolling Effects", "easy-accordion-free"),
+		free: "no",
+		pro: "yes",
+	},
+	
+	// {
+	// 	title: __("Disable / Inactive Specific Accordion Item", "easy-accordion-free"),
+	// 	free: "no",
+	// 	pro: "yes",
+	// },
+	// {
+	// 	title: __("Display posts from Posts, Pages, Media & Custom Post Types", "easy-accordion-free"),
+	// 	free: "no",
+	// 	pro: "yes",
+	// },
+	// {
+	// 	title: __("Advanced Post and Product Query Builder", "easy-accordion-free"),
+	// 	free: "no",
+	// 	pro: "yes",
+	// },
+	// {
+	// 	title: __("Show WooCommerce Product Meta Data", "easy-accordion-free"),
+	// 	free: "no",
+	// 	pro: "yes",
+	// },
+	// {
+	// 	title: __("Show Post Meta Data", "easy-accordion-free"),
+	// 	free: "yes",
+	// 	pro: "yes",
+	// },
+	// {
+	// 	title: __("Link Posts and Products to the Single Pages", "easy-accordion-free"),
+	// 	free: "no",
+	// 	pro: "yes",
+	// },
+	{
+		title: __("Accordion Expand & Collapse Toggle Icon Styles", "easy-accordion-free"),
+		free: 8,
+		pro: 16,
 	},
 	{
 		title: __("Import / Export Accordion FAQs", "easy-accordion-free"),
@@ -287,7 +264,7 @@ const features = [
 		pro: "yes",
 	},
 	{
-		title: __("All Premium Features, Security Enhancements & Compatibility", "easy-accordion-free"),
+		title: __("Security Enhancements & Compatibility", "easy-accordion-free"),
 		free: "no",
 		pro: "yes",
 	},
@@ -493,7 +470,7 @@ const LiteVsPro = () => {
 								<StarIcon color="#fff" />
 							</div>
 							<span className="sp-eab-testimonial-rating-score">4.9/5</span>
-							<span className="sp-eab-testimonial-review-count">130+ Reviews</span>
+							<span className="sp-eab-testimonial-review-count">140+ Reviews</span>
 						</a>
 					</div>
 					<h2 className="sp-eab-testimonial-title">

@@ -3,6 +3,7 @@ import { CustomCssAndJs, AdvancedControls, Tools } from "./settings-tab-content"
 import { pluginSettingDefaultValues, settingsTabNavigation } from "../../constants";
 import { checkIsEqual } from "@easy-accordion/controls";
 import WooCommerceFAQs from "./wooCommerceFaqTabs";
+import Integrations from "./Integrations";
 import { SaveAndReset } from "./template-parts";
 import { useDispatch, useSelect } from "@wordpress/data";
 import { STORE_NAME } from "../../store/constants";
@@ -97,11 +98,12 @@ const SettingsPage = () => {
 						updateSettingsOption={updateSettingsOption}
 					/>
 				)}
+				{activeTab === "integrations" && <Integrations />}
 				{activeTab === "additional" && (
 					<CustomCssAndJs pluginSettings={tabSettingsData} updateSettingsOption={updateSettingsOption} />
 				)}
 				{activeTab === "tools" && <Tools />}
-				{activeTab !== "license-key" && activeTab !== "tools" && (
+				{activeTab !== "license-key" && activeTab !== "tools" && activeTab !== "integrations" && (
 					<SaveAndReset
 						onSave={handleSettingsSave}
 						onReset={handleSettingsReset}

@@ -2,7 +2,9 @@ import axios from "axios";
 import { useState, useEffect } from "@wordpress/element";
 
 const useChangelogData = (showSidebar) => {
-	const [queryChangelog, setQueryChangelog] = useState("Loading...");
+	const [status, setStatus] = useState("idle");
+	const [changelog, setChangelog] = useState("");
+	const [errorMessage, setErrorMessage] = useState("");
 
 	const data = new FormData();
 
@@ -11,11 +13,15 @@ const useChangelogData = (showSidebar) => {
 
 	const fetchApi = async (queryData) => {
 		try {
+			setStatus("loading");
 			const response = await axios.post(ajaxurl, queryData);
-			const { changelog } = response.data;
-			setQueryChangelog(changelog);
+			const { changelog: changelogData } = response.data;
+			setChangelog(changelogData);
+			setStatus("success");
 		} catch (error) {
 			console.error("Error fetching data:", error.message);
+			setStatus("error");
+			setErrorMessage(error.message || "Failed to load changelog");
 		}
 	};
 	useEffect(() => {
@@ -23,7 +29,7 @@ const useChangelogData = (showSidebar) => {
 			fetchApi(data);
 		}
 	}, [showSidebar]);
-	return queryChangelog;
+	return { status, changelog, errorMessage };
 };
 
 export default useChangelogData;

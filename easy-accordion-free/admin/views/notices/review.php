@@ -23,10 +23,10 @@ class Easy_Accordion_Free_Review {
 	 * Initialize the class and set its properties.
 	 */
 	public function __construct() {
-		add_action( 'admin_notices', array( $this, 'render_blocks_promo_notice' ) );
-		add_action( 'wp_ajax_ea_free_dismiss_blocks_promo_notice', array( $this, 'dismiss_blocks_promo_notice' ) );
-		add_action( 'in_admin_header', array( $this, 'render_blocks_promo_modal' ) );
-		add_action( 'wp_ajax_ea_free_dismiss_blocks_promo_modal', array( $this, 'dismiss_blocks_promo_modal' ) );
+		// add_action( 'admin_notices', array( $this, 'render_blocks_promo_notice' ) );
+		// add_action( 'wp_ajax_ea_free_dismiss_blocks_promo_notice', array( $this, 'dismiss_blocks_promo_notice' ) );
+		// add_action( 'in_admin_header', array( $this, 'render_blocks_promo_modal' ) );
+		// add_action( 'wp_ajax_ea_free_dismiss_blocks_promo_modal', array( $this, 'dismiss_blocks_promo_modal' ) );
 	}
 
 	/**

@@ -20,19 +20,11 @@ export const SavedTemplatesPromo = () => {
 						</span>
 					</h2>
 					<p className="speap-saved-template-promo__desc">
-						Saved Templates let you build accordion layouts with Gutenberg blocks and use them as{" "}
+						Saved Templates let you create accordion / FAQ layouts with Gutenberg blocks and use them as{" "}
 						<b>shortcodes</b> — perfect for page builders like <b>Elementor, Divi, WPBakery</b>, and more.
 					</p>
 					<p className="speap-saved-template-promo__desc">
-						Easy Accordion blocks work directly on any page or post in Gutenberg. To reuse blocks use
-						WordPress's built-in{" "}
-						<a
-							href="https://easyaccordion.io/docs/how-to-create-gutenberg-reusable-blocks-with-patterns-in-wordpress/"
-							target="_blank"
-						>
-							<b>Reusable Blocks (Patterns)</b>
-						</a>{" "}
-						feature.
+						Easy Accordion blocks work directly on any page or post in Gutenberg.
 					</p>
 				</div>
 				<a href={addNewUrl} rel="noreferrer" className="speap-saved-template-promo__cta">

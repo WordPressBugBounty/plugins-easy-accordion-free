@@ -65,7 +65,7 @@ class Easy_Accordion_Free_Updates {
 			update_option( 'easy_accordion_free_first_version', SP_EA_VERSION );
 		}
 		if ( false === $activation_date ) {
-			update_option( 'easy_accordion_free_activation_date', current_time( 'timestamp' ) );
+			update_option( 'easy_accordion_free_activation_date', time() );
 		}
 
 		if ( version_compare( $installed_version, SP_EA_VERSION, '<' ) ) {

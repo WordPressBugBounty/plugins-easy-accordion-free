@@ -227,9 +227,9 @@ a.sp-easyaccordion-block-edit-button {
 	color: #f30808;
 }
 
-#adminmenu #menu-posts-sp_easy_accordion li:nth-last-child(2) a {
+/* #adminmenu #menu-posts-sp_easy_accordion li:nth-last-child(2) a {
 	color: #FFA500;
-}
+} */
 
 /* Footer Styles */
 .eap-footer-container {
@@ -306,4 +306,34 @@ a.sp-easyaccordion-block-edit-button {
 		align-items: flex-start;
 		gap: 8px;
 	}
+}
+/* FAQ Count Badge */
+.sp-eap-faq-count-badge {
+	display: inline-block;
+	background: #e5f7ed;
+	color: #1a8a5e;
+	padding: 4px 10px;
+	border-radius: 12px;
+	font-weight: 600;
+	font-size: 12px;
+	min-width: 24px;
+	text-align: center;
+}
+
+/* Used In Column */
+.sp-eap-post-type {
+	color: #646970;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+.sp-eap-more-locations {
+	color: #646970;
+	font-size: 11px;
+	font-weight: 500;
+}
+
+.sp-eap-not-used {
+	color: #b2bac2;
+	font-size: 18px;
 }

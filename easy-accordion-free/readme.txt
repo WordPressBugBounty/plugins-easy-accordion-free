@@ -4,7 +4,7 @@ Tags: faq, accordion blocks, image accordion, product faq, category menu accordi
 Requires at least: 5.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.1.7
+Stable tag: 3.1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -338,6 +338,12 @@ clicking "Install Now" and then "Activate".
 
 
 == Changelog ==
+
+= Version 3.1.8 - Jul 17, 2026 =
+* New: "Start with Visual Block Editor" button on the Manage FAQ Groups screen — opens the block editor with an accordion block auto-inserted, so you can start building FAQs visually in one click.
+* Improved: The plugin dashboard has been enhanced to make it more user-friendly.
+* Improved: The plugin menus are reorganized.
+* Improved: Integrations page moved from a standalone dashboard tab into the Settings page.
 
 = Version 3.1.7 - Jul 14, 2026 =
 * Improved: Replaced unserialize() with WordPress plugins_api() for the recommended plugin section.

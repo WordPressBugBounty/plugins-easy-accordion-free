@@ -27,16 +27,13 @@ $primary-text-color: #1E1E1E;
     }
 
     // width and padding.
-    .sp-eab-admin-dashboard-content,
-    .sp-eab-admin-dashboard-nav ul {
+    .sp-eab-admin-dashboard-content {
         max-width: 1400px;
         margin: 0 auto;
-        padding: 0 50px;
+        padding: 0 32px;
     }
 
     .sp-eab-block-setting-header-wrapper {
-        color: #fff;
-        padding: 0 50px;
         max-width: 1400px;
         margin: 0 auto;
     }
@@ -124,32 +121,78 @@ $primary-text-color: #1E1E1E;
                 transition: all .3s ease-in-out;
             }
         }
+
+        .sp-eab-green-header-notice-close {
+            background: none;
+            border: none;
+            color: #dad7d7;
+            cursor: pointer;
+            padding: 4px;
+            margin-left: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            position: absolute;
+            right: 15px;
+            width: 18px;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+
+            svg {
+                width: 16px;
+                height: 16px;
+            }
+        }
     }
 }
 
 .sp-eab-admin-dashboard-header {
-    background-color: var(--eab-primary-color);
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 48px;
+
+    .sp-eab-block-setting-header-wrapper {
+        height: 64px;
+        padding: 0 32px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
 
     .sp-eab-admin-dashboard-header-left {
-        width: 70%;
-        padding: 20px 0;
-        font-weight: 500;
+        width: auto;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-shrink: 0;
 
-        >svg {
-            width: 205px;
-            height: 32px;
+        .sp-eap-dashboard-logo {
+            display: flex;
+            align-items: center;
         }
     }
 
     .sp-eap-plugin-version {
-        padding: 2px 8px;
-        border: 1px solid #ffffff69;
-        border-radius: 40px;
+        border: 1px solid #ddd;
+        border-radius: 17px;
+        height: 24px;
+        padding: 4px 10px;
         display: flex;
         align-items: center;
-        cursor: pointer;
         gap: 4px;
-        font-weight: 600;
+        font-size: 13px;
+        font-weight: 500;
+        color: #2f2f2f;
+        cursor: pointer;
+        background: #fff;
+
+        svg, img {
+            width: 12px;
+            height: 12px;
+        }
     }
 
     .sp-eab-header-changelog-btn {
@@ -158,9 +201,108 @@ $primary-text-color: #1E1E1E;
         outline: none;
     }
 
+    // Navigation in center
+    .sp-eab-admin-dashboard-nav {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        padding: 0;
+        border: none;
+        background: transparent;
+        position: relative;
 
-    img {
-        max-width: 180px;
+        ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 24px;
+            margin: 0;
+        }
+
+        // Sliding indicator
+        .sp-eap-nav-sliding-indicator {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background-color: var(--eab-primary-color);
+            border-radius: 1px;
+            transition: left 0.3s ease, width 0.3s ease;
+            pointer-events: none;
+        }
+
+        li {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: normal;
+            margin: 0;
+
+            a {
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                height: 64px;
+                padding: 24px 0;
+                color: #2f2f2f;
+                transition: color 0.3s ease;
+                position: relative;
+
+                &.active {
+                    color: var(--eab-primary-color);
+                }
+
+                .sp-eab-nav-badge {
+                    position: absolute;
+                    top: 11px;
+                    right: 0px;
+                    background-color: transparent;
+                    color: #F07800;
+                    font-size: 10px;
+                    font-weight: 500;
+                    padding: 0;
+                    border-radius: 0;
+                    white-space: nowrap;
+                    line-height: normal;
+                    text-transform: uppercase;
+                }
+            }
+
+            // Divider before Lite vs Pro
+            &.sp-eap-nav-divider {
+                position: relative;
+                margin-left: 24px;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    left: -24px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 1px;
+                    height: 20px;
+                    background-color: #ccc;
+                }
+            }
+        }
+
+        // Nav item with icon styling
+        a.sp-eap-nav-item-with-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+    }
+
+    .sp-eab-admin-dashboard-header-right {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        flex-shrink: 0;
+        padding: 10px 0;
+
+        svg {
+            color: #FF5B2E; // EAB primary color
+        }
     }
 }
 
@@ -171,17 +313,18 @@ $primary-text-color: #1E1E1E;
     font-size: 15px;
     font-weight: 600;
     position: relative;
-    padding: 20px 0;
+    color: #2f2f2f;
 
     &:hover {
         .sp-eab-help-drop-down {
-            display: flex;
+            visibility: visible;
+            opacity: 1;
         }
     }
 
     .sp-eab-help-drop-down {
         position: absolute;
-        top: 40px;
+        top: 35px;
         background: #fff;
         right: 0px;
         padding: 10px;
@@ -190,6 +333,10 @@ $primary-text-color: #1E1E1E;
         box-shadow: 0 2px 15px 0 rgba(17, 17, 17, 0.15);
         z-index: 10;
         width: 244px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all .3s ease-in-out;
+        display: flex;
     }
 
     .sp-eap-support-link {
@@ -202,6 +349,9 @@ $primary-text-color: #1E1E1E;
         position: relative;
         transition: all 0.3s;
         text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
 
         .drop-down-arrow {
             width: 16px;
@@ -210,128 +360,27 @@ $primary-text-color: #1E1E1E;
             fill: #565A5F;
             margin-left: auto;
             position: relative;
-            overflow: hidden;
 
             svg {
                 position: absolute;
                 top: 80%;
-                left: -16px;
+                left: -10px;
+                transform: translate(-50%, -50%);
                 transition: all 0.5s;
+                opacity: 0;
             }
         }
 
         &:hover {
-            background: #FAE9E8;
+            background: #ffefe4; // Light orange tint for EAB
 
             .drop-down-arrow {
                 svg {
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
+                    left: 0px;
+                    top: 40%;
+                    opacity: 1;
                 }
             }
-        }
-    }
-}
-
-/*
- * ADMIN DASHBOARD ROUTE NAVIGATION INDICATOR CSS.
- */
-.sp-eab-admin-dashboard-nav {
-    padding-top: 26px;
-    background: #fff;
-    margin-bottom: 48px;
-    border-bottom: 1px solid rgb(222, 223, 224);
-
-    ul {
-        margin: 0 auto;
-        flex-wrap: wrap;
-
-        li {
-            font-size: 16px;
-            font-weight: 500;
-            line-height: 20px;
-            margin: 0;
-            position: relative;
-
-            a {
-                border: 1px solid transparent;
-                text-decoration: none;
-                padding: 13px 16px;
-                display: inline-block;
-                color: $primary-text-color;
-                border-radius: 4px 4px 0 0;
-
-                &.active {
-                    color: var(--eab-primary-color);
-                    border-color: var(--eab-primary-color) var(--eab-primary-color) transparent var(--eab-primary-color);
-                    background-color: #F0F0F1;
-
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        bottom: -1px;
-                        left: 0;
-                        right: 0;
-                        height: 2px;
-                        background-color: #F0F0F1;
-                    }
-                }
-
-                // Badge styles
-                .sp-eab-nav-badge {
-                    position: absolute;
-                    top: 4px;
-                    right: 4px;
-                    background-color: transparent;
-                    color: #007aff;
-                    font-size: 9px;
-                    font-weight: 500;
-                    padding: 0;
-                    border-radius: 0;
-                    white-space: nowrap;
-                    line-height: normal;
-                    text-transform: uppercase;
-                }
-            }
-
-            &.sp-eab-nav-our-plugins {
-                position: relative;
-
-                a{
-                    display: flex;
-                    align-items: center;
-                    gap: 4px;
-                }
-
-                &::after {
-                    content: '';
-                    position: absolute;
-                    left: 0;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    width: 1px;
-                    height: 20px;
-                    background-color: #ccc;
-                }
-
-                // Hide when our_plugins is active
-                &.active::after {
-                    display: none;
-                }
-            }
-
-            // Hide border when ul has sp-eab-hide-our-plugins-border class (about_us or our_plugins active)
-            &.sp-eab-nav-our-plugins:where(:has(~ .active), :has(+ .active))::after {
-                display: none;
-            }
-        }
-    }
-
-    // Alternative: Hide border when ul has sp-eab-hide-our-plugins-border class
-    ul.sp-eab-hide-our-plugins-border {
-        .sp-eab-nav-our-plugins::after {
-            display: none !important;
         }
     }
 }
@@ -444,6 +493,18 @@ $primary-text-color: #1E1E1E;
             li {
                 margin-bottom: 5px;
                 margin-left: 18px;
+            }
+        }
+
+        &.sp-eab-changelog-error {
+            a {
+                color: var(--eab-primary-color);
+                text-decoration: underline;
+            }
+
+            .sp-eab-changelog-error-detail {
+                font-size: 14px;
+                color: #666;
             }
         }
     }

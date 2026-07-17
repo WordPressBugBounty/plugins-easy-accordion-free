@@ -106,10 +106,10 @@ const AboutUs = () => {
 				<div className="sp-eab-about-info">
 					<h3>
 						{__(
-							"The Most Powerful Accordion and FAQs Builder plugin for WordPress from the ",
+							"The Most Powerful Accordion and FAQs Builder plugin for WordPress from ",
 							"easy-accordion-free"
 						)}
-						<span className="sp-eab-highlight-text">{__("ShapedPlugin Team", "easy-accordion-free")}</span>
+						<span className="sp-eab-highlight-text">{__("Easy Accordion Team", "easy-accordion-free")}</span>
 					</h3>
 					<p>
 						{__("At", "easy-accordion-free")} <b>{__("ShapedPlugin LLC,", "easy-accordion-free")}</b>{" "}

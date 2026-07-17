@@ -8,7 +8,7 @@ const proBlocks = [
 	"sp-easy-accordion-pro/user-faq-form",
 ];
 
-const ToggleCard = ({ attributes, blockShowHideHandler, isUpcomingBlock = false, type = "" }) => {
+const ToggleCard = ({ attributes, blockShowHideHandler, isUpcomingBlock = false, type = "", onBlockClick = null }) => {
 	const { show, name } = attributes;
 	const blocksInfo = accordionBlocksInfo;
 	// return if block info don't exist.
@@ -18,9 +18,17 @@ const ToggleCard = ({ attributes, blockShowHideHandler, isUpcomingBlock = false,
 	const { icon, demoLink, docLink, title } = blocksInfo[name];
 	const isPro = proBlocks.includes(name);
 
+	const handleCardClick = () => {
+		if (type === "quick-start" && onBlockClick && !isUpcomingBlock && !isPro) {
+			onBlockClick(name);
+		}
+	};
+
 	return (
 		<div
 			className={`sp-eab-visibility-setting-card${isUpcomingBlock ? " sp-eab-upcoming-block" : ""} sp-d-flex sp-justify-between sp-align-center`}
+			onClick={handleCardClick}
+			style={{ cursor: type === "quick-start" && onBlockClick ? 'pointer' : undefined }}
 		>
 			{isPro && (
 				<div className="sp-eab-pro-blocks-badge">
@@ -42,6 +50,7 @@ const ToggleCard = ({ attributes, blockShowHideHandler, isUpcomingBlock = false,
 									href={docLink}
 									target="_blank"
 									rel="noreferrer"
+									onClick={(e) => e.stopPropagation()}
 								>
 									<Docs /> Docs
 								</a>
@@ -54,6 +63,7 @@ const ToggleCard = ({ attributes, blockShowHideHandler, isUpcomingBlock = false,
 									href={demoLink}
 									target="_blank"
 									rel="noreferrer"
+									onClick={(e) => e.stopPropagation()}
 								>
 									<Demos /> {type === "quick-start" ? "Live Demo" : "Demo"}
 								</a>
@@ -66,7 +76,8 @@ const ToggleCard = ({ attributes, blockShowHideHandler, isUpcomingBlock = false,
 				<Toggle
 					icons={false}
 					defaultChecked={isUpcomingBlock || isPro ? false : show}
-					onChange={() => {
+					onChange={(e) => {
+						e.stopPropagation();
 						if (!isUpcomingBlock && !isPro) {
 							blockShowHideHandler(name);
 						}

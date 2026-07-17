@@ -230,7 +230,8 @@ class Easy_Accordion_Free_Admin {
 		$dashboard_settings      = get_option( 'sp_eap_dashboard_settings', array() );
 		$is_visited_setup_wizard = $dashboard_settings['visited_setup_wizard'] ?? false;
 		// manage redirect url.
-		$redirect_url = $is_visited_setup_wizard ? 'edit.php?post_type=sp_easy_accordion&page=eap_dashboard' : 'admin.php?page=eap_dashboard#setupwizard';
+		// $redirect_url = $is_visited_setup_wizard ? 'edit.php?post_type=sp_easy_accordion&page=eap_dashboard' : 'admin.php?page=eap_dashboard#setupwizard';
+		$redirect_url = 'edit.php?post_type=sp_easy_accordion&page=eap_dashboard';
 		wp_safe_redirect( admin_url( $redirect_url ) );
 		exit;
 	}
