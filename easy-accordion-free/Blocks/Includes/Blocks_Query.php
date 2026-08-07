@@ -14,6 +14,7 @@ namespace ShapedPlugin\EasyAccordion\Blocks\Includes;
 
 use ShapedPlugin\EasyAccordion\Blocks\Includes\Blocks_Query_Handler;
 use ShapedPlugin\EasyAccordion\Blocks\Includes\Blocks_Helper;
+use ShapedPlugin\EasyAccordion\Blocks\Includes\Utils\EAB_Utils;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -580,7 +581,7 @@ if ( ! class_exists( 'Blocks_Query' ) ) {
 				'metaDisplayPosition'         => $attributes['metaDisplayPosition'] ?? '',
 				'excerptLimit'                => $attributes['excerptLimit'] ?? array(),
 				'excerptLength'               => $attributes['excerptLength'] ?? '',
-				'accordionTitleTag'           => $attributes['accordionTitleTag'] ?? 'h3',
+				'accordionTitleTag'           => EAB_Utils::title_tag( $attributes['accordionTitleTag'] ?? 'h3' ),
 				'animationEffect'             => $attributes['animationEffect'] ?? 'none',
 				'toggleIconsSet'              => $attributes['toggleIconsSet'] ?? array(),
 				'enableExpandAndCollapseIcon' => (bool) ( $attributes['enableExpandAndCollapseIcon'] ?? true ),

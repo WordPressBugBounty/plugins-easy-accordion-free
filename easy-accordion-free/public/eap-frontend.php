@@ -142,7 +142,7 @@ class SP_EAP_FRONTEND {
 		$eap_offset_to_scroll      = apply_filters( 'eap_offset_to_scroll', 0 );
 
 		$eap_accordion_fillspace_height = isset( $shortcode_data['eap_accordion_fillspace_height']['all'] ) ? $shortcode_data['eap_accordion_fillspace_height']['all'] : '200';
-		$eap_title_tag                  = isset( $shortcode_data['ea_title_heading_tag'] ) ? 'h' . $shortcode_data['ea_title_heading_tag'] : 'h3';
+		$eap_title_tag                  = isset( $shortcode_data['ea_title_heading_tag'] ) && in_array( (string) $shortcode_data['ea_title_heading_tag'], array( '1', '2', '3', '4', '5', '6' ), true ) ? 'h' . $shortcode_data['ea_title_heading_tag'] : 'h3';
 		$acc_section_title              = isset( $shortcode_data['section_title'] ) ? $shortcode_data['section_title'] : '';
 
 		// Expand / Collapse Icon.

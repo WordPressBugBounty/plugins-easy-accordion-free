@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- Start accordion card div. -->
 <div class="ea-card <?php echo esc_attr( $accordion_mode['expand_class'] . ' ' . $accordion_item_class ); ?>">
 	<!-- Start accordion header. -->
-	<<?php echo esc_attr( $eap_title_tag ); ?> class="ea-header">
+	<<?php echo tag_escape( $eap_title_tag ); ?> class="ea-header">
 		<!-- Add anchor tag for header. -->
 		<a class="collapsed" id="ea-header-<?php echo esc_attr( $post_id . $key ); ?>" role="button" data-sptoggle="spcollapse" data-sptarget="<?php echo esc_attr( $data_sptarget ); ?>" aria-controls="collapse<?php echo esc_attr( $post_id . $key ); ?>" href="#" <?php echo esc_attr( $nofollow_link_text ); ?> aria-expanded="<?php echo esc_attr( $accordion_mode['aria_expanded'] ); ?>" tabindex="0">
 		<?php
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		echo wp_kses_post( $eap_icon_markup . $content_title );
 		?>
 		</a><!-- Close anchor tag for header. -->
-	</<?php echo esc_attr( $eap_title_tag ); ?>>	<!-- Close header tag. -->
+	</<?php echo tag_escape( $eap_title_tag ); ?>>	<!-- Close header tag. -->
 	<!-- Start collapsible content div. -->
 	<div class="sp-collapse spcollapse <?php echo esc_attr( $accordion_mode['open_first'] ); ?>" id="collapse<?php echo esc_attr( $post_id . $key ); ?>" <?php echo wp_kses_post( $eap_single_collapse ); ?> role="region" aria-labelledby="ea-header-<?php echo esc_attr( $post_id . $key ); ?>">  <!-- Content div. -->
 		<div class="ea-body">

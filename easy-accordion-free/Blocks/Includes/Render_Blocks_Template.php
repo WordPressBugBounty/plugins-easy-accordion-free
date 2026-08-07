@@ -16,6 +16,7 @@ use ShapedPlugin\EasyAccordion\Blocks\Includes\Blocks_Helper;
 use ShapedPlugin\EasyAccordion\Blocks\Includes\Blocks_Query;
 use ShapedPlugin\EasyAccordion\Blocks\Includes\Template_parts;
 use ShapedPlugin\EasyAccordion\Blocks\Includes\Utils\DynamicCssGenerator;
+use ShapedPlugin\EasyAccordion\Blocks\Includes\Utils\EAB_Utils;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -86,7 +87,7 @@ class Render_Blocks_Template {
 		$parent_id           = $attributes['parentId'] ?? '';
 		$template            = $attributes['template'] ?? 'vertical-one';
 		$parent_block_name   = $attributes['parentBlockName'] ?? 'vertical-accordion';
-		$accordion_title_tag = $attributes['accordionTitleTag'] ?? 'h3';
+		$accordion_title_tag = EAB_Utils::title_tag( $attributes['accordionTitleTag'] ?? 'h3' );
 		$accordion_title     = $attributes['accordionTitle'] ?? 'No Title';
 		$title_alignment     = $attributes['titleAlignment'] ?? 'start';
 		$enable_toggle_icon  = $attributes['enableExpandAndCollapseIcon'] ?? true;
@@ -97,7 +98,7 @@ class Render_Blocks_Template {
 
 		ob_start();
 		?>
-			<<?php echo esc_attr( $accordion_title_tag ); ?> class='<?php echo esc_attr( "sp-eab-accordion-heading sp-d-flex sp-align-center eab-heading-$parent_id" ); ?>'
+			<<?php echo tag_escape( $accordion_title_tag ); ?> class='<?php echo esc_attr( "sp-eab-accordion-heading sp-d-flex sp-align-center eab-heading-$parent_id" ); ?>'
 			<?php
 			if ( 'sidebar-tab-accordion' === $parent_block_name ) {
 				echo 'data-tabid="' . esc_attr( $unique_id ) . '"';
@@ -123,7 +124,7 @@ class Render_Blocks_Template {
 						<?php endif; ?>
 					</span>
 				</span>
-			</<?php echo esc_attr( $accordion_title_tag ); ?>>
+			</<?php echo tag_escape( $accordion_title_tag ); ?>>
 		<?php
 		return ob_get_clean();
 	}
@@ -300,7 +301,7 @@ class Render_Blocks_Template {
 		$parent_settings      = $attributes['parentSettings'] ?? array();
 		$content_alignment    = $parent_settings['contentAlignment'] ?? 'center';
 		$template             = $parent_settings['template'] ?? '';
-		$accordion_tag        = $parent_settings['accordionTitleTag'] ?? 'h3';
+		$accordion_tag        = EAB_Utils::title_tag( $parent_settings['accordionTitleTag'] ?? 'h3' );
 		$show_title           = ! empty( $parent_settings['showTitle'] );
 		$show_desc            = ! empty( $parent_settings['showDescription'] );
 		$active_event         = $parent_settings['activeEvent'] ?? 'click';

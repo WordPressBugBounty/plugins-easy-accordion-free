@@ -37,7 +37,7 @@ $block_required_attributes = array(
  * @var array
  */
 $accordion_title_attributes = array(
-	'accordionTitleTag'             => EAB_Utils::string( 'h3' ),
+	'accordionTitleTag'             => EAB_Utils::title_tag_attr( 'h3' ),
 	'titleAlignment'                => EAB_Utils::string( 'left' ),
 	'accordionTitleTypography'      => EAB_Utils::typography( '500' ),
 	'accordionTitleFontSize'        => EAB_Utils::single_responsive( 18 ),

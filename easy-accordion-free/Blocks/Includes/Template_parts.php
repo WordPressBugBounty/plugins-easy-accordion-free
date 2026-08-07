@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use PhpMyAdmin\SqlParser\Statement;
+use ShapedPlugin\EasyAccordion\Blocks\Includes\Utils\EAB_Utils;
 
 class Template_parts {
 
@@ -550,7 +551,7 @@ class Template_parts {
 	 */
 	public static function eab_render_product_name( $title_data = array() ) {
 		$title     = isset( $title_data['title'] ) ? $title_data['title'] : '';
-		$title_tag = ! empty( $title_data['accordionTitleTag'] ) ? $title_data['accordionTitleTag'] : 'h3';
+		$title_tag = EAB_Utils::title_tag( $title_data['accordionTitleTag'] ?? 'h3' );
 
 		if ( empty( $title ) ) {
 			return;
@@ -673,14 +674,14 @@ class Template_parts {
 			<div class="sp-eab-accordion-item-wrapper">
 
 				<!-- Accordion Heading -->
-				<<?php echo tag_escape( $context['accordionTitleTag'] ); ?>
+				<<?php echo tag_escape( EAB_Utils::title_tag( $context['accordionTitleTag'] ?? 'h3' ) ); ?>
 					class="sp-eab-accordion-heading sp-d-flex sp-align-center"
 					role="button"
 					tabindex="0">
 				<?php
 				echo self::accordion_post_header_renderer($header_data, $image_data); // phpcs:ignore
 				?>
-				</<?php echo tag_escape( $context['accordionTitleTag'] ); ?>>
+				</<?php echo tag_escape( EAB_Utils::title_tag( $context['accordionTitleTag'] ?? 'h3' ) ); ?>>
 
 				<!-- Accordion Content -->
 				<div class="sp-eab-accordion-content">

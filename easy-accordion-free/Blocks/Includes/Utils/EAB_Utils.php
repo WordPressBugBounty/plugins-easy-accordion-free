@@ -20,6 +20,54 @@ if ( ! defined( 'ABSPATH' ) ) {
 class EAB_Utils {
 
 	/**
+	 * Allowed HTML tags for block titles.
+	 *
+	 * @var array
+	 */
+	const ALLOWED_TITLE_TAGS = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span' );
+
+	/**
+	 * Restrict a title tag to the allowed list.
+	 *
+	 * Block attributes are attacker controlled (post content can be crafted by
+	 * any user who can edit a post), so the tag name must never be echoed
+	 * without being matched against a whitelist.
+	 *
+	 * @param mixed  $tag      Tag name coming from block attributes.
+	 * @param string $fallback Tag used when the given one is not allowed.
+	 *
+	 * @return string Safe tag name.
+	 */
+	public static function title_tag( $tag, $fallback = 'h3' ) {
+		if ( ! is_string( $tag ) ) {
+			return $fallback;
+		}
+
+		$tag = strtolower( trim( $tag ) );
+
+		return in_array( $tag, self::ALLOWED_TITLE_TAGS, true ) ? $tag : $fallback;
+	}
+
+	/**
+	 * Generate a title tag attribute definition.
+	 *
+	 * The enum makes WP_Block_Type::prepare_attributes_for_render() drop any
+	 * tag name outside the allowed list, so the default is restored before the
+	 * value ever reaches a render callback.
+	 *
+	 * @param string $value Default tag name.
+	 *
+	 * @return array Title tag attribute configuration.
+	 */
+	public static function title_tag_attr( $value = 'h3' ) {
+		return array(
+			'type'    => 'string',
+			'default' => $value,
+			'enum'    => self::ALLOWED_TITLE_TAGS,
+		);
+	}
+
+	/**
 	 * Generate a colors attribute definition.
 	 *
 	 * @param string $normal Default normal color.
