@@ -2,9 +2,9 @@
 Contributors: shapedplugin, khalilu, rubel_miah, shamimmiashuhagh
 Tags: faq, accordion blocks, image accordion, product faq, category menu accordion
 Requires at least: 5.9
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.1.9
+Stable tag: 3.1.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ AI-Powered FAQ Generator. Gutenberg FAQ & Accordion Blocks, Image Accordion, Acc
 🚀 Explore Powerful [**15+ FAQ & Accordion Blocks**](https://easyaccordion.io/blocks/)  
 📚 Start with [**200+ Ready FAQ & Accordion Patterns**](https://easyaccordion.io/patterns/)
 🌐 Visit the Official Website [**Easy Accordion**](https://easyaccordion.io/)
-❤️ 140+ ⭐⭐⭐⭐⭐ Reviews & 4.8/5 Happiness Rating on [**Trustpilot**](https://www.trustpilot.com/review/shapedplugin.com)
+❤️ 154+ ⭐⭐⭐⭐⭐ Reviews & 4.9/5 Happiness Rating on [**Trustpilot**](https://www.trustpilot.com/review/shapedplugin.com)
 
 Create beautiful, responsive FAQs and stylish accordions in minutes with **Easy Accordion**, the most popular WordPress FAQ & Accordion Builder – in 3 simple steps:  
 
@@ -245,13 +245,13 @@ Discover our powerful WordPress and WooCommerce plugins designed to save time, b
 
 [**Logo Carousel**](https://wordpress.org/plugins/logo-carousel-free/) – Display client, partner, or brand logos in responsive carousels to build credibility, strengthen brand identity, and showcase partnerships effectively.
 
-[**WooGallery**](https://wordpress.org/plugins/gallery-slider-for-woocommerce/) – Create beautiful, responsive product galleries for WooCommerce to showcase images attractively, improve user experience, and increase product engagement.
+[**Reno Product Gallery**](https://wordpress.org/plugins/gallery-slider-for-woocommerce/) – Create beautiful, responsive product galleries for WooCommerce to showcase images attractively, improve user experience, and increase product engagement.
 
 [**Smart Swatches**](https://wordpress.org/plugins/smart-swatches/) – Replace default WooCommerce variation dropdowns with color, image, and label swatches to improve product selection and enhance the shopping experience.
 
 [**Product Slider (Smart Store)**](https://wordpress.org/plugins/woo-product-slider/) – Build modern, conversion-focused WooCommerce store layouts with advanced features to improve product visibility, user experience, and sales performance.
 
-[**WooCategory**](https://wordpress.org/plugins/woo-category-slider-grid/) – Display WooCommerce product categories in stylish grids or sliders to improve navigation, highlight collections, and enhance store browsing experience.
+[**Reno Product Category**](https://wordpress.org/plugins/woo-category-slider-grid/) – Display WooCommerce product categories in stylish grids or sliders to improve navigation, highlight collections, and enhance store browsing experience.
 
 
 == Installation ==
@@ -338,6 +338,9 @@ clicking "Install Now" and then "Activate".
 
 
 == Changelog ==
+= Version 3.1.10 - Aug 20, 2026 =
+* Fixed: Assets not loading correctly when offloaded to a CDN or external storage.
+* Tested: Compatible with WordPress 7.1.
 
 = Version 3.1.9 - Aug 07, 2026 =
 * Fix: Sanitized and escaped the accordion title HTML tag in the block render callbacks to prevent a stored XSS vulnerability.

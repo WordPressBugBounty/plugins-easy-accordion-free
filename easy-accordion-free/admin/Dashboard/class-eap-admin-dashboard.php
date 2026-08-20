@@ -987,7 +987,6 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 		 * @return void
 		 */
 		public function eap_notice_for_user_consent() {
-			$plugin_logo_image = 'https://ps.w.org/easy-accordion-free/assets/icon-256x256.gif';
 			?>
 				<style>
 					.sp-eap-anonymous-data-notice {
@@ -1076,7 +1075,6 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 				</style>
 
 				<div class="notice notice-info sp-eap-anonymous-data-notice">
-					<!-- <img src="<?php echo esc_url( $plugin_logo_image ); ?>" alt="Easy Accordion"/> -->
 					<div class="sp-eap-anonymous-data-notice-wrapper">
 						<div>
 							<h3>

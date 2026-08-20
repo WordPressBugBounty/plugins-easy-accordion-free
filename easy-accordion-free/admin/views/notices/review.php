@@ -62,7 +62,7 @@ class Easy_Accordion_Free_Review {
 		if ( ! $load ) {
 			return;
 		}
-		$plugin_logo_image = 'https://ps.w.org/easy-accordion-free/assets/icon-256x256.gif';
+		$plugin_logo_image = SP_EA_URL . 'admin/img/icon-256x256.gif';
 
 		?>
 		<div id="sp-eafree-review-notice" class="sp-eafree-review-notice">
