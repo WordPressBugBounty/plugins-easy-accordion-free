@@ -127,9 +127,11 @@ class Easy_Accordion_Free_Post_Type {
 	 * Shortcode Post Type
 	 */
 	public function register_faq_post_type() {
-		$capability      = apply_filters( 'sp_easy_accordion_ui_permission', 'manage_options' );
-		$is_user_capable = current_user_can( $capability ) ? true : false;
-		$labels          = apply_filters(
+		$capability             = apply_filters( 'sp_easy_accordion_ui_permission', 'manage_options' );
+		$is_user_capable        = current_user_can( $capability ) ? true : false;
+		$global_settings        = get_option( 'sp_eap_settings' );
+		$enable_single_template = isset( $global_settings['enable_single_template'] ) ? $global_settings['enable_single_template'] : true;
+		$labels                 = apply_filters(
 			'sp_accordion_faq_labels',
 			array(
 				'name'               => __( 'All FAQ Items', 'easy-accordion-free' ),
@@ -155,7 +157,7 @@ class Easy_Accordion_Free_Post_Type {
 				'public'              => true,
 				'hierarchical'        => false,
 				'has_archive'         => false,
-				'publicly_queryable'  => true,
+				'publicly_queryable'  => $enable_single_template,
 				'exclude_from_search' => true,
 				'show_ui'             => $is_user_capable,
 				'show_in_menu'        => 'edit.php?post_type=sp_easy_accordion',

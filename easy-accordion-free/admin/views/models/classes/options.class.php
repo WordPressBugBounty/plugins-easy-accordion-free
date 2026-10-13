@@ -419,6 +419,7 @@ if ( ! class_exists( 'SP_EAP_Options' ) ) {
 									case 'eap_data_remove':
 									case 'eap_focus_style':
 									case 'eap_woo_faq':
+									case 'enable_single_template':
 										$sanitized['sp_eap_settings'][ $sub_key ] = (int) $sub_val;
 										break;
 

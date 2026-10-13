@@ -17,6 +17,11 @@ export const pluginSettingOptions = [
 		infoText: __("Check this to enable focus style to improve accessibility.", "easy-accordion-free"),
 		inputType: "checkbox",
 	},
+	{
+		option_name: "enable_single_template",
+		label: __("Display FAQ on Single Post Template", "easy-accordion-free"),
+		inputType: "checkbox",
+	},
 	// {
 	// 	option_name: "eap_editor_preference",
 	// 	label: __("Default Editor", "easy-accordion-free"),
@@ -46,6 +51,7 @@ export const pluginSettingDefaultValues = {
 	advanced: {
 		eap_data_remove: "0",
 		eap_focus_style: "0",
+		enable_single_template: "1",
 		eap_editor_preference: "",
 	},
 	additional: {

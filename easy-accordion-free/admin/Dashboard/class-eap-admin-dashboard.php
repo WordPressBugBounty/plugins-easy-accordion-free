@@ -563,7 +563,10 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 			}
 			// send response.
 			$query_response = array(
-				'pluginSettings'    => get_option( $this->sp_eap_settings_key, array() ),
+				'pluginSettings'    => wp_parse_args(
+					get_option( $this->sp_eap_settings_key, array() ),
+					array( 'enable_single_template' => '1' )
+				),
 				'blockVisibility'   => get_option( $this->eab_block_visibility_key, array() ),
 				'eapShortcodes'     => Blocks_Helper::sp_easy_accordion_pro_post_list(),
 				'dashboardSettings' => $this->get_dashboard_settings(),
