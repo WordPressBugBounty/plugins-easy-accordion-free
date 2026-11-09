@@ -1,330 +1,79 @@
 import { __ } from "@wordpress/i18n";
 import { useCallback, useMemo, memo, useState } from "@wordpress/element";
-import { decodeEntities } from "@wordpress/html-entities";
-import { RadioControl, Tooltip } from "@wordpress/components";
-import { HeartIcon, HeartIconFull, ImportIcon, PreviewIcon, ProBadgeIcon, RotateIcon } from "./icons";
-import { DEFAULTS, KEYBOARD_KEYS, API_ENDPOINTS } from "./constants";
-import { FilterPart, HeaderWithFilter } from "./filter/filterPart";
-import { currentBlockTitle } from "./controls";
+import Sidebar from "./Sidebar";
+import Toolbar from "./Toolbar";
+import PatternCard from "./PatternCard";
 
-const RenderFilterLabel = ({ label, number }) => {
-	return (
-		<>
-			<span>{label}</span>
-			<span>{`(${number || 0})`}</span>
-		</>
-	);
-};
-
-const getPatternCategories = (categoryCounts, allCount) => {
-	return [
-		{
-			label: <RenderFilterLabel label="All Patterns" number={allCount} />,
-			value: "all",
-		},
-		...Object.keys(categoryCounts).map((blockName) => ({
-			label: <RenderFilterLabel label={currentBlockTitle(blockName)} number={categoryCounts[blockName]} />,
-			value: blockName,
-		})),
-	];
-};
-
-const Skeleton = (props) => {
-	const { type, size, loop, unit, c_s, classes } = props;
-
-	const getSize = () => {
-		let css = {};
-		switch (type) {
-			case "image":
-			case "circle":
-				css = {
-					width: size ? size + "px" : "300px",
-					height: size ? size + "px" : "300px",
-				};
-				break;
-			case "title":
-				css = {
-					width: `${size ? size : "100"}${unit ? unit : "%"}`,
-				};
-				break;
-			case "button":
-				css = { width: size ? size + "px" : "90px" };
-				break;
-			case "custom_size":
-				css = {
-					width: `${c_s.size1 ? c_s.size1 : "100"}${c_s.unit1 ? c_s.unit1 : "%"}`,
-					height: `${c_s.size2 ? c_s.size2 : "20"}${c_s.unit2 ? c_s.unit2 : "px"}`,
-					borderRadius: c_s.br ? c_s.br + "px" : "0px",
-				};
-				break;
-			default:
-				break;
-		}
-		return css;
-	};
-	return (
-		<>
-			{loop ? (
-				<>
-					{Array(parseInt(loop))
-						.fill("1")
-						.map((x, i) => {
-							return (
-								<div
-									key={i}
-									className={`sp_eab_patterns_skeleton__${type} sp-eap_patterns_frequency loop ${
-										classes ? classes : ""
-									}`}
-									style={getSize()}
-								></div>
-							);
-						})}
-				</>
-			) : (
-				<div
-					className={`sp_eab_patterns_skeleton__${type} sp-eap_patterns_frequency ${classes ? classes : ""}`}
-					style={getSize()}
-				></div>
-			)}
-		</>
-	);
-};
-
-// Individual Card Component.
-const PremadeCard = memo(({ data, wishListArr, setWListAction, reload, reloadId, onImport }) => {
-	const isInWishlist = wishListArr?.includes(String(data.ID));
-	const isLoading = reload && reloadId === data.ID;
-	const isPro = data.pro;
-	// const isPro = false;
-	const handleWishlistClick = useCallback(() => {
-		setWListAction(data.ID, isInWishlist ? "remove" : "");
-	}, [data.ID, isInWishlist, setWListAction]);
-
-	const handleImportClick = useCallback(() => {
-		if (!isPro) {
-			onImport(data.ID, data.pro);
-		}
-	}, [data.ID, data.pro, isPro, onImport]);
-
-	return (
-		<div className="sp-eab-pattern-card-body">
-			<div className="sp-eap-patterns-item-list">
-				<div className="sp-eap-patterns-item-list-overlay">
-					<a className="sp-eap-pattern-img">
-						<img src={data.image} loading="lazy" alt={data.name} />
-					</a>
-					<div className="sp-eap-pattern-overlay">
-						<a
-							className="sp-eap-patterns-overlay-view"
-							href={`https://easyaccordion.io/patterns/#demo${data.ID}`}
-							target="_blank"
-							rel="noopener noreferrer"
-							aria-label={__("Preview", "easy-accordion-free") + " " + data.name}
-						>
-							<PreviewIcon />
-						</a>
-					</div>
-				</div>
-
-				<div className="sp-eap-patterns-item-list-info">
-					<div className="sp-eab-patterns-item-info">
-						<span>{decodeEntities(data?.name || "")}</span>
-					</div>
-
-					<span className="sp-eap-patterns-action-btn">
-						<Tooltip
-							text={
-								isInWishlist
-									? __("Remove from wishlist", "easy-accordion-free")
-									: __("Add to wishlist", "easy-accordion-free")
-							}
-							delay={300}
-							placement="top"
-						>
-							<span
-								className="sp-eap-pattern-wishlist"
-								onClick={handleWishlistClick}
-								role="button"
-								tabIndex={0}
-								onKeyPress={(e) => {
-									if (e.key === KEYBOARD_KEYS.ENTER || e.key === KEYBOARD_KEYS.SPACE) {
-										handleWishlistClick();
-									}
-								}}
-								aria-label={
-									isInWishlist
-										? __("Remove from wishlist", "easy-accordion-free")
-										: __("Add to wishlist", "easy-accordion-free")
-								}
-							>
-								{isInWishlist ? <HeartIconFull /> : <HeartIcon />}
-							</span>
-						</Tooltip>
-
-						{isPro ? (
-							<a
-								className="sp-eap-patterns-btn-pro"
-								target="_blank"
-								rel="noopener noreferrer"
-								href={API_ENDPOINTS.UPGRADE_URL}
-								aria-label={__("Upgrade to Pro to access this pattern", "easy-accordion-free")}
-							>
-								<ProBadgeIcon /> {__("PRO", "easy-accordion-free")}
-							</a>
-						) : (
-							<span
-								onClick={handleImportClick}
-								className="sp-eap-patterns-import-btn"
-								role="button"
-								tabIndex={0}
-								onKeyPress={(e) => {
-									if (e.key === KEYBOARD_KEYS.ENTER || e.key === KEYBOARD_KEYS.SPACE) {
-										handleImportClick();
-									}
-								}}
-								aria-label={__("Import", "easy-accordion-free") + " " + data.name}
-								style={
-									isLoading
-										? {
-												pointerEvents: "none",
-												opacity: 0.6,
-											}
-										: {}
-								}
-							>
-								{isLoading ? (
-									<i className=" sp-rotate">
-										<RotateIcon />
-									</i>
-								) : (
-									<>
-										<ImportIcon /> {__("Import", "easy-accordion-free")}
-									</>
-								)}
-							</span>
-						)}
-					</span>
+// Loading skeleton grid (mirrors the card shape).
+const LoadingSkeleton = memo(() => (
+	<div className="sp-eap-ready-patterns-grid sp-eap-ready-patterns-cols-3">
+		{Array.from({ length: 9 }).map((_, i) => (
+			<div className="sp-eap-ready-patterns-card is-skeleton" key={i}>
+				<div className="sp-eap-ready-patterns-card-thumb" />
+				<div className="sp-eap-ready-patterns-card-body">
+					<span className="sp-eap-ready-patterns-skeleton-line" />
+					<span className="sp-eap-ready-patterns-skeleton-btn" />
 				</div>
 			</div>
-		</div>
-	);
-});
-
-// Loading Skeleton Component.
-const LoadingSkeleton = memo(() => (
-	<div className="sp-eap-pattern-grid sp-eap-pattern-col3 skeletonOverflow">
-		{Array(25)
-			.fill(null)
-			.map((_, i) => (
-				<div key={i} className="sp-eap-patterns-item-list">
-					<div className="sp-eap-patterns-item-list-overlay">
-						<Skeleton
-							type="custom_size"
-							c_s={{
-								size1: 100,
-								unit1: "%",
-								size2: 400,
-								unit2: "px",
-							}}
-						/>
-					</div>
-					<div className="sp-eap-patterns-item-list-info">
-						<Skeleton
-							type="custom_size"
-							c_s={{
-								size1: 50,
-								unit1: "%",
-								size2: 25,
-								unit2: "px",
-								br: 2,
-							}}
-						/>
-						<span className="sp-eap-patterns-action-btn">
-							<span className="sp-eap-pattern-wishlist">
-								<Skeleton
-									type="custom_size"
-									c_s={{
-										size1: 30,
-										unit1: "px",
-										size2: 25,
-										unit2: "px",
-										br: 2,
-									}}
-								/>
-							</span>
-							<Skeleton
-								type="custom_size"
-								c_s={{
-									size1: 70,
-									unit1: "px",
-									size2: 25,
-									unit2: "px",
-									br: 2,
-								}}
-							/>
-						</span>
-					</div>
-				</div>
-			))}
+		))}
 	</div>
 ));
 
-// Empty State Component.
 const EmptyState = memo(() => (
-	<span className="sp-eap-patterns-image-rotate">{__("No Data found...", "easy-accordion-free")}</span>
+	<div className="sp-eap-ready-patterns-state">{__("No patterns found.", "easy-accordion-free")}</div>
 ));
 
-// Main Grid Component.
-const PremadeGrid = memo(
+/**
+ * Grid: applies the in-memory filters (search / tier / category-type / wishlist)
+ * to the sorted list and renders PatternCards.
+ */
+const PatternGrid = memo(
 	({
-		premadeLists,
-		column,
+		items,
+		columns,
 		searchQuery,
 		freePro,
+		categoryType,
 		showWishList,
 		wishListArr,
-		// localizedData,
 		setWListAction,
-		reload,
 		reloadId,
 		onImport,
-		loading,
+		onPreview,
 	}) => {
-		// Memoize filter function
-		const filteredLists = useMemo(() => {
-			return premadeLists.filter((data) => {
+		const filtered = useMemo(() => {
+			return items.filter((data) => {
 				const searchMatch = !searchQuery || data.name?.toLowerCase().includes(searchQuery.toLowerCase());
-
 				const freeProMatch =
 					freePro === "all" || (freePro === "pro" && data.pro) || (freePro === "free" && !data.pro);
+				const categoryTypeMatch =
+					!categoryType ||
+					categoryType === "all" ||
+					(Array.isArray(data.category) && data.category.map(String).includes(String(categoryType)));
 				const wishListMatch = !showWishList || wishListArr?.includes(String(data.ID));
-				return searchMatch && freeProMatch && wishListMatch;
+				return searchMatch && freeProMatch && categoryTypeMatch && wishListMatch;
 			});
-		}, [premadeLists, searchQuery, freePro, showWishList, wishListArr]);
+		}, [items, searchQuery, freePro, categoryType, showWishList, wishListArr]);
 
-		// Loading state.
-		if (loading) {
-			return <LoadingSkeleton />;
-		}
+		const handlePreview = useCallback((pattern) => onPreview(pattern, filtered), [onPreview, filtered]);
 
-		// Empty state
-		if (filteredLists.length === 0) {
+		if (filtered.length === 0) {
 			return <EmptyState />;
 		}
 
-		// Grid with data
 		return (
-			<div className={`sp-eap-pattern-grid sp-eap-pattern-col${column}`}>
-				{filteredLists.map((data) => (
-					<PremadeCard
+			<div className={`sp-eap-ready-patterns-grid sp-eap-ready-patterns-cols-${columns}`}>
+				{filtered.map((data) => (
+					<PatternCard
 						key={data.ID}
-						data={data}
-						// localizedData={localizedData}
-						wishListArr={wishListArr}
-						setWListAction={setWListAction}
-						reload={reload}
-						reloadId={reloadId}
-						onImport={onImport}
+						pattern={data}
+						onInsert={onImport}
+						onPreview={handlePreview}
+						insertingId={reloadId}
+						isFavorite={wishListArr?.includes(String(data.ID))}
+						onToggleFavorite={() =>
+							setWListAction(data.ID, wishListArr?.includes(String(data.ID)) ? "remove" : "")
+						}
 					/>
 				))}
 			</div>
@@ -332,199 +81,165 @@ const PremadeGrid = memo(
 	}
 );
 
-// Main StarterSites Component
+/**
+ * Main body: Sidebar (full mode) + main area (Toolbar + Grid). Owns the
+ * in-modal UI state (columns, search, sort, tier, category-type, wishlist) and
+ * the block-type filter; keeps the data plumbing from Library intact.
+ *
+ * @param {Object} props Library data + handler plumbing.
+ * @return {Object} Body markup.
+ */
 const StarterSites = (props) => {
 	const {
 		filterValue,
 		state,
 		setState,
-		// useState,
-		// useEffect,
-		// useRef,
 		_changeVal,
 		filterByCategoryKey,
 		setWListAction,
 		wishListArr,
 		_fetchFile,
-		onClose,
-		currentBlockName,
 		isSingleBlock,
+		onPreview,
 	} = props;
 
-	const { current, designs, reload, reloadId, categoryCounts, freeCount, proCount, fetching, loading } = state;
+	const {
+		current,
+		designs,
+		reloadId,
+		blocks = [],
+		categoryTypes = [],
+		freeCount,
+		proCount,
+		fetching,
+		loading,
+	} = state;
 
-	// const localizedData = sp_eab_patterns_post_block_localize || {};
-	// Local state management.
-	const [column, setColumn] = useState(DEFAULTS.COLUMN);
-	const [searchQuery, setSearchQuery] = useState(DEFAULTS.SEARCH_QUERY);
-	const [trend, setTrend] = useState(DEFAULTS.TREND);
-	const [freePro, setFreePro] = useState(DEFAULTS.FREE_PRO);
+	// Local UI state.
+	const [column, setColumn] = useState("3");
+	const [searchQuery, setSearchQuery] = useState("");
+	const [trend, setTrend] = useState("default");
+	const [freePro, setFreePro] = useState("all");
+	const [categoryType, setCategoryType] = useState("all");
 	const [showWishList, setShowWishList] = useState(false);
 
-	const totalCount = freeCount + proCount;
+	const totalCount = (freeCount || 0) + (proCount || 0);
 
-	// Memoize sorted lists.
+	// Sorted list — newest first for "latest", by popularity for "popular".
 	const premadeLists = useMemo(() => {
-		if (!current.length) return [];
-
+		if (!current.length) {
+			return [];
+		}
 		const lists = [...current];
-
 		if (trend === "latest" || trend === "all") {
 			return lists.sort((a, b) => b.ID - a.ID);
 		}
-
 		if (trend === "popular" && lists[0]?.hit !== undefined) {
 			return lists.sort((a, b) => b.hit - a.hit);
 		}
-
 		return lists;
 	}, [current, trend]);
 
-	const allCategoryCount = premadeLists?.length;
+	// Plain option arrays (label + value + count) for the Sidebar facets.
+	const blockOptions = useMemo(() => {
+		const opts = [{ label: __("All Patterns", "easy-accordion-free"), value: "all", count: totalCount }];
+		(Array.isArray(blocks) ? blocks : []).forEach((b) => {
+			opts.push({ label: b.label || b.value, value: b.value, count: b.count ?? 0 });
+		});
+		return opts;
+	}, [blocks, totalCount]);
 
-	const patternCategories = getPatternCategories(categoryCounts, totalCount);
+	const categoryOptions = useMemo(() => {
+		const opts = [{ label: __("All Categories", "easy-accordion-free"), value: "all", count: totalCount }];
+		(Array.isArray(categoryTypes) ? categoryTypes : []).forEach((c) => {
+			opts.push({ label: c.label || String(c.value), value: String(c.value), count: c.count ?? 0 });
+		});
+		return opts;
+	}, [categoryTypes, totalCount]);
 
-	// Handle filter changes.
+	// Block-type filter narrows `designs` (the full flattened catalog) into `current`.
 	const handleFilterChange = useCallback(
 		(type) => {
 			const filteredData = type === "all" ? designs : filterByCategoryKey(designs, type);
-			setState((prev) => ({
-				...prev,
-				designFilter: type,
-				current: filteredData,
-			}));
+			setState((prev) => ({ ...prev, designFilter: type, current: filteredData }));
 		},
 		[designs, filterByCategoryKey, setState]
 	);
 
-	// Unified state change handler.
-	const changeStates = useCallback(
-		(type, value) => {
-			const handlers = {
-				freePro: () => setFreePro(value),
-				search: () => setSearchQuery(value),
-				column: () => setColumn(value),
-				wishlist: () => setShowWishList(value),
-				trend: () => setTrend(value),
-				filter: () => handleFilterChange(value),
-			};
-
-			handlers[type]?.();
-		},
-		[handleFilterChange]
-	);
-
-	// Memoize import handler.
 	const handleImport = useCallback(
-		(templateID, isPro) => {
-			_changeVal(templateID, isPro);
+		(pattern) => {
+			_changeVal(pattern.ID, pattern.pro);
 		},
 		[_changeVal]
 	);
 
-	const freeProOptions = [
-		{
-			value: "all",
-			label: <RenderFilterLabel label="All" number={totalCount} />,
-		},
-		{
-			value: "free",
-			label: <RenderFilterLabel label="Free" number={freeCount} />,
-		},
-		{
-			value: "pro",
-			label: <RenderFilterLabel label="Pro" number={proCount} />,
-		},
-	];
+	const hasData =
+		(Array.isArray(blocks) && blocks.length > 0) || (Array.isArray(categoryTypes) && categoryTypes.length > 0);
+
+	// Main-area content: skeleton while loading, empty state when the catalog
+	// carries no axes, the grid otherwise.
+	const renderMainContent = () => {
+		if (loading) {
+			return <LoadingSkeleton />;
+		}
+		if (!hasData) {
+			return (
+				<div className="sp-eap-ready-patterns-state">
+					{__("No patterns available right now. Please check back later.", "easy-accordion-free")}
+				</div>
+			);
+		}
+		return (
+			<PatternGrid
+				items={premadeLists}
+				columns={column}
+				searchQuery={searchQuery}
+				freePro={freePro}
+				categoryType={categoryType}
+				showWishList={showWishList}
+				wishListArr={wishListArr}
+				setWListAction={setWListAction}
+				reloadId={reloadId}
+				onImport={handleImport}
+				onPreview={onPreview}
+			/>
+		);
+	};
 
 	return (
-		<>
-			{isSingleBlock && (
-				<HeaderWithFilter
-					changeStates={changeStates}
-					useState={useState}
-					onClose={onClose}
-					currentBlockName={currentBlockName}
-					column={column}
-					showWishList={showWishList}
-					searchQuery={searchQuery}
-					fetching={fetching}
-					_fetchFile={_fetchFile}
-					fields={{ filter: true, trend: true, freePro: true }}
-					fieldOptions={{
-						trendArr: [],
-						freeProArr: [],
-					}}
-					fieldValue={{ filter: filterValue, trend, freePro }}
-					wishListArr={wishListArr}
+		<div className="sp-eap-ready-patterns-body">
+			{!isSingleBlock ? (
+				<Sidebar
+					tier={freePro}
+					onTierChange={setFreePro}
+					tierCounts={{ all: totalCount, free: freeCount || 0, pro: proCount || 0 }}
+					search={searchQuery}
+					onSearchChange={setSearchQuery}
+					blockType={filterValue}
+					onBlockTypeChange={handleFilterChange}
+					blockOptions={blockOptions}
+					categoryType={categoryType}
+					onCategoryTypeChange={setCategoryType}
+					categoryOptions={categoryOptions}
 				/>
-			)}
-			<div className="sp-eap-patterns-template-wrap sp-eab-pattern">
-				{!isSingleBlock && (
-					<div className="sp-eap-patterns-left-sidebar">
-						<RadioControl
-							label={__("Pattern Type", "easy-accordion-free")}
-							selected={freePro}
-							options={freeProOptions}
-							onChange={(v) => {
-								changeStates("freePro", v);
-							}}
-						/>
-						<RadioControl
-							label={__("Block Type", "easy-accordion-free")}
-							selected={filterValue}
-							options={patternCategories}
-							onChange={(v) => {
-								changeStates("filter", v);
-							}}
-						/>
-					</div>
-				)}
-				<div className="sp-eap-pattern-list-container sp-eab-pattern-card">
-					{!isSingleBlock && (
-						<FilterPart
-							changeStates={changeStates}
-							useState={useState}
-							column={column}
-							showWishList={showWishList}
-							searchQuery={searchQuery}
-							fetching={fetching}
-							_fetchFile={_fetchFile}
-							fields={{
-								filter: true,
-								trend: true,
-								freePro: true,
-							}}
-							fieldOptions={{
-								trendArr: [],
-								freeProArr: [],
-							}}
-							fieldValue={{
-								filter: filterValue,
-								trend,
-								freePro,
-							}}
-							wishListArr={wishListArr}
-						/>
-					)}
+			) : null}
 
-					<PremadeGrid
-						premadeLists={premadeLists}
-						column={column}
-						searchQuery={searchQuery}
-						freePro={freePro}
-						showWishList={showWishList}
-						wishListArr={wishListArr}
-						// localizedData={localizedData}
-						setWListAction={setWListAction}
-						reload={reload}
-						reloadId={reloadId}
-						onImport={handleImport}
-						loading={loading}
-					/>
-				</div>
+			<div className="sp-eap-ready-patterns-main">
+				<Toolbar
+					sort={trend}
+					onSortChange={setTrend}
+					columns={column}
+					onColumnsChange={setColumn}
+					favoritesCount={wishListArr?.length || 0}
+					showFavoritesOnly={showWishList}
+					onToggleFavorites={() => setShowWishList((v) => !v)}
+					onRefresh={_fetchFile}
+					refreshing={fetching}
+				/>
+
+				{renderMainContent()}
 			</div>
-		</>
+		</div>
 	);
 };
 

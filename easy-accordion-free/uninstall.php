@@ -45,6 +45,25 @@ if ( ! empty( $settings['eap_data_remove'] ) && '1' === $settings['eap_data_remo
 	delete_option( 'visited_setup_wizard' );
 	delete_site_option( 'visited_setup_wizard' );
 
+	// Delete dashboard settings (incl. stored AI provider API keys) and placements report.
+	delete_option( 'sp_eap_dashboard_settings' );
+	delete_option( 'sp_eap_placements_report' );
+	delete_option( 'sp_eap_widgets_modified' );
+
+	// Delete AI transients.
+	foreach ( array( 'google', 'openai', 'anthropic' ) as $connector ) {
+		delete_transient( 'sp_eab_ai_connector_status_' . $connector );
+	}
+	global $wpdb;
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+	$wpdb->query(
+		$wpdb->prepare(
+			"DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s",
+			$wpdb->esc_like( '_transient_sp_eab_ai_src_' ) . '%',
+			$wpdb->esc_like( '_transient_timeout_sp_eab_ai_src_' ) . '%'
+		)
+	);
+
 	// Remove options in Multisite.
 	delete_site_option( 'sp_eap_settings' );
 	delete_site_option( 'sp_eafree_review_notice_dismiss' );
@@ -56,6 +75,7 @@ if ( ! empty( $settings['eap_data_remove'] ) && '1' === $settings['eap_data_remo
 	// Delete offer banner related option keys.
 	delete_option( 'shapedplugin_offer_banner_dismissed_black_friday_2025' );
 	delete_option( 'shapedplugin_offer_banner_dismissed_new_year_2026' );
+	delete_option( 'shapedplugin_bfcm_2026_dismissed' );
 } else {
 	update_option( 'sp_eap_flush_rewrite_rules', false );
 }

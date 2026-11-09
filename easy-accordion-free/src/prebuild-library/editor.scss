@@ -1,630 +1,967 @@
-.sp-eap-patterns-toolbar-design-library {
-    span {
-        display: flex;
-        height: 36px;
-        padding: 12px;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        border-radius: 2px;
-        background: var(--eab-primary-color);
-        color: #FFF;
-        font-size: 13px;
-        line-height: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        text-decoration: none;
-        white-space: nowrap;
-        transition: all 0.3s ease-in-out;
-        margin: 0 6px;
+/* Ready Patterns Library — editor-only modal chrome.
+   Design mirrors testimonial-pro's Ready Patterns library, recolored to the
+   Easy Accordion brand via --eab-primary-color (tints via color-mix). */
 
-        &:hover {
-            background: #e9510c;
-        }
-    }
+/* ===================== Header-toolbar launcher button ===================== */
+.sp-eap-ready-patterns-toolbar-design-library {
+	.popup-button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+		height: 36px;
+		padding: 12px;
+		gap: 8px;
+		border: 0;
+		border-radius: 2px;
+		background: var(--eab-primary-color, #ff5b2e);
+		color: #fff;
+		font-family: inherit;
+		font-size: 13px;
+		line-height: 14px;
+		font-weight: 600;
+		text-decoration: none;
+		white-space: nowrap;
+		transition: all 0.3s ease-in-out;
+		margin: 0 6px;
+
+		&:hover {
+			background: var(--eab-primary-color-hover, var(--eab-primary-color, #ff5b2e));
+		}
+	}
 }
 
-.sp-eap-patterns-skeleton__image {
-    height: 300px;
-    width: 300px;
-    border-radius: 4px;
+/* ===================== Modal shell ===================== */
+.sp-eap-ready-patterns-backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 100000;
+	display: flex;
+	align-items: stretch;
+	justify-content: center;
+	padding: 32px;
+	background: rgba(0, 0, 0, 0.6);
+	backdrop-filter: blur(20px);
+	font-family:
+		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue",
+		sans-serif;
 }
 
-.sp-eap-patterns-skeleton__circle {
-    height: 300px;
-    width: 300px;
-    border-radius: 50%;
+.sp-eap-ready-patterns-modal {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 1840px;
+	max-height: 100%;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
 }
 
-.sp-eap-patterns-skeleton__title {
-    height: 20px;
-    width: 100%;
-    border-radius: 4px;
+.sp-eap-ready-patterns-header {
+	display: flex;
+	align-items: stretch;
+	justify-content: space-between;
+	padding: 0 24px;
+	background: color-mix(in srgb, var(--eab-primary-color, #ff5b2e) 8%, #fff);
+	border-bottom: 1px solid color-mix(in srgb, var(--eab-primary-color, #ff5b2e) 22%, #fff);
 }
 
-.sp-eap-patterns-skeleton__button {
-    height: 40px;
-    width: 90px;
-    border-radius: 4px;
+.sp-eap-ready-patterns-brand {
+	display: flex;
+	flex: 1 0 0;
+	align-items: center;
+	gap: 10px;
+	padding: 21px 0;
+
+	svg {
+		width: 28px;
+		height: 28px;
+	}
 }
 
-.sp-eap_patterns_frequency {
-    position: relative;
-    background-color: #e2e2e2;
-    overflow: hidden;
-
-    &.loop {
-        margin-bottom: 10px;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
-
-    &::after {
-        display: block;
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        transform: translateX(-100%);
-        background: -webkit-gradient(linear, left top,
-                right top, from(transparent),
-                color-stop(rgba(255, 255, 255, 0.2)),
-                to(transparent));
-
-        background: linear-gradient(90deg, transparent,
-                rgba(255, 255, 255, 0.2), transparent);
-        animation: loadings 0.8s infinite;
-    }
+.sp-eap-ready-patterns-title {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 600;
+	color: #2f2f2f;
 }
 
-
-.skeletonOverflow {
-    overflow: hidden;
+.sp-eap-ready-patterns-header-actions {
+	display: flex;
+	flex: 1 0 0;
+	align-items: center;
+	justify-content: flex-end;
 }
 
-@keyframes loadings {
-    100% {
-        transform: translateX(100%);
-    }
+.sp-eap-ready-patterns-close {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	border: 0;
+	border-radius: 6px;
+	background: transparent;
+	color: #334155;
+	cursor: pointer;
+
+	.dashicons {
+		font-size: 22px;
+		width: 22px;
+		height: 22px;
+	}
+
+	&:hover {
+		background: color-mix(in srgb, var(--eab-primary-color, #ff5b2e) 12%, transparent);
+		color: #1e293b;
+	}
 }
 
-.sp-eap-patterns-popup-open {
-    .sp-eap-patterns-builder-modal.sp-eab-patterns-blocks-layouts {
-        display: block;
-        position: fixed;
-        z-index: 999999;
-        height: 100%;
-        width: 90%;
-        top: 20px;
-        right: 90px;
-    }
+/* ===================== Body / sidebar / main ===================== */
+.sp-eap-ready-patterns-body {
+	display: flex;
+	flex: 1;
+	min-height: 0;
 }
 
-/* Modal component for Design template end */
-.sp-eap-patterns-popup-header {
-    position: sticky;
-    top: 0;
-    z-index: 9999;
-    background: linear-gradient(0deg, rgba(242, 108, 13, 0.05) 0%, rgba(242, 108, 13, 0.05) 100%), #FFF;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.10);
-
-    .sp-eap-patterns-popup-filter {
-        padding: 30px 5px;
-        max-width: 600px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.sp-eap-ready-patterns-sidebar {
+	width: 260px;
+	flex-shrink: 0;
+	padding: 20px 16px;
+	border-right: 1px solid #e2e8f0;
+	overflow-y: auto;
 }
 
-.sp-eap-patterns-popup-filter-title {
-    position: relative;
-    padding: 0 30px;
-    display: flex;
-    justify-content: space-between;
-    height: 72px;
-
-    &:not(:has(.sp-eap-patterns-popup-filter-nav)) {
-        padding-top: 18px;
-        padding-bottom: 18px;
-        height: auto;
-    }
+.sp-eap-ready-patterns-sidebar-heading {
+	margin: 0 0 10px;
+	font-size: 14px;
+	font-weight: 700;
+	color: #1e293b;
 }
 
-
-.sp-eap-patterns-btn-close {
-    svg {
-        margin-right: -1px;
-    }
-
-    box-shadow: none;
-    cursor: pointer;
-    transition: .3s;
-    border-radius: 4px;
-    border: 1px solid #2F2F2F;
-    background: #2F2F2F;
-    width: 32px;
-    height: 32px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &:hover {
-        color: #fff;
-        background: var(--eab-primary-color);
-        border-color: var(--eab-primary-color);
-    }
-
-    span {
-        font-size: 26px;
-        width: auto;
-        height: auto;
-        vertical-align: middle;
-    }
-
-    &:focus {
-        outline: 0;
-    }
+.sp-eap-ready-patterns-tier {
+	display: flex;
+	gap: 4px;
+	padding: 5px;
+	margin-bottom: 16px;
+	background: #fff;
+	border: 1px solid #e2e8f0;
+	border-radius: 10px;
+	box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
 }
 
+.sp-eap-ready-patterns-tier-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	flex: 1;
+	padding: 8px 6px;
+	border: 0;
+	border-radius: 7px;
+	background: transparent;
+	font-size: 12px;
+	font-weight: 600;
+	color: #64748b;
+	cursor: pointer;
 
-.sp-eap-patterns-popup-filter-image-head {
-    display: flex;
-    align-items: center;
+	&.is-active {
+		background: var(--eab-primary-color, #ff5b2e);
+		color: #fff;
 
-    svg {
-        color: var(--eab-primary-color);
-        width: 35px;
-        height: 23px;
-
-        path {
-            fill: var(--eab-primary-color);
-        }
-    }
-
-    span {
-        text-transform: capitalize;
-        font-weight: 600;
-        margin-left: 6px;
-        font-size: 18px;
-    }
+		.sp-eap-ready-patterns-tier-count {
+			color: rgba(255, 255, 255, 0.85);
+		}
+	}
 }
 
+.sp-eap-ready-patterns-tier-count {
+	font-size: 11px;
+	font-weight: 500;
+	color: #94a3b8;
 
-.sp-eap-patterns-popup-filter-sync-close {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 220px;
+	&::before {
+		content: "(";
+	}
 
-    .sp-eap-patterns-popup-sync {
-        cursor: pointer;
-        margin-right: 50px;
-        display: flex;
-        gap: 5px;
-        align-items: center;
-        transition: var(--postx-transition-400);
-    }
+	&::after {
+		content: ")";
+	}
 }
 
-.sp-eap-patterns-builder-modal-shadow {
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, .8);
-    z-index: 100000;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    backdrop-filter: blur(4px);
+.sp-eap-ready-patterns-search {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 12px;
+	margin-bottom: 16px;
+	border: 1px solid #e2e8f0;
+	border-radius: 8px;
+	color: #94a3b8;
+
+	.dashicons {
+		font-size: 18px;
+		width: 18px;
+		height: 18px;
+	}
+
+	.sp-eap-ready-patterns-search-input {
+		border: none;
+		padding: 0;
+		min-height: 36px;
+
+		&:focus {
+			outline: none;
+			box-shadow: none;
+		}
+	}
 }
 
-/* ========== Header Part ========== */
-.sp-eap-patterns-popup-wrap {
-    width: 100%;
-    margin: 30px auto;
-    position: relative;
-    background: #fff;
-    max-width: 97%;
-    border-radius: 5px;
-    overflow: hidden;
+.sp-eap-ready-patterns-search-input {
+	flex: 1;
+	border: 0;
+	outline: none;
+	font-size: 13px;
+	background: transparent;
+	color: #1e293b;
 }
 
-.sp-eap-patterns-template-wrap {
-    display: flex;
-    gap: 32px;
-    padding: 32px;
+.sp-eap-ready-patterns-categories {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	margin-bottom: 20px;
 }
 
-.sp-eap-patterns-left-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+.sp-eap-ready-patterns-category {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+	padding: 9px 12px;
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
+	font-size: 13px;
+	color: #334155;
+	text-align: left;
+	cursor: pointer;
 
-    .components-base-control__label {
-        color: #1E1E1E;
-        font-size: 18px;
-        font-weight: 600;
-        line-height: 20px;
-        text-transform: capitalize;
-        margin-bottom: 24px;
-    }
-
-    .components-radio-control__group-wrapper {
-        gap: 0;
-    }
-
-    .components-radio-control:nth-child(2) {
-        max-height: 500px;
-        overflow: auto;
-        scrollbar-width: none;
-
-        .components-radio-control__option {
-            display: block;
-        }
-
-        .components-radio-control__input {
-            display: none;
-        }
-    }
-
-    .components-radio-control__input {
-        border: 1px solid #BBBBBB;
-        height: 14px;
-        width: 14px;
-        min-width: 14px;
-
-        &::before {
-            height: 7px;
-            width: 7px;
-        }
-
-        &:focus {
-            box-shadow: none;
-        }
-
-        &:checked {
-            border: 1px solid var(--eab-primary-color);
-            background-color: #ffffff;
-
-            &::before {
-                background-color: var(--eab-primary-color);
-                border: 1px solid #ffffff;
-            }
-        }
-    }
-
-    .components-radio-control__option {
-        width: 260px;
-        padding: 8px 12px;
-        border-radius: 5px;
-        cursor: pointer;
-
-        &:has(.components-radio-control__input:checked) {
-            background-color: #FFF3E0;
-        }
-    }
-
-    .components-radio-control__label {
-        display: flex;
-        justify-content: space-between;
-        color: #2F2F2F;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 25px;
-    }
+	&.is-active {
+		background: color-mix(in srgb, var(--eab-primary-color, #ff5b2e) 12%, #fff);
+		color: var(--eab-primary-color, #ff5b2e);
+		font-weight: 600;
+	}
 }
 
-.sp-eap-patterns-template-wrap .sp-eap-pattern-list-container {
-    width: -webkit-fill-available;
-    width: -moz-available;
-    position: relative;
-    height: 88vh;
-    overflow-y: auto;
-    overflow-x: hidden;
+.sp-eap-ready-patterns-category-label {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
-.sp-eap-pattern-list-container .sp-eap-pattern-grid {
-    background: #fff !important;
+.sp-eap-ready-patterns-badge {
+	margin-left: auto;
+	min-width: 22px;
+	padding: 0 6px;
+	border-radius: 999px;
+	background: #f1f5f9;
+	font-size: 11px;
+	font-weight: 600;
+	color: #64748b;
+	text-align: center;
+	line-height: 20px;
+
+	.is-active & {
+		background: var(--eab-primary-color, #ff5b2e);
+		color: #fff;
+	}
 }
 
-.sp-eap-patterns-popup-wrap .sp-eap-pattern-list-container .sp-eap-pattern-grid .sp-eap-patterns-item-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    justify-content: space-between;
-    border-radius: 4px;
-    border: 1px solid #E0E0E0;
-    background: #FFF;
-    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.08);
-    padding: 20px;
-
-    img {
-        width: 100%;
-    }
+.sp-eap-ready-patterns-main {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	min-width: 0;
+	padding: 20px 24px;
+	overflow-y: auto;
 }
 
-.sp-eap-pattern-list-container {
-    .sp-eap-pattern-grid {
-        display: grid;
-        gap: 30px;
-        padding: 32px 0;
-        margin-bottom: 50px;
-    }
-
-    .sp-eap-pattern-col2 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .sp-eap-pattern-col3 {
-        grid-template-columns: repeat(3, 1fr);
-    }
+/* ===================== Toolbar ===================== */
+.sp-eap-ready-patterns-toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 20px;
 }
 
-.sp-eap-patterns-item-list-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-transform: capitalize;
-    cursor: pointer;
-
-    span {
-        font-size: 16px;
-        font-weight: 500;
-    }
+.sp-eap-ready-patterns-toolbar-left {
+	display: flex;
+	align-items: center;
+	gap: 12px;
 }
 
+.sp-eap-ready-patterns-sort {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 16px;
+	height: 36px;
+	padding: 6px 8px 6px 12px;
+	box-sizing: border-box;
+	border: 1px solid #e0e0e0;
+	border-radius: 3px;
+	background: #fff;
 
-.sp-eap-patterns-action-btn {
-
-    a,
-    span {
-        height: 36px;
-        line-height: 36px;
-        padding: 0 14px;
-        color: #fff;
-        font-size: 14px;
-        font-weight: 600;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    a svg {
-        vertical-align: middle;
-        margin-right: 6px;
-        margin-top: -3px;
-    }
-
-    .sp-eap-patterns-import-btn {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        border-radius: 4px;
-        background-color: #3D9E56;
-        transition: background-color 400ms;
-
-        svg {
-            vertical-align: middle;
-            margin-top: -2px;
-            margin-right: 5px;
-            color: #fff;
-        }
-    }
-
-    .sp-eap-patterns-btn-pro {
-        border-radius: 4px;
-        background: #EA7E11;
-        transition: background-color 400ms;
-    }
-
-    &:has(.sp-eap-pattern-wishlist) {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        cursor: pointer;
-    }
-
-    .sp-eap-pattern-wishlist {
-        height: 36px;
-        line-height: 36px;
-        width: 36px;
-        padding: 0;
-        color: #757575;
-        display: flex;
-        align-items: center;
-        border-radius: 50%;
-        justify-content: center;
-        border: 1px solid #F0F0F0;
-        background: #FFF;
-        box-shadow: 1px 1px 5px 1px rgba(76, 189, 246, 0.10);
-
-        svg {
-            height: 16px;
-            width: 16px;
-            color: #F26262;
-        }
-
-    }
-
+	&:hover {
+		border-color: #c6c6c6;
+	}
 }
 
-.sp-eap-pattern-wishlist {
-    &.sp-eap-pattern-wishlist-active {
-        background: #404040;
-
-        svg {
-            fill: #fff !important;
-        }
-    }
+.sp-eap-ready-patterns-sort-label {
+	font-size: 14px;
+	font-weight: 500;
+	color: #2f2f2f;
 }
 
-.sp-eap-pattern-img {
-    display: block;
-    width: 100%;
+.sp-eap-ready-patterns-sort-chevron {
+	display: inline-flex;
+	color: #2f2f2f;
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
 }
 
-.sp-eap-pattern-overlay {
-    font-weight: 600;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    top: 0;
-    left: 0;
-    position: absolute;
-    display: flex;
-    background: rgba(0, 0, 0, 0);
+.sp-eap-ready-patterns-sort-select {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	opacity: 0;
+	cursor: pointer;
 }
 
-.sp-eap-patterns-item-list-overlay {
-    cursor: pointer;
-    box-sizing: border-box;
-    text-align: center;
-    position: relative;
-    line-height: 0;
-    border-radius: 6px;
-    overflow: hidden;
-    border: 1px solid transparent;
+.sp-eap-ready-patterns-toolbar-actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
 }
 
-
-.sp-eap-patterns-item-list:hover .sp-eap-pattern-overlay {
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 4px;
+.sp-eap-ready-patterns-density {
+	display: flex;
+	align-items: center;
+	gap: 8px;
 }
 
-.sp-eap-patterns-overlay-view {
-    opacity: 0;
-    border-radius: 4px;
-    border: 1px solid #E0E0E0;
-    background: rgba(255, 255, 255, 0.10);
-    display: flex;
-    padding: 12px 16px;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    text-decoration: none;
-    color: #FFF;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 20px;
-    transition: all 0.3s ease-in-out;
+.sp-eap-ready-patterns-density-btn,
+.sp-eap-ready-patterns-favorites-btn,
+.sp-eap-ready-patterns-refresh-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	padding: 0;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	background: #fff;
+	color: #757575;
+	cursor: pointer;
 
-    &:focus {
-        color: #FFF;
-    }
+	svg,
+	.dashicons {
+		width: 18px;
+		height: 18px;
+		font-size: 18px;
+	}
 
-    &:hover {
-        opacity: 1;
-        background: var(--eab-primary-color);
-        border-color: var(--eab-primary-color);
-        text-decoration: none;
-        color: #FFF;
-    }
+	&:hover {
+		border-color: var(--eab-primary-color, #ff5b2e);
+		color: var(--eab-primary-color, #ff5b2e);
+	}
 }
 
-.sp-eap-patterns-item-list:hover .sp-eap-patterns-overlay-view {
-    opacity: 1;
+.sp-eap-ready-patterns-density-btn.is-active {
+	border-color: transparent;
+	background: var(--eab-primary-color, #ff5b2e);
+	color: #fff;
+
+	&:hover {
+		border-color: transparent;
+		background: var(--eab-primary-color, #ff5b2e);
+		color: #fff;
+	}
 }
 
-.sp-rotate svg {
-    animation: rotate 1.5s linear infinite;
+.sp-eap-ready-patterns-favorites-btn {
+	position: relative;
+	overflow: visible;
+
+	&.is-active {
+		border-color: var(--eab-primary-color, #ff5b2e);
+		color: var(--eab-primary-color, #ff5b2e);
+	}
 }
 
-@keyframes sp-rotate {
-    to {
-        transform: rotate(360deg);
-    }
+.sp-eap-ready-patterns-favorites-count {
+	position: absolute;
+	top: -6px;
+	right: -6px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 16px;
+	height: 16px;
+	padding: 0 3px;
+	border-radius: 16px;
+	background: var(--eab-primary-color, #ff5b2e);
+	color: #fff;
+	font-size: 10px;
+	font-weight: 600;
+	line-height: 1;
 }
 
-// Error Boundary Styles
-.sp-eap-patterns-error-boundary {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 400px;
-    padding: 40px;
-    background: #fff;
-    border-radius: 8px;
+.sp-eap-ready-patterns-refresh-btn {
+	&:disabled {
+		cursor: default;
+	}
 
-    .sp-eap-patterns-error-content {
-        text-align: center;
-        max-width: 500px;
-
-        h3 {
-            color: #d63638;
-            margin-bottom: 16px;
-            font-size: 20px;
-        }
-
-        p {
-            margin-bottom: 24px;
-            color: #50575e;
-            line-height: 1.6;
-        }
-
-        .sp-eap-patterns-error-details {
-            margin: 20px 0;
-            text-align: left;
-            background: #f6f7f7;
-            border-radius: 4px;
-
-            summary {
-                padding: 12px 16px;
-                cursor: pointer;
-                font-weight: 600;
-                color: #50575e;
-                border-bottom: 1px solid #dcdcde;
-            }
-
-            pre {
-                padding: 16px;
-                margin: 0;
-                font-size: 12px;
-                color: #646970;
-                overflow-x: auto;
-                white-space: pre-wrap;
-            }
-        }
-
-        .sp-eap-patterns-retry-button {
-            background: var(--eab-primary-color);
-            color: #fff;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-
-            &:hover {
-                background: var(--eab-primary-color);
-            }
-
-            &:focus {
-                outline: 2px solid var(--eab-primary-color);
-                outline-offset: 2px;
-            }
-        }
-    }
+	&.is-refreshing .dashicons {
+		animation: sp-eap-ready-patterns-spin 1s linear infinite;
+	}
 }
 
-.sp-eap-patterns-image-rotate {
-    font-size: 30px;
-    padding: 20px 0;
-    display: block;
-    line-height: 1.5;
+@keyframes sp-eap-ready-patterns-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* ===================== Grid + Card ===================== */
+.sp-eap-ready-patterns-grid {
+	display: grid;
+	gap: 24px;
+
+	&.sp-eap-ready-patterns-cols-2 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	&.sp-eap-ready-patterns-cols-3 {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+.sp-eap-ready-patterns-card {
+	overflow: hidden;
+	background: #fff;
+}
+
+.sp-eap-ready-patterns-card-thumb {
+	position: relative;
+	// Fixed 3:2 box so a card owns its final height before the image decodes.
+	aspect-ratio: 3 / 2;
+	padding: 20px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	background: #f8fafc;
+	overflow: hidden;
+
+	img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: 4px;
+	}
+
+	.sp-eap-ready-patterns-card-thumb-placeholder {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+		border-radius: 4px;
+		background: #eef4f4;
+	}
+
+	&::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		margin: 20px;
+		border-radius: 4px;
+		background: rgba(15, 23, 42, 0.55);
+		opacity: 0;
+		transition: opacity 0.2s ease;
+		pointer-events: none;
+	}
+
+	&:hover::after,
+	&:focus-within::after {
+		opacity: 1;
+	}
+
+	&:hover .sp-eap-ready-patterns-preview-link,
+	.sp-eap-ready-patterns-preview-link:focus-visible {
+		opacity: 1;
+	}
+}
+
+.sp-eap-ready-patterns-preview-link {
+	position: absolute;
+	inset: 20px;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 600;
+	text-decoration: none;
+	white-space: nowrap;
+	opacity: 0;
+
+	.dashicons {
+		font-size: 18px;
+		width: 18px;
+		height: 18px;
+	}
+
+	&:hover,
+	&:focus {
+		color: #fff;
+	}
+}
+
+.sp-eap-ready-patterns-card-body {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 14px 0 0;
+}
+
+.sp-eap-ready-patterns-card-title {
+	flex: 1 1 auto;
+	min-width: 0;
+	margin: 0;
+	font-size: 16px;
+	font-weight: 600;
+	color: #2f2f2f;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.sp-eap-ready-patterns-favorite-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 28px;
+	height: 28px;
+	padding: 0;
+	border: 1px solid #f0f0f0;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+	color: #757575;
+	cursor: pointer;
+
+	svg {
+		width: 16px;
+		height: 16px;
+	}
+
+	&:hover {
+		color: var(--eab-primary-color, #ff5b2e);
+		border-color: var(--eab-primary-color, #ff5b2e);
+	}
+
+	&.is-favorite {
+		color: var(--eab-primary-color, #ff5b2e);
+	}
+}
+
+.sp-eap-ready-patterns-insert-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	gap: 6px;
+	height: 32px;
+	padding: 4px 12px;
+	border: 0;
+	border-radius: 4px;
+	background: var(--eab-primary-color, #ff5b2e);
+	color: #fff;
+	font-size: 15px;
+	font-weight: 500;
+	cursor: pointer;
+
+	.dashicons,
+	svg {
+		font-size: 16px;
+		width: 16px;
+		height: 16px;
+		color: #fff;
+	}
+
+	&:hover:not(:disabled) {
+		background: var(--eab-primary-color-hover, var(--eab-primary-color, #ff5b2e));
+	}
+
+	&:disabled {
+		cursor: default;
+		opacity: 0.6;
+	}
+
+	&.is-busy {
+		opacity: 0.8;
+
+		.dashicons {
+			animation: sp-eap-ready-patterns-spin 1s linear infinite;
+		}
+	}
+}
+
+/* Free plugin: upgrade link shown in place of Insert on Pro patterns. */
+.sp-eap-ready-patterns-pro-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	gap: 6px;
+	height: 32px;
+	padding: 4px 12px;
+	border-radius: 4px;
+	background: #ea7e11;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 600;
+	text-decoration: none;
+	transition: background-color 0.3s ease;
+
+	svg {
+		width: 16px;
+		height: 16px;
+		color: #fff;
+	}
+
+	&:hover,
+	&:focus {
+		background: #d46f0b;
+		color: #fff;
+	}
+
+	.sp-eap-ready-patterns-drawer-header & {
+		height: 40px;
+		padding: 0 24px;
+		border-radius: 3px;
+	}
+}
+
+/* ===================== Skeleton + empty state ===================== */
+.sp-eap-ready-patterns-card.is-skeleton .sp-eap-ready-patterns-card-thumb {
+	background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+	background-size: 200% 100%;
+	animation: sp-eap-ready-patterns-shimmer 1.2s infinite;
+	border: 1px solid #e2e8f0;
+}
+
+.sp-eap-ready-patterns-skeleton-line {
+	height: 14px;
+	flex: 2;
+	border-radius: 4px;
+	background: #e2e8f0;
+}
+
+.sp-eap-ready-patterns-skeleton-btn {
+	height: 32px;
+	flex: 1;
+	border-radius: 6px;
+	background: #e2e8f0;
+}
+
+@keyframes sp-eap-ready-patterns-shimmer {
+	0% {
+		background-position: 200% 0;
+	}
+
+	100% {
+		background-position: -200% 0;
+	}
+}
+
+.sp-eap-ready-patterns-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	min-height: 240px;
+	color: #64748b;
+	text-align: center;
+}
+
+/* ===================== Preview drawer ===================== */
+.sp-eap-ready-patterns-drawer-backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 100001;
+	display: flex;
+	align-items: stretch;
+	justify-content: flex-end;
+	background: rgba(15, 23, 42, 0.45);
+}
+
+.sp-eap-ready-patterns-drawer {
+	display: flex;
+	flex-direction: column;
+	width: min(1320px, 100%);
+	background: #fff;
+	box-shadow: -12px 0 32px rgba(0, 0, 0, 0.18);
+}
+
+.sp-eap-ready-patterns-drawer-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 14px 30px;
+	background: color-mix(in srgb, var(--eab-primary-color, #ff5b2e) 8%, #fff);
+	border-bottom: 1px solid color-mix(in srgb, var(--eab-primary-color, #ff5b2e) 22%, #fff);
+
+	// Larger primary Insert than the card variant it shares a class with.
+	.sp-eap-ready-patterns-insert-btn {
+		height: 40px;
+		padding: 0 32px;
+		border-radius: 3px;
+		font-weight: 600;
+	}
+}
+
+.sp-eap-ready-patterns-drawer-header-left {
+	flex: 1 1 0;
+	min-width: 0;
+}
+
+.sp-eap-ready-patterns-drawer-title {
+	min-width: 0;
+	margin: 0;
+	font-size: 18px;
+	font-weight: 600;
+	color: #2f2f2f;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.sp-eap-ready-patterns-drawer-devices {
+	display: flex;
+	gap: 4px;
+}
+
+/* Insert + close, balanced against the left group so the devices stay centered. */
+.sp-eap-ready-patterns-drawer-header-right {
+	flex: 1 1 0;
+	justify-content: flex-end;
+	gap: 8px;
+}
+
+/* Icon-only width switcher: the selected width is the only outlined chip, drawn
+   as a tab that overhangs the header's bottom edge. Geometry: the icon sits on
+   the same 40px action row as Back / title / Insert (the bottom padding cancels
+   the overhang), and the box runs 13px past that row — the header's 12px bottom
+   padding plus the 1px rule — so the tab meets the white body below. */
+.sp-eap-ready-patterns-drawer-device {
+	box-sizing: border-box;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 48px;
+	border: 1px solid transparent;
+	border-radius: 6px;
+	background: transparent;
+	color: #64748b;
+	cursor: pointer;
+	transition:
+		color 0.15s ease,
+		background 0.15s ease,
+		border-color 0.15s ease;
+	height: 48px;
+	padding: 0;
+	margin-bottom: -22px;
+
+	// Active reads as a tab: the box alone grows 13px past the action row so the
+	// white fill and the blanked bottom border open into the body below, while
+	// the bottom padding keeps its icon on the row and the negative margin keeps
+	// the overhang out of the header's own box.
+	&.is-active {
+		border-color: var(--eab-primary-color, #ff5b2e);
+		border-bottom-color: #fff;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+		background: #fff;
+		color: var(--eab-primary-color, #ff5b2e);
+	}
+}
+
+.sp-eap-ready-patterns-drawer-close {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 38px;
+	height: 38px;
+	padding: 0;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	background: #fff;
+	color: #1e1e1e;
+	cursor: pointer;
+	transition:
+		background 0.15s ease,
+		border-color 0.15s ease;
+
+	&:hover {
+		background: #f1f5f9;
+		border-color: #c3ccd8;
+	}
+}
+
+.sp-eap-ready-patterns-drawer-body {
+	display: flex;
+	flex: 1;
+	min-height: 0;
+	background: #fff;
+}
+
+.sp-eap-ready-patterns-drawer-stage {
+	position: relative;
+	flex: 1;
+	min-width: 0;
+	min-height: 0;
+	background: #fff;
+	overflow: hidden;
+	padding: 30px 30px 0;
+}
+
+.sp-eap-ready-patterns-drawer-footer {
+	gap: 16px;
+	padding: 16px 30px;
+	background: #f8fafc;
+	border-top: 1px solid #e2e8f0;
+}
+
+.sp-eap-ready-patterns-drawer-count {
+	margin: 0;
+	font-size: 15px;
+	font-weight: 600;
+	color: #2f2f2f;
+}
+
+.sp-eap-ready-patterns-drawer-nav {
+	height: 36px;
+	padding: 0 16px;
+	border: 1px solid var(--eab-primary-color, #ff5b2e);
+	border-radius: 4px;
+	background: #fff;
+	color: var(--eab-primary-color, #ff5b2e);
+	font-size: 14px;
+	line-height: 1;
+	font-weight: 400;
+	cursor: pointer;
+	transition:
+		background 0.15s ease,
+		border-color 0.15s ease,
+		color 0.15s ease;
+
+	&:hover:not(:disabled) {
+		background: color-mix(in srgb, var(--eab-primary-color, #ff5b2e) 8%, #fff);
+	}
+
+	&:disabled {
+		border-color: #dcdcde;
+		color: #a7aaad;
+		cursor: default;
+	}
+}
+
+.sp-eap-ready-patterns-drawer-frame {
+	display: block;
+	border: 0;
+	// Fixed-width frame scaled with a CSS transform to the measured stage box
+	// (the drawer measures it with a ResizeObserver and sets width/height/scale).
+	transform-origin: top left;
+	margin: auto;
+	opacity: 1;
+	transition: opacity 0.2s ease;
+
+	// Dimmed while the framed demo page is still loading.
+	&.is-loading {
+		opacity: 0.7;
+	}
+}
+
+/* Preloader shown over the stage until the preview iframe fires `load`. */
+.sp-eap-ready-patterns-drawer-loader {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	background: rgba(255, 255, 255, 0.7);
+	pointer-events: none;
+}
+
+.sp-eap-ready-patterns-drawer-loader-spinner {
+	width: 32px;
+	height: 32px;
+	border: 3px solid #e2e8f0;
+	border-top-color: var(--eab-primary-color, #ff5b2e);
+	border-radius: 50%;
+	animation: sp-eap-ready-patterns-spin 0.8s linear infinite;
+}
+
+.sp-eap-ready-patterns-drawer-loader-text {
+	font-size: 13px;
+	color: #64748b;
+}
+
+.sp-eap-ready-patterns-drawer-thumb {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	padding: 20px;
+	color: #64748b;
+
+	img {
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: contain;
+	}
+}
+
+/* Keyboard focus is visible on every control in the library. */
+.sp-eap-ready-patterns-modal {
+	button:focus-visible,
+	a:focus-visible,
+	select:focus-visible,
+	input:focus-visible {
+		outline: 2px solid var(--eab-primary-color, #ff5b2e);
+		outline-offset: 1px;
+	}
 }

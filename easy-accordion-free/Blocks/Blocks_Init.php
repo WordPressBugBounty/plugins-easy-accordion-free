@@ -18,6 +18,10 @@ use ShapedPlugin\EasyAccordion\Blocks\Includes\ShortcodeBlock;
 use ShapedPlugin\EasyAccordion\Blocks\Includes\Utils\Block_Dynamic_Style;
 use ShapedPlugin\EasyAccordion\Blocks\Includes\Blocks_Query;
 use ShapedPlugin\EasyAccordion\Blocks\Includes\EAP_Ready_Patterns;
+use ShapedPlugin\EasyAccordion\Blocks\Includes\AI\AI;
+use ShapedPlugin\EasyAccordion\Blocks\Includes\AI\Connector_Bridge;
+use ShapedPlugin\EasyAccordion\Blocks\Includes\AI\FAQ_API;
+use ShapedPlugin\EasyAccordion\Blocks\Includes\AI\FAQ_Generator;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -64,6 +68,11 @@ class Blocks_Init {
 		Block_Dynamic_Style::instance();
 		ShortcodeBlock::instance();
 		EAP_Ready_Patterns::instance();
+		// Generate FAQs with AI REST routes.
+		FAQ_API::instance();
+
+		// Keep the cached WordPress Connectors state honest for the AI features.
+		Connector_Bridge::init();
 
 		/**
 		 * Enqueue block assets.
@@ -168,7 +177,10 @@ class Blocks_Init {
 			// Custom global js.
 			$settings     = get_option( 'sp_eap_settings' );
 			$ea_custom_js = isset( $settings['custom_js'] ) ? trim( html_entity_decode( $settings['custom_js'] ) ) : '';
-			if ( ! empty( $ea_custom_js ) ) {
+			// Only print custom JS saved by a user with unfiltered_html. Legacy
+			// settings without the flag stay active on single sites for back-compat.
+			$custom_js_allowed = isset( $settings['custom_js_unfiltered_ok'] ) ? (bool) $settings['custom_js_unfiltered_ok'] : ! is_multisite();
+			if ( ! empty( $ea_custom_js ) && $custom_js_allowed ) {
 				wp_add_inline_script( 'sp_eab_script_js', $ea_custom_js );
 			}
 
@@ -203,8 +215,20 @@ class Blocks_Init {
 				'uploadFile'        => wp_upload_dir(),
 				'spEabAjaxNonce'    => wp_create_nonce( 'sp_easy_accordion_block_nonce' ),
 				'activeBlockList'   => Blocks_Helper::sp_eab_get_active_block_list(),
-				'dashboardSettings' => get_option( 'sp_eap_dashboard_settings', array() ),
+				// Modules only: the dashboard settings also hold API keys and secrets.
+				'dashboardSettings' => array( 'modules' => (array) Blocks_Helper::get_dashboard_settings( 'modules', array() ) ),
 				'savedTemplatesUrl' => admin_url( 'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#saved_templates' ),
+				// Connected AI providers as { slug, label, source, model } — never a key. Editor only.
+				'aiProviders'       => is_admin() ? AI::connected_providers() : array(),
+				// Generate FAQs with AI: where to manage providers, and the language and tone lists.
+				'aiSettings'        => array_merge(
+					array(
+						'aiConfigUrl'   => admin_url( 'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#settings=ai-configuration' ),
+						'connectorsUrl' => Connector_Bridge::settings_url(),
+						'maxFaqs'       => FAQ_Generator::MAX_FAQS,
+					),
+					is_admin() ? FAQ_Generator::options() : array()
+				),
 			)
 		);
 

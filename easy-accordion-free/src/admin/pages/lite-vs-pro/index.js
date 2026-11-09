@@ -152,7 +152,7 @@ const features = [
 		free: "no",
 		pro: "yes",
 	},
-	
+
 	{
 		title: __("Accordion Expand/Collapse All Button", "easy-accordion-free"),
 		free: "no",
@@ -204,7 +204,7 @@ const features = [
 		free: "no",
 		pro: "yes",
 	},
-	
+
 	{
 		title: __("Image Lightbox for FAQ Images", "easy-accordion-free"),
 		free: "no",
@@ -216,13 +216,13 @@ const features = [
 		pro: "yes",
 		new: true,
 	},
-	
+
 	{
 		title: __("45+ Entrance & Content Animations, Scrolling Effects", "easy-accordion-free"),
 		free: "no",
 		pro: "yes",
 	},
-	
+
 	// {
 	// 	title: __("Disable / Inactive Specific Accordion Item", "easy-accordion-free"),
 	// 	free: "no",

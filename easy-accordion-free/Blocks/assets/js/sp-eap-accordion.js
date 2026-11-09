@@ -307,6 +307,12 @@ class EabAccordion {
 				this.collapseAll();
 			}
 			this.#openAccordionItem(item);
+			// SCROLL OPENED ITEM INTO VIEW ON CLICK (only when enabled).
+			if (this.options.scrollToTopOnClick && this.isVerticalMode) {
+				setTimeout(() => {
+					this.#scrollItemIntoView(item);
+				}, (this.options.transitionDuration || 500) + 20);
+			}
 			// if (this.options.accordionItemToUrl) {
 			// 	this.#accordionToUrl(item);
 			// }
@@ -392,10 +398,26 @@ class EabAccordion {
 	/* ----------------------------------
 	 * SCROLL OPENED ITEM TO TOP
 	 * ---------------------------------*/
+	#getScrollOffset() {
+		let offset = 0;
+		// WordPress admin bar (fixed on desktop, absolute on small screens).
+		const adminBar = document.getElementById('wpadminbar');
+		if (adminBar && window.getComputedStyle(adminBar).position === 'fixed') {
+			offset += adminBar.offsetHeight;
+		}
+		// Allow themes / users to add a sticky header offset.
+		const extra = parseInt(this.container?.dataset?.scrollOffset || window.spEabScrollOffset || 0, 10);
+		return offset + (isNaN(extra) ? 0 : extra);
+	}
+
 	#scrollItemIntoView(item) {
-		const offset = 300; // admin bar or extra spacing
-		const rect = item.getBoundingClientRect();
-		const scrollTop = window.pageYOffset + rect.top - offset;
+		if (!item) {
+			return;
+		}
+		const header = item.querySelector('.sp-eab-accordion-header-wrapper') || item;
+		const offset = this.#getScrollOffset();
+		const rect = header.getBoundingClientRect();
+		const scrollTop = Math.max(0, window.pageYOffset + rect.top - offset);
 		window.scrollTo({ top: scrollTop, behavior: 'smooth' });
 	}
 	/* ----------------------------------

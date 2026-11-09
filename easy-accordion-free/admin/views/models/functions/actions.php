@@ -39,6 +39,19 @@ if ( ! function_exists( 'eapro_import_ajax' ) ) {
 			wp_send_json_error( array( 'error' => esc_html__( 'Error: Options unique id could not valid.', 'easy-accordion-free' ) ) );
 		}
 
+		// Only the framework's own option keys may be written.
+		$allowed_uniques = apply_filters(
+			'eapro_allowed_option_uniques',
+			array_merge(
+				array( 'sp_eap_tools' ),
+				( class_exists( 'SP_EAP' ) && isset( SP_EAP::$args['options'] ) ) ? array_keys( (array) SP_EAP::$args['options'] ) : array()
+			)
+		);
+
+		if ( ! in_array( $unique, $allowed_uniques, true ) ) {
+			wp_send_json_error( array( 'error' => esc_html__( 'Error: Options unique id could not valid.', 'easy-accordion-free' ) ) );
+		}
+
 		if ( empty( $data ) || ! is_array( $data ) ) {
 			wp_send_json_error( array( 'error' => esc_html__( 'Error: Import data could not valid.', 'easy-accordion-free' ) ) );
 		}
@@ -72,6 +85,19 @@ if ( ! function_exists( 'eapro_reset_ajax' ) ) {
 
 		if ( ! wp_verify_nonce( $nonce, 'eapro_backup_nonce' ) ) {
 			wp_send_json_error( array( 'error' => esc_html__( 'Error: Nonce verification has failed. Please try again.', 'easy-accordion-free' ) ) );
+		}
+
+		// Only the framework's own option keys may be deleted.
+		$allowed_uniques = apply_filters(
+			'eapro_allowed_option_uniques',
+			array_merge(
+				array( 'sp_eap_tools' ),
+				( class_exists( 'SP_EAP' ) && isset( SP_EAP::$args['options'] ) ) ? array_keys( (array) SP_EAP::$args['options'] ) : array()
+			)
+		);
+
+		if ( ! in_array( $unique, $allowed_uniques, true ) ) {
+			wp_send_json_error( array( 'error' => esc_html__( 'Error: Options unique id could not valid.', 'easy-accordion-free' ) ) );
 		}
 
 		// Success.

@@ -28,7 +28,7 @@ const ToggleCard = ({ attributes, blockShowHideHandler, isUpcomingBlock = false,
 		<div
 			className={`sp-eab-visibility-setting-card${isUpcomingBlock ? " sp-eab-upcoming-block" : ""} sp-d-flex sp-justify-between sp-align-center`}
 			onClick={handleCardClick}
-			style={{ cursor: type === "quick-start" && onBlockClick ? 'pointer' : undefined }}
+			style={{ cursor: type === "quick-start" && onBlockClick ? "pointer" : undefined }}
 		>
 			{isPro && (
 				<div className="sp-eab-pro-blocks-badge">

@@ -1,9 +1,7 @@
-import { Arrow } from "../../icons";
-import { ArrowRight } from "../../icons";
+import { Arrow, ArrowRight } from "../../icons";
 import { __ } from "@wordpress/i18n";
 import {
 	SmartPostIcon,
-	EasyAccordionIcon,
 	SmartTabsIcon,
 	WooGalleryIcon,
 	WPCarouselIcon,
@@ -109,7 +107,9 @@ const AboutUs = () => {
 							"The Most Powerful Accordion and FAQs Builder plugin for WordPress from ",
 							"easy-accordion-free"
 						)}
-						<span className="sp-eab-highlight-text">{__("Easy Accordion Team", "easy-accordion-free")}</span>
+						<span className="sp-eab-highlight-text">
+							{__("Easy Accordion Team", "easy-accordion-free")}
+						</span>
 					</h3>
 					<p>
 						{__("At", "easy-accordion-free")} <b>{__("ShapedPlugin LLC,", "easy-accordion-free")}</b>{" "}

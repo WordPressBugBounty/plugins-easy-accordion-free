@@ -20,6 +20,29 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Blocks_Helper {
 	/**
+	 * Dashboard settings option name.
+	 *
+	 * @var string
+	 */
+	public static $eap_dashboard_settings_key = 'sp_eap_dashboard_settings';
+
+	/**
+	 * Read the dashboard settings, or one field of them.
+	 *
+	 * @param string $field_key           Dashboard settings key name ('' for all of them).
+	 * @param mixed  $field_default_value Value returned when the field is not stored.
+	 *
+	 * @return mixed
+	 */
+	public static function get_dashboard_settings( $field_key = '', $field_default_value = '' ) {
+		$dashboard_settings = get_option( self::$eap_dashboard_settings_key, array() );
+		if ( ! empty( $field_key ) ) {
+			return is_array( $dashboard_settings ) && isset( $dashboard_settings[ $field_key ] ) ? $dashboard_settings[ $field_key ] : $field_default_value;
+		}
+		return $dashboard_settings;
+	}
+
+	/**
 	 * Method eab_get_active_block_list.
 	 *
 	 * @return array

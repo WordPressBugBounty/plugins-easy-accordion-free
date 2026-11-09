@@ -4,6 +4,7 @@ import { pluginSettingDefaultValues, settingsTabNavigation } from "../../constan
 import { checkIsEqual } from "@easy-accordion/controls";
 import WooCommerceFAQs from "./wooCommerceFaqTabs";
 import Integrations from "./Integrations";
+import AiConfiguration from "./ai-configuration/AiConfiguration";
 import { SaveAndReset } from "./template-parts";
 import { useDispatch, useSelect } from "@wordpress/data";
 import { STORE_NAME } from "../../store/constants";
@@ -16,7 +17,14 @@ const getTabSettings = (settings, tab) => {
 	}, {});
 };
 
-const defaultActiveTab = window.location?.hash?.replace("#", "")?.split("=")[1] || "advanced";
+// Tabs that save themselves (integration cards, AI provider forms, import/export) and show no Save/Reset.
+const tabsWithoutSave = ["integrations", "ai-configuration", "tools"];
+
+// Read on mount, not on import, so a hash rewritten after load (e.g. the legacy #integrations link) is honoured.
+const getDefaultActiveTab = () => {
+	const hashTab = window.location?.hash?.replace("#", "")?.split("=")[1];
+	return settingsTabNavigation.some(({ value }) => value === hashTab) ? hashTab : "advanced";
+};
 const initialEditorPreference = sp_eab_admin_dashboard_localize?.eap_editor_preference || "";
 
 const SettingsPage = () => {
@@ -25,7 +33,7 @@ const SettingsPage = () => {
 		eapShortcodes: select(STORE_NAME).getEapShortcodes(),
 	}));
 	const { saveSettings } = useDispatch(STORE_NAME);
-	const [activeTab, setActiveTab] = useState(defaultActiveTab);
+	const [activeTab, setActiveTab] = useState(getDefaultActiveTab);
 	const [allSettingsData, setAllSettingsData] = useState(pluginSettings);
 	const [tabSettingsData, setTabSettingsData] = useState(getTabSettings(pluginSettings, activeTab));
 	const [isChangeAnything, setIsChangeAnything] = useState(false);
@@ -43,6 +51,9 @@ const SettingsPage = () => {
 	const handleActiveTab = (newTab) => {
 		setActiveTab(newTab);
 		window.location.hash = `#settings=${newTab}`;
+		if (tabsWithoutSave.includes(newTab)) {
+			return;
+		}
 		const tabSettings = getTabSettings(allSettingsData, newTab);
 		setIsChangeAnything(!checkIsEqual(tabSettings, pluginSettings));
 		setTabSettingsData(tabSettings);
@@ -99,11 +110,12 @@ const SettingsPage = () => {
 					/>
 				)}
 				{activeTab === "integrations" && <Integrations />}
+				{activeTab === "ai-configuration" && <AiConfiguration />}
 				{activeTab === "additional" && (
 					<CustomCssAndJs pluginSettings={tabSettingsData} updateSettingsOption={updateSettingsOption} />
 				)}
 				{activeTab === "tools" && <Tools />}
-				{activeTab !== "license-key" && activeTab !== "tools" && activeTab !== "integrations" && (
+				{!tabsWithoutSave.includes(activeTab) && (
 					<SaveAndReset
 						onSave={handleSettingsSave}
 						onReset={handleSettingsReset}

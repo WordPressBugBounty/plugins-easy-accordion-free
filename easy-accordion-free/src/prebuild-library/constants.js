@@ -1,5 +1,5 @@
 /**
- * Constants for Smart Design Library
+ * Constants for the Ready Patterns Library.
  */
 
 // API Endpoints
@@ -14,10 +14,7 @@ export const API_ENDPOINTS = {
 export const CSS_CLASSES = {
 	MODAL: "sp-eap-patterns-builder-modal",
 	POPUP_OPEN: "sp-eap-patterns-popup-open",
-	TOOLBAR_LIBRARY: "sp-eap-patterns-toolbar-design-library",
-	PATTERN_GRID: "sp-eap-pattern-grid",
-	PATTERN_COL2: "sp-eap-pattern-col2",
-	PATTERN_COL3: "sp-eap-pattern-col3",
+	TOOLBAR_LIBRARY: "sp-eap-ready-patterns-toolbar-design-library",
 };
 
 // Default Values
@@ -26,8 +23,7 @@ export const DEFAULTS = {
 	SEARCH_QUERY: "",
 	TREND: "default",
 	FREE_PRO: "all",
-	DEBOUNCE_DELAY: 200,
-	SKELETON_COUNT: 25,
+	SKELETON_COUNT: 9,
 };
 
 // Keyboard Keys
@@ -35,13 +31,4 @@ export const KEYBOARD_KEYS = {
 	ESCAPE: 27,
 	ENTER: "Enter",
 	SPACE: " ",
-};
-
-// Filter Options
-export const FILTER_OPTIONS = {
-	TREND: [
-		{ value: "default", label: "Sort By" },
-		{ value: "popular", label: "Popular" },
-		{ value: "latest", label: "Latest" },
-	],
 };

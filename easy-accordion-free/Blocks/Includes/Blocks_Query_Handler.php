@@ -62,6 +62,7 @@ class Blocks_Query_Handler {
 			'orderby'             => $order_by,
 			'order'               => $order_direction,
 			'post_status'         => in_array( 'attachment', $multiple_post_type, true ) ? array( 'publish', 'inherit' ) : 'publish',
+			'has_password'        => false,
 			'ignore_sticky_posts' => true,
 			'no_found_rows'       => false,
 		);

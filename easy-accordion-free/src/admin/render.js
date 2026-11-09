@@ -7,9 +7,7 @@ import QuickStart from "./pages/quickStart/quickStart";
 import BlockVisibility from "./pages/blockVisibility";
 import SavedTemplates from "./pages/saved-templates";
 import SettingsPage from "./pages/settings";
-// import Integrations from "./pages/integrations"; // Moved to Settings page as a tab
 import Modules from "./pages/modules";
-import Footer from "./templates/footer";
 import SetupWizard from "./setup-wizard";
 import { STORE_NAME } from "./store";
 import "./style.scss";
@@ -33,6 +31,27 @@ const initCrispChat = () => {
 	})();
 };
 
+// Pages that moved inside another page; their old deep links are rewritten to the new location.
+const legacyPageHashes = {
+	integrations: "settings=integrations",
+};
+
+const getHashValue = () => window.location?.hash?.replace("#", "") || "";
+
+/**
+ * Rewrite a legacy deep link (e.g. `#integrations`) in place, without adding a history entry.
+ *
+ * @return {boolean} Whether the hash was rewritten.
+ */
+const redirectLegacyHash = () => {
+	const target = legacyPageHashes[getHashValue()];
+	if (!target) {
+		return false;
+	}
+	window.history.replaceState(null, "", `#${target}`);
+	return true;
+};
+
 // Function to update the active state of sidebar menu items.
 const updateSidebarActive = (pageName) => {
 	const postMenu = document.getElementById("menu-posts-sp_easy_accordion");
@@ -52,11 +71,33 @@ const updateSidebarActive = (pageName) => {
 };
 
 const Render = () => {
-	const hashValue = window.location?.hash?.replace("#", "")?.split("=")[0];
+	const [page, setPage] = useState(() => {
+		// A legacy deep link lands on its new page on load.
+		redirectLegacyHash();
+		return getHashValue().split("=")[0] || "getting-start";
+	});
+	// Remounts the Settings page when a legacy link points it at another tab.
+	const [settingsKey, setSettingsKey] = useState(0);
+	const hashValue = getHashValue().split("=")[0];
 	const pluginsContainer = document.querySelector(".eab-recommended-plugins-wrapper");
 	// Update Sidebar active menu based on hash link.
 	updateSidebarActive(hashValue);
-	const [page, setPage] = useState(hashValue ? hashValue : "getting-start");
+
+	// A legacy deep link followed after load (address bar, in-page link) lands on its new page too.
+	useEffect(() => {
+		const onHashChange = () => {
+			if (!redirectLegacyHash()) {
+				return;
+			}
+			const pageName = getHashValue().split("=")[0];
+			updateSidebarActive(pageName);
+			setPage(pageName);
+			setSettingsKey((key) => key + 1);
+		};
+		window.addEventListener("hashchange", onHashChange);
+
+		return () => window.removeEventListener("hashchange", onHashChange);
+	}, []);
 
 	useEffect(() => {
 		if (hashValue === "our_plugins" && pluginsContainer) {
@@ -119,14 +160,14 @@ const Render = () => {
 			return [];
 		}
 		let items = [
-			{ label: "Dashboard", value: "getting-start", hash: "#" },
-			{ label: "Saved Templates", value: "saved_templates", hash: "#saved_templates" },
-			{ label: "Blocks", value: "blocks", hash: "#blocks", badge: "new" },
-			{ label: "Modules", value: "modules", hash: "#modules" },
+			{ label: __("Dashboard", "easy-accordion-free"), value: "getting-start", hash: "#" },
+			{ label: __("Blocks", "easy-accordion-free"), value: "blocks", hash: "#blocks", badge: "new" },
+			{ label: __("Saved Templates", "easy-accordion-free"), value: "saved_templates", hash: "#saved_templates" },
 			// { label: "Integrations", value: "integrations", hash: "#integrations" }, // Moved to Settings page as a tab
-			{ label: "Settings", value: "settings", hash: "#settings" },
-			{ label: "Lite vs Pro", value: "lite_vs_pro", hash: "#lite_vs_pro" },
-			{ label: "Our Plugins", value: "our_plugins", hash: "#our_plugins", icon: <OurPluginsIcon /> },
+			{ label: __("Modules", "easy-accordion-free"), value: "modules", hash: "#modules" },
+			{ label: __("Settings", "easy-accordion-free"), value: "settings", hash: "#settings" },
+			{ label: __("Lite vs Pro", "easy-accordion-free"), value: "lite_vs_pro", hash: "#lite_vs_pro" },
+			{ label: __("Our Plugins", "easy-accordion-free"), value: "our_plugins", hash: "#our_plugins", icon: <OurPluginsIcon /> },
 		];
 		const isActiveTemplates = dashboardSettings?.modules?.saved_templates
 			? dashboardSettings?.modules?.saved_templates?.is_active
@@ -158,9 +199,8 @@ const Render = () => {
 						{page === "getting-start" && <QuickStart setPageAndHash={setPageAndHash} />}
 						{page === "blocks" && blockVisibility && <BlockVisibility />}
 						{page === "modules" && <Modules />}
-						{/* {page === "integrations" && dashboardSettings && <Integrations />} */} {/* Moved to Settings page as a tab */}
 						{page === "saved_templates" && <SavedTemplates />}
-						{page === "settings" && <SettingsPage />}
+						{page === "settings" && <SettingsPage key={settingsKey} />}
 						{page === "about_us" && <AboutUs />}
 						{page === "lite_vs_pro" && <LiteVsPro />}
 					</div>

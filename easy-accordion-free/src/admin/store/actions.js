@@ -31,6 +31,7 @@ export const fetchApiData =
 			const response = await axios.post(sp_eab_admin_dashboard_localize?.ajax_url, data);
 			dispatch(setApiData(response.data));
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.error("Error fetching data:", error.message);
 		}
 		dispatch(setLoading(false));
@@ -42,11 +43,13 @@ export const fetchApiData =
  *
  * @param {Object} modifiedData - The data to save (e.g. { pluginSettings: {...} }).
  * @param {string} editorPreference - The editor preference value.
+ * @return {Promise<boolean>} Whether the save went through.
  */
 export const saveSettings =
 	(modifiedData, editorPreference) =>
 	async ({ dispatch }) => {
 		dispatch(setSaving(true));
+		let isSaved = false;
 		try {
 			const data = new FormData();
 			data.append("nonce", sp_eab_admin_dashboard_localize?.nonce);
@@ -57,9 +60,15 @@ export const saveSettings =
 			}
 
 			const response = await axios.post(sp_eab_admin_dashboard_localize?.ajax_url, data);
-			dispatch(setApiData(response.data));
+			// A refused request answers `{ success: false }` instead of the settings.
+			if (response?.data?.dashboardSettings || response?.data?.pluginSettings) {
+				dispatch(setApiData(response.data));
+				isSaved = true;
+			}
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.error("Error saving data:", error.message);
 		}
 		dispatch(setSaving(false));
+		return isSaved;
 	};

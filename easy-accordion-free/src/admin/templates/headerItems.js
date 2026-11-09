@@ -115,6 +115,7 @@ const HeaderItems = ({ menuItems = [], currentPage = "", setPageAndHash = () => 
 		})
 			.then((response) => response.json())
 			.catch((error) => {
+				// eslint-disable-next-line no-console
 				console.error("Error hiding upgrade notice:", error);
 			});
 	};
@@ -142,7 +143,8 @@ const HeaderItems = ({ menuItems = [], currentPage = "", setPageAndHash = () => 
 					<div className="sp-eab-green-header-notice-content">
 						<GreenCheckIcon />
 						<span className="sp-eab-green-header-notice-text">
-							You're currently using <strong>Easy Accordion Lite</strong>. To access additional features, consider
+							You're currently using <strong>Easy Accordion Lite</strong>. To access additional features,
+							consider
 						</span>
 						<a
 							className="sp-eab-green-header-notice-link"
@@ -175,7 +177,8 @@ const HeaderItems = ({ menuItems = [], currentPage = "", setPageAndHash = () => 
 							{sp_eab_admin_dashboard_localize?.pluginVersion}
 						</span>
 						<Drawer
-							anchor="right"
+							// In RTL the WP admin menu sits on the right, so open the changelog on the opposite (left) side.
+							anchor={document.documentElement.dir === "rtl" ? "left" : "right"}
 							open={showSidebar}
 							onClose={toggleDrawer(false)}
 							slotProps={{
@@ -199,8 +202,14 @@ const HeaderItems = ({ menuItems = [], currentPage = "", setPageAndHash = () => 
 							{changelogStatus === "error" && (
 								<div className="sp-eab-changelog-details sp-eab-changelog-error">
 									<p>{__("Couldn't load the latest changelog.", "easy-accordion-free")}</p>
-									{changelogError && <p className="sp-eab-changelog-error-detail">{changelogError}</p>}
-									<a href="https://easyaccordion.io/changelog/" target="_blank" rel="noopener noreferrer">
+									{changelogError && (
+										<p className="sp-eab-changelog-error-detail">{changelogError}</p>
+									)}
+									<a
+										href="https://easyaccordion.io/changelog/"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
 										{__("View changelog on easyaccordion.io", "easy-accordion-free")}
 									</a>
 								</div>

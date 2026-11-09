@@ -49,7 +49,7 @@ const ModulesItems = [
 		key: "generate_faqs_with_ai",
 		label: __("Generate FAQs with AI", "easy-accordion-free"),
 		desc: __(
-			"Automatically generate relevant FAQs from your content, keywords, or Prompts to save time and streamline content creation.",
+			"Automatically generate relevant FAQs from your content, keywords, or Prompts, using the AI provider connected under Settings → AI Configuration.",
 			"easy-accordion-free"
 		),
 		videoLink: "https://www.youtube.com/watch?v=xYL2HC6acgA",

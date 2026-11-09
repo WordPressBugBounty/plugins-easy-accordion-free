@@ -1,461 +1,526 @@
-import { __ } from "@wordpress/i18n";
-import { useEffect, useRef, useState } from "@wordpress/element";
-import { Tooltip, Spinner } from "@wordpress/components";
-import { useDispatch, resolveSelect, useSelect } from "@wordpress/data";
-import { copyText, toastErrorMsg, toastSuccessMsg } from "../../functions";
-import { CheckIcon, CopyIcon, DeleteBinIcon, EditPencilIcon, LeftArrow, RightArrow } from "./icons";
-import { SavedTemplatesPromo } from "./SavedTemplatesPromo";
+/**
+ * Saved Templates page.
+ *
+ * The list is server-paginated through `easy-accordion/v2/templates`
+ * (sp_eap_template block templates + sp_easy_accordion classic shortcodes,
+ * merged server-side): search, page and per_page go in the query, the rows
+ * and the filtered total come back. Duplicate and delete stay React-side
+ * handlers (useTemplates) — after each, this page refetches, clamping the
+ * page so a delete never lands the user on an empty last page.
+ *
+ * Empty library: the hero card explains the feature and the table carries an
+ * illustrated empty state; the toolbar and the pager only appear once there is
+ * something to act on, so the "create" call to action is never duplicated.
+ */
 
+import { useState, useMemo, useEffect, useRef } from "@wordpress/element";
+import { __, sprintf } from "@wordpress/i18n";
+import { Spinner } from "@wordpress/components";
+import useTemplates from "../../hooks/useTemplates";
+import { toggleSelection, allSelected, toggleSelectAll } from "./utils";
+import {
+	EditPencilIcon,
+	CopyIcon,
+	DeleteBinIcon,
+	LeftArrow,
+	RightArrow,
+	CheckIcon,
+	PlusIcon,
+	EmptyStateFolderIcon,
+} from "./icons";
+import SavedTemplatesHero from "./SavedTemplatesHero";
+
+const PER_PAGE = 10;
+const COLUMN_COUNT = 6;
+
+/**
+ * Column names. The header row prints them, and each body cell repeats its own
+ * in `data-label` so the phone layout — where the header is hidden and every
+ * row folds into a card — can show it in front of the value.
+ *
+ * @return {Object<string, string>} Column key => label.
+ */
+function columnLabels() {
+	return {
+		title: __("Title", "easy-accordion-free"),
+		block: __("Block", "easy-accordion-free"),
+		shortcode: __("Shortcode", "easy-accordion-free"),
+		date: __("Date", "easy-accordion-free"),
+		action: __("Actions", "easy-accordion-free"),
+	};
+}
+
+/**
+ * @param {string} text Text to copy.
+ * @return {Promise<boolean>} Whether copy succeeded.
+ */
+async function copyToClipboard(text) {
+	try {
+		if (navigator.clipboard?.writeText) {
+			await navigator.clipboard.writeText(text);
+			return true;
+		}
+	} catch (e) {
+		// Fall through.
+	}
+
+	try {
+		const area = document.createElement("textarea");
+		area.value = text;
+		area.setAttribute("readonly", "");
+		area.style.position = "absolute";
+		area.style.left = "-9999px";
+		document.body.appendChild(area);
+		area.select();
+		const ok = document.execCommand("copy");
+		document.body.removeChild(area);
+		return ok;
+	} catch (e) {
+		return false;
+	}
+}
+
+/**
+ * @return {JSX.Element} Saved Templates page.
+ */
 const SavedTemplates = () => {
-	const [selectBulkValue, setSelectBulkValue] = useState("");
+	const { items, totalItems, loading, error, fetchTemplates, duplicate, remove } = useTemplates();
 	const [searchValue, setSearchValue] = useState("");
+	const [debouncedSearch, setDebouncedSearch] = useState("");
+	const [selected, setSelected] = useState([]);
+	const [bulkAction, setBulkAction] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
-	const [allCheck, setAllCheck] = useState(false);
-	const [checkId, setCheckId] = useState([]);
-	const [shortcodeCopied, setShortcodeCopied] = useState("");
-	const [noPostText, setNoPostText] = useState(false);
-	const timeoutRef = useRef(null);
+	const [copiedId, setCopiedId] = useState(null);
+	const [showEmpty, setShowEmpty] = useState(false);
+	const searchTimer = useRef(null);
+	const { newTemplateUrl = "" } = sp_eab_admin_dashboard_localize || {};
 
-	// Get Block Editor Templates count.
-	const blockTemplateCount = useSelect(
-		(select) =>
-			select("core")?.getEntityRecords("postType", "sp_eap_template", {
-				status: "any",
-				per_page: -1,
-				search: searchValue,
-				_fields: ["id"],
-			})?.length || 0,
-		[searchValue]
-	);
+	// Debounce the search box; committing a term always restarts at page 1 of
+	// the filtered set.
+	useEffect(() => {
+		clearTimeout(searchTimer.current);
+		searchTimer.current = setTimeout(() => {
+			setDebouncedSearch(searchValue.trim());
+			setCurrentPage(1);
+		}, 300);
+		return () => clearTimeout(searchTimer.current);
+	}, [searchValue]);
 
-	// Table columns for saved templates
-	const tableCol = ["checkBox", "title", "shortcode", "date", "action"];
+	// The list lives on the server: page and search changes fetch it.
+	useEffect(() => {
+		fetchTemplates(debouncedSearch, currentPage, PER_PAGE);
+	}, [fetchTemplates, debouncedSearch, currentPage]);
 
-	// Total count for pagination.
-	const totalPostCount = blockTemplateCount;
+	const totalPages = Math.max(1, Math.ceil(totalItems / PER_PAGE));
 
-	// Get Block Editor Templates.
-	const blockTemplateList = useSelect(
-		(select) =>
-			select("core")?.getEntityRecords("postType", "sp_eap_template", {
-				status: "any",
-				per_page: -1,
-				search: searchValue,
-				_fields: ["id", "modified", "title", "status"],
-			}) || [],
-		[searchValue]
-	);
-
-	// Sort by modified date (newest first).
-	const allTemplates = blockTemplateList.sort((a, b) => {
-		return new Date(b.modified) - new Date(a.modified);
-	});
-
-	// Paginate list.
-	const savedTemplateList = allTemplates.slice(
-		searchValue ? 0 : (currentPage - 1) * 10,
-		searchValue ? 10 : currentPage * 10
-	);
-
-	// Copy Shortcode Upon Clicking Short code.
-	const copyShortCodeHandler = (item) => {
-		const shortcode = `[sp_eap_template id="${item.id}"]`;
-		const copied = copyText(shortcode);
-
-		if (copied) {
-			setShortcodeCopied(item.id);
-		} else {
-			toastErrorMsg(__("Failed to copy shortcode", "easy-accordion-free"));
+	// Brief spinner before empty copy.
+	useEffect(() => {
+		setShowEmpty(false);
+		if (loading) {
+			return undefined;
 		}
-	};
-
-	const checkIdHandler = (itemId) => {
-		const hasValue = checkId.includes(itemId);
-		const updateValue = hasValue ? checkId?.filter((value) => value !== itemId) : [...checkId, itemId];
-		setCheckId(updateValue);
-		setAllCheck(false);
-	};
-
-	// Set Search value with debounce.
-	const searchValueHandler = (e) => {
-		const searchInputValue = e.target?.value;
-		if (timeoutRef.current) {
-			clearTimeout(timeoutRef.current);
+		if (items.length > 0) {
+			return undefined;
 		}
-		timeoutRef.current = setTimeout(() => {
-			setSearchValue(searchInputValue);
-		}, 1000);
-	};
+		const t = setTimeout(() => setShowEmpty(true), 800);
+		return () => clearTimeout(t);
+	}, [loading, items.length]);
 
-	// Get Delete entity record.
-	const { deleteEntityRecord, editEntityRecord, saveEntityRecord, saveEditedEntityRecord, invalidateResolution } =
-		useDispatch("core");
+	const headerChecked = items.length > 0 && allSelected(items, selected);
 
-	// Delete Item.
-	const deleteItemHandler = async (itemId = null) => {
-		const deleteId = itemId ? [itemId] : checkId;
-		if (deleteId?.length < 1) {
-			return;
-		}
+	// Library size from the server, not the current page — an unmatched search
+	// must not read as an empty library and bring the hero back.
+	const hasTemplates = totalItems > 0;
+	const showHero = !loading && !error && 0 === totalItems && "" === debouncedSearch;
+
+	/**
+	 * @param {number[]} ids IDs to delete.
+	 */
+	const handleDelete = async (ids) => {
+		const list = Array.isArray(ids) ? ids : [ids];
+		const message =
+			list.length > 1
+				? sprintf(
+						/* translators: %d: number of templates. */
+						__("Delete %d templates? They will be moved to Trash.", "easy-accordion-free"),
+						list.length
+					)
+				: __("Delete this template? It will be moved to Trash.", "easy-accordion-free");
+
 		// eslint-disable-next-line no-alert
-		const confirmed = window.confirm("Are you sure you want to delete this saved template?");
-		if (confirmed) {
-			await Promise.all(
-				deleteId.map(async (id) => {
-					try {
-						await deleteEntityRecord("postType", "sp_eap_template", id, { force: true });
-					} catch (error) {
-						// console.error(`Error deleting template ID: ${id}`, error);
-						toastErrorMsg(`Error deleting template ID: ${id}: ${error} `);
-					}
-				})
-			);
-			const updateData = itemId ? checkId?.filter((itemValueId) => itemValueId !== deleteId[0]) : [];
-			setCheckId(updateData);
-			toastSuccessMsg("Template deleted successfully.");
-		}
-	};
-
-	// Update Post Status.
-	const updateStatusHandler = async (newStatus = "publish") => {
-		const updateId = checkId;
-		if (updateId?.length < 1) {
-			return;
-		}
-		await Promise.all(
-			updateId?.map(async (id) => {
-				try {
-					if (!id) {
-						return;
-					}
-					// Check if record exists in the store
-					const record = await resolveSelect("core").getEntityRecord("postType", "sp_eap_template", id);
-
-					if (!record) {
-						return;
-					}
-					await editEntityRecord("postType", "sp_eap_template", id, { status: newStatus });
-					await saveEditedEntityRecord("postType", "sp_eap_template", id);
-				} catch (error) {
-					// console.error(`Error update template ID: ${id}`, error);
-					toastErrorMsg(`Error while updating template ID: ${id}: ${error} `);
-				}
-			})
-		);
-		toastSuccessMsg("Template post status updated successfully.");
-		setCheckId([]);
-	};
-
-	// Bulk Action Function.
-	const bulkActionHandler = () => {
-		if (selectBulkValue === "") {
-			return;
-		}
-		switch (selectBulkValue) {
-			case "publish":
-				updateStatusHandler("publish");
-				break;
-			case "draft":
-				updateStatusHandler("draft");
-				break;
-			case "delete":
-				deleteItemHandler();
-				break;
-			default:
-				break;
-		}
-		setCheckId([]);
-		setAllCheck(false);
-		setSelectBulkValue("");
-	};
-
-	const duplicateShortcodeHandler = async (item) => {
-		try {
-			// Block template duplication via data store.
-			const original = await resolveSelect("core").getEntityRecord("postType", "sp_eap_template", item.id);
-
-			if (!original) {
-				toastErrorMsg("Template not found");
-				return;
-			}
-
-			await saveEntityRecord("postType", "sp_eap_template", {
-				title: `${original.title.raw || "(No title)"} (Copy)`,
-				content: original.content?.raw || "",
-				meta: original.meta || {},
-				status: "draft",
-			});
-
-			// Invalidate list to refresh with exact query parameters
-			invalidateResolution("getEntityRecords", [
-				"postType",
-				"sp_eap_template",
-				{
-					status: "any",
-					per_page: -1,
-					search: searchValue,
-					_fields: ["id", "modified", "title", "status"],
-				},
-			]);
-
-			toastSuccessMsg("Template duplicated successfully.");
-		} catch (error) {
-			toastErrorMsg(`Failed to duplicate template: ${error.message}`);
-		}
-	};
-
-	useEffect(() => {
-		if (!shortcodeCopied) {
+		if (!window.confirm(message)) {
 			return;
 		}
 
-		const timer = setTimeout(() => {
-			setShortcodeCopied("");
+		const deleted = await remove(list);
+		if (deleted.length) {
+			const removedSet = new Set(deleted);
+			setSelected((prev) => prev.filter((id) => !removedSet.has(id)));
+
+			// Clamp the page: emptying the last page steps back to the new
+			// last page instead of showing an empty one.
+			const remainingPages = Math.max(1, Math.ceil((totalItems - deleted.length) / PER_PAGE));
+			const nextPage = Math.min(currentPage, remainingPages);
+			setCurrentPage(nextPage);
+			// An explicit fetch: nextPage can equal currentPage, in which case
+			// the effect above does not re-run on its own.
+			fetchTemplates(debouncedSearch, nextPage, PER_PAGE);
+		}
+	};
+
+	const applyBulk = async () => {
+		if ("delete" !== bulkAction || 0 === selected.length) {
+			return;
+		}
+		await handleDelete(selected);
+		setBulkAction("");
+	};
+
+	/**
+	 * Duplicate, then land on page 1 where the draft copy now sits.
+	 *
+	 * @param {number} id Template id.
+	 */
+	const handleDuplicate = async (id) => {
+		const ok = await duplicate(id);
+		if (ok) {
+			setCurrentPage(1);
+			// Same explicit-refetch rule as delete: page 1 may already be current.
+			fetchTemplates(debouncedSearch, 1, PER_PAGE);
+		}
+	};
+
+	/**
+	 * @param {Object} row Template row.
+	 */
+	const copyShortcode = async (row) => {
+		const ok = await copyToClipboard(row.shortcode);
+		if (!ok) {
+			return;
+		}
+		setCopiedId(row.id);
+		setTimeout(() => {
+			setCopiedId((id) => (id === row.id ? null : id));
 		}, 2000);
+	};
 
-		return () => clearTimeout(timer);
-	}, [shortcodeCopied]);
-
-	useEffect(() => {
-		if (savedTemplateList?.length < 1) {
-			if (timeoutRef.current) {
-				clearTimeout(timeoutRef.current);
-			}
-			timeoutRef.current = setTimeout(() => {
-				setNoPostText(true);
-			}, 1500);
+	/**
+	 * The Block column: a "Classic" badge for classic shortcodes, the parsed
+	 * block label for block templates, or a dash for an empty template.
+	 *
+	 * @param {Object} row Template row.
+	 * @return {JSX.Element} Cell content.
+	 */
+	const renderBlockCell = (row) => {
+		if ("classic" === row.source) {
+			return (
+				<span
+					className="speap-saved-template-block-badge speap-saved-template-block-badge--classic"
+					title={__("Classic shortcode accordion", "easy-accordion-free")}
+				>
+					{__("Classic", "easy-accordion-free")}
+				</span>
+			);
 		}
-	}, [savedTemplateList]);
+		if (row.blockLabel) {
+			return (
+				<span className="speap-saved-template-block-badge" title={(row.blockTypes || []).join(", ")}>
+					{row.blockLabel}
+				</span>
+			);
+		}
+		return (
+			<span
+				className="speap-saved-template-block-empty"
+				aria-label={__("No accordion block yet", "easy-accordion-free")}
+			>
+				&mdash;
+			</span>
+		);
+	};
 
-	// Pagination.
-	const totalPages = Math.ceil(totalPostCount / 10);
+	const labels = useMemo(() => columnLabels(), []);
 	const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+	const rangeStart = items.length === 0 ? 0 : (currentPage - 1) * PER_PAGE + 1;
+	const rangeEnd = (currentPage - 1) * PER_PAGE + items.length;
 
 	return (
 		<div className="speap-saved-templates-page-wrapper">
-			<div className="sp-eab-saved-templates-page-container sp-d-flex sp-flex-col">
-				<div className="sp-eab-saved-template-header sp-d-flex sp-align-center sp-justify-between">
-					<div className="sp-eab-saved-template-header-left sp-d-flex">
-						<select
-							name="bulk-action"
-							className="sp-eab-saved-template-select"
-							value={selectBulkValue}
-							onChange={(e) => setSelectBulkValue(e.target.value)}
-						>
-							<option value="">Bulk Action</option>
-							<option value={"publish"}>Publish</option>
-							<option value={"draft"}>Draft</option>
-							<option value={"delete"}>Delete</option>
-						</select>
-						<button className="sp-eab-saved-template-select-apply" onClick={bulkActionHandler}>
-							Apply
-						</button>
-						<input
-							name="search-weather-template"
-							className="sp-eab-saved-template-search-field"
-							type="text"
-							placeholder="Search..."
-							spellCheck="false"
-							data-ms-editor="true"
-							onChange={searchValueHandler}
-						/>
+			{showHero && <SavedTemplatesHero />}
+
+			<div
+				className={`speap-saved-templates-page-container${
+					hasTemplates ? "" : " speap-saved-templates-page-container--bare"
+				}`}
+			>
+				{hasTemplates && (
+					<div className="speap-saved-template-header">
+						<div className="speap-saved-template-header-left">
+							<select
+								name="bulk-action"
+								className="speap-saved-template-select"
+								value={bulkAction}
+								onChange={(e) => setBulkAction(e.target.value)}
+								aria-label={__("Bulk action", "easy-accordion-free")}
+							>
+								<option value="">{__("Bulk Action", "easy-accordion-free")}</option>
+								<option value="delete">{__("Delete", "easy-accordion-free")}</option>
+							</select>
+							<button
+								type="button"
+								className="speap-saved-template-select-apply"
+								onClick={applyBulk}
+								disabled={!bulkAction || 0 === selected.length}
+							>
+								{__("Apply", "easy-accordion-free")}
+							</button>
+							<input
+								name="search-templates"
+								className="speap-saved-template-search-field"
+								type="text"
+								placeholder={__("Search…", "easy-accordion-free")}
+								spellCheck="false"
+								value={searchValue}
+								onChange={(e) => setSearchValue(e.target.value)}
+								aria-label={__("Search templates", "easy-accordion-free")}
+							/>
+						</div>
+						<div className="speap-saved-template-header-right">
+							{newTemplateUrl ? (
+								<a href={newTemplateUrl} className="speap-saved-template-add-new" rel="noreferrer">
+									<PlusIcon />
+									{__("Create a Saved Template", "easy-accordion-free")}
+								</a>
+							) : null}
+						</div>
 					</div>
-					<div className="sp-eab-saved-template-header-right">
-						<a
-							href={`${sp_eab_admin_dashboard_localize?.homeUrl}wp-admin/post-new.php?post_type=sp_eap_template`}
-							className="sp-eab-saved-template-add-new sp-d-flex sp-align-center sp-justify-center sp-gap-8px sp-cursor-pointer"
-							rel="noreferrer"
-						>
-							<i className="dashicons dashicons-plus-alt2"></i>
-							Add New Template
-						</a>
-					</div>
-				</div>
-				<table className="sp-eab-saved-template-content-table">
-					<thead className="sp-eab-saved-template-table-head">
+				)}
+
+				<table className="speap-saved-template-content-table">
+					<thead className="speap-saved-template-table-head">
 						<tr>
-							{tableCol?.map((item, i) => (
-								<th key={i} className={`sp-eab-saved-template-table-${item}`}>
-									{item === "checkBox" ? (
-										<input
-											type="checkbox"
-											onChange={() => {
-												setAllCheck((prev) => !prev);
-												setCheckId(
-													!allCheck ? savedTemplateList?.map((listItem) => listItem.id) : []
-												);
-											}}
-											checked={allCheck}
-										/>
-									) : (
-										item
-									)}
-								</th>
-							))}
+							<th className="speap-saved-template-table-checkBox">
+								<input
+									type="checkbox"
+									checked={headerChecked}
+									onChange={() => setSelected(toggleSelectAll(items, selected))}
+									disabled={items.length === 0}
+									aria-label={__("Select all templates", "easy-accordion-free")}
+								/>
+							</th>
+							<th className="speap-saved-template-table-title">{labels.title}</th>
+							<th className="speap-saved-template-table-block">{labels.block}</th>
+							<th className="speap-saved-template-table-shortcode">{labels.shortcode}</th>
+							<th className="speap-saved-template-table-date">{labels.date}</th>
+							<th className="speap-saved-template-table-action">{labels.action}</th>
 						</tr>
 					</thead>
-					<tbody className="sp-eab-saved-template-table-body">
-						{!noPostText && (!savedTemplateList || savedTemplateList.length === 0) && (
-							<tr>
-								<td className="sp-eab-saved-template-preloader-no-data">
-									<span className="sp-eab-saved-template-loading">
+					<tbody className="speap-saved-template-table-body">
+						{loading && (
+							<tr className="speap-saved-template-state-row">
+								<td colSpan={COLUMN_COUNT} className="speap-saved-template-preloader-no-data">
+									<span className="speap-saved-template-loading">
+										<Spinner />
+										{__("Loading templates…", "easy-accordion-free")}
+									</span>
+								</td>
+							</tr>
+						)}
+
+						{!loading && error && (
+							<tr className="speap-saved-template-state-row">
+								<td colSpan={COLUMN_COUNT} className="speap-saved-template-no-data">
+									<p>{error}</p>
+									<button
+										type="button"
+										className="speap-saved-template-select-apply"
+										onClick={() => fetchTemplates(debouncedSearch, currentPage, PER_PAGE)}
+									>
+										{__("Retry", "easy-accordion-free")}
+									</button>
+								</td>
+							</tr>
+						)}
+
+						{!loading && !error && 0 === items.length && !showEmpty && (
+							<tr className="speap-saved-template-state-row">
+								<td colSpan={COLUMN_COUNT} className="speap-saved-template-preloader-no-data">
+									<span className="speap-saved-template-loading">
 										<Spinner />
 									</span>
 								</td>
 							</tr>
 						)}
-						{savedTemplateList?.map((item, i) => {
-							const date = new Date(item?.modified);
-							const checkBoxValue = allCheck ? true : checkId?.some((itemId) => itemId === item?.id);
 
-							return (
-								<tr key={i} className="sp-eab-saved-template-table-row">
-									<td id={item?.id} className="sp-eab-saved-template-table-checkBox">
-										<input
-											type="checkbox"
-											onChange={() => checkIdHandler(item?.id)}
-											checked={checkBoxValue}
-										/>
-									</td>
-									<td className="sp-eab-saved-template-table-title">
-										<a
-											href={`${sp_eab_admin_dashboard_localize?.homeUrl}wp-admin/post.php?post=${item?.id}&action=edit`}
-											rel="noreferrer noopener"
-										>
-											<span
-												dangerouslySetInnerHTML={{
-													__html: item?.title?.rendered || "(No Title)",
-												}}
-											/>
-										</a>
-									</td>
-									<td className="sp-eab-saved-template-table-shortcode">
-										<span
-											className="sp-eab-saved-template-shortcode-text"
-											onClick={() => copyShortCodeHandler(item)}
-										>
-											{`[sp_eap_template id="${item?.id}"]`}
-										</span>{" "}
-										<span
-											className="sp-eab-shortcode-copy-tooltip"
-											style={{
-												opacity: shortcodeCopied === item.id ? 1 : 0,
-											}}
-										>
-											<CheckIcon />
-											Copied!
-										</span>
-										{shortcodeCopied !== item.id && (
-											<svg
-												width="14"
-												height="14"
-												viewBox="0 0 14 14"
-												fill="none"
-												xmlns="http://www.w3.org/2000/svg"
-											>
-												<path
-													fillRule="evenodd"
-													clipRule="evenodd"
-													d="M1.35417 1.25H9.47917C9.53667 1.25 9.58333 1.29667 9.58333 1.35417V9.47917C9.58333 9.50679 9.57236 9.53329 9.55282 9.55282C9.53329 9.57236 9.50679 9.58333 9.47917 9.58333H1.35417C1.32654 9.58333 1.30004 9.57236 1.28051 9.55282C1.26097 9.53329 1.25 9.50679 1.25 9.47917V1.35417C1.25 1.29667 1.29667 1.25 1.35417 1.25ZM0 1.35417C0 0.606667 0.606667 0 1.35417 0H9.47917C10.2275 0 10.8333 0.606667 10.8333 1.35417V9.47917C10.8333 10.2275 10.2275 10.8333 9.47917 10.8333H1.35417C0.995019 10.8333 0.650582 10.6907 0.396626 10.4367C0.142671 10.1828 0 9.83831 0 9.47917V1.35417ZM12.0833 11.0675V3.5675H13.3333V11.0675C13.3333 12.3333 12.3083 13.3333 11.0425 13.3333H1.875V12.0833H11.0425C11.6175 12.0833 12.0833 11.6433 12.0833 11.0675Z"
-													fill="#757575"
-												></path>
-											</svg>
-										)}
-									</td>
-									<td className="sp-eab-saved-template-table-date">
-										<div>{item?.status}</div>
-										<div>{date?.toLocaleString("en-US")}</div>
-									</td>
-									<td className="sp-eab-saved-template-table-action">
-										<div className="sp-eab-saved-template-table-action-btn">
-											<Tooltip text="Edit" delay={300} placement="top">
-												<a
-													aria-label="Edit"
-													href={`${sp_eab_admin_dashboard_localize?.homeUrl}wp-admin/post.php?post=${item?.id}&action=edit`}
-													className="sp-eab-saved-template-action sp-action-edit"
-													rel="noreferrer"
-												>
-													<EditPencilIcon />
-												</a>
-											</Tooltip>
-											<Tooltip text="Duplicate" delay={300} placement="top">
-												<button
-													aria-label="Duplicate"
-													className="sp-eab-saved-template-action sp-action-copy"
-													onClick={() => duplicateShortcodeHandler(item)}
-												>
-													<CopyIcon />
-												</button>
-											</Tooltip>
-											<Tooltip text="Delete" delay={300} placement="top">
-												<button
-													aria-label="Delete"
-													className="sp-eab-saved-template-action sp-action-delete"
-													onClick={() => deleteItemHandler(item?.id)}
-												>
-													<DeleteBinIcon />
-												</button>
-											</Tooltip>
+						{!loading && !error && 0 === items.length && showEmpty && (
+							<tr className="speap-saved-template-state-row speap-saved-template-empty-row">
+								<td colSpan={COLUMN_COUNT} className="speap-saved-template-preloader-no-data">
+									<div className="speap-saved-template-empty">
+										<div className="speap-saved-template-empty__message">
+											<EmptyStateFolderIcon />
+											<p className="speap-saved-template-empty__text">
+												{debouncedSearch
+													? __("No templates match your search.", "easy-accordion-free")
+													: __("No saved templates yet.", "easy-accordion-free")}
+											</p>
 										</div>
-									</td>
-								</tr>
-							);
-						})}
-						{noPostText && (!savedTemplateList || savedTemplateList.length === 0) && (
-							<tr>
-								<td className="sp-eab-saved-template-preloader-no-data">
-									<span className="sp-eab-saved-template-no-data">
-										{__("No saved template found!", "easy-accordion-free")}
-									</span>
+										{!hasTemplates && newTemplateUrl ? (
+											<a
+												href={newTemplateUrl}
+												rel="noreferrer"
+												className="speap-saved-template-empty__cta"
+											>
+												{__("Create a Saved Template", "easy-accordion-free")}
+												<PlusIcon />
+											</a>
+										) : null}
+									</div>
 								</td>
 							</tr>
 						)}
+
+						{!loading &&
+							!error &&
+							items.map((row) => (
+								<tr key={row.id}>
+									<td className="speap-saved-template-table-checkBox">
+										<input
+											type="checkbox"
+											checked={selected.includes(row.id)}
+											onChange={() => setSelected(toggleSelection(selected, row.id))}
+											aria-label={sprintf(
+												/* translators: %s: template title. */
+												__("Select %s", "easy-accordion-free"),
+												row.title
+											)}
+										/>
+									</td>
+									<td className="speap-saved-template-table-title">
+										<a href={row.editUrl}>{row.title}</a>
+										{"publish" !== row.status && (
+											<span className="speap-saved-template-badge">{row.status}</span>
+										)}
+									</td>
+									<td className="speap-saved-template-table-block" data-label={labels.block}>
+										{renderBlockCell(row)}
+									</td>
+									<td className="speap-saved-template-table-shortcode" data-label={labels.shortcode}>
+										<span
+											className="speap-saved-template-shortcode-text"
+											onClick={() => copyShortcode(row)}
+											onKeyDown={(e) => {
+												if ("Enter" === e.key || " " === e.key) {
+													e.preventDefault();
+													copyShortcode(row);
+												}
+											}}
+											role="button"
+											tabIndex={0}
+											title={__("Click to copy", "easy-accordion-free")}
+										>
+											{row.shortcode}
+										</span>
+										{copiedId === row.id && (
+											<span className="speap-shortcode-copy-tooltip">
+												<CheckIcon />
+												{__("Copied!", "easy-accordion-free")}
+											</span>
+										)}
+									</td>
+									<td className="speap-saved-template-table-date" data-label={labels.date}>
+										<span className="speap-saved-template-date-value">
+											{row.status}
+											<br />
+											{row.dateDisplay}
+										</span>
+									</td>
+									<td className="speap-saved-template-table-action" data-label={labels.action}>
+										<div className="speap-saved-template-table-action-btn">
+											<a
+												className="speap-saved-template-action speap-action-edit"
+												href={row.editUrl}
+												aria-label={__("Edit", "easy-accordion-free")}
+												title={__("Edit", "easy-accordion-free")}
+											>
+												<EditPencilIcon />
+											</a>
+											<button
+												type="button"
+												className="speap-saved-template-action speap-action-copy"
+												onClick={() => handleDuplicate(row.id)}
+												aria-label={__("Duplicate", "easy-accordion-free")}
+												title={__("Duplicate", "easy-accordion-free")}
+											>
+												<CopyIcon />
+											</button>
+											<button
+												type="button"
+												className="speap-saved-template-action speap-action-delete"
+												onClick={() => handleDelete([row.id])}
+												aria-label={__("Delete", "easy-accordion-free")}
+												title={__("Delete", "easy-accordion-free")}
+											>
+												<DeleteBinIcon />
+											</button>
+										</div>
+									</td>
+								</tr>
+							))}
 					</tbody>
 				</table>
-				<div className="sp-eab-saved-template-footer">
-					<div className="sp-eab-saved-template-count">
-						Page {currentPage} of {Math.ceil(totalPostCount / 10) || 1} &nbsp;{" "}
-						<span>[ {totalPostCount} Items ]</span>
-					</div>
-					<div className="sp-eab-saved-template-pagination">
-						{pages?.length > 1 && (
-							<>
+
+				{!loading && !error && items.length > 0 && (
+					<div className="speap-saved-template-footer">
+						<p className="speap-saved-template-count">
+							{sprintf(
+								/* translators: 1: start, 2: end, 3: total */
+								__("%1$d–%2$d of %3$d items", "easy-accordion-free"),
+								rangeStart,
+								rangeEnd,
+								totalItems
+							)}
+						</p>
+						{totalPages > 1 && (
+							<div className="speap-saved-template-pagination">
 								<button
-									className={`sp-eab-saved-template-pagination-btn sp-btn-prev ${
-										currentPage === 1 ? "btn-disabled" : ""
+									type="button"
+									className={`speap-saved-template-pagination-btn${
+										currentPage <= 1 ? " btn-disabled" : ""
 									}`}
-									onClick={() => setCurrentPage(currentPage !== 1 ? currentPage - 1 : 1)}
+									disabled={currentPage <= 1}
+									onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+									aria-label={__("Previous page", "easy-accordion-free")}
 								>
 									<LeftArrow />
 								</button>
-								{pages.map((item, i) => (
+								{pages.map((n) => (
 									<button
-										key={i}
-										className={`sp-eab-saved-template-pagination-btn ${
-											currentPage === item ? "btn-active" : "sp-btn-numb"
+										key={n}
+										type="button"
+										className={`speap-saved-template-pagination-btn${
+											n === currentPage ? " btn-active" : ""
 										}`}
-										onClick={(e) => setCurrentPage(Number(e.target?.value))}
-										value={item}
+										onClick={() => setCurrentPage(n)}
 									>
-										{item}
+										{n}
 									</button>
 								))}
 								<button
-									className={`sp-eab-saved-template-pagination-btn sp-btn-next ${
-										currentPage === pages?.length ? "btn-disabled" : ""
+									type="button"
+									className={`speap-saved-template-pagination-btn${
+										currentPage >= totalPages ? " btn-disabled" : ""
 									}`}
-									onClick={() =>
-										setCurrentPage(currentPage !== pages?.length ? currentPage + 1 : pages?.length)
-									}
+									disabled={currentPage >= totalPages}
+									onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+									aria-label={__("Next page", "easy-accordion-free")}
 								>
 									<RightArrow />
 								</button>
-							</>
+							</div>
 						)}
 					</div>
-				</div>
+				)}
 			</div>
-			<SavedTemplatesPromo />
 		</div>
 	);
 };

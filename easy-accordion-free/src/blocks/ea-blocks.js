@@ -1,6 +1,6 @@
 import { updateCategory } from "@wordpress/blocks";
 import { CategoryIcon, ProBlocksCategoryIcon } from "../icons";
-import { ToolbarLibrary } from "../prebuild-library/toolbarButton";
+import { initPatternsLibrary } from "../prebuild-library/toolbarButton";
 import "./editor.scss";
 import "./style.scss";
 import "../controls/redirect";
@@ -27,5 +27,6 @@ updateCategory("sp-easy-accordion-pro", {
 updateCategory("sp-easy-accordion-pro-blocks", {
 	icon: <ProBlocksCategoryIcon />,
 });
-// toolbar button for accordion patterns library.
-ToolbarLibrary();
+
+// Patterns Library header launcher.
+initPatternsLibrary();

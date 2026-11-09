@@ -145,6 +145,29 @@ if ( ! class_exists( 'EAP_Saved_Templates' ) ) {
 			return $use_block_editor;
 		}
 
+		/**
+		 * Whether a post may be rendered as a saved template.
+		 *
+		 * A template is renderable only when it is a published,
+		 * non-password-protected sp_eap_template post. Used by the shortcode
+		 * callback and by the page builder integrations, so arbitrary posts
+		 * (password-protected posts included) can never be rendered by id.
+		 *
+		 * @param WP_Post|null $post Post to check.
+		 *
+		 * @return bool
+		 */
+		public static function is_renderable_template( $post ) {
+			if ( ! $post instanceof WP_Post ) {
+				return false;
+			}
+
+			return 'sp_eap_template' === $post->post_type
+				&& 'publish' === $post->post_status
+				&& empty( $post->post_password )
+				&& ! post_password_required( $post );
+		}
+
 
 		/**
 		 * Method eap_saved_template_callback
@@ -161,9 +184,9 @@ if ( ! class_exists( 'EAP_Saved_Templates' ) ) {
 			if ( ! $id ) {
 				return '';
 			}
-			// return if post id or post type is not published.
+			// return if the post is not a published, unprotected saved template.
 			$post = get_post( $id );
-			if ( ! $post || 'publish' !== $post->post_status ) {
+			if ( ! self::is_renderable_template( $post ) ) {
 				return '';
 			}
 			// return if post content is empty.

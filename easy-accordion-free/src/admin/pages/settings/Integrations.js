@@ -2,29 +2,16 @@ import { __ } from "@wordpress/i18n";
 import {
 	BeaverIntegrationIcon,
 	BricksIntegrationIcon,
-	ChatGPTIcon,
 	DiviIntegrationIcon,
 	ElementorIntegrationIcon,
-	GeminiIcon,
 	GoogleRecaptchaIcon,
 	OxygenIntegrationIcon,
 	WPBakeryIntegrationIcon,
 } from "../integrations/icons";
 import RenderModuleCard from "../modules/render";
 
+// AI providers live on Settings → AI Configuration.
 const integrationsItems = [
-	{
-		id: 1,
-		Icon: GeminiIcon,
-		key: "gemini",
-		label: "Google Gemini",
-		desc: __(
-			"Configure API key and token to enable AI-powered FAQ generation from your content, keywords, or custom prompts.",
-			"easy-accordion-free"
-		),
-		videoLink: "https://www.youtube.com/watch?v=bRVTr1kki1w",
-		docLink: "https://easyaccordion.io/docs/google-gemini/",
-	},
 	// upcoming.
 	{
 		upcoming: true,
@@ -39,20 +26,6 @@ const integrationsItems = [
 		),
 		videoLink: "https://www.youtube.com/watch?v=O_-HQWS3SnI",
 		docLink: "https://easyaccordion.io/docs/google-recaptcha/",
-	},
-	{
-		upcoming: true,
-		id: 3,
-		Icon: ChatGPTIcon,
-		hideSettings: true,
-		key: "chatgpt",
-		label: "ChatGPT",
-		desc: __(
-			"Easy Accordion integrates ChatGPT into the WordPress Dashboard, allowing you to generate content effortlessly.",
-			"easy-accordion-free"
-		),
-		videoLink: "#",
-		docLink: "#",
 	},
 	{
 		id: 4,

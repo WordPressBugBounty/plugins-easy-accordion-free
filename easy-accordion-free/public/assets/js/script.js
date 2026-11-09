@@ -13,7 +13,13 @@
 			var ea_mode = _this.data('ea-mode');
 			var preloader = _this.data('preloader');
 			var scroll_active_item = _this.data('scroll-active-item'),
-				offset_to_scroll = _this.data('offset-to-scroll');
+				offset_to_scroll = parseInt(_this.data('offset-to-scroll'), 10) || 0;
+			// data-scroll-active-item is printed as "1" or "" (false). Normalize it.
+			scroll_active_item = (scroll_active_item === true || scroll_active_item === 1 || scroll_active_item === '1' || scroll_active_item === 'true');
+			// Never let the "#" link of a header move the page (caused jumps when the option is Off).
+			_this.on('click', '> .ea-card > .ea-header a[href="#"]', function (event) {
+				event.preventDefault();
+			});
 			if (ea_mode === 'vertical') {
 				if (ea_active === 'ea-click') {
 					$("#" + accordion_id).each(function () {
@@ -61,17 +67,21 @@
 				});
 			}
 
-			// Scroll to active item scripts.
-			if (scroll_active_item) {
-				$("#" + accordion_id + ' .sp-collapse').on('show.bs.spcollapse', function (e) {
-					var $panel = $(this).closest('.ea-card');
-					setTimeout(function (e) {
-						$('html,body').animate({
-							scrollTop: $panel.offset().top - offset_to_scroll
-						}, 500);
-					}, 500)
-				});
-			}
+			// Scroll to active item scripts. Runs once the transition has finished so the layout is final, and clears the fixed admin bar.
+			$("#" + accordion_id + ' .sp-collapse').on('shown.bs.spcollapse', function (e) {
+				e.stopPropagation();
+				var $header = $(this).closest('.ea-card').children('.ea-header');
+				var $adminBar = $('#wpadminbar');
+				var visibleTop = ($adminBar.length && $adminBar.css('position') === 'fixed' ? $adminBar.outerHeight() : 0) + offset_to_scroll;
+				var headerTop = $header[0].getBoundingClientRect().top;
+				// Without the option, only correct a title that ended up under the admin bar or above the viewport
+				// because a panel above it collapsed.
+				if (scroll_active_item || headerTop < visibleTop) {
+					$('html,body').stop(true).animate({
+						scrollTop: Math.max(0, $(window).scrollTop() + headerTop - visibleTop)
+					}, 400);
+				}
+			});
 		});
 
 		$('.sp-easy-accordion iframe:not(.wp-ea-iframe,.skip)').each(function () {

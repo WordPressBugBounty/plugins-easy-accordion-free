@@ -1,405 +1,1027 @@
-// popup css.
-$button-gradient :linear-gradient(90deg, #7A00DF 0%, #1A74E4 100%);
+// Generate FAQs with AI — trigger button and modal.
+$eab-ai-primary: #1567ff;
+$eab-ai-primary-hover: #0b57e3;
+$eab-ai-text: #1e1e1e;
+$eab-ai-muted: #757575;
+$eab-ai-field-border: #c8c8c8;
+$eab-ai-card-border: #e4e4e4;
+$eab-ai-popover-shadow: 0 0 0 1px #e4e4e4,
+	4px 4px 12px 2px rgba(0, 0, 0, 0.12);
 
-// trigger button css.
-.eab-generate-faqs-with-ai-section {
-
-    .sp-eab-popup-trigger-button-wrapper {
-        margin-bottom: 26px;
-    }
-
-    .sp-eab-popup-trigger-button {
-        padding: 15px;
-        border: none;
-        color: #fff;
-        background: $button-gradient;
-        border-radius: 4px;
-    }
-
-    * {
-        font-family: inherit;
-    }
+@keyframes eab-ai-faq-spin {
+	to {
+		transform: rotate(360deg);
+	}
 }
 
-// modal heading.
-.eab-faq-gen-prompt-card__header {
-    position: sticky;
-    top: 0;
-    background-color: #fff;
-    z-index: 999999;
-    padding-bottom: 24px;
+// Trigger.
+.eab-ai-faq {
+	* {
+		font-family: inherit;
+	}
 
-    .eab-faq-gen-prompt-card__header-icon {
-        width: 54px;
-        height: 54px;
-        border-radius: 4px;
-        background: $button-gradient;
-    }
+	.eab-ai-faq-trigger-wrap {
+		display: flex;
+		justify-content: flex-end;
+		margin-bottom: 26px;
+	}
 
-    .eab-faq-gen-prompt-card__header-label {
-        font-weight: 500;
-        font-size: 24px;
-        line-height: 1.2;
-        margin: 0;
-    }
+	.eab-ai-faq-trigger {
+		height: 52px;
+		padding: 0 18px;
+		border: none;
+		border-radius: 8px;
+		background: $eab-ai-primary;
+		color: #fff;
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 1;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		cursor: pointer;
 
-    .eab-faq-gen-prompt-card__header-desc {
-        font-weight: 400;
-        font-size: 15px;
-        line-height: 1.2;
-        margin: 0 !important;
-    }
+		&:hover,
+		&:focus-visible {
+			background: $eab-ai-primary-hover;
+		}
 
-    // close button.
-    .eab-faq-gen-prompt-card__close-btn {
-        font-size: 30px;
-        line-height: 1;
-        margin-top: -8px;
-    }
+		svg {
+			flex-shrink: 0;
+		}
+	}
 }
 
-// all popup buttons.
-.eab-faq-gen-prompt-card__submit,
-.eab-manage-generated-faqs__header-buttons button,
-.eab-faq-gen-prompt-card__footer button,
-.sp-eab-popup-trigger-button {
-    cursor: pointer;
-    font-size: 16px;
-    line-height: 1.5;
-    font-weight: 500;
-    border-radius: 4px;
+// Modal — every rule scoped to the modal frame.
+.eab-ai-faq-modal {
+
+	// Modal frame.
+	&.components-modal__frame {
+		width: 960px;
+		max-width: calc(100vw - 48px);
+		border-radius: 12px;
+		box-shadow: 4px 4px 24px 2px rgba(0, 0, 0, 0.18);
+		color: $eab-ai-text;
+
+		* {
+			font-family: inherit;
+			box-sizing: border-box;
+		}
+
+		.components-modal__content {
+			position: relative;
+			margin: 0;
+			padding: 36px 40px 40px;
+			overflow-y: auto;
+		}
+
+		button {
+			font-family: inherit;
+		}
+	}
+
+	.eab-ai-faq-modal__close {
+		position: absolute;
+		top: 18px;
+		right: 18px;
+		width: 36px;
+		height: 36px;
+		padding: 0;
+		border: none;
+		background: none;
+		color: $eab-ai-text;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		z-index: 3;
+	}
+
+	.eab-ai-faq-modal__header {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		margin-left: -8px;
+		padding-right: 40px;
+
+		svg {
+			flex-shrink: 0;
+			display: block;
+		}
+	}
+
+	.eab-ai-faq-modal__heading {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.eab-ai-faq-modal__title {
+		margin: 0;
+		font-size: 32px;
+		font-weight: 500;
+		letter-spacing: -0.01em;
+		line-height: 1.1;
+		color: $eab-ai-text;
+	}
+
+	.eab-ai-faq-modal__sub {
+		margin: 0;
+		font-size: 14px;
+		color: #555;
+	}
+
+	// Alerts.
+	.eab-ai-faq-alert {
+		margin-top: 24px;
+		padding: 10px 16px;
+		border-radius: 8px;
+		font-size: 14px;
+		line-height: 1.5;
+
+		&.is-error {
+			background: #fff3cd;
+			box-shadow: inset 0 0 0 1px #ffe38d;
+		}
+
+		&.is-info {
+			background: #f3f7ff;
+			box-shadow: inset 0 0 0 1px #cfe0ff;
+		}
+
+		a {
+			color: $eab-ai-primary;
+			text-decoration: none;
+
+			&:hover {
+				color: #0b4fcc;
+			}
+		}
+	}
+
+	// Form.
+	.eab-ai-faq-form {
+		display: flex;
+		flex-direction: column;
+		margin-top: 36px;
+	}
+
+	.eab-ai-faq-label {
+		display: block;
+		margin: 28px 0 10px;
+		font-size: 17px;
+		font-weight: 500;
+		color: $eab-ai-text;
+
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+
+	.eab-ai-faq-input,
+	.eab-ai-faq-textarea {
+		width: 100%;
+		margin: 0;
+		border: none;
+		border-radius: 8px;
+		box-shadow: inset 0 0 0 1px $eab-ai-field-border;
+		background: #fff;
+		color: $eab-ai-text;
+		font-size: 15px;
+		outline: none;
+
+		&::placeholder {
+			color: #b8b8b8;
+			opacity: 1;
+		}
+
+		&:focus {
+			border: none;
+			outline: none;
+			box-shadow: inset 0 0 0 1.5px $eab-ai-primary;
+		}
+	}
+
+	.eab-ai-faq-input {
+		height: 48px;
+		min-height: 48px;
+		padding: 0 16px;
+	}
+
+	.eab-ai-faq-textarea {
+		display: block;
+		height: 96px;
+		padding: 14px 16px;
+		line-height: 1.35;
+		resize: none;
+	}
+
+	.eab-ai-faq-field-error {
+		margin: 8px 0 0;
+		font-size: 13px;
+		color: #cc1818;
+	}
+
+	// Sources.
+	.eab-ai-faq-sources__buttons {
+		position: relative;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	.eab-ai-faq-sources__slot {
+		position: relative;
+	}
+
+	.eab-ai-faq-source-btn {
+		height: 44px;
+		padding: 0 16px;
+		border: 1px dashed #d2d2d2;
+		border-radius: 8px;
+		background: #f7f7f7;
+		color: $eab-ai-text;
+		font-size: 15px;
+		white-space: nowrap;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		cursor: pointer;
+
+		&:hover:not(:disabled),
+		&:focus-visible,
+		&.is-active {
+			background: #f7f9ff;
+			border-color: $eab-ai-primary;
+		}
+
+		&:disabled {
+			opacity: 0.5;
+			cursor: default;
+		}
+	}
+
+	.eab-ai-faq-picker {
+		position: absolute;
+		top: 52px;
+		left: 0;
+		z-index: 10;
+		width: 340px;
+		max-width: calc(100vw - 96px);
+		padding: 6px;
+		border-radius: 10px;
+		background: #fff;
+		box-shadow:
+			0 0 0 1px #e4e4e4,
+			4px 4px 12px 2px rgba(0, 0, 0, 0.1);
+		display: flex;
+		flex-direction: column;
+
+		&__title {
+			padding: 8px 10px 6px;
+			font-size: 11px;
+			letter-spacing: 0.04em;
+			text-transform: uppercase;
+			color: $eab-ai-muted;
+		}
+
+		&__search,
+		&__url {
+			height: 36px;
+			min-height: 36px;
+			margin: 0;
+			padding: 0 12px;
+			border: none;
+			border-radius: 8px;
+			box-shadow: inset 0 0 0 1px $eab-ai-field-border;
+			font-size: 14px;
+			outline: none;
+
+			&:focus {
+				box-shadow: inset 0 0 0 1.5px $eab-ai-primary;
+			}
+		}
+
+		&__search {
+			margin: 0 4px 4px;
+		}
+
+		&__list {
+			max-height: 260px;
+			overflow-y: auto;
+			display: flex;
+			flex-direction: column;
+		}
+
+		&__option {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			padding: 9px 10px;
+			border-radius: 8px;
+			font-size: 14px;
+			line-height: 1.35;
+			cursor: pointer;
+
+			&:hover {
+				background: #f3f6fc;
+			}
+
+			input[type="checkbox"] {
+				flex-shrink: 0;
+				width: 16px;
+				height: 16px;
+				margin: 0;
+				accent-color: $eab-ai-primary;
+			}
+		}
+
+		&__empty {
+			padding: 14px 10px;
+			font-size: 13px;
+			color: $eab-ai-muted;
+			display: flex;
+			justify-content: center;
+		}
+
+		&--url {
+			width: 380px;
+			padding: 12px;
+			flex-direction: row;
+			gap: 8px;
+		}
+
+		&__url {
+			flex: 1;
+			min-width: 0;
+		}
+
+		&__add {
+			height: 36px;
+			padding: 0 14px;
+			border: none;
+			border-radius: 8px;
+			background: $eab-ai-primary;
+			color: #fff;
+			font-size: 14px;
+			font-weight: 500;
+			cursor: pointer;
+
+			&:hover {
+				background: $eab-ai-primary-hover;
+			}
+		}
+	}
+
+	.eab-ai-faq-selected {
+		margin-top: 10px;
+		padding: 12px 14px;
+		border-radius: 8px;
+		background: #f5f5f7;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+
+		&.has-two {
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+			.eab-ai-faq-selected__col:first-child {
+				padding-right: 20px;
+				box-shadow: inset -1px 0 0 #dcdcdc;
+			}
+
+			.eab-ai-faq-selected__col:last-child {
+				padding-left: 28px;
+			}
+		}
+
+		&__col {
+			display: flex;
+			flex-direction: column;
+			gap: 6px;
+			min-width: 0;
+		}
+
+		&__item {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			min-width: 0;
+			font-size: 13px;
+		}
+
+		&__type {
+			flex-shrink: 0;
+		}
+
+		&__name {
+			min-width: 0;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+
+			&.is-url {
+				text-decoration: underline;
+			}
+		}
+
+		&__remove {
+			flex-shrink: 0;
+			width: 14px;
+			height: 14px;
+			padding: 0;
+			border: none;
+			border-radius: 50%;
+			background: #e4e4e4;
+			color: #666;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+
+			&:hover {
+				background: #d4d4d4;
+			}
+		}
+	}
+
+	// Prompt and suggestions.
+	.eab-ai-faq-prompt {
+		position: relative;
+	}
+
+	.eab-ai-faq-suggest {
+		position: absolute;
+		top: 40px;
+		left: 16px;
+		z-index: 10;
+		width: 544px;
+		max-width: calc(100% - 32px);
+		padding: 8px 0;
+		border-radius: 8px;
+		background: #fff;
+		box-shadow: $eab-ai-popover-shadow;
+		display: flex;
+		flex-direction: column;
+
+		&__item {
+			padding: 8px 24px;
+			border: none;
+			background: none;
+			color: $eab-ai-text;
+			font-size: 15px;
+			line-height: 1.35;
+			text-align: left;
+			cursor: pointer;
+
+			&:hover,
+			&:focus-visible {
+				background: #f3f6fc;
+			}
+		}
+	}
+
+	// Count / language / tone pills.
+	.eab-ai-faq-pills {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		margin-top: 12px;
+	}
+
+	.eab-ai-faq-pill {
+		position: relative;
+		height: 34px;
+		padding: 0 10px 0 12px;
+		border-radius: 8px;
+		box-shadow: inset 0 0 0 1px #8a8a8a;
+		background: #f7f7f7;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+
+		svg {
+			flex-shrink: 0;
+		}
+
+		>svg:last-child {
+			position: absolute;
+			right: 10px;
+			pointer-events: none;
+		}
+
+		select {
+			height: 32px;
+			min-height: 32px;
+			margin: 0;
+			padding: 0 20px 0 0;
+			border: none;
+			background: transparent;
+			box-shadow: none;
+			color: $eab-ai-text;
+			font-size: 15px;
+			line-height: 1;
+			appearance: none;
+			-webkit-appearance: none;
+			cursor: pointer;
+			outline: none;
+
+			&:focus {
+				box-shadow: none;
+			}
+		}
+
+		&:focus-within {
+			box-shadow: inset 0 0 0 1.5px $eab-ai-primary;
+		}
+	}
+
+	// Free plan limit.
+	.eab-ai-faq-upgrade-note {
+		margin: 16px 0 0;
+		font-size: 13px;
+		line-height: 1.5;
+		color: #555;
+	}
+
+	.eab-ai-faq-upgrade-note,
+	.eab-ai-faq-upgrade {
+		.eab-ai-faq-upgrade__link {
+			color: #f18200;
+			font-weight: 500;
+			text-decoration: none;
+
+			&:hover {
+				color: #d97300;
+				text-decoration: underline;
+			}
+		}
+	}
+
+	.eab-ai-faq-alert.eab-ai-faq-upgrade {
+		margin-top: 16px;
+	}
+
+	// Form footer.
+	.eab-ai-faq-form__footer {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		margin-top: 24px;
+	}
+
+	.eab-ai-faq-form__spacer {
+		flex: 1;
+	}
+
+	.eab-ai-faq-link {
+		padding: 0;
+		border: none;
+		background: none;
+		color: $eab-ai-primary;
+		font-size: 15px;
+		cursor: pointer;
+
+		&:hover {
+			color: #0b4fcc;
+			text-decoration: underline;
+		}
+	}
+
+	.eab-ai-faq-model {
+		position: relative;
+		height: 44px;
+		min-width: 128px;
+		max-width: 280px;
+		border-radius: 8px;
+		box-shadow: inset 0 0 0 1px $eab-ai-field-border;
+		display: flex;
+		align-items: center;
+
+		select {
+			width: 100%;
+			height: 100%;
+			min-height: 44px;
+			margin: 0;
+			padding: 0 36px 0 14px;
+			border: none;
+			background: transparent;
+			box-shadow: none;
+			color: $eab-ai-text;
+			font-size: 15px;
+			appearance: none;
+			-webkit-appearance: none;
+			text-overflow: ellipsis;
+			cursor: pointer;
+			outline: none;
+
+			&:focus {
+				box-shadow: none;
+			}
+		}
+
+		svg {
+			position: absolute;
+			right: 12px;
+			pointer-events: none;
+		}
+
+		&:focus-within {
+			box-shadow: inset 0 0 0 1.5px $eab-ai-primary;
+		}
+	}
+
+	.eab-ai-faq-generate {
+		height: 44px;
+		padding: 0 14px;
+		border: none;
+		border-radius: 8px;
+		background: $eab-ai-primary;
+		color: #fff;
+		font-size: 16px;
+		font-weight: 500;
+		white-space: nowrap;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		cursor: pointer;
+
+		&:hover:not(:disabled) {
+			background: $eab-ai-primary-hover;
+		}
+
+		&:disabled {
+			background: #b4b4b4;
+			color: #ededed;
+			cursor: default;
+		}
+
+		&[aria-busy="true"]:disabled {
+			background: $eab-ai-primary;
+			color: #fff;
+		}
+
+		svg {
+			flex-shrink: 0;
+		}
+	}
+
+	.eab-ai-faq-spinner {
+		width: 18px;
+		height: 18px;
+		border-radius: 50%;
+		border: 2px solid rgba(255, 255, 255, 0.4);
+		border-top-color: #fff;
+		animation: eab-ai-faq-spin 0.8s linear infinite;
+	}
+
+	// Results.
+	.eab-ai-faq-results {
+		display: flex;
+		flex-direction: column;
+		min-height: 0;
+		margin-top: 36px;
+	}
+
+	.eab-ai-faq-select-all {
+		position: relative;
+		z-index: 4;
+		align-self: flex-start;
+		margin-bottom: 14px;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-size: 16px;
+		cursor: pointer;
+	}
+
+	.eab-ai-faq-select-all input[type="checkbox"],
+	.eab-ai-faq-result__head input[type="checkbox"] {
+		flex-shrink: 0;
+		width: 16px;
+		height: 16px;
+		margin: 0;
+		accent-color: $eab-ai-primary;
+		cursor: pointer;
+	}
+
+	// Top padding leaves room for the first question's "Rewrite this…" button.
+	.eab-ai-faq-results__list {
+		max-height: min(540px, calc(100vh - 360px));
+		margin-top: -26px;
+		padding: 26px 0 4px;
+		overflow: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+
+	.eab-ai-faq-result {
+		position: relative;
+		flex-shrink: 0;
+		border-radius: 8px;
+		background: #fff;
+		box-shadow: inset 0 0 0 1px $eab-ai-card-border;
+
+		&__head {
+			min-height: 64px;
+			padding: 12px 24px;
+			border-radius: 8px;
+			background: #f2f2f2;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+
+		&.is-open &__head {
+			border-radius: 8px 8px 0 0;
+		}
+
+		&.is-open &__head,
+		&.is-checked &__head {
+			background: #f3f7fb;
+		}
+
+		&__q {
+			flex: 1;
+			align-self: stretch;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			font-size: 17px;
+			font-weight: 500;
+			line-height: 1.35;
+			cursor: pointer;
+			outline: none;
+		}
+
+		&__q-text {
+			position: relative;
+			outline-offset: 3px;
+			transition: opacity 0.15s;
+		}
+
+		&__chevron {
+			margin-left: auto;
+			display: flex;
+			transition: transform 0.15s;
+		}
+
+		&.is-open &__chevron {
+			transform: rotate(180deg);
+		}
+
+		&__q:hover &__q-text,
+		&__q:focus-visible &__q-text,
+		&.is-rewriting-question &__q-text {
+			outline: 1px dashed $eab-ai-primary;
+		}
+
+		&__q-text>.eab-ai-faq-rewrite-btn {
+			position: absolute;
+			right: -6px;
+			bottom: calc(100% - 8px);
+		}
+
+		&__q:hover &__q-text>.eab-ai-faq-rewrite-btn,
+		&__q:focus-within &__q-text>.eab-ai-faq-rewrite-btn {
+			display: flex;
+		}
+
+		&__a {
+			position: relative;
+			padding: 18px 24px;
+		}
+
+		&__a>.eab-ai-faq-rewrite-btn {
+			position: absolute;
+			top: -24px;
+			right: 24px;
+		}
+
+		&__a:hover>.eab-ai-faq-rewrite-btn,
+		&__a:focus-within>.eab-ai-faq-rewrite-btn {
+			display: flex;
+		}
+
+		&__a-text {
+			font-size: 15px;
+			line-height: 1.75;
+			color: $eab-ai-text;
+			outline-offset: 2px;
+			cursor: text;
+			transition: opacity 0.15s;
+		}
+
+		&__a:hover &__a-text,
+		&__a-text:focus,
+		&.is-rewriting-answer &__a-text {
+			outline: 1px dashed $eab-ai-primary;
+		}
+
+		.is-busy {
+			opacity: 0.45;
+		}
+	}
+
+	.eab-ai-faq-rewrite-btn {
+		z-index: 3;
+		height: 40px;
+		padding: 0 14px;
+		border: none;
+		border-radius: 8px;
+		background: #fff;
+		box-shadow: inset 0 0 0 1px $eab-ai-primary;
+		color: $eab-ai-primary;
+		font-size: 13px;
+		font-weight: 500;
+		white-space: nowrap;
+		display: none;
+		align-items: center;
+		gap: 8px;
+		cursor: pointer;
+
+		&:hover {
+			background: #f3f7ff;
+		}
+
+		svg {
+			flex-shrink: 0;
+		}
+	}
+
+	.eab-ai-faq-rewrite {
+		position: absolute;
+		left: 130px;
+		z-index: 10;
+		width: 622px;
+		max-width: calc(100% - 140px);
+		padding: 18px;
+		border-radius: 8px;
+		background: #fff;
+		box-shadow: $eab-ai-popover-shadow;
+
+		&--question {
+			top: 58px;
+		}
+
+		&--answer {
+			top: calc(100% - 14px);
+		}
+
+		&__actions {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 10px;
+			margin-top: 10px;
+		}
+
+		&__spacer {
+			flex: 1;
+		}
+
+		&__submit {
+			height: 28px;
+			padding: 0 10px;
+			border: none;
+			border-radius: 8px;
+			background: $eab-ai-primary;
+			color: #fff;
+			font-size: 13px;
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			cursor: pointer;
+
+			&:hover:not(:disabled) {
+				background: $eab-ai-primary-hover;
+			}
+
+			&:disabled {
+				cursor: default;
+				opacity: 0.8;
+			}
+		}
+	}
+
+	.eab-ai-faq-chip {
+		height: 28px;
+		padding: 0 9px;
+		border: none;
+		border-radius: 8px;
+		background: #fff;
+		box-shadow: inset 0 0 0 1px #bdbdbd;
+		color: $eab-ai-text;
+		font-size: 13px;
+		cursor: pointer;
+
+		&:hover {
+			background: #f5f5f5;
+		}
+	}
+
+	.eab-ai-faq-results__footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		margin-top: 24px;
+	}
+
+	.eab-ai-faq-btn {
+		height: 44px;
+		border: none;
+		border-radius: 8px;
+		font-size: 16px;
+		cursor: pointer;
+
+		&--secondary {
+			padding: 0 12px;
+			background: #fff;
+			box-shadow: inset 0 0 0 1px #bdbdbd;
+			color: $eab-ai-text;
+
+			&:hover {
+				background: #f7f7f7;
+			}
+		}
+
+		&--primary {
+			padding: 0 14px;
+			background: $eab-ai-primary;
+			color: #fff;
+			font-weight: 500;
+
+			&:hover:not(:disabled) {
+				background: $eab-ai-primary-hover;
+			}
+
+			&:disabled {
+				background: #9dbdfb;
+				cursor: default;
+			}
+		}
+	}
+
+	// Small screens.
+	@media only screen and (max-width: 781px) {
+		&.components-modal__frame .components-modal__content {
+			padding: 28px 20px 24px;
+		}
+
+		.eab-ai-faq-modal__title {
+			font-size: 24px;
+		}
+
+		.eab-ai-faq-selected.has-two {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 6px;
+
+			.eab-ai-faq-selected__col:first-child,
+			.eab-ai-faq-selected__col:last-child {
+				padding: 0;
+				box-shadow: none;
+			}
+		}
+
+		.eab-ai-faq-form__footer {
+			flex-wrap: wrap;
+		}
+
+		.eab-ai-faq-model {
+			flex: 1;
+			max-width: none;
+		}
+
+		.eab-ai-faq-result__head,
+		.eab-ai-faq-result__a {
+			padding-left: 16px;
+			padding-right: 16px;
+		}
+
+		.eab-ai-faq-rewrite {
+			left: 12px;
+			max-width: calc(100% - 24px);
+		}
+	}
 }
 
-// modal content css.
-.eab-generate-faqs-with-ai-modal {
-    max-height: 100vh;
-    width: 960px;
-    padding: 40px;
-    background-color: #ffffff;
-    border-radius: 8px;
-
-    * {
-        font-family: inherit;
-    }
-
-    .components-modal__content {
-        margin: 0;
-        padding: 0;
-        overflow-y: auto;
-    }
-
-    // alert message css.
-    .eab-faq-gen-prompt-card__alert {
-        color: var(--eab-primary-text-color);
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 1.5;
-        background-color: #FFF3CD;
-        border: 1px solid #FFE38D;
-        border-radius: 4px;
-        padding: 8px 16px;
-        margin-bottom: 24px;
-
-        a {
-            color: var(--eab-link-color);
-            text-decoration: none;
-        }
-
-        // upgrade to pro message.
-        &.eap-upgrade-message {
-            background-color: #EDFAEF;
-            border-color: #159E2E99;
-            padding: 16px 18px;
-            flex-wrap: wrap;
-
-            a {
-                color: #159E2E;
-                font-weight: 500;
-            }
-
-            svg {
-                width: 18px;
-                height: 18px;
-            }
-        }
-    }
-
-
-    // modal form fields.
-    .eab-faq-gen-prompt-card__field {
-        label {
-            display: block;
-            color: var(--eab-primary-text-color);
-            font-size: 16px;
-            font-weight: 500;
-            line-height: 1.25;
-            margin-bottom: 12px;
-        }
-
-        input,
-        select,
-        textarea {
-            width: 100%;
-            max-width: 100%;
-            line-height: 1;
-            border: 1.5px solid #ddd;
-            border-radius: 6px;
-            padding: 8px 14px;
-            margin: 0;
-
-            &:focus {
-                outline: none;
-                box-shadow: none;
-                border-color: #2271b1;
-            }
-        }
-
-        input,
-        select {
-            height: 48px;
-        }
-    }
-
-    //modal form filed help text.
-    .eab-faq-gen-prompt-card__help {
-        color: #6D6D6D;
-        font-style: italic;
-        font-size: 15px;
-        font-weight: 400;
-        line-height: 1.3;
-        margin-top: 6px;
-    }
-
-    // modal footer css.
-    .eab-faq-gen-prompt-card__footer {
-        margin-top: 30px;
-
-        #selectedModel {
-            min-width: 150px;
-            height: 52px;
-            padding: 8px 12px;
-        }
-    }
-
-    // padding.
-    .eab-manage-generated-faqs__header-buttons button {
-        padding: 8px 18px;
-    }
-
-    .eab-manage-generated-faqs__back-button {
-        padding: 13px 20px;
-    }
-
-    .eab-manage-generated-faqs__next-button,
-    .eab-faq-gen-prompt-card__submit {
-        padding: 14px 20px;
-    }
-
-    // set opacity for disabled button.
-    button[disabled] {
-        opacity: 0.7;
-        cursor: default;
-    }
-
-    // submit button.
-    .eab-faq-gen-prompt-card__submit,
-    .eab-manage-generated-faqs__next-button {
-        color: #ffffff;
-        border: none;
-        background: $button-gradient;
-    }
-
-    // gap.
-    .eab-faq-gen-prompt-card__body,
-    .eab-faq-gen-prompt-card__body-top,
-    .eab-faq-gen-prompt-card__page-source {
-        gap: 24px;
-    }
-
-    // generated accordion selection popup.
-    .eab-manage-generated-faqs__header-buttons button,
-    .eab-manage-generated-faqs__back-button {
-        color: var(--eab-primary-text-color);
-        border: 1px solid #E2E2E2;
-        background-color: transparent;
-    }
-
-    .eab-manage-generated-faqs__header-titles {
-        h4 {
-            margin: 0;
-            color: var(--eab-primary-text-color);
-            font-size: 20px;
-            font-weight: 500;
-            line-height: 1.4;
-        }
-
-        span {
-            margin-top: 4px;
-            color: #5D5D5D;
-            font-size: 15px;
-            font-weight: 400;
-            line-height: 1.3;
-        }
-    }
-
-    // accordion.
-    .eab-manage-generated-faqs__body {
-        margin-top: 8px;
-        max-height: 560px;
-        overflow-y: auto;
-
-        /* Decrease scrollbar width */
-        &::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;
-        }
-
-        // /* Scrollbar handle */
-        &::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 10px;
-        }
-    }
-
-    .eab-manage-generated-faqs__accordion {
-        margin-top: 16px;
-        border: 1px solid var(--eab-border-color);
-        border-radius: 6px;
-        overflow: hidden;
-
-        .eab-manage-generated-faqs__accordion-header {
-            background-color: var(--eab-primary-bg-color);
-            padding: 20px 24px;
-
-            input {
-                margin: 0;
-                padding: 0;
-            }
-        }
-
-        .eab-manage-generated-faqs__accordion-title {
-            font-size: 18px;
-            font-weight: 500;
-            line-height: 1.3;
-        }
-
-        &.active {
-            border-color: #bdbdbd;
-
-            .eab-manage-generated-faqs__accordion-header {
-                background-color: #e0e0e0;
-            }
-
-        }
-
-        .eab-manage-generated-faqs__accordion-content {
-            padding: 18px 24px;
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 1.6;
-        }
-    }
-}
-
-// custom select.
-.eab-faq-gen-prompt-card__select,
+// User FAQ Form block: the category select's own arrow replaces the browser one.
 .eab-faq-form-field__select {
-    position: relative;
+	position: relative;
 
-    select {
-        appearance: none !important;
-        -webkit-appearance: none !important;
-        -moz-appearance: none !important;
-        background: none;
-    }
+	select {
+		appearance: none !important;
+		-webkit-appearance: none !important;
+		-moz-appearance: none !important;
+		background: none;
+	}
 
-    i {
-        color: #707070;
-        position: absolute;
-        right: 6px;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
-}
-
-// spinner css.
-.eab-generating-spinner {
-    min-width: 15px;
-    text-align: left;
-
-    &::after {
-        content: '';
-        animation: eab-spinner-dots 1.5s steps(3, end) infinite;
-    }
-}
-
-@keyframes eab-spinner-dots {
-    0% {
-        content: '';
-    }
-
-    33% {
-        content: '.';
-    }
-
-    66% {
-        content: '..';
-    }
-
-    100% {
-        content: '...';
-    }
-}
-
-/*
- * TABLET DEVICE RESPONSIVE CSS.
- */
-@media only screen and (min-width: 600px) and (max-width: 1023px) {
-    .eab-generate-faqs-with-ai-modal {
-        width: 85%;
-    }
-}
-
-/*
- * MOBILE DEVICE RESPONSIVE CSS.
- */
-@media only screen and (max-width: 599px) {
-
-    .eab-generate-faqs-with-ai-modal {
-        width: 90%;
-        padding: 24px;
-        margin: 40px auto 40px;
-
-        .eab-faq-gen-prompt-card__header {
-            gap: 8px;
-        }
-
-        .eab-faq-gen-prompt-card__header-content {
-            gap: 4px;
-        }
-
-        .eab-faq-gen-prompt-card__header-label {
-            font-size: 18px;
-        }
-
-        .eab-faq-gen-prompt-card__header-desc {
-            font-size: 12px;
-        }
-
-        .eab-faq-gen-prompt-card,
-        .eab-faq-gen-prompt-card__field,
-        .eab-faq-gen-prompt-card__submit {
-            width: 100%;
-        }
-
-        .eab-faq-gen-prompt-card__submit {
-            justify-content: center;
-        }
-
-        .eab-faq-gen-prompt-card__body-top,
-        .eab-faq-gen-prompt-card__page-source,
-        .eab-faq-gen-prompt-card__footer {
-            flex-direction: column;
-        }
-    }
+	i {
+		color: #707070;
+		position: absolute;
+		right: 6px;
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
 }

@@ -325,7 +325,7 @@ class SP_Eap_Saved_Template_Widget extends \Elementor\Widget_Base {
 
 		// Get template post.
 		$template_post = get_post( $template_id );
-		if ( ! $template_post || 'publish' !== $template_post->post_status ) {
+		if ( ! EAP_Saved_Templates::is_renderable_template( $template_post ) ) {
 			echo '<div style="
 				text-align: center;
 				padding: 20px;

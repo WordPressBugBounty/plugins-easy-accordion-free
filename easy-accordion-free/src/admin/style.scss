@@ -1,9 +1,11 @@
 @use './responsive-css.scss';
 @use '../blocks/tailwind-class.scss';
-@use './pages/quickStart/quick-start-style.scss';
+@use './pages/quickStart/getting-started.scss';
+@use './pages/quickStart/placements.scss';
 @use './pages/blockVisibility/visibility-style.scss';
 @use './pages/saved-templates/saved-templates.scss';
 @use './pages/settings/setting-styles.scss';
+@use './pages/settings/ai-configuration/ai-configuration.scss';
 @use './setup-wizard/setup-wizard.scss';
 @use './pages/integrations/integrations-style.scss';
 @use './pages/lite-vs-pro/lite-vs-pro.scss';
@@ -492,7 +494,7 @@ $primary-text-color: #1E1E1E;
 
             li {
                 margin-bottom: 5px;
-                margin-left: 18px;
+                margin-inline-start: 18px;
             }
         }
 

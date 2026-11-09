@@ -48,6 +48,9 @@ import {
 } from "../blocks/product-accordion/icons";
 import { MediaAccordionBlockIcon } from "../blocks/media-accordion/icons";
 import { FaqFormBlockIcon } from "../blocks/user-faq-form/icons";
+import { AI_DEFAULT_MODELS } from "./aiProviders";
+
+export * from "./aiProviders";
 import {
 	AjaxPaginationBlockIcon,
 	FaqSearchBlockIcon,
@@ -233,18 +236,21 @@ export const accordionBlocksInfo = {
 		title: __("FAQ / Vertical Accordion", "easy-accordion-free"),
 		docLink: "https://easyaccordion.io/docs/vertical-accordion/",
 		demoLink: "https://easyaccordion.io/blocks/#demoId15",
+		patternSlug: "vertical-accordion",
 	},
 	"sp-easy-accordion-pro/horizontal-accordion": {
 		icon: <HorizontalAccordionBlockIcon />,
 		title: __("Horizontal Accordion", "easy-accordion-free"),
 		docLink: "https://easyaccordion.io/docs/horizontal-accordion/",
 		demoLink: "https://easyaccordion.io/blocks/#demoId9",
+		patternSlug: "horizontal-accordion",
 	},
 	"sp-easy-accordion-pro/image-accordion": {
 		icon: <ImageAccordionBlockIcon />,
 		title: __("Image Accordion", "easy-accordion-free"),
 		docLink: "https://easyaccordion.io/docs/image-accordion/",
 		demoLink: "https://easyaccordion.io/blocks/#demoId11",
+		patternSlug: "image-accordion",
 	},
 	"sp-easy-accordion-pro/accordion-slider": {
 		icon: <AccordionSliderBlockIcon />,
@@ -258,18 +264,21 @@ export const accordionBlocksInfo = {
 		title: __("Sidebar Tab Accordion", "easy-accordion-free"),
 		docLink: "https://easyaccordion.io/docs/sidebar-tab-accordion/",
 		demoLink: "https://easyaccordion.io/blocks/#demoId119",
+		patternSlug: "sidebar-tab-accordion",
 	},
 	"sp-easy-accordion-pro/post-accordion": {
 		icon: <PostAccordionBlockIcon />,
 		title: __("Post Accordion 01", "easy-accordion-free"),
 		docLink: "https://easyaccordion.io/docs/post-accordion-01/",
 		demoLink: "https://easyaccordion.io/blocks/#demoId121",
+		patternSlug: "post-accordion",
 	},
 	"sp-easy-accordion-pro/product-accordion": {
 		icon: <ProductAccordionBlockIcon />,
 		title: __("Product Accordion 01", "easy-accordion-free"),
 		docLink: "https://easyaccordion.io/docs/product-accordion-01/",
 		demoLink: "https://easyaccordion.io/blocks/#demoId123",
+		patternSlug: "product-accordion",
 	},
 	// v4.2.0
 	"sp-easy-accordion-pro/post-accordion-block-two": {
@@ -554,11 +563,27 @@ export const defaultDashboardSettings = {
 	},
 	// integrations.
 	integrations: {
+		// AI providers — Settings → AI Configuration. Keys stay server-side.
 		gemini: {
 			is_active: true,
-			model: "gemini-3.1-flash-lite-preview",
+			model: AI_DEFAULT_MODELS.gemini,
 			api_key: "",
-			max_token: 2000,
+		},
+		openai: {
+			is_active: true,
+			model: AI_DEFAULT_MODELS.openai,
+			api_key: "",
+		},
+		anthropic: {
+			is_active: true,
+			model: AI_DEFAULT_MODELS.anthropic,
+			api_key: "",
+			workspace_id: "",
+		},
+		groq: {
+			is_active: true,
+			model: AI_DEFAULT_MODELS.groq,
+			api_key: "",
 		},
 		google_recaptcha: {
 			is_active: true,

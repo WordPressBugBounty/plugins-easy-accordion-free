@@ -2,16 +2,10 @@ import { createRoot } from "@wordpress/element";
 import { accordionBlocksInfo } from "@easy-accordion/constants";
 import Library from "./Library";
 
-function formatText(text) {
-	return text
-		.replace(/-(\w)/g, (_, char) => " " + char.toUpperCase())
-		.replace(/^(\w)/, (_, char) => char.toUpperCase());
-}
-
 export const currentBlockTitle = (blockName) => {
 	const fullName = `sp-easy-accordion-pro/${blockName}`;
 	const block = accordionBlocksInfo[fullName];
-	return block ? block?.title : formatText(blockName);
+	return block ? block?.title : "";
 };
 
 // Close modal.

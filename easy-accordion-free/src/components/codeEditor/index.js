@@ -12,7 +12,7 @@ const CodeEditor = ({
 	attributesKey = "",
 	onChange = false,
 	height = "180px",
-	defaultLanguage = "css"
+	defaultLanguage = "css",
 }) => {
 	const setCustomCode = (value) => {
 		if (onChange) {

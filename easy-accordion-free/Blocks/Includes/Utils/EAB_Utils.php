@@ -49,6 +49,39 @@ class EAB_Utils {
 	}
 
 	/**
+	 * Restrict a queried post type to publicly viewable, REST-enabled types.
+	 *
+	 * Post type names arrive from AJAX request bodies and from saved block
+	 * attributes (attacker controlled), so they must never be passed to
+	 * WP_Query unchecked — non-public types such as sp_eap_template would
+	 * expose private content.
+	 *
+	 * @param mixed  $post_type Post type name from a request or block attribute.
+	 * @param string $fallback  Value returned when the type is not allowed.
+	 *
+	 * @return string The validated post type name, or the fallback.
+	 */
+	public static function viewable_post_type( $post_type, $fallback = '' ) {
+		if ( ! is_string( $post_type ) || '' === $post_type ) {
+			return $fallback;
+		}
+
+		$post_type_object = get_post_type_object( $post_type );
+
+		if ( ! $post_type_object ) {
+			return $fallback;
+		}
+
+		$extra_allowed = apply_filters( 'eab_allowed_query_post_types', array() );
+
+		if ( ( is_post_type_viewable( $post_type_object ) && ! empty( $post_type_object->show_in_rest ) ) || in_array( $post_type, (array) $extra_allowed, true ) ) {
+			return $post_type;
+		}
+
+		return $fallback;
+	}
+
+	/**
 	 * Generate a title tag attribute definition.
 	 *
 	 * The enum makes WP_Block_Type::prepare_attributes_for_render() drop any

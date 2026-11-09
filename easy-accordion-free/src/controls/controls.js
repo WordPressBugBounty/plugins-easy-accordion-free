@@ -446,54 +446,9 @@ export const stripScriptsAndSanitizeText = (text) => {
 	return result?.replace(/\s+/g, " ")?.trim();
 };
 
-// Build Prompt for ai based on user input data.
-export const buildAiPrompt = (userData) => {
-	return `
-        You are an expert content writer specializing in FAQ generation.
-        
-        Task:
-        Generate exactly ${userData?.numberOfFaqs} unique FAQs (questions and answers).
-        
-        Context:
-        - Topic: ${userData?.prompt}
-        ${userData?.selectedPost ? `- Reference URL: ${userData?.selectedPost}` : ""}
-        
-        Requirements:
-        - Language: Write strictly in ${userData?.language}. Do not mix languages.
-        - Tone: Use a ${userData?.tune} tone consistently across all FAQs.
-        ${userData?.keywords ? `- Include these keywords naturally where relevant: ${userData?.keywords}` : ""}
-        
-        Guidelines:
-        - Each question must be clear, natural, and directly related to the topic.
-        - Each answer must be concise (2–3 sentences) and helpful.
-        - Avoid duplicate or very similar questions.
-        - Do NOT include numbering in questions.
-        - Do NOT include explanations or extra text outside JSON.
-        
-        Output Rules (VERY IMPORTANT):
-        - Return ONLY a valid JSON array.
-        - Do NOT use markdown (no \`\`\`).
-        - Do NOT include any text before or after JSON.
-        - Ensure the JSON is properly formatted (no trailing commas).
-        
-        Expected Output:
-        [
-          {
-            "question": "FAQ question here",
-            "answer": "FAQ answer here"
-          }
-        ]
-		`;
-};
-
 export const getModulesSettings = (module_name) => {
 	const moduleData = sp_eab_localize_data?.dashboardSettings?.modules?.[module_name];
 	return moduleData ? moduleData?.is_active : defaultDashboardSettings?.modules[module_name].is_active;
-};
-
-export const getIntegrationSettings = () => {
-	const integrationData = sp_eab_localize_data?.dashboardSettings?.integrations || false;
-	return integrationData ? integrationData : defaultDashboardSettings?.integrations;
 };
 
 export const checkIsEqual = (updated, old) => {

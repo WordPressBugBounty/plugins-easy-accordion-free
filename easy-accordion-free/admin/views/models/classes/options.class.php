@@ -487,6 +487,13 @@ if ( ! class_exists( 'SP_EAP_Options' ) ) {
 		 */
 		public function set_options( $ajax = false ) {
 
+			// Check user capabilities: same capability the options page menu requires.
+			$menu_capability = ( ! empty( $this->args['menu_capability'] ) ) ? $this->args['menu_capability'] : 'manage_options';
+
+			if ( ! current_user_can( apply_filters( 'eapro_options_save_capability', $menu_capability, $this->unique ) ) ) {
+				return false;
+			}
+
 			// Retrieve nonce.
 			$nonce = '';
 			if ( $ajax && ! empty( $_POST['nonce'] ) ) {

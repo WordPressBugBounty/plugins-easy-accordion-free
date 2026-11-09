@@ -248,7 +248,7 @@ class Render_Blocks_Template {
 			'selectedItemOpen'     => (int) ( $open_selected_item - 1 ),
 			'openMultiItemAtaTime' => $open_multi_item_ata_time,
 			'scrollToTopOnLoad'    => $scroll_to_top_on_load,
-			'scrollToTopOnClick'   => false,
+			'scrollToTopOnClick'   => $scroll_to_top_on_load,
 			'accordionItemToUrl'   => false,
 			'animationEffect'      => $animation_effect,
 			'applyAccessibility'   => $eab_accessibility,
@@ -477,6 +477,13 @@ class Render_Blocks_Template {
 		}
 
 		$query_attr = ( ! empty( $attributes['postQuery'] ) && isset( $attributes['postQuery'] ) ) ? (array) json_decode( $attributes['postQuery'] ) : $attributes;
+
+		// Stored block attributes are attacker controlled: only publicly
+		// viewable post types may be queried on the frontend.
+		if ( ! EAB_Utils::viewable_post_type( $query_attr['postType'] ?? '' ) ) {
+			return '';
+		}
+
 		$post_query = Blocks_Query::get_cached_post_query_result( $query_attr, $unique_id, $unique_id );
 		$post_query = $post_query[0];
 
@@ -502,7 +509,7 @@ class Render_Blocks_Template {
 			'defaultAccordionOpen' => $default_accordion_open,
 			'openMultiItemAtaTime' => $open_multi_item_ata_time,
 			'scrollToTopOnLoad'    => $scroll_to_top_on_load,
-			'scrollToTopOnClick'   => false,
+			'scrollToTopOnClick'   => $scroll_to_top_on_load,
 			'accordionItemToUrl'   => false,
 			'animationEffect'      => $animation_effect,
 		);

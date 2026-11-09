@@ -1,0 +1,757 @@
+/**
+ * "Accordion Placements" card.
+ *
+ * A three-column grid table (Used on · Type & Layouts · Last updated). Each
+ * row's type line swaps for Edit / View on hover or keyboard focus, and a long
+ * layout list folds its tail behind a "+N" toggle that opens with a
+ * grid-rows transition.
+ */
+
+$placements-columns: minmax(0, 1fr) minmax(0, 1.4fr) 120px;
+$placements-gutter: 24px;
+$placements-line: #f0f0f1;
+$placements-muted: #646970;
+$placements-faint: #8c8f94;
+$placements-ink: #1d2327;
+$placements-body: #3c434a;
+$placements-action: #3858e9;
+
+$primary: var(--eab-primary-color, #ff5b2e);
+$primary-soft: #ffefe4;
+
+.sp-eab-admin-dashboard-wrapper {
+	.speap-placements {
+		margin-top: 28px;
+		background: #fff;
+		border: 1px solid #e5e5e7;
+		border-radius: 10px;
+	}
+
+	/* ---- Heading + tools ---- */
+
+	.speap-placements__head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		padding: 20px $placements-gutter;
+	}
+
+	.speap-placements__heading {
+		margin: 0 0 3px;
+		padding: 0;
+		font-size: 17px;
+		font-weight: 700;
+		line-height: 1.45;
+		color: $placements-ink;
+	}
+
+	.speap-placements__intro {
+		margin: 0;
+		font-size: 13.5px;
+		line-height: 1.45;
+		color: $placements-muted;
+	}
+
+	.speap-placements__tools {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.speap-placements__filters {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		padding: 3px;
+		background: #f0f0f1;
+		border-radius: 7px;
+	}
+
+	.speap-placements__filter {
+		height: 28px;
+		margin: 0;
+		padding: 0 12px;
+		border: 0;
+		border-radius: 5px;
+		background: transparent;
+		box-shadow: none;
+		color: $placements-muted;
+		font-size: 12.5px;
+		font-weight: 600;
+		line-height: 28px;
+		white-space: nowrap;
+		cursor: pointer;
+		transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+
+		&:hover {
+			color: $placements-ink;
+		}
+
+		&:focus-visible {
+			outline: 2px solid $primary;
+			outline-offset: 1px;
+		}
+
+		&.is-active {
+			background: #fff;
+			color: $placements-ink;
+			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+		}
+	}
+
+	/* Sync: an icon button beside search, its state in a tooltip above. */
+	.speap-placements__tip-wrap {
+		position: relative;
+		display: inline-flex;
+
+		&:hover,
+		&:focus-within {
+			.speap-placements__tip {
+				opacity: 1;
+				visibility: visible;
+				transform: translate(-50%, 0) scale(1);
+				transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.2, 0.8, 0.3, 1.2), visibility 0s;
+			}
+		}
+	}
+
+	.speap-placements__sync {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 34px;
+		height: 34px;
+		margin: 0;
+		padding: 0;
+		background: #fff;
+		border: 1px solid #dcdcde;
+		border-radius: 6px;
+		color: $placements-muted;
+		cursor: pointer;
+		transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+
+		svg {
+			display: block;
+		}
+
+		&:hover,
+		&:focus-visible {
+			background: #fff4ef;
+			border-color: $primary;
+			color: $primary;
+		}
+
+		&:focus-visible {
+			outline: 2px solid $primary;
+			outline-offset: 1px;
+		}
+
+		&:disabled {
+			cursor: default;
+		}
+
+		&.is-syncing {
+			color: $primary;
+
+			svg {
+				animation: speap-placements-spin 0.8s linear infinite;
+			}
+		}
+	}
+
+	.speap-placements__tip {
+		position: absolute;
+		bottom: calc(100% + 8px);
+		left: 50%;
+		z-index: 20;
+		padding: 8px 12px;
+		background: rgba(29, 35, 39, 0.88);
+		border-radius: 7px;
+		box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+		color: #fff;
+		font-size: 12.5px;
+		font-weight: 500;
+		line-height: 1.45;
+		text-align: center;
+		white-space: nowrap;
+		opacity: 0;
+		visibility: hidden;
+		transform: translate(-50%, 6px) scale(0.97);
+		transition: opacity 0.16s ease, transform 0.16s ease, visibility 0s linear 0.16s;
+		pointer-events: none;
+
+		// Arrow pointing down at the button.
+		&::after {
+			content: "";
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			margin-left: -5px;
+			border: 5px solid transparent;
+			border-top-color: rgba(29, 35, 39, 0.88);
+		}
+	}
+
+	.speap-placements__tip-sub {
+		display: block;
+		color: #c3c4c7;
+		font-size: 11.5px;
+	}
+
+	.speap-placements__search {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		height: 34px;
+		margin: 0;
+		padding: 0 10px;
+		background: #fff;
+		border: 1px solid #dcdcde;
+		border-radius: 6px;
+		cursor: text;
+		transition: border-color 0.15s ease;
+
+		&:focus-within {
+			border-color: $primary;
+		}
+
+		.dashicons {
+			display: block;
+			width: 16px;
+			height: 16px;
+			font-size: 16px;
+			line-height: 16px;
+			color: $placements-faint;
+		}
+
+		input[type="search"] {
+			width: 140px;
+			min-height: 0;
+			height: 32px;
+			margin: 0;
+			padding: 0;
+			border: 0;
+			border-radius: 0;
+			outline: none;
+			background: transparent;
+			box-shadow: none;
+			font-size: 13px;
+			line-height: 32px;
+			color: $placements-ink;
+
+			&:focus {
+				border: 0;
+				box-shadow: none;
+				outline: none;
+			}
+
+			&::placeholder {
+				color: $placements-faint;
+			}
+
+			&::-webkit-search-cancel-button {
+				cursor: pointer;
+			}
+		}
+	}
+
+	/* ---- Table ---- */
+
+	.speap-placements__row {
+		display: grid;
+		grid-template-columns: $placements-columns;
+		gap: 16px;
+		align-items: center;
+		padding: 14px $placements-gutter;
+		border-bottom: 1px solid $placements-line;
+		transition: background-color 0.15s ease;
+
+		&:hover {
+			background: #fafafa;
+		}
+
+		/* Edit / View take the type line's place while the row is pointed at
+		   or holds focus. */
+		&:hover,
+		&:focus-within {
+			.speap-placements__meta.has-actions {
+				opacity: 0;
+			}
+
+			.speap-placements__actions {
+				opacity: 1;
+				transform: none;
+				pointer-events: auto;
+			}
+		}
+	}
+
+	.speap-placements__row--head {
+		padding-top: 12px;
+		padding-bottom: 12px;
+		background: #f6f7f7;
+		border-top: 1px solid $placements-line;
+		color: $placements-muted;
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		line-height: 1.45;
+		text-transform: uppercase;
+
+		&:hover {
+			background: #f6f7f7;
+		}
+	}
+
+	.speap-placements__cell {
+		min-width: 0;
+	}
+
+	.speap-placements__where {
+		min-width: 0;
+	}
+
+	.speap-placements__title-line {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		min-width: 0;
+	}
+
+	.speap-placements__title {
+		overflow: hidden;
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 1.45;
+		color: $placements-ink;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		transition: color 0.15s ease;
+	}
+
+	a.speap-placements__title:hover,
+	a.speap-placements__title:focus {
+		color: $primary;
+	}
+
+	.speap-placements__status {
+		flex: 0 0 auto;
+		padding: 1px 7px;
+		border-radius: 10px;
+		background: #fcf0d9;
+		color: #996800;
+		font-size: 11px;
+		font-weight: 600;
+		line-height: 1.45;
+	}
+
+	.speap-placements__sub {
+		position: relative;
+		height: 20px;
+		margin-top: 2px;
+	}
+
+	.speap-placements__meta {
+		position: absolute;
+		inset: 0;
+		overflow: hidden;
+		font-size: 12.5px;
+		line-height: 20px;
+		color: $placements-faint;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		transition: opacity 0.15s ease;
+	}
+
+	.speap-placements__meta--unused {
+		color: #a7aaad;
+	}
+
+	.speap-placements__actions {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 12.5px;
+		line-height: 20px;
+		opacity: 0;
+		transform: translateY(3px);
+		pointer-events: none;
+		transition: opacity 0.15s ease, transform 0.15s ease;
+	}
+
+	.speap-placements__action {
+		display: inline-flex;
+		align-items: center;
+		gap: 3px;
+		font-weight: 400;
+		color: $placements-action;
+
+		svg {
+			display: block;
+		}
+
+		&:hover,
+		&:focus {
+			color: #2145e6;
+			text-decoration: underline;
+		}
+	}
+
+	.speap-placements__sep {
+		color: #dcdcde;
+	}
+
+	.speap-placements__unused {
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 1.45;
+		color: $placements-faint;
+	}
+
+	.speap-placements__layouts {
+		min-width: 0;
+		font-size: 13.5px;
+		line-height: 1.5;
+		color: $placements-body;
+	}
+
+	.speap-placements__type {
+		font-weight: 600;
+	}
+
+	.speap-placements__type--block {
+		color: $placements-action;
+	}
+
+	.speap-placements__type--shortcode {
+		color: $placements-body;
+	}
+
+	.speap-placements__type--template {
+		color: $primary;
+	}
+
+	.speap-placements__more {
+		display: inline-flex;
+		align-items: center;
+		height: 20px;
+		margin: 0 0 0 4px;
+		padding: 0 8px;
+		border: 0;
+		border-radius: 10px;
+		background: #f0f0f1;
+		color: #50575e;
+		font-size: 12px;
+		font-weight: 600;
+		line-height: 20px;
+		vertical-align: 1px;
+		cursor: pointer;
+		transition: background-color 0.2s ease, color 0.2s ease;
+
+		&:hover,
+		&:focus-visible {
+			background: $primary-soft;
+			color: $primary;
+		}
+
+		&:focus-visible {
+			outline: 2px solid $primary;
+			outline-offset: 1px;
+		}
+	}
+
+	.speap-placements__rest {
+		display: grid;
+		grid-template-rows: 0fr;
+		opacity: 0;
+		transform: translateY(-4px);
+		visibility: hidden;
+		transition: grid-template-rows 0.3s ease, opacity 0.25s ease, transform 0.3s ease, visibility 0s linear 0.3s;
+
+		&.is-open {
+			grid-template-rows: 1fr;
+			opacity: 1;
+			transform: translateY(0);
+			visibility: visible;
+			transition: grid-template-rows 0.3s ease, opacity 0.25s ease, transform 0.3s ease, visibility 0s;
+		}
+	}
+
+	.speap-placements__rest-clip {
+		min-height: 0;
+		overflow: hidden;
+	}
+
+	.speap-placements__rest-text {
+		padding-top: 4px;
+		color: $placements-body;
+	}
+
+	.speap-placements__date {
+		font-size: 13px;
+		color: $placements-muted;
+	}
+
+	.speap-placements__no-match {
+		padding: 40px $placements-gutter;
+		border-bottom: 1px solid $placements-line;
+		font-size: 13.5px;
+		color: $placements-faint;
+		text-align: center;
+	}
+
+	/* ---- Foot ---- */
+
+	.speap-placements__foot {
+		display: flex;
+		flex-direction: row-reverse;
+		justify-content: space-between;
+		align-items: center;
+		gap: 8px;
+		padding: 18px $placements-gutter;
+		font-size: 13px;
+		color: $placements-muted;
+		text-align: center;
+	}
+
+	.speap-placements__load-more {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		height: 34px;
+		margin: 0;
+		padding: 0 18px;
+		border: 1px solid #dcdcde;
+		border-radius: 7px;
+		background: #fff;
+		color: $placements-ink;
+		font-size: 13px;
+		font-weight: 600;
+		line-height: 1;
+		cursor: pointer;
+		transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+
+		.dashicons {
+			display: block;
+			width: 14px;
+			height: 14px;
+			font-size: 14px;
+			line-height: 14px;
+		}
+
+		&:hover,
+		&:focus-visible {
+			border-color: $primary;
+			background: #fff4ef;
+			color: $primary;
+		}
+	}
+
+	/* ---- Loading / error ---- */
+
+	.speap-placements__skeleton {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		padding: 16px $placements-gutter $placements-gutter;
+		border-top: 1px solid $placements-line;
+	}
+
+	.speap-placements__skeleton-row {
+		height: 40px;
+		border-radius: 6px;
+		background: linear-gradient(90deg, #f3f4f6 25%, #e9ebee 37%, #f3f4f6 63%);
+		background-size: 400% 100%;
+		animation: speap-placements-shimmer 1.2s ease infinite;
+	}
+
+	.speap-placements__state {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 12px;
+		padding: 40px $placements-gutter;
+		border-top: 1px solid $placements-line;
+		color: #b32d2e;
+		font-size: 13.5px;
+		text-align: center;
+
+		p {
+			margin: 0;
+		}
+	}
+
+	/* ---- Empty ---- */
+
+	.speap-placements__empty {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 56px $placements-gutter 60px;
+		border-top: 1px solid $placements-line;
+		text-align: center;
+	}
+
+	.speap-placements__empty-art {
+		display: block;
+		margin-bottom: 22px;
+	}
+
+	.speap-placements__empty-title {
+		margin: 0 0 8px;
+		padding: 0;
+		font-size: 17px;
+		font-weight: 700;
+		line-height: 1.45;
+		color: $placements-ink;
+	}
+
+	.speap-placements__empty-text {
+		max-width: 440px;
+		margin: 0;
+		font-size: 14px;
+		line-height: 1.6;
+		color: $placements-muted;
+	}
+
+	.speap-placements__empty-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		margin-top: 16px;
+		padding-bottom: 3px;
+		font-size: 14px;
+		font-weight: 500;
+		line-height: 1.45;
+		color: #f07b53;
+		text-decoration: none;
+		transition: color 0.25s ease;
+
+		.dashicons {
+			display: block;
+			width: 15px;
+			height: 15px;
+			font-size: 15px;
+			line-height: 15px;
+		}
+
+		&:hover,
+		&:focus {
+			color: $primary;
+			text-decoration: none;
+		}
+	}
+
+	@keyframes speap-placements-spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	@keyframes speap-placements-shimmer {
+		0% {
+			background-position: 100% 50%;
+		}
+
+		100% {
+			background-position: 0 50%;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.speap-placements__skeleton-row {
+			animation: none;
+		}
+
+		.speap-placements__tip {
+			transition: none;
+		}
+
+		.speap-placements__rest,
+		.speap-placements__actions,
+		.speap-placements__meta {
+			transition: none;
+		}
+	}
+
+	/* Phones: each row stacks its three cells, and the column heads go. */
+	@media (max-width: 600px) {
+		.speap-placements__head {
+			padding: 16px;
+		}
+
+		.speap-placements__tools {
+			width: 100%;
+		}
+
+		.speap-placements__search {
+			flex: 1;
+			min-width: 0;
+		}
+
+		/* The button sits at the left edge here: open the tooltip rightward
+		   from it instead of centring it off-screen. */
+		.speap-placements__tip {
+			left: 0;
+			transform: translate(0, 6px) scale(0.97);
+
+			&::after {
+				left: 17px;
+			}
+		}
+
+		.speap-placements__tip-wrap:hover .speap-placements__tip,
+		.speap-placements__tip-wrap:focus-within .speap-placements__tip {
+			transform: translate(0, 0) scale(1);
+		}
+
+		.speap-placements__filters {
+			max-width: 100%;
+			overflow-x: auto;
+		}
+
+		.speap-placements__search input[type="search"] {
+			flex: 1;
+			width: auto;
+		}
+
+		.speap-placements__row {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 6px;
+			padding: 14px 16px;
+		}
+
+		.speap-placements__row--head {
+			display: none;
+		}
+
+		/* No hover on touch: the type and Edit / View sit side by side. */
+		.speap-placements__sub {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0 12px;
+			height: auto;
+		}
+
+		.speap-placements__meta,
+		.speap-placements__actions {
+			position: static;
+		}
+
+		.speap-placements__row:hover .speap-placements__meta.has-actions,
+		.speap-placements__row:focus-within .speap-placements__meta.has-actions {
+			opacity: 1;
+		}
+
+		.speap-placements__actions {
+			opacity: 1;
+			transform: none;
+			pointer-events: auto;
+		}
+	}
+}

@@ -553,7 +553,24 @@
 					'header': 'eapro-cloneable-header-icon fa fa-angle-right',
 					'activeHeader': 'eapro-cloneable-header-icon fa fa-angle-down'
 				},
+				beforeActivate: function (event, ui) {
+
+					// Remember where the clicked title is on screen so the list doesn't jump
+					// when a panel above it collapses (single-open accordion).
+					var $clicked = ui.newHeader.length ? ui.newHeader : ui.oldHeader;
+					$wrapper.data('eapro-anchor', $clicked.length ? { el: $clicked, top: $clicked[0].getBoundingClientRect().top } : null);
+
+				},
 				activate: function (event, ui) {
+
+					var anchor = $wrapper.data('eapro-anchor');
+					if (anchor && anchor.el && anchor.el.length) {
+						var diff = anchor.el[0].getBoundingClientRect().top - anchor.top;
+						if (Math.abs(diff) > 1) {
+							window.scrollBy(0, diff);
+						}
+						$wrapper.removeData('eapro-anchor');
+					}
 
 					var $panel = ui.newPanel;
 					var $header = ui.newHeader;

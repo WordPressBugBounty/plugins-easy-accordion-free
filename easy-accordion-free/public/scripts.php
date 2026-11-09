@@ -86,7 +86,10 @@ class SP_EA_Front_Scripts {
 		wp_register_script( 'sp-ea-accordion-config', esc_url( SP_EA_URL . 'public/assets/js/script.js' ), array( 'jquery', 'sp-ea-accordion-js' ), SP_EA_VERSION, true );
 
 		$ea_custom_js = isset( $settings['custom_js'] ) ? trim( html_entity_decode( $settings['custom_js'] ) ) : '';
-		if ( ! empty( $ea_custom_js ) ) {
+		// Only print custom JS saved by a user with unfiltered_html. Legacy
+		// settings without the flag stay active on single sites for back-compat.
+		$custom_js_allowed = isset( $settings['custom_js_unfiltered_ok'] ) ? (bool) $settings['custom_js_unfiltered_ok'] : ! is_multisite();
+		if ( ! empty( $ea_custom_js ) && $custom_js_allowed ) {
 			wp_add_inline_script( 'sp-ea-accordion-config', $ea_custom_js );
 		}
 	}

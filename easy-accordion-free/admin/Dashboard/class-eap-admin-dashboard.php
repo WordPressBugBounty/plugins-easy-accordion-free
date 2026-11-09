@@ -16,6 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+require_once SP_EA_PATH . 'admin/Dashboard/class-eap-block-usage.php';
+require_once SP_EA_PATH . 'admin/Dashboard/class-eap-saved-templates-rest.php';
+require_once SP_EA_PATH . 'admin/Dashboard/class-eap-ai-settings.php';
+
 if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 
 	/**
@@ -86,6 +90,8 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 			add_action( 'wp_ajax_sp_eap_changelog_data', array( $this, 'sp_eap_changelog_data' ) );
 			add_action( 'wp_ajax_sp_eap_get_user_consent', array( $this, 'sp_eap_get_user_consent' ) );
 			add_action( 'wp_ajax_sp_eab_hide_upgrade_notice', array( $this, 'sp_eab_hide_upgrade_notice' ) );
+			// manage placements report ajax.
+			add_action( 'wp_ajax_sp_eab_block_usage', array( $this, 'sp_eab_block_usage' ) );
 			// manage admin dashboard assets.
 			add_action( 'admin_enqueue_scripts', array( $this, 'sp_eab_admin_dashboard_enqueue_admin_assets' ) );
 			// admin notices.
@@ -506,15 +512,48 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 					'pluginVersion'         => SP_EA_VERSION,
 					'isActiveWooCommerce'   => $is_active_woocommerce,
 					'homeUrl'               => home_url( '/' ),
-					'dashboardInfo'         => $dashboard_settings,
+					// AI provider keys leave masked (EAP_AI_Settings).
+					'dashboardInfo'         => EAP_AI_Settings::mask_settings( $dashboard_settings ),
 					'nonce'                 => wp_create_nonce( $this->eab_admin_dashboard_nonce_key ),
 					'eab_user_consent'      => $dashboard_settings['eap_allow_anonymous_data'] ?? 'undefined',
 					'userName'              => $user_name,
+					// The profile's First Name, for greetings; empty when not set
+					// (the greeting then takes the first word of `userName`).
+					'userFirstName'         => trim( (string) ( $current_user->first_name ?? '' ) ),
+					// Picks the welcome copy (first visit vs returning). Null until
+					// the placements report has been built once.
+					'hasPlacements'         => EAP_Block_Usage::stored_has_placements(),
 					'eap_editor_preference' => get_option( 'ea_free_blocks_promo_modal_choice', '' ),
 					'showUpgradeNotice'     => $this->should_show_upgrade_notice(),
 					'savedTemplatesUrl'     => admin_url( 'edit.php?post_type=sp_easy_accordion&page=eap_dashboard#saved_templates' ),
+					'restUrl'               => esc_url_raw( rest_url( 'easy-accordion/v2/' ) ),
+					'restNonce'             => wp_create_nonce( 'wp_rest' ),
+					'newTemplateUrl'        => admin_url( 'post-new.php?post_type=sp_eap_template&eabblock_inserter=true' ),
 				)
 			);
+		}
+
+		/**
+		 * AJAX handler: returns the Accordion Placements report as JSON.
+		 *
+		 * The report is served from the stored option until the dashboard's Sync
+		 * button posts refresh=true, which rescans the site.
+		 *
+		 * @return void
+		 */
+		public function sp_eab_block_usage() {
+			// Nonce verification.
+			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			if ( ! wp_verify_nonce( $nonce, $this->eab_admin_dashboard_nonce_key ) ) {
+				wp_send_json_error( array( 'message' => __( 'Security check failed.', 'easy-accordion-free' ) ), 403 );
+				return;
+			}
+			// Check user capabilities, current_user_can() is called internally.
+			Blocks_Helper::sp_eap_verify_capability();
+
+			$force = isset( $_POST['refresh'] ) && 'true' === sanitize_text_field( wp_unslash( $_POST['refresh'] ) );
+
+			wp_send_json_success( EAP_Block_Usage::report( $force ) );
 		}
 
 		/**
@@ -530,7 +569,7 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
 			if ( ! wp_verify_nonce( $nonce, $this->eab_admin_dashboard_nonce_key ) ) {
-				wp_send_json_error( array( 'message' => 'Security check failed.' ), 403 );
+				wp_send_json_error( array( 'message' => __( 'Security check failed.', 'easy-accordion-free' ) ), 403 );
 				return;
 			}
 			$query_data = isset( $_POST['queryData'] ) ? sanitize_text_field( wp_unslash( $_POST['queryData'] ) ) : '';
@@ -543,12 +582,15 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 			// manage plugin settings options.
 			$plugin_settings = $query_data['pluginSettings'] ?? array();
 			if ( ! empty( $plugin_settings ) ) {
+				// Record whether the custom JS was saved by a user allowed to post unfiltered HTML.
+				$plugin_settings['custom_js_unfiltered_ok'] = current_user_can( 'unfiltered_html' ) ? 1 : 0;
 				update_option( $this->sp_eap_settings_key, $plugin_settings );
 			}
 			// update dashboard settings.
 			$dashboard_settings = $query_data['dashboardSettings'] ?? array();
-			if ( ! empty( $dashboard_settings ) ) {
-				update_option( $this->eap_dashboard_settings_key, $dashboard_settings );
+			if ( ! empty( $dashboard_settings ) && is_array( $dashboard_settings ) ) {
+				// AI keys arrive masked unless the user typed a new one.
+				update_option( $this->eap_dashboard_settings_key, EAP_AI_Settings::resolve_settings( $dashboard_settings ) );
 			}
 
 			// Handle editor preference for promo modal.
@@ -569,7 +611,9 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 				),
 				'blockVisibility'   => get_option( $this->eab_block_visibility_key, array() ),
 				'eapShortcodes'     => Blocks_Helper::sp_easy_accordion_pro_post_list(),
-				'dashboardSettings' => $this->get_dashboard_settings(),
+				'dashboardSettings' => EAP_AI_Settings::mask_settings( $this->get_dashboard_settings() ),
+				// Read-only, server-computed data (AI connector states); never sent back on save.
+				'dashboardInfo'     => EAP_AI_Settings::dashboard_info(),
 			);
 
 			wp_send_json( $query_response );
@@ -590,7 +634,7 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
 			if ( ! wp_verify_nonce( $nonce, $this->eab_admin_dashboard_nonce_key ) ) {
-				wp_send_json_error( array( 'message' => 'Security check failed.' ), 403 );
+				wp_send_json_error( array( 'message' => __( 'Security check failed.', 'easy-accordion-free' ) ), 403 );
 				return;
 			}
 
@@ -672,7 +716,7 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 			// Verify nonce.
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 			if ( ! wp_verify_nonce( $nonce, $this->eab_admin_dashboard_nonce_key ) ) {
-				wp_send_json_error( array( 'message' => 'Security check failed.' ), 403 );
+				wp_send_json_error( array( 'message' => __( 'Security check failed.', 'easy-accordion-free' ) ), 403 );
 				return;
 			}
 
@@ -801,7 +845,7 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 			// Verify nonce.
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 			if ( ! wp_verify_nonce( $nonce, $this->eab_admin_dashboard_nonce_key ) ) {
-				wp_send_json_error( array( 'message' => 'Security check failed.' ), 403 );
+				wp_send_json_error( array( 'message' => __( 'Security check failed.', 'easy-accordion-free' ) ), 403 );
 					return;
 			}
 
@@ -1154,6 +1198,11 @@ if ( ! class_exists( 'Eab_Admin_Dashboard' ) ) {
 		 * @return void
 		 */
 		public function eap_submit_user_consent() {
+			// Runs on init, so ensure only dashboard-capable users can submit the consent.
+			if ( ! current_user_can( apply_filters( 'easy_accordion_access_capability', 'manage_options' ) ) ) {
+				return;
+			}
+
 			// Handle POST action for the notice buttons.
 			if ( isset( $_POST['eap_anonymous_data_action'] ) && check_admin_referer( 'eap_anonymous_data_action', 'eap_anonymous_data_nonce' ) ) {
 				if ( 'allow' === $_POST['eap_anonymous_data_action'] ) {

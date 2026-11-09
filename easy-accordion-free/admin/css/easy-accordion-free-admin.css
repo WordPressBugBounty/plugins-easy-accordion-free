@@ -200,33 +200,6 @@ a.sp-easyaccordion-block-edit-button {
 	color: #dba617;
 }
 
-/* Admin offer banner */
-#shapedplugin-offer-banner {
-	padding: 0;
-	border: 0;
-	line-height: 0;
-	background: transparent;
-}
-
-#shapedplugin-offer-banner a:focus {
-	outline: 0;
-	box-shadow: none;
-}
-
-#shapedplugin-offer-banner .notice-dismiss:focus {
-	outline: 0;
-	box-shadow: none;
-}
-
-#shapedplugin-offer-banner button.shapedplugin-offer-banner-dismiss:before {
-	color: #fff;
-	font-size: 22px;
-}
-
-#shapedplugin-offer-banner button.shapedplugin-offer-banner-dismiss:hover:before {
-	color: #f30808;
-}
-
 /* #adminmenu #menu-posts-sp_easy_accordion li:nth-last-child(2) a {
 	color: #FFA500;
 } */

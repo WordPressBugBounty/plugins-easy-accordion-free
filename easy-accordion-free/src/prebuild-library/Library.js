@@ -1,21 +1,42 @@
 import { __ } from "@wordpress/i18n";
 import { parse } from "@wordpress/blocks";
-import { useState, useEffect } from "@wordpress/element";
+import { useState, useEffect, useRef, useCallback } from "@wordpress/element";
+import { accordionBlocksInfo } from "@easy-accordion/constants";
 import StarterSites from "./starterSites";
+import PreviewDrawer from "./PreviewDrawer";
 import ErrorBoundary from "./ErrorBoundary";
-import { CloseIcon, EasyAccordionLogo } from "./icons";
-import { API_ENDPOINTS, KEYBOARD_KEYS } from "./constants";
+import { EasyAccordionLogo } from "./icons";
+import { API_ENDPOINTS, CSS_CLASSES, KEYBOARD_KEYS } from "./constants";
 import "./editor.scss";
 
-// Default attribute values.
+// Default attribute values — reset on insert so an imported pattern queries the
+// user's own content instead of the demo's saved selection.
 const getDefaultAttributes = (blockName = "") => {
 	let attr = {
 		postType: "post",
+		filterPost: "latest",
+		selectedTaxonomy: "category",
+		selectedTerms: [],
+		taxonomies: [
+			{
+				id: 1,
+				type: "",
+				value: [],
+				operator: "IN",
+				initialOpen: true,
+			},
+		],
 		postOperator: "IN",
+		includeOnlyPost: [],
 		orderBy: "date",
 		orderDirection: "DESC",
 		postLimit: "8",
+		itemPerPage: "4",
+		taxonomyFilterEnable: false,
+		taxonomyType: "category",
 		categoriesToShow: "all",
+		includeTerms: [],
+		excludeTerms: [],
 		displayLimit: "8",
 		showEmptyTerms: false,
 	};
@@ -28,7 +49,10 @@ const getDefaultAttributes = (blockName = "") => {
 		};
 	}
 
-	if (blockName === "sp-easy-accordion-pro/product-accordion") {
+	if (
+		blockName === "sp-easy-accordion-pro/product-accordion" ||
+		blockName === "sp-easy-accordion-pro/product-accordion-two"
+	) {
 		attr = {
 			...attr,
 			postType: "product",
@@ -39,12 +63,11 @@ const getDefaultAttributes = (blockName = "") => {
 };
 
 /**
- * Modify block attributes after parsing but before insertion
- * This function recursively processes blocks and their innerBlocks
- * to reset query-related attributes to their default values
+ * Reset query-related attributes to defaults after parsing, before insertion.
+ * Recurses through innerBlocks. Only touches sp-easy-accordion-pro/* blocks.
  *
- * @param {Array} blocks - Array of parsed block objects
- * @returns {Array} - Modified blocks array
+ * @param {Array} blocks - Parsed block objects.
+ * @return {Array} Modified blocks.
  */
 const modifyBlockAttributes = (blocks) => {
 	if (!Array.isArray(blocks)) {
@@ -52,33 +75,26 @@ const modifyBlockAttributes = (blocks) => {
 	}
 
 	return blocks.map((block) => {
-		// Create a new block object to avoid mutating the original
 		const modifiedBlock = {
 			...block,
 			attributes: {
 				...block.attributes,
 			},
 		};
-		// Only modify Easy Accordion blocks
+
 		if (block.name && block.name.startsWith("sp-easy-accordion-pro/") && block.attributes) {
-			// Reset all query-related attributes to default values if they exist
 			const defaultAttributes = getDefaultAttributes(block?.name);
 
 			Object.keys(defaultAttributes)?.forEach((attrName) => {
 				if (modifiedBlock.attributes.hasOwnProperty(attrName)) {
-					// Get default value
 					const defaultValue = defaultAttributes[attrName];
-					// Handle array defaults (deep clone)
-					if (Array.isArray(defaultValue)) {
-						modifiedBlock.attributes[attrName] = JSON.parse(JSON.stringify(defaultValue));
-					} else {
-						modifiedBlock.attributes[attrName] = defaultValue;
-					}
+					modifiedBlock.attributes[attrName] = Array.isArray(defaultValue)
+						? JSON.parse(JSON.stringify(defaultValue))
+						: defaultValue;
 				}
 			});
 		}
 
-		// Recursively process innerBlocks
 		if (block.innerBlocks && Array.isArray(block.innerBlocks) && block.innerBlocks.length > 0) {
 			modifiedBlock.innerBlocks = modifyBlockAttributes(block.innerBlocks);
 		}
@@ -87,35 +103,54 @@ const modifyBlockAttributes = (blocks) => {
 	});
 };
 
-// Header Component.
-const LibraryHeader = ({ onClose }) => {
-	return (
-		<div className="sp-eap-patterns-popup-header">
-			<div className="sp-eap-patterns-popup-filter-title">
-				<div className="sp-eap-patterns-popup-filter-image-head">
-					<EasyAccordionLogo fill={"#ffffff"} />
-					<span>{__("Easy Accordion Patterns Library", "easy-accordion-free")}</span>
-				</div>
-				<div className="sp-eap-patterns-popup-filter-sync-close">
-					<button
-						className="sp-eap-patterns-btn-close"
-						onClick={onClose}
-						id="sp-eap-patterns-btn-close"
-						aria-label={__("Close", "easy-accordion-free")}
-					>
-						<CloseIcon />
-					</button>
-				</div>
-			</div>
-		</div>
-	);
-};
+/**
+ * Humanized label for a block slug the block map does not know.
+ *
+ * @param {string} slug Block slug.
+ * @return {string} Label.
+ */
+const humanizeSlug = (slug) =>
+	slug.replace(/-(\w)/g, (_, char) => " " + char.toUpperCase()).replace(/^(\w)/, (_, char) => char.toUpperCase());
 
 // Main Library Component.
 const Library = (props) => {
 	const [wishListArr, setWishlistArr] = useState([]);
+	// Pattern currently shown in the preview drawer (null = drawer closed). A ref
+	// mirrors it so the document-level ESC handler (registered once) can read the
+	// latest value without a stale closure.
+	const [previewPattern, setPreviewPattern] = useState(null);
+	const previewPatternRef = useRef(null);
+	// The grid's visible patterns when the preview opened — the drawer's Prev / Next sequence.
+	const [previewList, setPreviewList] = useState([]);
+	const modalRef = useRef(null);
+
+	const showPreview = useCallback((pattern) => {
+		if (!pattern) {
+			return;
+		}
+		previewPatternRef.current = pattern;
+		setPreviewPattern(pattern);
+	}, []);
+	const openPreview = useCallback(
+		(pattern, list = []) => {
+			setPreviewList(list);
+			showPreview(pattern);
+		},
+		[showPreview]
+	);
+	const closePreview = useCallback(() => {
+		previewPatternRef.current = null;
+		setPreviewPattern(null);
+	}, []);
 	const isBlockPattern = props.currentBlockName ? true : false;
 	const currentBlockName = props.currentBlockName || "all";
+	// `initialBlockType` only *preselects* the Block Type facet — unlike
+	// `currentBlockName` it keeps the sidebar visible and `designs` holding the
+	// full catalog, so the user can widen back out to "All Patterns".
+	const initialBlockType = !isBlockPattern && props.initialBlockType ? props.initialBlockType : "";
+	// The preselect is a one-shot: once consumed, a later refetch (the Refresh
+	// button) must keep whatever facet the user has since chosen.
+	const preselectAppliedRef = useRef(false);
 
 	const [state, setState] = useState({
 		isPopup: props.isShow || false,
@@ -124,33 +159,41 @@ const Library = (props) => {
 		reload: false,
 		error: false,
 		fetching: false,
-		designFilter: currentBlockName || "all",
+		designFilter: initialBlockType || currentBlockName || "all",
 		current: [],
-		sidebarOpen: true,
-		templatekitCol: "sp-eap-pattern-col3",
-		categoryCounts: false,
+		blocks: [],
+		categoryTypes: [],
 		freeCount: false,
 		proCount: false,
 		loading: false,
 	});
 
-	const { isPopup, designFilter } = state;
-	// const localizedData = sp_eab_patterns_post_block_localize || {};
-	// Transform nested category data to flat array.
-	const handleDesignData = (data) => {
+	const { isPopup, designFilter, reload, reloadId } = state;
+	// Flatten the grouped pattern object ({ blockSlug: items[] }) into a single
+	// array, tagging each item with its block slug so it can be filtered by block.
+	// The same pattern can exist under multiple block slugs; render it once.
+	const handleDesignData = (patternsData) => {
 		const transformedData = [];
-		for (const category in data) {
-			data[category].forEach((item) => {
+		const seenIds = new Set();
+		for (const blockSlug in patternsData) {
+			if (!Array.isArray(patternsData[blockSlug])) {
+				continue;
+			}
+			patternsData[blockSlug].forEach((item) => {
+				if (seenIds.has(item.ID)) {
+					return;
+				}
+				seenIds.add(item.ID);
 				transformedData.push({
 					...item,
-					category,
+					blockCategory: blockSlug,
 				});
 			});
 		}
 		return transformedData;
 	};
 
-	// Fetch Premade pattern data from Location Weather REST API.
+	// Fetch Premade pattern data from the Ready Patterns REST API.
 	const fetchTemplates = async () => {
 		setState((prev) => ({ ...prev, loading: true, error: false }));
 		try {
@@ -165,16 +208,27 @@ const Library = (props) => {
 			}
 
 			if (response.success && response.data) {
-				const allDesignData = JSON.parse(response.data);
-				// Calculate count of items per block category,
-				const categoryCounts = {};
-				Object.keys(allDesignData).forEach((category) => {
-					categoryCounts[category] = Array.isArray(allDesignData[category])
-						? allDesignData[category].length
-						: 0;
-				});
+				const parsed = JSON.parse(response.data);
 
-				const designData = handleDesignData(allDesignData);
+				// Two catalog shapes arrive here: the v2 envelope
+				// { meta_data: { blocks, categories }, patterns: { blockSlug: [] } } and
+				// the legacy flat { blockSlug: [] } with no meta at all. Block Type and
+				// Category Type facets come from meta_data — nothing hard-coded; on the
+				// legacy shape the block axis is derived from the slug keys and the
+				// category axis render-gates off until the remote upgrades.
+				const hasEnvelope = parsed && parsed.meta_data && parsed.patterns;
+				const patternsData = hasEnvelope ? parsed.patterns : parsed;
+				const meta = hasEnvelope ? parsed.meta_data : {};
+				const blocks = Array.isArray(meta.blocks)
+					? meta.blocks
+					: Object.keys(patternsData).map((slug) => ({
+							label: accordionBlocksInfo[`sp-easy-accordion-pro/${slug}`]?.title || humanizeSlug(slug),
+							value: slug,
+							count: Array.isArray(patternsData[slug]) ? patternsData[slug].length : 0,
+						}));
+				const categoryTypes = Array.isArray(meta.categories) ? meta.categories : [];
+
+				const designData = handleDesignData(patternsData);
 				const freeCount = designData.filter((data) => !data.pro).length;
 				const proCount = designData.filter((data) => data.pro).length;
 
@@ -182,23 +236,41 @@ const Library = (props) => {
 				const dataForCategory = isBlockPattern && currentBlockName;
 
 				if (dataForCategory) {
-					categorisedData = allDesignData[currentBlockName] || [];
+					categorisedData = patternsData[currentBlockName] || [];
 				}
 
-				setState((prev) => ({
-					...prev,
-					current: dataForCategory ? categorisedData : designData,
-					designs: dataForCategory ? categorisedData : designData,
-					categoryCounts,
-					freeCount,
-					proCount,
-					loading: false,
-					error: false,
-				}));
+				// The preselect arrives from a URL arg, so only honour it when the
+				// catalog actually advertises that block — an unknown slug would
+				// otherwise leave the grid permanently empty.
+				const isKnownBlockType =
+					initialBlockType && blocks.some((block) => String(block.value) === String(initialBlockType));
+				const preselected = isKnownBlockType ? initialBlockType : "all";
+
+				setState((prev) => {
+					// First load honours the preselect; a refetch keeps the live facet.
+					const nextFilter = preselectAppliedRef.current ? prev.designFilter : preselected;
+
+					return {
+						...prev,
+						// `designs` always holds the full catalog outside single-block mode,
+						// so switching the facet back to "All Patterns" still works.
+						current: dataForCategory ? categorisedData : filterByCategoryKey(designData, nextFilter),
+						designs: dataForCategory ? categorisedData : designData,
+						designFilter: dataForCategory ? prev.designFilter : nextFilter,
+						blocks,
+						categoryTypes,
+						freeCount,
+						proCount,
+						loading: false,
+						error: false,
+					};
+				});
+				preselectAppliedRef.current = true;
 			} else {
 				throw new Error(response.message || __("Failed to load patterns", "easy-accordion-free"));
 			}
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.error("Error fetching templates:", error);
 			setState((prev) => ({
 				...prev,
@@ -230,6 +302,7 @@ const Library = (props) => {
 				throw new Error(response.message || __("Failed to refresh patterns", "easy-accordion-free"));
 			}
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.error("Error fetching all data:", error);
 			setState((prev) => ({
 				...prev,
@@ -240,19 +313,39 @@ const Library = (props) => {
 		}
 	};
 
-	// Close modal
+	// Close modal — through the mount owner (unmounts the React root), with a
+	// node-removal fallback when no owner was passed.
 	const closeModal = () => {
-		const element = document.querySelector(".sp-eap-patterns-builder-modal");
+		if (props.onClose) {
+			props.onClose();
+			return;
+		}
+		const element = document.querySelector(`.${CSS_CLASSES.MODAL}`);
 		if (element) {
 			element.remove();
 		}
 		setState((prev) => ({ ...prev, isPopup: false }));
 	};
 
+	// Clicking the dimmed backdrop (outside the modal box) closes the modal — but
+	// never while the preview drawer is open (the drawer owns that interaction).
+	const handleBackdropMouseDown = (e) => {
+		if (previewPatternRef.current) {
+			return;
+		}
+		if (modalRef.current && !modalRef.current.contains(e.target)) {
+			closeModal();
+		}
+	};
+
 	// Handle ESC key press
 	const handleKeyDown = (e) => {
 		if (e.keyCode === KEYBOARD_KEYS.ESCAPE) {
-			closeModal();
+			if (previewPatternRef.current) {
+				closePreview();
+			} else {
+				closeModal();
+			}
 		}
 	};
 
@@ -306,8 +399,7 @@ const Library = (props) => {
 						throw new Error(__("No blocks found in pattern", "easy-accordion-free"));
 					}
 
-					// Modify block attributes after parsing but before insertion
-					// This allows you to change default attributes, reset IDs, etc.
+					// Reset query attrs so the pattern uses the user's content.
 					blocks = modifyBlockAttributes(blocks);
 
 					// Insert all blocks into the editor
@@ -337,16 +429,16 @@ const Library = (props) => {
 		}
 	};
 
-	// Handle block import
-	const handleBlockImport = (templateID, isPro) => {
-		// if ( isPro ) {
-		// 	return;
-		// }
-
+	// Handle block import. Pro patterns are locked in the free plugin — their
+	// cards and the preview drawer show an upgrade link instead of Insert.
+	const handleBlockImport = (templateID, isPro = false) => {
+		if (isPro) {
+			return;
+		}
 		insertBlock(templateID);
 	};
 
-	// Split archive data by category key.
+	// Split archive data by block slug (set on each item as `blockCategory`).
 	const filterByCategoryKey = (data = [], key = "") => {
 		// Return early if no data or not an array
 		if (!Array.isArray(data) || data.length === 0) {
@@ -358,25 +450,7 @@ const Library = (props) => {
 			return data;
 		}
 
-		return data.filter((item) => {
-			const category = item?.category;
-
-			// Handle category as array
-			if (Array.isArray(category)) {
-				return category.some((cat) => cat?.slug === key);
-			}
-
-			// Handle category as string or object
-			if (typeof category === "string") {
-				return category === key;
-			}
-
-			if (category && typeof category === "object") {
-				return category.slug === key;
-			}
-
-			return false;
-		});
+		return data.filter((item) => item?.blockCategory === key);
 	};
 
 	// Handle wishlist actions
@@ -401,6 +475,7 @@ const Library = (props) => {
 				throw new Error(response.message || __("Failed to update wishlist", "easy-accordion-free"));
 			}
 		} catch (error) {
+			// eslint-disable-next-line no-console
 			console.error("Error updating wishlist:", error);
 			// Optionally show user-friendly error message
 		}
@@ -422,18 +497,42 @@ const Library = (props) => {
 			{isPopup && (
 				<ErrorBoundary
 					onError={(error, errorInfo) => {
+						// eslint-disable-next-line no-console
 						console.error("Library Error Boundary:", error, errorInfo);
 					}}
 					onRetry={fetchTemplates}
 				>
-					<div className="sp-eap-patterns-builder-modal-shadow">
-						<div className="sp-eap-patterns-popup-wrap">
-							{!isBlockPattern && <LibraryHeader onClose={closeModal} />}
+					<div className="sp-eap-ready-patterns-backdrop" onMouseDown={handleBackdropMouseDown}>
+						<div
+							className="sp-eap-ready-patterns-modal"
+							ref={modalRef}
+							role="dialog"
+							aria-modal="true"
+							aria-label={__("Ready Patterns Library", "easy-accordion-free")}
+						>
+							<header className="sp-eap-ready-patterns-header">
+								<div className="sp-eap-ready-patterns-brand">
+									<EasyAccordionLogo />
+									<h2 className="sp-eap-ready-patterns-title">
+										{__("Ready Patterns Library", "easy-accordion-free")}
+									</h2>
+								</div>
+								<div className="sp-eap-ready-patterns-header-actions">
+									<button
+										type="button"
+										className="sp-eap-ready-patterns-close"
+										onClick={closeModal}
+										aria-label={__("Close", "easy-accordion-free")}
+									>
+										<span className="dashicons dashicons-no-alt" />
+									</button>
+								</div>
+							</header>
+
 							<StarterSites
 								filterValue={designFilter}
 								currentBlockName={props.currentBlockName}
 								isSingleBlock={isBlockPattern}
-								onClose={closeModal}
 								state={state}
 								setState={setState}
 								_fetchFile={fetchAllData}
@@ -442,7 +541,19 @@ const Library = (props) => {
 								setWListAction={handleWishlistAction}
 								wishListArr={wishListArr}
 								setWishlistArr={setWishlistArr}
+								onPreview={openPreview}
 							/>
+
+							{previewPattern ? (
+								<PreviewDrawer
+									pattern={previewPattern}
+									patterns={previewList}
+									onNavigate={showPreview}
+									onClose={closePreview}
+									onInsert={() => handleBlockImport(previewPattern.ID, previewPattern.pro)}
+									isInserting={reload && reloadId === previewPattern.ID}
+								/>
+							) : null}
 						</div>
 					</div>
 				</ErrorBoundary>

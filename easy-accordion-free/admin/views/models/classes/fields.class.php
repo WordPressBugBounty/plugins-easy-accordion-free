@@ -393,11 +393,29 @@ if ( ! class_exists( 'SP_EAP_Fields' ) ) {
 					break;
 
 				default:
-					if ( function_exists( $type ) ) {
-						if ( ! empty( $term ) ) {
-							$options = call_user_func( $type, $query_args );
-						} else {
-							$options = call_user_func( $type, $term, $query_args );
+					// Never call a function named in the request: only query
+					// publicly viewable post types by name.
+					$post_type_object = get_post_type_object( $type );
+
+					if ( $post_type_object && is_post_type_viewable( $post_type_object ) ) {
+						$query_args = (array) wp_parse_args(
+							$query_args,
+							array(
+								's'              => $term,
+								'posts_per_page' => 25,
+							)
+						);
+						// The validated type and safe flags must never be overridden by request data.
+						$query_args['post_type']    = $type;
+						$query_args['post_status']  = 'publish';
+						$query_args['has_password'] = false;
+
+						$query = new WP_Query( $query_args );
+
+						if ( ! is_wp_error( $query ) && ! empty( $query->posts ) ) {
+							foreach ( $query->posts as $item ) {
+								$options[ $item->ID ] = $item->post_title;
+							}
 						}
 					}
 
@@ -508,8 +526,13 @@ if ( ! class_exists( 'SP_EAP_Fields' ) ) {
 							break;
 
 						default:
-							if ( function_exists( $type . '_title' ) ) {
-								$options[ $value ] = call_user_func( $type . '_title', $value );
+							// Only resolve titles for publicly viewable post types;
+							// never call a function built from the field type name.
+							$post_type_object = get_post_type_object( $type );
+
+							if ( $post_type_object && is_post_type_viewable( $post_type_object ) ) {
+								$title            = get_the_title( $value );
+								$options[ $value ] = ( ! is_wp_error( $title ) && ! empty( $title ) ) ? $title : ucfirst( $value );
 							} else {
 								$options[ $value ] = ucfirst( $value );
 							}

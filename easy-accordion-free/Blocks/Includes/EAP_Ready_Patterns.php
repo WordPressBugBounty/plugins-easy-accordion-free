@@ -235,6 +235,13 @@ class EAP_Ready_Patterns {
 			);
 		}
 
+		if ( 200 !== (int) wp_remote_retrieve_response_code( $response ) ) {
+			return array(
+				'success' => false,
+				'message' => __( 'Failed to fetch remote data.', 'easy-accordion-free' ),
+			);
+		}
+
 		$body = wp_remote_retrieve_body( $response );
 
 		if ( empty( $body ) ) {
@@ -242,6 +249,26 @@ class EAP_Ready_Patterns {
 				'success' => false,
 				'message' => __( 'Empty response from remote server.', 'easy-accordion-free' ),
 			);
+		}
+
+		// Validate the remote body is the expected pattern library JSON (an object
+		// of category arrays) before caching it to uploads.
+		$decoded = json_decode( $body, true );
+
+		if ( empty( $decoded ) || ! is_array( $decoded ) ) {
+			return array(
+				'success' => false,
+				'message' => __( 'Invalid response from remote server.', 'easy-accordion-free' ),
+			);
+		}
+
+		foreach ( $decoded as $category_patterns ) {
+			if ( ! is_array( $category_patterns ) ) {
+				return array(
+					'success' => false,
+					'message' => __( 'Invalid response from remote server.', 'easy-accordion-free' ),
+				);
+			}
 		}
 
 		$this->file_system->safe_filesystem_put_contents( $file_path, $body );

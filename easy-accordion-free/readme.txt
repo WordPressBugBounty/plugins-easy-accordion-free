@@ -4,7 +4,7 @@ Tags: faq, accordion blocks, image accordion, product faq, category menu accordi
 Requires at least: 5.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.1.11
+Stable tag: 3.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -324,6 +324,7 @@ clicking "Install Now" and then "Activate".
 
 
 
+
 == Screenshots ==
 
 1. Vertical Accordion - Traditional stacked FAQ layout
@@ -339,6 +340,24 @@ clicking "Install Now" and then "Activate".
 
 == Changelog ==
 
+= Version 3.2.0 - Nov 09, 2026 =
+* New: Generate FAQs with AI now supports OpenAI, Anthropic Claude, and Groq alongside Google Gemini.
+* New: Generate FAQs with AI can use providers connected under Settings → Connectors (WordPress 7.0+).
+* New: Generate FAQs with AI from your pages, posts, products, URLs, and text files as reference sources.
+* New: Rewrite any generated question or answer before inserting it.
+* New: The AI Configuration tab under Settings with API key verification and a primary provider option.
+* New: The Accordion Placements report on the dashboard overview shows where every accordion is used.
+* New: Bulk select, duplicate, delete, and copy shortcode actions on the Saved Templates page.
+* Improved: The dashboard overview page has been redesigned with quick start actions.
+* Improved: The Ready Patterns Library has been redesigned with sidebar filters, search, and preview.
+* Improved: The Generate FAQs with AI modal has been redesigned.
+* Improved: The AI provider settings moved from Integrations to Settings → AI Configuration.
+* Improved: Scroll to active item now lands the title just below the WordPress admin bar.
+* Improved: The Documentation and Patterns buttons in the block inspector have been refreshed.
+* Fixed: The accordion item list jumping when an item collapses in the accordion editor.
+* Fixed: The page jumping when clicking an accordion header that links to "#".
+* Fixed: Strengthened security checks for block queries, saved templates, settings import, and custom JS.
+* Tested: WordPress 7.1.4 compatibility.
 
 = Version 3.1.11 - Oct 13, 2026 =
 * New: The Display FAQ on Single Post Template setting, which lets you disable single FAQ item pages site-wide.

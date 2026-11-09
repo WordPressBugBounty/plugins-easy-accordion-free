@@ -58,16 +58,11 @@ if ( ! class_exists( 'Blocks_Query' ) ) {
 		 */
 		public function init() {
 			add_action( 'wp_ajax_eab_post_query', array( $this, 'eab_post_query' ) );
-			add_action( 'wp_ajax_nopriv_eab_post_query', array( $this, 'eab_post_query' ) );
 			// query functions for get all post.
-			if ( is_admin() ) {
-				add_action( 'wp_ajax_eab_all_post_query', array( $this, 'eab_all_post_query' ) );
-				add_action( 'wp_ajax_nopriv_eab_all_post_query', array( $this, 'eab_all_post_query' ) );
-			}
+			add_action( 'wp_ajax_eab_all_post_query', array( $this, 'eab_all_post_query' ) );
 
 			// metadata query.
 			add_action( 'wp_ajax_eab_meta_data_query', array( $this, 'eab_meta_data_query' ) );
-			add_action( 'wp_ajax_nopriv_eab_meta_data_query', array( $this, 'eab_meta_data_query' ) );
 		}
 
 		/**
@@ -368,12 +363,16 @@ if ( ! class_exists( 'Blocks_Query' ) ) {
 		 * @return void
 		 */
 		public function eab_post_query() {
-			// No need to check current_user_can() capability check for this as it's used for both admin and frontend.
-
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
 			if ( ! wp_verify_nonce( $nonce, 'sp_easy_accordion_block_nonce' ) ) {
-				wp_send_json_error( array( 'message' => 'Security check failed.' ), 403 );
+				wp_send_json_error( array( 'message' => __( 'Security check failed.', 'easy-accordion-free' ) ), 403 );
+				return;
+			}
+
+			// Only users who can edit posts (the editor picker's audience) may query.
+			if ( ! current_user_can( 'edit_posts' ) ) {
+				wp_send_json_error( array( 'message' => __( 'Security check failed.', 'easy-accordion-free' ) ), 403 );
 				return;
 			}
 
@@ -393,6 +392,12 @@ if ( ! class_exists( 'Blocks_Query' ) ) {
 						'message'      => __( 'WooCommerce is required to display products. Please install and activate WooCommerce to use this block.', 'easy-accordion-free' ),
 					)
 				);
+			}
+
+			// Only publicly viewable, REST-enabled post types may be queried.
+			if ( ! EAB_Utils::viewable_post_type( $query_data['postType'] ?? 'post' ) ) {
+				wp_send_json_error( array( 'message' => __( 'Invalid post type.', 'easy-accordion-free' ) ), 400 );
+				return;
 			}
 
 			$config     = self::prepare_ajax_config( $query_data );
@@ -451,12 +456,16 @@ if ( ! class_exists( 'Blocks_Query' ) ) {
 		 * @return void
 		 */
 		public function eab_all_post_query() {
-			// No need to check current_user_can() capability check for this as it's used for both admin and frontend.
-
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
 			if ( ! wp_verify_nonce( $nonce, 'sp_easy_accordion_block_nonce' ) ) {
-				wp_send_json_error( array( 'message' => 'Security check failed.' ), 403 );
+				wp_send_json_error( array( 'message' => __( 'Security check failed.', 'easy-accordion-free' ) ), 403 );
+				return;
+			}
+
+			// Only users who can edit posts (the editor picker's audience) may query.
+			if ( ! current_user_can( 'edit_posts' ) ) {
+				wp_send_json_error( array( 'message' => __( 'Security check failed.', 'easy-accordion-free' ) ), 403 );
 				return;
 			}
 
@@ -467,9 +476,16 @@ if ( ! class_exists( 'Blocks_Query' ) ) {
 			$post_type   = isset( $query_data['postType'] ) ? $query_data['postType'] : 'post';
 			$search_text = isset( $query_data['liveSearchText'] ) ? $query_data['liveSearchText'] : '';
 
+			// Only publicly viewable, REST-enabled post types may be queried.
+			if ( ! EAB_Utils::viewable_post_type( $post_type ) ) {
+				wp_send_json_error( array( 'message' => __( 'Invalid post type.', 'easy-accordion-free' ) ), 400 );
+				return;
+			}
+
 			$post_query_args                   = Blocks_Query_Handler::query( $query_data, 'args' )['args'];
 			$post_query_args['fields']         = 'ids';
 			$post_query_args['posts_per_page'] = 99999;
+			$post_query_args['has_password']   = false;
 
 			$post_lists = get_posts( $post_query_args );
 
@@ -479,12 +495,24 @@ if ( ! class_exists( 'Blocks_Query' ) ) {
 					'posts_per_page' => 20,
 					's'              => $search_text,
 					'post__in'       => $post_lists,
+					'has_password'   => false,
 				)
 			);
 
+			// Never return WP_Post objects: expose only the id and title.
+			$posts = array();
+			if ( count( $post_lists ) > 0 ) {
+				foreach ( $the_search_query->posts as $result_post ) {
+					$posts[] = array(
+						'id'    => $result_post->ID,
+						'title' => get_the_title( $result_post ),
+					);
+				}
+			}
+
 			wp_send_json(
 				array(
-					'posts' => count( $post_lists ) > 0 ? $the_search_query->posts : array(),
+					'posts' => $posts,
 				)
 			);
 		}
@@ -495,12 +523,16 @@ if ( ! class_exists( 'Blocks_Query' ) ) {
 		 * @return void
 		 */
 		public function eab_meta_data_query() {
-			// No need to check current_user_can() capability check for this as it's used for both admin and frontend.
-
 			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
 			if ( ! wp_verify_nonce( $nonce, 'sp_easy_accordion_block_nonce' ) ) {
-				wp_send_json_error( array( 'message' => 'Security check failed.' ), 403 );
+				wp_send_json_error( array( 'message' => __( 'Security check failed.', 'easy-accordion-free' ) ), 403 );
+				return;
+			}
+
+			// Only users who can edit posts (the editor picker's audience) may query.
+			if ( ! current_user_can( 'edit_posts' ) ) {
+				wp_send_json_error( array( 'message' => __( 'Security check failed.', 'easy-accordion-free' ) ), 403 );
 				return;
 			}
 
@@ -508,6 +540,9 @@ if ( ! class_exists( 'Blocks_Query' ) ) {
 			$query_data = (array) json_decode( $query_data );
 			// query data.
 			$post_type = isset( $query_data['postType'] ) ? $query_data['postType'] : 'post';
+
+			// Only publicly viewable, REST-enabled post types may be counted.
+			$post_type = EAB_Utils::viewable_post_type( $post_type, 'post' );
 
 			// all post type list.
 			$all_post_type_list = get_post_types(

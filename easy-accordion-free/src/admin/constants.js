@@ -1,5 +1,12 @@
 import { __ } from "@wordpress/i18n";
-import { AdditionalCodesIcon, AdvancedIcon, IntegrationsTabIcon, KeyIcon, ToolsIcon, WooCommerceFAQsTabIcon } from "./pages/settings/icons";
+import {
+	AdditionalCodesIcon,
+	AdvancedIcon,
+	AiConfigurationTabIcon,
+	IntegrationsTabIcon,
+	ToolsIcon,
+	WooCommerceFAQsTabIcon,
+} from "./pages/settings/icons";
 
 export const pluginSettingOptions = [
 	{
@@ -65,6 +72,7 @@ export const pluginSettingDefaultValues = {
 		eap_woo_set_tab: [],
 	},
 	integrations: {},
+	"ai-configuration": {},
 	tools: {},
 };
 
@@ -83,6 +91,11 @@ export const settingsTabNavigation = [
 		label: __("Integrations", "easy-accordion-free"),
 		Icon: IntegrationsTabIcon,
 		value: "integrations",
+	},
+	{
+		label: __("AI Configuration", "easy-accordion-free"),
+		Icon: AiConfigurationTabIcon,
+		value: "ai-configuration",
 	},
 	{
 		label: __("Additional CSS & JS", "easy-accordion-free"),

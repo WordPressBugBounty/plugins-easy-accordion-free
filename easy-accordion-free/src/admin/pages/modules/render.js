@@ -8,15 +8,12 @@ import { defaultDashboardSettings } from "@easy-accordion/constants";
 import { checkIsEqual } from "@easy-accordion/controls";
 import { Demos, Docs, SettingsIcon, VideoPlayIcon } from "../../icons";
 import { SaveAndReset } from "../settings/template-parts";
-import { AISettingsModal, ReCaptchaPopup } from "../integrations/templates";
+import { ReCaptchaPopup } from "../integrations/templates";
 import { STORE_NAME } from "../../store";
 import { ProIndicatorIcon } from "./icons";
 
 const modalHeaderLabel = {
 	google_recaptcha: __("Google reCAPTCHA Settings", "easy-accordion-free"),
-	gemini: __("Google Gemini API Settings", "easy-accordion-free"),
-	chatgpt: __("ChatGPT API Settings", "easy-accordion-free"),
-	deepseek: __("DeepSeek API Settings", "easy-accordion-free"),
 };
 
 const dynamicMenuItems = [
@@ -74,7 +71,13 @@ const show_notification = (enabled, optionKey = "modules") => {
 	toast.success(message, { style: { marginTop: "20px", fontSize: "14px" } });
 };
 
-const RenderModuleCard = ({ items = [], optionKey = "integrations", hideUpcoming = false, type = "", gridCols = "sp-grid-cols-3" }) => {
+const RenderModuleCard = ({
+	items = [],
+	optionKey = "integrations",
+	hideUpcoming = false,
+	type = "",
+	gridCols = "sp-grid-cols-3",
+}) => {
 	const dashboardSettings = useSelect((select) => select(STORE_NAME).getDashboardSettings());
 	const { saveSettings } = useDispatch(STORE_NAME);
 	// default settings.
@@ -117,130 +120,126 @@ const RenderModuleCard = ({ items = [], optionKey = "integrations", hideUpcoming
 
 	return (
 		<div className={`sp-eab-integrations-page-items-wrapper sp-d-grid ${gridCols}`}>
-			{items?.map(({ id, key, Icon, label, desc, demoLink, docLink, videoLink, upcoming, isPro, hideSettings }) => (
-				<div
-					key={id}
-					className={`sp-eap-integrations-card sp-d-flex${upcoming ? " sp-eap-upcoming-card" : ""}`}
-				>
-					<div className="sp-eap-integrations-card__icon">
-						<Icon />
-					</div>
-					<div className="sp-eap-integrations-card__content sp-d-flex sp-flex-col sp-justify-between">
-						<div className="sp-d-flex sp-flex-col sp-gap-8px">
-							<div className="sp-d-flex sp-align-center sp-justify-between">
-								<h4 className="sp-eap-integrations-card__label">
-									{label}
-									{!hideUpcoming && upcoming && (
-										<span className="sp-eap-dashboard-upcoming-text small">
-											{__("Upcoming", "easy-accordion-free")}
-										</span>
-									)}
-								</h4>
-								{key && (
-									<Toggle
-										icons={false}
-										defaultChecked={upcoming ? false : moduleData?.[key]?.is_active}
-										onChange={() => {
-											if (!upcoming) {
-												handleToggle(key, !moduleData?.[key]?.is_active);
-											}
-										}}
-									/>
-								)}
-								{isPro && <ProIndicatorIcon />}
-							</div>
-							{type !== "quick-start" && <span className="sp-eap-integrations-card__desc">{desc}</span>}
+			{items?.map(
+				({ id, key, Icon, label, desc, demoLink, docLink, videoLink, upcoming, isPro, hideSettings }) => (
+					<div
+						key={id}
+						className={`sp-eap-integrations-card sp-d-flex${upcoming ? " sp-eap-upcoming-card" : ""}`}
+					>
+						<div className="sp-eap-integrations-card__icon">
+							<Icon />
 						</div>
-						{type !== "quick-start" && (
-							<div className="sp-eap-integrations-card__links sp-d-flex sp-align-center sp-justify-between">
-								{(docLink || demoLink || videoLink) && (
-									<div className="sp-d-flex sp-align-center sp-gap-10px">
-										{demoLink && (
-											<a
-												className="sp-d-flex sp-align-center sp-gap-4px"
-												href={demoLink}
-												target="_blank"
-												rel="noreferrer"
-												{...(demoLink === "#" && {
-													style: { pointerEvents: "none", cursor: "default" },
-												})}
-											>
-												<Demos /> Demo
-											</a>
+						<div className="sp-eap-integrations-card__content sp-d-flex sp-flex-col sp-justify-between">
+							<div className="sp-d-flex sp-flex-col sp-gap-8px">
+								<div className="sp-d-flex sp-align-center sp-justify-between">
+									<h4 className="sp-eap-integrations-card__label">
+										{label}
+										{!hideUpcoming && upcoming && (
+											<span className="sp-eap-dashboard-upcoming-text small">
+												{__("Upcoming", "easy-accordion-free")}
+											</span>
 										)}
-										{videoLink && (
-											<a
-												className="sp-d-flex sp-align-center sp-gap-4px"
-												href={videoLink}
-												target="_blank"
-												rel="noreferrer"
-												{...(videoLink === "#" && {
-													style: { pointerEvents: "none", cursor: "default" },
-												})}
-											>
-												<VideoPlayIcon /> Video
-											</a>
-										)}
-										{docLink && (
-											<a
-												className="sp-d-flex sp-align-center sp-gap-4px"
-												href={docLink}
-												target="_blank"
-												rel="noreferrer"
-												{...(docLink === "#" && {
-													style: { pointerEvents: "none", cursor: "default" },
-												})}
-											>
-												<Docs /> Docs
-											</a>
-										)}
-									</div>
-								)}
-								{optionKey === "integrations" && type !== "page-builder" && !hideSettings && (
-									<div className="sp-eap-integrations-card__settings sp-cursor-pointer">
-										<span
-											onClick={() => {
+									</h4>
+									{key && (
+										<Toggle
+											icons={false}
+											defaultChecked={upcoming ? false : moduleData?.[key]?.is_active}
+											onChange={() => {
 												if (!upcoming) {
-													setOpenedPopup(key);
+													handleToggle(key, !moduleData?.[key]?.is_active);
 												}
 											}}
-										>
-											<SettingsIcon />
-										</span>
-									</div>
+										/>
+									)}
+									{isPro && <ProIndicatorIcon />}
+								</div>
+								{type !== "quick-start" && (
+									<span className="sp-eap-integrations-card__desc">{desc}</span>
 								)}
 							</div>
-						)}
-					</div>
-					{openedPopup === key && (
-						<Modal
-							className="sp-eap-integrations__modal"
-							title={modalHeaderLabel[key]}
-							onRequestClose={() => setOpenedPopup(null)}
-						>
-							<div className="sp-eap-integrations__modal-content">
-								{openedPopup === "google_recaptcha" ? (
+							{type !== "quick-start" && (
+								<div className="sp-eap-integrations-card__links sp-d-flex sp-align-center sp-justify-between">
+									{(docLink || demoLink || videoLink) && (
+										<div className="sp-d-flex sp-align-center sp-gap-10px">
+											{demoLink && (
+												<a
+													className="sp-d-flex sp-align-center sp-gap-4px"
+													href={demoLink}
+													target="_blank"
+													rel="noreferrer"
+													{...(demoLink === "#" && {
+														style: { pointerEvents: "none", cursor: "default" },
+													})}
+												>
+													<Demos /> Demo
+												</a>
+											)}
+											{videoLink && (
+												<a
+													className="sp-d-flex sp-align-center sp-gap-4px"
+													href={videoLink}
+													target="_blank"
+													rel="noreferrer"
+													{...(videoLink === "#" && {
+														style: { pointerEvents: "none", cursor: "default" },
+													})}
+												>
+													<VideoPlayIcon /> Video
+												</a>
+											)}
+											{docLink && (
+												<a
+													className="sp-d-flex sp-align-center sp-gap-4px"
+													href={docLink}
+													target="_blank"
+													rel="noreferrer"
+													{...(docLink === "#" && {
+														style: { pointerEvents: "none", cursor: "default" },
+													})}
+												>
+													<Docs /> Docs
+												</a>
+											)}
+										</div>
+									)}
+									{optionKey === "integrations" && type !== "page-builder" && !hideSettings && (
+										<div className="sp-eap-integrations-card__settings sp-cursor-pointer">
+											<span
+												onClick={() => {
+													if (!upcoming) {
+														setOpenedPopup(key);
+													}
+												}}
+											>
+												<SettingsIcon />
+											</span>
+										</div>
+									)}
+								</div>
+							)}
+						</div>
+						{openedPopup === key && (
+							<Modal
+								className="sp-eap-integrations__modal"
+								title={modalHeaderLabel[key]}
+								onRequestClose={() => setOpenedPopup(null)}
+							>
+								<div className="sp-eap-integrations__modal-content">
 									<ReCaptchaPopup
 										settings={moduleData?.google_recaptcha}
 										updateSettingsOption={updateSettingsOption}
 									/>
-								) : (
-									<AISettingsModal
-										openedPopup={openedPopup}
-										settings={moduleData?.[openedPopup]}
-										updateSettingsOption={updateSettingsOption}
+									<SaveAndReset
+										onSave={() => handleSaveData()}
+										onReset={handleReset}
+										isChanged={isChangeAnything}
 									/>
-								)}
-								<SaveAndReset
-									onSave={() => handleSaveData()}
-									onReset={handleReset}
-									isChanged={isChangeAnything}
-								/>
-							</div>
-						</Modal>
-					)}
-				</div>
-			))}
+								</div>
+							</Modal>
+						)}
+					</div>
+				)
+			)}
 		</div>
 	);
 };

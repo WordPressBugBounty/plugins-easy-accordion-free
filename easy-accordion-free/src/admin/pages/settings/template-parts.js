@@ -26,21 +26,32 @@ export const ConfirmationPopup = ({
 	);
 };
 
-export const SaveAndReset = ({ onSave, onReset, isChanged }) => {
+export const SaveAndReset = ({
+	onSave,
+	onReset,
+	isChanged,
+	isBusy = false,
+	busyLabel = "",
+	saveLabel = __("Save Changes", "easy-accordion-free"),
+	resetLabel = __("Reset", "easy-accordion-free"),
+}) => {
 	return (
 		<div className="sp-eap-settings-save-wrapper sp-d-flex sp-align-center sp-justify-start sp-gap-10px">
 			<button
 				className={`sp-eap-settings-save-btn sp-d-flex sp-align-center sp-gap-6px sp-cursor-pointer${isChanged ? " active" : ""}`}
 				onClick={onSave}
+				disabled={isBusy}
+				aria-busy={isBusy}
 			>
 				<img
 					src={`${sp_eab_admin_dashboard_localize?.pluginUrl}/admin/views/models/assets/images/save-icon.svg`}
 					alt={__("Save Icon", "easy-accordion-free")}
 				/>
-				{__("Save Changes", "easy-accordion-free")}
+				{isBusy && busyLabel ? busyLabel : saveLabel}
 			</button>
 			<button
 				className="sp-eap-settings-reset-btn sp-d-flex sp-align-center sp-gap-6px sp-cursor-pointer"
+				disabled={isBusy}
 				onClick={() => {
 					// eslint-disable-next-line no-alert
 					const confirmReset = window.confirm(__("Are you sure you want to reset?", "easy-accordion-free"));
@@ -53,7 +64,7 @@ export const SaveAndReset = ({ onSave, onReset, isChanged }) => {
 					src={`${sp_eab_admin_dashboard_localize?.pluginUrl}/admin/views/models/assets/images/reset-icon.svg`}
 					alt={__("Reset Icon", "easy-accordion-free")}
 				/>
-				{__("Reset", "easy-accordion-free")}
+				{resetLabel}
 			</button>
 		</div>
 	);

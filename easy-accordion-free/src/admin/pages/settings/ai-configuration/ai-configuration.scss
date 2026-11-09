@@ -1,0 +1,386 @@
+// Settings → AI Configuration: provider cards and the selected provider's form.
+// Brand orange marks the selected card and the Primary badge; green means connected.
+.sp-eap-ai-config {
+	--sp-eap-ai-config-text: #1e1e1e;
+	--sp-eap-ai-config-muted: #757575;
+	--sp-eap-ai-config-border: #dcdcde;
+	--sp-eap-ai-config-accent: var(--eab-primary-color, #ff5b2e);
+	--sp-eap-ai-config-accent-strong: #e0481f;
+	--sp-eap-ai-config-accent-soft: #fff5f1;
+	--sp-eap-ai-config-accent-border: #ffb59f;
+	--sp-eap-ai-config-success: #16a34a;
+	--sp-eap-ai-config-success-strong: #15803d;
+	--sp-eap-ai-config-success-soft: #dcfce7;
+	--sp-eap-ai-config-danger: #b91c1c;
+	--sp-eap-ai-config-link: var(--eab-primary-color, #ff5b2e);
+	gap: 16px;
+	color: var(--sp-eap-ai-config-text);
+
+	.eap-dashboard-page-header {
+		margin-bottom: 0;
+	}
+
+	&__count {
+		flex-shrink: 0;
+		margin: 0;
+		font-size: 13px;
+		line-height: 1.5;
+		color: var(--sp-eap-ai-config-muted);
+	}
+
+	&__providers {
+		grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+		gap: 12px;
+	}
+
+	&__provider {
+		position: relative;
+		gap: 12px;
+		min-height: 104px;
+		padding: 16px;
+		border: 1px solid var(--sp-eap-ai-config-border);
+		border-radius: 8px;
+		background: #fff;
+		font-family: inherit;
+		text-align: left;
+		color: var(--sp-eap-ai-config-text);
+		transition:
+			border-color 0.2s ease,
+			background-color 0.2s ease;
+
+		&:hover:not(.is-active) {
+			border-color: #b4b9be;
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--sp-eap-ai-config-accent);
+			outline-offset: 2px;
+		}
+
+		&.is-active {
+			border-color: var(--sp-eap-ai-config-accent-border);
+			background: var(--sp-eap-ai-config-accent-soft);
+		}
+	}
+
+	&__provider-icon svg {
+		width: 40px;
+		height: 40px;
+	}
+
+	&__provider-label {
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 1.3;
+	}
+
+	&__provider-status,
+	&__key-status {
+		&::before {
+			content: "";
+			flex-shrink: 0;
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: #a7aaad;
+		}
+	}
+
+	&__provider-status {
+		margin-top: -8px;
+		font-size: 13px;
+		line-height: 1.3;
+		color: var(--sp-eap-ai-config-muted);
+
+		&.is-connected {
+			color: #3c434a;
+
+			&::before {
+				background: var(--sp-eap-ai-config-success);
+			}
+		}
+	}
+
+	&__provider-badge {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		padding: 3px 8px;
+		border-radius: 999px;
+		background: var(--sp-eap-ai-config-accent-strong);
+		font-size: 11px;
+		font-weight: 600;
+		line-height: 1.3;
+		color: #fff;
+	}
+
+	&__backup-hint {
+		margin: 0;
+		font-size: 13px;
+		line-height: 1.5;
+		color: #50575e;
+
+		svg {
+			flex-shrink: 0;
+			color: var(--sp-eap-ai-config-muted);
+		}
+	}
+
+	&__form {
+		gap: 20px;
+		margin-top: 8px;
+
+		.sp-eap-settings-save-wrapper {
+			margin-top: 8px;
+		}
+	}
+
+	&__field {
+		max-width: 50%;
+
+		@media screen and (max-width: 768px) {
+			max-width: none;
+		}
+	}
+
+	&__notice {
+		padding: 12px 14px;
+		border-left: 4px solid var(--sp-eap-ai-config-border);
+		border-radius: 4px;
+		background: #f6f7f7;
+		font-size: 13px;
+		line-height: 1.5;
+		color: #50575e;
+
+		a {
+			text-decoration: none;
+		}
+	}
+
+	&__connector {
+		padding: 12px 12px 12px 16px;
+		border: 1px solid #d6e4f5;
+		border-radius: 6px;
+		background: #f0f6fc;
+
+		a {
+			font-weight: 500;
+			text-decoration: none;
+			color: var(--sp-eap-ai-config-link);
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	&__connector-icon {
+		flex-shrink: 0;
+		color: #3858e9;
+	}
+
+	&__connector-text {
+		flex: 1;
+		margin: 0;
+		font-size: 13px;
+		line-height: 1.5;
+		color: var(--sp-eap-ai-config-text);
+	}
+
+	&__connector-dismiss {
+		flex-shrink: 0;
+		width: 24px;
+		height: 24px;
+		padding: 0;
+		border: none;
+		border-radius: 4px;
+		background: none;
+		color: #50575e;
+
+		&:hover {
+			background: rgba(0, 0, 0, 0.06);
+			color: var(--sp-eap-ai-config-text);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--sp-eap-ai-config-link);
+			outline-offset: 1px;
+		}
+	}
+
+	&__connected {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 4px;
+		padding: 14px 16px;
+		border: 1px solid #e5e7eb;
+		border-radius: 6px;
+		background: #f9fafb;
+	}
+
+	&__connected-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+		padding: 3px 10px;
+		border-radius: 999px;
+		background: var(--sp-eap-ai-config-success-soft);
+		font-size: 11px;
+		font-weight: 600;
+		line-height: 1.3;
+		color: var(--sp-eap-ai-config-success-strong);
+		white-space: nowrap;
+	}
+
+	&__connected-text {
+		margin: 6px 0 0;
+		font-size: 13px;
+		line-height: 1.5;
+		color: var(--sp-eap-ai-config-muted);
+	}
+
+	&__label {
+		margin-bottom: 8px;
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 1.3;
+	}
+
+	&__input {
+		width: 100%;
+		max-width: none;
+		height: 44px;
+		padding: 0 14px;
+		border: 1px solid var(--sp-eap-ai-config-border);
+		border-radius: 6px;
+		font-size: 14px;
+		line-height: 1.3;
+		color: var(--sp-eap-ai-config-text);
+
+		&::placeholder {
+			color: #8c8f94;
+		}
+
+		&:focus {
+			border-color: var(--sp-eap-ai-config-accent);
+			box-shadow: none;
+			outline: none;
+		}
+	}
+
+	&__key-locked {
+		height: 44px;
+		padding: 0 10px 0 14px;
+		border: 1px solid var(--sp-eap-ai-config-border);
+		border-radius: 6px;
+		background: #fff;
+	}
+
+	&__key-masked {
+		flex: 1;
+		min-width: 0;
+		overflow: hidden;
+		font-size: 14px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		color: var(--sp-eap-ai-config-text);
+	}
+
+	&__key-status {
+		flex-shrink: 0;
+		padding: 3px 10px;
+		border-radius: 999px;
+		background: var(--sp-eap-ai-config-success-soft);
+		font-size: 12px;
+		font-weight: 600;
+		line-height: 1.3;
+		color: var(--sp-eap-ai-config-success-strong);
+
+		&::before {
+			background: currentColor;
+		}
+	}
+
+	&__key-btn {
+		flex-shrink: 0;
+		height: 44px;
+		padding: 0 12px;
+		border: 1px solid var(--sp-eap-ai-config-border);
+		border-radius: 4px;
+		background: #fff;
+		font-size: 13px;
+		font-weight: 600;
+		line-height: 1;
+		color: var(--sp-eap-ai-config-link);
+
+		&:hover {
+			border-color: var(--sp-eap-ai-config-link);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--sp-eap-ai-config-link);
+			outline-offset: 2px;
+		}
+	}
+
+	&__help,
+	&__error {
+		margin-top: 8px;
+		font-size: 13px;
+		line-height: 1.4;
+	}
+
+	&__help {
+		color: var(--sp-eap-ai-config-muted);
+
+		a {
+			text-decoration: none;
+		}
+	}
+
+	&__error {
+		color: var(--sp-eap-ai-config-danger);
+	}
+
+	&__key-meta {
+		flex-wrap: wrap;
+		margin-top: 10px;
+	}
+
+	&__key-link,
+	&__action {
+		font-size: 13px;
+		font-weight: 500;
+		line-height: 1.3;
+		text-decoration: none;
+		color: var(--sp-eap-ai-config-link);
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	&__action {
+		padding: 0;
+		border: none;
+		background: none;
+		font-family: inherit;
+
+		&.is-danger {
+			color: var(--sp-eap-ai-config-danger);
+		}
+
+		&:disabled {
+			opacity: 0.5;
+			cursor: default;
+			text-decoration: none;
+		}
+
+		&:focus-visible {
+			outline: 2px solid currentColor;
+			outline-offset: 2px;
+			border-radius: 2px;
+		}
+	}
+}

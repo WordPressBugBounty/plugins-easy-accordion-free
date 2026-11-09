@@ -7,7 +7,7 @@
  * Author URI:  https://shapedplugin.com/
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Version:     3.1.11
+ * Version:     3.2.0
  * Requires at least: 5.9
  * Requires PHP: 7.4
  * Text Domain: easy-accordion-free
@@ -63,7 +63,7 @@ class SP_EASY_ACCORDION_FREE {
 	 *
 	 * @var string
 	 */
-	public $version = '3.1.11';
+	public $version = '3.2.0';
 
 	/**
 	 * The name of the plugin.
@@ -255,6 +255,12 @@ class SP_EASY_ACCORDION_FREE {
 	private function define_common_hooks() {
 		$plugin_cpt           = new Easy_Accordion_Free_Post_Type( $this->plugin_name, $this->version );
 		$plugin_review_notice = new Easy_Accordion_Free_Review( SP_PLUGIN_NAME, SP_EA_VERSION );
+		// Saved templates REST endpoints (list/duplicate/delete) — REST runs outside is_admin().
+		new EAP_Saved_Templates_Rest();
+		// AI Configuration key check route (REST, so outside is_admin() too).
+		new EAP_AI_Settings();
+		// Track widget saves from any screen (REST included) for the placements report.
+		EAP_Block_Usage::register_hooks();
 		$this->loader->add_action( 'init', $plugin_cpt, 'easy_accordion_post_type', 10 );
 		$this->loader->add_action( 'init', $plugin_cpt, 'register_faq_post_type' );
 		$this->loader->add_action( 'admin_menu', $plugin_cpt, 'add_faq_submenu' );
@@ -406,13 +412,22 @@ function sp_easy_accordion() {
 	$plugin = SP_EASY_ACCORDION_FREE::init();
 	$plugin->loader->run();
 
-	if ( ! defined( 'SHAPEDPLIUGIN_OFFER_BANNER_LOADED' ) ) {
-		define( 'SHAPEDPLIUGIN_OFFER_BANNER_LOADED', true );
-
+	if ( is_admin() ) {
 		/**
-		 * The file is responsible for generating admin offer banner.
+		 * Shared ShapedPlugin BFCM notice. Only one notice renders even when
+		 * several ShapedPlugin free plugins are active.
 		 */
-		include_once plugin_dir_path( __FILE__ ) . 'admin/views/notices/offer-banner.php';
+		require_once SP_EA_PATH . 'admin/views/notices/shapedplugin-bfcm-notice.php';
+
+		ShapedPlugin_BFCM_Notice_2026::register(
+			array(
+				'slug'       => 'easy-accordion-free',
+				'name'       => 'Easy Accordion Pro',
+				'image'      => SP_EA_URL . 'admin/img/offer-banner/bfcm-notice-2026.webp',
+				'link'       => 'https://easyaccordion.io/pricing/?utm_source=dashboard&utm_medium=ea_dealbutton&utm_campaign=bfcm26',
+				'post_types' => array( 'sp_easy_accordion', 'sp_accordion_faqs' ),
+			)
+		);
 	}
 }
 

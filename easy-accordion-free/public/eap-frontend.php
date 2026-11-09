@@ -203,10 +203,15 @@ class SP_EAP_FRONTEND {
 	 */
 	public function sp_easy_accordion_shortcode( $attributes, $content = null ) {
 		if ( empty( $attributes['id'] ) || ( get_post_status( $attributes['id'] ) === 'trash' ) || 'sp_easy_accordion' !== get_post_type( $attributes['id'] ) ) {
-			return;
+			return '';
 		}
 
 		$post_id = esc_attr( intval( $attributes['id'] ) );
+
+		// Only render published accordion groups, unless the current user can read the post.
+		if ( 'publish' !== get_post_status( $post_id ) && ! current_user_can( 'read_post', $post_id ) ) {
+			return '';
+		}
 
 		// Content Accordion.
 		$upload_data        = get_post_meta( $post_id, 'sp_eap_upload_options', true );

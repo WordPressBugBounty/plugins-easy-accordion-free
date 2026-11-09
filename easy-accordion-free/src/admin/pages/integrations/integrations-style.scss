@@ -60,6 +60,21 @@
     }
 }
 
+// Integrations inside the Settings tab: a light border instead of the page shadow.
+.sp-eap-setting-tab-content {
+    .sp-eap-integrations-card {
+        border: 1px solid #ddd;
+        box-shadow: none;
+    }
+}
+
+// The tab shares its row with the tab list, so two cards stop fitting well before the tablet breakpoint.
+@media only screen and (max-width: 1199px) {
+    #sp-eab-admin-dashboard-wrapper .sp-eap-setting-tab-content .sp-eab-integrations-page-items-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
 .sp-eap-modules-page {
     .eaf-pro-modules {
         margin-top: 48px;
