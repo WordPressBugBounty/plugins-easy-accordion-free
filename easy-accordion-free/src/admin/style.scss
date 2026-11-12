@@ -544,3 +544,18 @@ $primary-text-color: #1E1E1E;
         border-bottom: 1px solid hsla(0, 0%, 100%, .1);
     }
 }
+// Shown instead of the dashboard when its settings can't be loaded (render.js).
+.sp-eab-admin-dashboard-wrapper .sp-eab-load-error {
+    margin: 20px 20px 0;
+
+    .sp-eab-load-error__response {
+        max-height: 240px;
+        overflow: auto;
+        margin: 0 0 12px;
+        padding: 10px 12px;
+        background: #f6f7f7;
+        font-size: 12px;
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+}

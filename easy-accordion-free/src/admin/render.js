@@ -70,6 +70,22 @@ const updateSidebarActive = (pageName) => {
 	postMenu.querySelector(selector)?.closest("li")?.classList.add("current");
 };
 
+// Shown instead of the dashboard when its settings can't be loaded, so the user (or support) can act on it.
+const LoadError = ({ error }) => (
+	<div className="notice notice-error inline sp-eab-load-error">
+		<p>
+			<strong>{__("The Easy Accordion settings could not be loaded.", "easy-accordion-free")}</strong>{" "}
+			{error.message}
+		</p>
+		{error.response && (
+			<>
+				<p>{__("The server's response:", "easy-accordion-free")}</p>
+				<pre className="sp-eab-load-error__response">{error.response}</pre>
+			</>
+		)}
+	</div>
+);
+
 const Render = () => {
 	const [page, setPage] = useState(() => {
 		// A legacy deep link lands on its new page on load.
@@ -138,10 +154,11 @@ const Render = () => {
 	};
 
 	// Fetch settings data from the Redux store.
-	const { pluginSettings, blockVisibility, dashboardSettings } = useSelect((select) => ({
+	const { pluginSettings, blockVisibility, dashboardSettings, loadError } = useSelect((select) => ({
 		pluginSettings: select(STORE_NAME).getPluginSettings(),
 		blockVisibility: select(STORE_NAME).getBlockVisibility(),
 		dashboardSettings: select(STORE_NAME).getDashboardSettings(),
+		loadError: select(STORE_NAME).getLoadError(),
 	}));
 
 	const { fetchApiData } = useDispatch(STORE_NAME);
@@ -178,10 +195,9 @@ const Render = () => {
 		return items;
 	}, [dashboardSettings]);
 
-	// if not exist plugin settings then return.;
-
+	// No settings yet: still loading, or they couldn't be loaded.
 	if (!pluginSettings) {
-		return null;
+		return loadError ? <LoadError error={loadError} /> : null;
 	}
 
 	if (page === "setupwizard") {

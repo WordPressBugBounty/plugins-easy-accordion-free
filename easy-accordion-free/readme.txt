@@ -4,7 +4,7 @@ Tags: faq, accordion blocks, image accordion, product faq, category menu accordi
 Requires at least: 5.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.2.0
+Stable tag: 3.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ AI-Powered FAQ Generator. Gutenberg FAQ & Accordion Blocks, Image Accordion, Acc
 🚀 Explore Powerful [**15+ FAQ & Accordion Blocks**](https://easyaccordion.io/blocks/)  
 📚 Start with [**200+ Ready FAQ & Accordion Patterns**](https://easyaccordion.io/patterns/)
 🌐 Visit the Official Website [**Easy Accordion**](https://easyaccordion.io/)
-❤️ 176+ ⭐⭐⭐⭐⭐ Reviews & 4.9/5 Happiness Rating on [**Trustpilot**](https://www.trustpilot.com/review/shapedplugin.com)
+❤️ 181+ ⭐⭐⭐⭐⭐ Reviews & 4.9/5 Happiness Rating on [**Trustpilot**](https://www.trustpilot.com/review/shapedplugin.com)
 
 Create beautiful, responsive FAQs and stylish accordions in minutes with **Easy Accordion**, the most popular WordPress FAQ & Accordion Builder – in 3 simple steps:  
 
@@ -339,6 +339,10 @@ clicking "Install Now" and then "Activate".
 
 
 == Changelog ==
+
+= Version 3.2.1 - Nov 12, 2026 =
+* Fixed: The dashboard showed a blank page when another plugin or theme printed a PHP notice or warning.
+* Fixed: Dashboard settings failing to save showed no error message.
 
 = Version 3.2.0 - Nov 09, 2026 =
 * New: Generate FAQs with AI now supports OpenAI, Anthropic Claude, and Groq alongside Google Gemini.

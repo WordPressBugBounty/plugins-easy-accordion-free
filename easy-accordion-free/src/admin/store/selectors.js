@@ -7,3 +7,4 @@ export const getEapShortcodes = (state) => state.apiData?.eapShortcodes;
 export const getDashboardInfo = (state) => state.apiData?.dashboardInfo;
 export const isLoading = (state) => state.isLoading;
 export const isSaving = (state) => state.isSaving;
+export const getLoadError = (state) => state.loadError;

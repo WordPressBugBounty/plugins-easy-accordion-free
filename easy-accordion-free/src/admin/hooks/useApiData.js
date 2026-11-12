@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "@wordpress/element";
+import { readSettingsResponse } from "../store/response";
 
 const useApiData = (modifiedData, setModifiedData) => {
 	const [apiData, setApiData] = useState({});
@@ -12,7 +13,8 @@ const useApiData = (modifiedData, setModifiedData) => {
 	const fetchApi = async (queryData) => {
 		try {
 			const response = await axios.post(ajaxurl, queryData);
-			setApiData(response.data);
+			// The raw text when the response wasn't pure JSON; recover the settings from it.
+			setApiData(readSettingsResponse(response.data) || {});
 			setModifiedData({});
 		} catch (error) {
 			console.error("Error fetching options:", error.message);
